@@ -174,36 +174,92 @@ def analyze_blog(item, index):
             time.sleep(1)
 
 def main():
+    import sys
+    force_refresh = '--force' in sys.argv
+    
+    # Load cache if available
+    cache = {}
+    if not force_refresh:
+        try:
+            with open('blogs_analysis.json', 'r', encoding='utf-8') as f:
+                cached_list = json.load(f)
+                for c in cached_list:
+                    if c.get('status') == 'success' and 'url' in c:
+                        cache[c['url']] = c
+            print(f"Loaded {len(cache)} cached blog analyses.")
+        except Exception as e:
+            print(f"No previous cache loaded ({e}).")
+
     items = extract_blog_items()
-    print(f"Extracting & analyzing {len(items)} blog articles...")
+    print(f"Extracting & analyzing {len(items)} blog articles from roadmap...")
     
     results = [None] * len(items)
-    start_time = time.time()
-    with ThreadPoolExecutor(max_workers=14) as executor:
-        future_to_index = {
-            executor.submit(analyze_blog, item, idx): idx 
-            for idx, item in enumerate(items)
-        }
-        completed = 0
-        for future in as_completed(future_to_index):
-            idx = future_to_index[future]
-            results[idx] = future.result()
-            completed += 1
-            if completed % 25 == 0 or completed == len(items):
-                print(f"Processed {completed}/{len(items)} ({time.time() - start_time:.1f}s)")
+    to_scrape = []
     
+    for idx, item in enumerate(items):
+        url = item['url']
+        if url in cache:
+            cached_item = dict(cache[url])
+            cached_item['id'] = idx + 1
+            cached_item['step'] = item['step']
+            step_match = re.search(r'Step (\d+)', item['step'])
+            cached_item['step_number'] = int(step_match.group(1)) if step_match else 0
+            cached_item['title'] = item['title']
+            results[idx] = cached_item
+        else:
+            to_scrape.append((idx, item))
+            
+    print(f"Already cached: {len(items) - len(to_scrape)} blogs | Need to fetch: {len(to_scrape)} blogs")
+    
+    if to_scrape:
+        start_time = time.time()
+        with ThreadPoolExecutor(max_workers=min(14, len(to_scrape) or 1)) as executor:
+            future_to_index = {
+                executor.submit(analyze_blog, item, idx): idx 
+                for idx, item in to_scrape
+            }
+            completed = 0
+            for future in as_completed(future_to_index):
+                idx = future_to_index[future]
+                results[idx] = future.result()
+                completed += 1
+                print(f"Fetched {completed}/{len(to_scrape)}: {results[idx]['title']} ({results[idx]['word_count']} words)")
+        print(f"Fetching completed in {time.time() - start_time:.1f}s")
+
+    # Save to blogs_analysis.json
     with open('blogs_analysis.json', 'w', encoding='utf-8') as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
+    print("Saved blogs_analysis.json")
+
+    # Save to blogs-data.js
+    with open('blogs-data.js', 'w', encoding='utf-8') as f:
+        f.write("window.BLOGS_DATA = ")
+        json.dump(results, f, indent=2, ensure_ascii=False)
+        f.write(";\n")
+    print("Saved blogs-data.js")
         
     total_words = sum(r['word_count'] for r in results if r['status'] == 'success')
     total_time = sum(r['reading_time_mins'] for r in results if r['status'] == 'success')
+    avg_words = total_words // len(results) if results else 0
+
+    quick = sum(1 for r in results if r['reading_time_mins'] <= 4)
+    standard = sum(1 for r in results if 5 <= r['reading_time_mins'] <= 8)
+    deep = sum(1 for r in results if 9 <= r['reading_time_mins'] <= 15)
+    comprehensive = sum(1 for r in results if r['reading_time_mins'] >= 16)
+
+    longest = max(results, key=lambda r: r['word_count'])
+    shortest = min([r for r in results if r['word_count'] > 0], key=lambda r: r['word_count'])
+
     print("\n================ Analysis Complete ================")
     print(f"Total Blogs Analyzed: {len(results)}")
     print(f"Total Word Count: {total_words:,} words")
     print(f"Total Reading Time: {total_time:,} minutes (~{total_time/60:.1f} hours)")
-    avg_words = total_words // len(results) if results else 0
     print(f"Average Words/Blog: {avg_words:,} words (~{round(avg_words/200)} mins)")
+    print(f"Longest Blog: {longest['title']} ({longest['word_count']:,} words, ~{longest['reading_time_mins']} mins)")
+    print(f"Shortest Blog: {shortest['title']} ({shortest['word_count']:,} words, ~{shortest['reading_time_mins']} mins)")
+    print(f"Reading Lengths: Quick={quick}, Standard={standard}, Deep={deep}, Comprehensive={comprehensive}")
     print("====================================================")
 
 if __name__ == '__main__':
     main()
+

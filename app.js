@@ -42,9 +42,36 @@
     renderHeroStats();
     populateStepDropdown();
     renderStepOverviewCards();
+    updateChipCounts();
     updateDisplay();
     setupEventListeners();
     setupTheme();
+  }
+
+  // Dynamically update chip count badges
+  function updateChipCounts() {
+    filterChips.forEach(chip => {
+      const cat = chip.getAttribute('data-category');
+      const countEl = chip.querySelector('.chip-count');
+      if (!countEl) return;
+      if (cat === 'all') {
+        countEl.textContent = blogs.length;
+      } else if (cat === 'quick') {
+        countEl.textContent = blogs.filter(b => getReadingTime(b.word_count) <= 4).length;
+      } else if (cat === 'standard') {
+        countEl.textContent = blogs.filter(b => {
+          const m = getReadingTime(b.word_count);
+          return m >= 5 && m <= 8;
+        }).length;
+      } else if (cat === 'deep') {
+        countEl.textContent = blogs.filter(b => {
+          const m = getReadingTime(b.word_count);
+          return m >= 9 && m <= 15;
+        }).length;
+      } else if (cat === 'comprehensive') {
+        countEl.textContent = blogs.filter(b => getReadingTime(b.word_count) >= 16).length;
+      }
+    });
   }
 
   // Calculate dynamic reading time based on selected reading speed
@@ -479,6 +506,7 @@
         if (speedDisplay) speedDisplay.textContent = `${readingSpeed} WPM`;
         updateDynamicSpeedCalculation();
         renderHeroStats();
+        updateChipCounts();
         updateDisplay();
       });
     }
