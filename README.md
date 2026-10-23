@@ -1,8 +1,8 @@
-# Outcome School AI Engineering Roadmap — Blog Analysis & Intelligence
+# Outcome School AI Engineering Roadmap — Interactive Blog & Reading Tracker
 
-> Quantitative analysis of word counts, reading times, and structural depth for all **165 blog articles** across the [AI Engineer Roadmap](https://github.com/amitshekhariitbhu/ai-engineer-roadmap) by [Amit Shekhar](https://github.com/amitshekhariitbhu) ([Outcome School](https://outcomeschool.com)).
+> Modern React.js web application and quantitative analysis of word counts, reading commitment, and architectural depth for all **166 blog articles** across the [AI Engineer Roadmap](https://github.com/amitshekhariitbhu/ai-engineer-roadmap) by [Amit Shekhar](https://github.com/amitshekhariitbhu) ([Outcome School](https://outcomeschool.com)).
 
-🌐 **Live GitHub Pages Web Application:**  
+🌐 **Live Application:**  
 **[https://kaisarnajar.github.io/outcome-school-blogs/](https://kaisarnajar.github.io/outcome-school-blogs/)**
 
 ---
@@ -11,9 +11,9 @@
 
 | Metric | Value | Details |
 | :--- | :--- | :--- |
-| **Total Blog Articles** | **165** | Across 17 roadmap steps (excluding videos & interview QA repo) |
-| **Total Word Count** | **579,914 words** | Extracted and normalized article prose body |
-| **Total Reading Time** | **~48.3 hours (2,899 mins)** | Calculated at standard reading pace of 200 WPM |
+| **Total Blog Articles** | **166** | Synced with latest upstream roadmap commits |
+| **Total Word Count** | **583,427 words** | Extracted and normalized article prose body |
+| **Total Reading Time** | **~48.6 hours (2,917 mins)** | Calculated at standard reading pace of 200 WPM |
 | **Average Words / Blog** | **3,514 words** | In-depth technical articles (~18 min average read) |
 | **Longest Article** | **13,588 words (~68 mins)** | *Design a Real-Time Voice AI Agent* |
 | **Shortest Article** | **205 words (~1 min)** | *Positional Embeddings in LLMs* |
@@ -26,12 +26,12 @@
 | :--- | :--- | :---: | :---: |
 | 🟢 **Quick Read** | ≤ 4 minutes (under 900 words) | **7** | 4.2% |
 | 🔵 **Standard Read** | 5 – 8 minutes (900 – 1,700 words) | **6** | 3.6% |
-| 🟣 **Deep Dive** | 9 – 15 minutes (1,700 – 3,100 words) | **44** | 26.7% |
-| 🟠 **Comprehensive Guide** | 16+ minutes (3,100+ words) | **108** | 65.5% |
+| 🟣 **Deep Dive** | 9 – 15 minutes (1,700 – 3,100 words) | **44** | 26.5% |
+| 🟠 **Comprehensive Guide** | 16+ minutes (3,100+ words) | **109** | 65.7% |
 
 ---
 
-## 🗺️ Step-by-Step Roadmap Breakdown
+## 🗺️ Step-by-Step Curriculum Breakdown
 
 | Step | Topic | Articles | Total Words | Est. Time (200 WPM) |
 | :---: | :--- | :---: | :---: | :---: |
@@ -50,82 +50,57 @@
 | **Step 13** | Evaluation and Observability | 4 | 16,572 | ~83 mins (1.4 hrs) |
 | **Step 14** | AI Safety and Security | 3 | 14,476 | ~72 mins (1.2 hrs) |
 | **Step 15** | Multimodal AI and Generative Models | 6 | 20,356 | ~101 mins (1.7 hrs) |
-| **Step 16** | AI Infrastructure, Deployment, and System Design | 14 | 60,725 | ~303 mins (5.0 hrs) |
+| **Step 16** | AI Infrastructure, Deployment, and System Design | 15 | 64,238 | ~321 mins (5.4 hrs) |
 | **Step 16+**| Supporting reads for AI System Design | 3 | 4,097 | ~20 mins (0.3 hrs) |
 | **Step 17** | Frontier Ideas in AI | 3 | 14,625 | ~73 mins (1.2 hrs) |
-| **Step 18** | Interview Preparation (Repo) | *(GitHub)* | — | — |
-| **Total** | **All Analyzed Roadmap Blogs** | **165** | **579,914** | **~48.3 Hours** |
+| **Total** | **All Analyzed Roadmap Blogs** | **166** | **583,427** | **~48.6 Hours** |
 
 ---
 
-## 🆕 Latest Additions (October 19–22, 2026 Commits)
+## ⚡ React Application Features
 
-Eight new in-depth technical blogs were recently added across **Deep Learning** and **Voice AI Agent Systems**:
-
-1. **Step 2:** *[What is a Neural Network and How Does It Work?](https://outcomeschool.com/blog/neural-network)* (3,485 words, ~17 mins)
-2. **Step 2:** *[How Does Matrix Multiplication Work in Neural Networks?](https://outcomeschool.com/blog/matrix-multiplication-in-neural-networks)* (3,865 words, ~19 mins)
-3. **Step 16:** *[What is turn-taking in a voice AI agent?](https://outcomeschool.com/blog/what-is-turn-taking-in-a-voice-ai-agent)* (3,366 words, ~17 mins)
-4. **Step 16:** *[What is barge-in in a voice AI agent?](https://outcomeschool.com/blog/what-is-barge-in-in-a-voice-ai-agent)* (3,434 words, ~17 mins)
-5. **Step 16:** *[Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture?](https://outcomeschool.com/blog/cascaded-vs-speech-to-speech)* (3,114 words, ~16 mins)
-6. **Step 16:** *[How do you build a latency budget for a voice AI agent?](https://outcomeschool.com/blog/voice-agent-latency-budget)* (3,469 words, ~17 mins)
-7. **Step 16:** *[How does the voice-to-voice latency of a voice agent get measured?](https://outcomeschool.com/blog/voice-to-voice-latency)* (3,390 words, ~17 mins)
-8. **Step 16:** *[Why does the time-to-first-audio matter more than total response time?](https://outcomeschool.com/blog/time-to-first-audio)* (2,811 words, ~14 mins)
+- **Modern Tech Stack**: React 19 + Vite 6 + Lucide Icons + Canvas Confetti.
+- **Aesthetic Excellence**: Sleek dark and light modes, ambient radial glows, glassmorphism, responsive grid layouts.
+- **Dynamic Speed Calculator**: Interactive slider (120–360 WPM) recalibrates estimated reading times dynamically across every article and the cumulative roadmap.
+- **Personal Learning Tracker**: Mark blogs as "Completed" or "Bookmarked" (persisted in `localStorage`), with real-time percentage progress bar and celebration effects.
+- **Multi-Filter Engine**: Filter by Roadmap Step, Learning Status (Completed, Bookmarked, Unread), Reading Length (Quick, Standard, Deep, Comprehensive), and instant keyword search.
+- **Dual View Modes**: Switch between immersive **Card Grid** view and high-density sortable **Table** view.
+- **Deep-Dive Article Modal**: Inspect detailed prose metrics: word count, character count, headings, code blocks, paragraphs, published dates, and excerpts.
+- **Exporting**: Download filtered datasets directly as CSV or JSON.
 
 ---
 
-## 💻 Features of the Interactive GitHub Page
+## 🚀 Development & Local Setup
 
-The repository includes a modern GitHub Pages application (`index.html`):
-- 🔍 **Real-Time Instant Search:** Filter any article by keyword, topic, or concept (e.g. `LoRA`, `Transformer`, `RAG`, `Agents`).
-- 🏷️ **Step & Category Filtering:** One-click filtering by Roadmap Step and Reading Length (Quick Read to Comprehensive).
-- ⏱️ **Interactive Reading Pace Simulator:** Adjust reading speed from 120 WPM to 320 WPM to instantly see personal time estimates.
-- 🔬 **Detailed Analysis Modal:** Inspect exact word count, character count, heading count, paragraph count, code snippets count, and excerpt.
-- 🌓 **Dark / Light Theme:** Custom modern color scheme with ambient glows and sleek glassmorphism.
-- 📥 **Export to CSV / JSON:** Download the complete dataset with one click for offline analysis.
+```bash
+# Install dependencies
+npm install
 
----
+# Start local development server
+npm run dev
 
-## 📁 Repository Structure
+# Build production bundle
+npm run build
 
-```text
-├── index.html            # Main GitHub Pages interactive dashboard
-├── style.css             # Vanilla CSS design system (Dark/Light mode, glassmorphism)
-├── app.js                # Search, filtering, dynamic calculator & modal logic
-├── blogs-data.js         # JavaScript dataset (165 analyzed blogs)
-├── blogs_analysis.json   # Full raw JSON analysis dataset
-├── scrape_and_analyze.py # Automated extraction & word count analyzer script
-├── raw_readme.md         # Source roadmap README from upstream
-└── README.md             # Repository documentation & statistical breakdown
+# Preview production build locally
+npm run preview
 ```
 
 ---
 
-## 🛠️ How to Run Locally
+## 🔄 Upstream Roadmap Sync
 
-You can open `index.html` directly in any web browser without needing a build step:
+To synchronize with new articles added to Amit Shekhar's roadmap repository:
+
 ```bash
-# Option 1: Open directly
-start index.html
-
-# Option 2: Run lightweight Python server
-python -m http.server 8080
-# Then visit http://localhost:8080
-```
-
-To re-run or update the quantitative analysis:
-```bash
+# Pull latest upstream roadmap markdown and scrape new blogs
 python scrape_and_analyze.py
 ```
 
 ---
 
-## 🚀 Upcoming Phases (Roadmap)
-- **Phase 2 (Upcoming):** Individual blog deep summaries, key concepts, and terminology extraction.
-- **Phase 3:** Visual knowledge graph connecting prerequisites and concepts across steps.
+## 📜 Credits & License
 
----
-
-### Credits & Attribution
-- AI Engineer Roadmap created and maintained by **Amit Shekhar** ([Outcome School](https://outcomeschool.com)).
-- Original Roadmap Repository: [amitshekhariitbhu/ai-engineer-roadmap](https://github.com/amitshekhariitbhu/ai-engineer-roadmap).
-- Analysis & Explorer created for [kaisarnajar/outcome-school-blogs](https://github.com/kaisarnajar/outcome-school-blogs).
+- Original content & AI Engineer Roadmap by [Amit Shekhar](https://github.com/amitshekhariitbhu) ([Outcome School](https://outcomeschool.com)).
+- Web application & analysis engine created by Kaisar Najar.
+- Licensed under the [MIT License](LICENSE).

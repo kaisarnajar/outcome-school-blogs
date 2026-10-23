@@ -3499,6 +3499,28 @@ window.BLOGS_DATA = [
   },
   {
     "id": 160,
+    "step": "Step 16: AI Infrastructure, Deployment, and System Design",
+    "step_number": 16,
+    "title": "How does sentence chunking feed LLM output into TTS faster?",
+    "url": "https://outcomeschool.com/blog/sentence-chunking-for-tts",
+    "word_count": 3513,
+    "reading_time_mins": 18,
+    "reading_time_display": "18 min read",
+    "char_count": 18546,
+    "category": "Comprehensive Guide",
+    "category_desc": "16+ mins",
+    "badge_class": "badge-amber",
+    "headings_count": 15,
+    "paragraphs_count": 93,
+    "code_blocks_count": 7,
+    "images_count": 2,
+    "author": "Amit Shekhar",
+    "published_date": "October 23, 2026",
+    "excerpt": "Sentence chunking feeds LLM output into TTS faster by cutting the reply into sentences while the LLM is still writing it, and sending each finished sentence to the TTS right away, so the voice starts speaking after the first sentence instead of after the full reply.",
+    "status": "success"
+  },
+  {
+    "id": 161,
     "step": "Step 16: Supporting reads for AI System Design",
     "step_number": 16,
     "title": "What is System Design?",
@@ -3520,7 +3542,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 161,
+    "id": 162,
     "step": "Step 16: Supporting reads for AI System Design",
     "step_number": 16,
     "title": "HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events",
@@ -3542,7 +3564,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 162,
+    "id": 163,
     "step": "Step 16: Supporting reads for AI System Design",
     "step_number": 16,
     "title": "How do Voice and Video Call work?",
@@ -3564,7 +3586,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 163,
+    "id": 164,
     "step": "Step 17: Frontier Ideas in AI",
     "step_number": 17,
     "title": "What is Joint Embedding Predictive Architecture (JEPA)?",
@@ -3586,7 +3608,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 164,
+    "id": 165,
     "step": "Step 17: Frontier Ideas in AI",
     "step_number": 17,
     "title": "How do World Models work?",
@@ -3608,7 +3630,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 165,
+    "id": 166,
     "step": "Step 17: Frontier Ideas in AI",
     "step_number": 17,
     "title": "What is Recursive Self-Improvement (RSI)?",
