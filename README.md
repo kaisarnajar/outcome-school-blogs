@@ -1,4 +1,4 @@
-# Outcome School AI Engineering Roadmap — Interactive Blog & Reading Tracker
+# Outcome School AI Engineering Roadmap — Blog Length & Structural Analysis
 
 > Modern React.js web application and quantitative analysis of word counts, reading commitment, and architectural depth for all **166 blog articles** across the [AI Engineer Roadmap](https://github.com/amitshekhariitbhu/ai-engineer-roadmap) by [Amit Shekhar](https://github.com/amitshekhariitbhu) ([Outcome School](https://outcomeschool.com)).
 
@@ -59,14 +59,14 @@
 
 ## ⚡ React Application Features
 
-- **Modern Tech Stack**: React 19 + Vite 6 + Lucide Icons + Canvas Confetti.
+- **Modern Tech Stack**: React 19 + Vite + Lucide Icons.
 - **Aesthetic Excellence**: Sleek dark and light modes, ambient radial glows, glassmorphism, responsive grid layouts.
-- **Dynamic Speed Calculator**: Interactive slider (120–360 WPM) recalibrates estimated reading times dynamically across every article and the cumulative roadmap.
-- **Personal Learning Tracker**: Mark blogs as "Completed" or "Bookmarked" (persisted in `localStorage`), with real-time percentage progress bar and celebration effects.
-- **Multi-Filter Engine**: Filter by Roadmap Step, Learning Status (Completed, Bookmarked, Unread), Reading Length (Quick, Standard, Deep, Comprehensive), and instant keyword search.
+- **Standardized Reading Metrics**: Standard pace (200 WPM) calculates consistent estimated reading times across every article and cumulative steps.
+- **Multi-Filter Engine**: Filter by Roadmap Step, Reading Length (Quick, Standard, Deep, Comprehensive), and instant keyword search.
 - **Dual View Modes**: Switch between immersive **Card Grid** view and high-density sortable **Table** view.
-- **Deep-Dive Article Modal**: Inspect detailed prose metrics: word count, character count, headings, code blocks, paragraphs, published dates, and excerpts.
+- **Deep-Dive Article Modal**: Inspect detailed prose metrics: word count, headings, code blocks, paragraphs, published dates, and excerpts.
 - **Exporting**: Download filtered datasets directly as CSV or JSON.
+- **Continuous Deployment**: Single-branch workflow (`main`) deployed automatically via GitHub Actions to GitHub Pages.
 
 ---
 

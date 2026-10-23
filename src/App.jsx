@@ -3,8 +3,6 @@ import blogsData from './data/blogsData.json';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import StatsGrid from './components/StatsGrid';
-import ProgressTracker from './components/ProgressTracker';
-import ReadingSpeedCalculator from './components/ReadingSpeedCalculator';
 import StepScroller from './components/StepScroller';
 import FilterBar from './components/FilterBar';
 import BlogCard from './components/BlogCard';
@@ -12,6 +10,8 @@ import BlogTable from './components/BlogTable';
 import BlogModal from './components/BlogModal';
 import Footer from './components/Footer';
 import { SearchX } from 'lucide-react';
+
+const DEFAULT_WPM = 200;
 
 export default function App() {
   // Theme state
@@ -21,33 +21,9 @@ export default function App() {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
   });
 
-  // Reading speed state (WPM)
-  const [readingSpeed, setReadingSpeed] = useState(() => {
-    const saved = localStorage.getItem('outcome_reading_speed');
-    return saved ? Number(saved) : 200;
-  });
-
-  // Progress state (IDs)
-  const [completedIds, setCompletedIds] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem('outcome_completed_ids')) || [];
-    } catch {
-      return [];
-    }
-  });
-
-  const [bookmarkedIds, setBookmarkedIds] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem('outcome_bookmarked_ids')) || [];
-    } catch {
-      return [];
-    }
-  });
-
   // Filter & Search states
   const [search, setSearch] = useState('');
   const [step, setStep] = useState('all');
-  const [statusFilter, setStatusFilter] = useState('all');
   const [category, setCategory] = useState('all');
   const [sortBy, setSortBy] = useState('roadmap-order');
   const [viewMode, setViewMode] = useState(() => {
@@ -64,19 +40,12 @@ export default function App() {
     localStorage.setItem('outcome_blogs_theme', theme);
   }, [theme]);
 
-  // Sync reading speed
+  // Clean up any legacy personal tracking keys from localStorage
   useEffect(() => {
-    localStorage.setItem('outcome_reading_speed', readingSpeed.toString());
-  }, [readingSpeed]);
-
-  // Sync progress
-  useEffect(() => {
-    localStorage.setItem('outcome_completed_ids', JSON.stringify(completedIds));
-  }, [completedIds]);
-
-  useEffect(() => {
-    localStorage.setItem('outcome_bookmarked_ids', JSON.stringify(bookmarkedIds));
-  }, [bookmarkedIds]);
+    localStorage.removeItem('outcome_completed_ids');
+    localStorage.removeItem('outcome_bookmarked_ids');
+    localStorage.removeItem('outcome_reading_speed');
+  }, []);
 
   // Sync viewMode
   useEffect(() => {
@@ -85,25 +54,6 @@ export default function App() {
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  };
-
-  const handleToggleBookmark = (id) => {
-    setBookmarkedIds((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
-  };
-
-  const handleToggleCompleted = (id) => {
-    setCompletedIds((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
-  };
-
-  const handleResetProgress = () => {
-    if (window.confirm('Are you sure you want to reset all tracked learning progress and bookmarks?')) {
-      setCompletedIds([]);
-      setBookmarkedIds([]);
-    }
   };
 
   // Extract distinct steps in order with metadata
@@ -133,7 +83,7 @@ export default function App() {
 
   const stepsList = useMemo(() => stepsData.map((s) => s.step), [stepsData]);
 
-  // Dynamic category counts according to current reading speed
+  // Category counts based on default reading speed (200 WPM)
   const categoryCounts = useMemo(() => {
     let all = blogsData.length;
     let quick = 0;
@@ -142,7 +92,7 @@ export default function App() {
     let comprehensive = 0;
 
     blogsData.forEach((b) => {
-      const mins = Math.max(1, Math.round((b.word_count || 0) / readingSpeed));
+      const mins = Math.max(1, Math.round((b.word_count || 0) / DEFAULT_WPM));
       if (mins <= 4) quick++;
       else if (mins <= 8) standard++;
       else if (mins <= 15) deep++;
@@ -150,7 +100,7 @@ export default function App() {
     });
 
     return { all, quick, standard, deep, comprehensive };
-  }, [readingSpeed]);
+  }, []);
 
   // Filtered and Sorted Blogs
   const filteredBlogs = useMemo(() => {
@@ -168,13 +118,8 @@ export default function App() {
         // Step filter
         if (step !== 'all' && b.step !== step) return false;
 
-        // Status filter
-        if (statusFilter === 'bookmarked' && !bookmarkedIds.includes(b.id)) return false;
-        if (statusFilter === 'completed' && !completedIds.includes(b.id)) return false;
-        if (statusFilter === 'unread' && completedIds.includes(b.id)) return false;
-
-        // Category filter (dynamic reading speed)
-        const mins = Math.max(1, Math.round((b.word_count || 0) / readingSpeed));
+        // Category filter (based on default 200 WPM)
+        const mins = Math.max(1, Math.round((b.word_count || 0) / DEFAULT_WPM));
         if (category === 'quick' && mins > 4) return false;
         if (category === 'standard' && (mins < 5 || mins > 8)) return false;
         if (category === 'deep' && (mins < 9 || mins > 15)) return false;
@@ -191,7 +136,7 @@ export default function App() {
         if (sortBy === 'title-asc') return a.title.localeCompare(b.title);
         return 0;
       });
-  }, [search, step, statusFilter, category, sortBy, readingSpeed, bookmarkedIds, completedIds]);
+  }, [search, step, category, sortBy]);
 
   // Export handlers
   const handleExportCsv = () => {
@@ -211,7 +156,7 @@ export default function App() {
       `"${(b.step || '').replace(/"/g, '""')}"`,
       `"${b.title.replace(/"/g, '""')}"`,
       b.word_count || 0,
-      Math.max(1, Math.round((b.word_count || 0) / readingSpeed)),
+      Math.max(1, Math.round((b.word_count || 0) / DEFAULT_WPM)),
       b.headings_count || 0,
       b.code_blocks_count || 0,
       b.paragraphs_count || 0,
@@ -238,10 +183,6 @@ export default function App() {
     downloadAnchor.remove();
   };
 
-  const totalWords = useMemo(() => {
-    return blogsData.reduce((acc, b) => acc + (b.word_count || 0), 0);
-  }, []);
-
   return (
     <>
       {/* Background glowing effects */}
@@ -256,26 +197,13 @@ export default function App() {
       <main className="container">
         <HeroSection totalBlogs={blogsData.length} />
 
-        <StatsGrid blogs={blogsData} readingSpeed={readingSpeed} />
-
-        <ProgressTracker
-          totalBlogs={blogsData.length}
-          completedIds={completedIds}
-          bookmarkedIds={bookmarkedIds}
-          onResetProgress={handleResetProgress}
-        />
-
-        <ReadingSpeedCalculator
-          readingSpeed={readingSpeed}
-          setReadingSpeed={setReadingSpeed}
-          totalWords={totalWords}
-        />
+        <StatsGrid blogs={blogsData} readingSpeed={DEFAULT_WPM} />
 
         <StepScroller
           stepsData={stepsData}
           selectedStep={step}
           onSelectStep={setStep}
-          readingSpeed={readingSpeed}
+          readingSpeed={DEFAULT_WPM}
         />
 
         <FilterBar
@@ -283,8 +211,6 @@ export default function App() {
           setSearch={setSearch}
           step={step}
           setStep={setStep}
-          statusFilter={statusFilter}
-          setStatusFilter={setStatusFilter}
           sortBy={sortBy}
           setSortBy={setSortBy}
           category={category}
@@ -301,7 +227,6 @@ export default function App() {
           <div>
             Showing <strong>{filteredBlogs.length}</strong> of <strong>{blogsData.length}</strong> articles
             {step !== 'all' && <span> in <em>{step.split(':')[0]}</em></span>}
-            {statusFilter !== 'all' && <span> • Filtered by <em>{statusFilter}</em></span>}
           </div>
         </div>
 
@@ -310,13 +235,12 @@ export default function App() {
             <SearchX size={44} className="empty-icon" />
             <h3 className="empty-title">No matching blog articles found</h3>
             <p className="empty-desc">
-              Try adjusting your search query, selecting "All Steps", or clearing status and category filters.
+              Try adjusting your search query, selecting "All Steps", or clearing the category filter.
             </p>
             <button
               onClick={() => {
                 setSearch('');
                 setStep('all');
-                setStatusFilter('all');
                 setCategory('all');
               }}
               className="reset-filters-btn"
@@ -330,11 +254,7 @@ export default function App() {
               <BlogCard
                 key={blog.id}
                 blog={blog}
-                readingSpeed={readingSpeed}
-                isBookmarked={bookmarkedIds.includes(blog.id)}
-                isCompleted={completedIds.includes(blog.id)}
-                onToggleBookmark={handleToggleBookmark}
-                onToggleCompleted={handleToggleCompleted}
+                readingSpeed={DEFAULT_WPM}
                 onOpenModal={setActiveModalBlog}
               />
             ))}
@@ -342,11 +262,7 @@ export default function App() {
         ) : (
           <BlogTable
             blogs={filteredBlogs}
-            readingSpeed={readingSpeed}
-            bookmarkedIds={bookmarkedIds}
-            completedIds={completedIds}
-            onToggleBookmark={handleToggleBookmark}
-            onToggleCompleted={handleToggleCompleted}
+            readingSpeed={DEFAULT_WPM}
             onOpenModal={setActiveModalBlog}
           />
         )}
@@ -357,12 +273,8 @@ export default function App() {
       {activeModalBlog && (
         <BlogModal
           blog={activeModalBlog}
-          readingSpeed={readingSpeed}
-          isBookmarked={bookmarkedIds.includes(activeModalBlog.id)}
-          isCompleted={completedIds.includes(activeModalBlog.id)}
+          readingSpeed={DEFAULT_WPM}
           onClose={() => setActiveModalBlog(null)}
-          onToggleBookmark={handleToggleBookmark}
-          onToggleCompleted={handleToggleCompleted}
         />
       )}
     </>

@@ -17,8 +17,8 @@ export default function HeroSection({ totalBlogs }) {
 
       <p className="hero-desc">
         A comprehensive quantitative analysis of all articles in the Outcome School AI Engineering Roadmap
-        by Amit Shekhar. Track exact word counts, estimated reading commitment, structural depth, and your personal
-        learning journey across foundational ML, Transformers, RAG, Voice AI, and Frontier Agents.
+        by Amit Shekhar. Explore exact word counts, estimated reading commitment, structural depth, and topics
+        across foundational ML, Transformers, RAG, Voice AI, and Frontier Agents.
       </p>
     </header>
   );

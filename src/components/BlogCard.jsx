@@ -1,13 +1,9 @@
 import React from 'react';
-import { Bookmark, CheckCircle2, Clock, FileCode, Layers, ExternalLink, Info } from 'lucide-react';
+import { Clock, FileCode, Layers, ExternalLink, Info } from 'lucide-react';
 
 export default function BlogCard({
   blog,
   readingSpeed,
-  isBookmarked,
-  isCompleted,
-  onToggleBookmark,
-  onToggleCompleted,
   onOpenModal
 }) {
   const dynamicMinutes = Math.max(1, Math.round((blog.word_count || 0) / readingSpeed));
@@ -38,24 +34,6 @@ export default function BlogCard({
         </span>
 
         <div className="card-actions-top">
-          <button
-            onClick={() => onToggleBookmark(blog.id)}
-            className={`action-icon-btn ${isBookmarked ? 'bookmarked' : ''}`}
-            title={isBookmarked ? 'Remove bookmark' : 'Bookmark for later'}
-            aria-label="Bookmark article"
-          >
-            <Bookmark size={16} fill={isBookmarked ? '#fbbf24' : 'none'} />
-          </button>
-
-          <button
-            onClick={() => onToggleCompleted(blog.id)}
-            className={`action-icon-btn ${isCompleted ? 'completed' : ''}`}
-            title={isCompleted ? 'Mark as unread' : 'Mark as completed'}
-            aria-label="Mark completed"
-          >
-            <CheckCircle2 size={16} fill={isCompleted ? '#10b981' : 'none'} stroke={isCompleted ? '#fff' : 'currentColor'} />
-          </button>
-
           <button
             onClick={() => onOpenModal(blog)}
             className="action-icon-btn"

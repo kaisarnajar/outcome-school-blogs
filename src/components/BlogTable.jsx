@@ -1,13 +1,9 @@
 import React from 'react';
-import { Bookmark, CheckCircle2, Info, ExternalLink } from 'lucide-react';
+import { Info, ExternalLink } from 'lucide-react';
 
 export default function BlogTable({
   blogs,
   readingSpeed,
-  bookmarkedIds,
-  completedIds,
-  onToggleBookmark,
-  onToggleCompleted,
   onOpenModal
 }) {
   return (
@@ -21,13 +17,11 @@ export default function BlogTable({
             <th style={{ width: 120 }}>Words</th>
             <th style={{ width: 130 }}>Est. Time</th>
             <th style={{ width: 140 }}>Category</th>
-            <th style={{ width: 120, textAlign: 'center' }}>Actions</th>
+            <th style={{ width: 100, textAlign: 'center' }}>Actions</th>
           </tr>
         </thead>
         <tbody>
           {blogs.map((blog, idx) => {
-            const isBookmarked = bookmarkedIds.includes(blog.id);
-            const isCompleted = completedIds.includes(blog.id);
             const dynamicMinutes = Math.max(1, Math.round((blog.word_count || 0) / readingSpeed));
 
             let badgeClass = 'badge-emerald';
@@ -74,24 +68,6 @@ export default function BlogTable({
                 </td>
                 <td style={{ textAlign: 'center' }}>
                   <div style={{ display: 'inline-flex', gap: 6 }}>
-                    <button
-                      onClick={() => onToggleBookmark(blog.id)}
-                      className={`action-icon-btn ${isBookmarked ? 'bookmarked' : ''}`}
-                      title="Bookmark"
-                    >
-                      <Bookmark size={15} fill={isBookmarked ? '#fbbf24' : 'none'} />
-                    </button>
-                    <button
-                      onClick={() => onToggleCompleted(blog.id)}
-                      className={`action-icon-btn ${isCompleted ? 'completed' : ''}`}
-                      title="Toggle Completed"
-                    >
-                      <CheckCircle2
-                        size={15}
-                        fill={isCompleted ? '#10b981' : 'none'}
-                        stroke={isCompleted ? '#fff' : 'currentColor'}
-                      />
-                    </button>
                     <button
                       onClick={() => onOpenModal(blog)}
                       className="action-icon-btn"

@@ -1,14 +1,10 @@
 import React, { useEffect } from 'react';
-import { X, ExternalLink, Bookmark, CheckCircle2, Calendar, User } from 'lucide-react';
+import { X, ExternalLink, Calendar, User } from 'lucide-react';
 
 export default function BlogModal({
   blog,
   onClose,
-  readingSpeed,
-  isBookmarked,
-  isCompleted,
-  onToggleBookmark,
-  onToggleCompleted
+  readingSpeed
 }) {
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -79,37 +75,7 @@ export default function BlogModal({
           )}
         </div>
 
-        <div className="modal-actions">
-          <div style={{ display: 'flex', gap: 10 }}>
-            <button
-              onClick={() => onToggleBookmark(blog.id)}
-              className="export-btn"
-              style={{
-                color: isBookmarked ? '#fbbf24' : 'inherit',
-                borderColor: isBookmarked ? 'rgba(251, 191, 36, 0.4)' : 'var(--border-subtle)'
-              }}
-            >
-              <Bookmark size={15} fill={isBookmarked ? '#fbbf24' : 'none'} />
-              <span>{isBookmarked ? 'Bookmarked' : 'Bookmark'}</span>
-            </button>
-
-            <button
-              onClick={() => onToggleCompleted(blog.id)}
-              className="export-btn"
-              style={{
-                color: isCompleted ? '#10b981' : 'inherit',
-                borderColor: isCompleted ? 'rgba(16, 185, 129, 0.4)' : 'var(--border-subtle)'
-              }}
-            >
-              <CheckCircle2
-                size={15}
-                fill={isCompleted ? '#10b981' : 'none'}
-                stroke={isCompleted ? '#fff' : 'currentColor'}
-              />
-              <span>{isCompleted ? 'Completed' : 'Mark Done'}</span>
-            </button>
-          </div>
-
+        <div className="modal-actions" style={{ justifyContent: 'flex-end' }}>
           <a
             href={blog.url}
             target="_blank"

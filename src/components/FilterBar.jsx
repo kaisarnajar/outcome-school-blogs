@@ -6,8 +6,6 @@ export default function FilterBar({
   setSearch,
   step,
   setStep,
-  statusFilter,
-  setStatusFilter,
   sortBy,
   setSortBy,
   category,
@@ -54,18 +52,6 @@ export default function FilterBar({
               {s}
             </option>
           ))}
-        </select>
-
-        <select
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-          className="select-dropdown"
-          aria-label="Filter by Learning Status"
-        >
-          <option value="all">Status: All Articles</option>
-          <option value="bookmarked">Status: Bookmarked Only ⭐</option>
-          <option value="completed">Status: Completed Only ✅</option>
-          <option value="unread">Status: Unread Only 📖</option>
         </select>
 
         <select
