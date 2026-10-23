@@ -557,22 +557,44 @@ body {
   color: var(--text-primary);
 }
 
+.step-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.step-scroll-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.step-scroll-arrow:hover {
+  background: var(--bg-button-hover);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}
+
 .step-scroll-track {
   display: flex;
   gap: 10px;
   overflow-x: auto;
-  padding-bottom: 10px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--accent-primary) transparent;
+  padding: 4px 2px 8px 2px;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE / Edge */
 }
 
 .step-scroll-track::-webkit-scrollbar {
-  height: 6px;
-}
-
-.step-scroll-track::-webkit-scrollbar-thumb {
-  background: var(--border-strong);
-  border-radius: 999px;
+  display: none; /* Chrome, Safari, Opera */
 }
 
 .step-pill-btn {
