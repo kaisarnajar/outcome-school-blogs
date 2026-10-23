@@ -54,19 +54,19 @@ export default function BlogCard({
       </p>
 
       <div className="card-metrics-row">
-        <div className="metric-pill" title="Word count">
-          <Layers size={14} color="#6366f1" />
+        <div className="metric-pill metric-words" title="Word count">
+          <Layers size={15} />
           <span>{(blog.word_count || 0).toLocaleString()} words</span>
         </div>
 
-        <div className="metric-pill" title="Estimated reading time">
-          <Clock size={14} color="#06b6d4" />
+        <div className="metric-pill metric-time" title="Estimated reading time">
+          <Clock size={15} />
           <span>{dynamicMinutes} min read</span>
         </div>
 
         {blog.code_blocks_count > 0 && (
-          <div className="metric-pill" title="Code snippets">
-            <FileCode size={14} color="#10b981" />
+          <div className="metric-pill metric-code" title="Code snippets">
+            <FileCode size={15} />
             <span>{blog.code_blocks_count} snippets</span>
           </div>
         )}
