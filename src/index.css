@@ -734,14 +734,16 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 10px 14px;
+  justify-content: center;
+  padding: 14px 18px;
+  min-height: 66px;
   border-radius: var(--radius-md);
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
   cursor: pointer;
   transition: var(--transition);
-  min-width: 150px;
+  min-width: 160px;
   text-align: left;
   box-shadow: var(--shadow-sm);
 }
@@ -763,12 +765,12 @@ body {
 .step-pill-top {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.85rem;
-  margin-bottom: 2px;
+  font-size: 0.88rem;
+  margin-bottom: 5px;
 }
 
 .step-pill-meta {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
   display: flex;
   gap: 6px;
