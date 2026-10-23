@@ -16,7 +16,9 @@ import { SearchX } from 'lucide-react';
 export default function App() {
   // Theme state
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('outcome_blogs_theme') || 'dark';
+    const saved = localStorage.getItem('outcome_blogs_theme');
+    if (saved === 'dark' || saved === 'light') return saved;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
   });
 
   // Reading speed state (WPM)
@@ -58,6 +60,7 @@ export default function App() {
   // Sync theme attribute
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
+    document.body.setAttribute('data-theme', theme);
     localStorage.setItem('outcome_blogs_theme', theme);
   }, [theme]);
 
