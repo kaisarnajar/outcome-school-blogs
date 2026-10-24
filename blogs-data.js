@@ -3521,6 +3521,50 @@ window.BLOGS_DATA = [
   },
   {
     "id": 161,
+    "step": "Step 16: AI Infrastructure, Deployment, and System Design",
+    "step_number": 16,
+    "title": "How does a TTS model start speaking before the full sentence arrives?",
+    "url": "https://outcomeschool.com/blog/streaming-tts",
+    "word_count": 3443,
+    "reading_time_mins": 17,
+    "reading_time_display": "17 min read",
+    "char_count": 18497,
+    "category": "Comprehensive Guide",
+    "category_desc": "16+ mins",
+    "badge_class": "badge-amber",
+    "headings_count": 15,
+    "paragraphs_count": 103,
+    "code_blocks_count": 7,
+    "images_count": 2,
+    "author": "Amit Shekhar",
+    "published_date": "October 23, 2026",
+    "excerpt": "A TTS model starts speaking before the full sentence arrives by reading the text in small pieces as it comes in, staying only a few words behind the text, and turning each piece into sound while the rest of the sentence is still being written.",
+    "status": "success"
+  },
+  {
+    "id": 162,
+    "step": "Step 16: AI Infrastructure, Deployment, and System Design",
+    "step_number": 16,
+    "title": "How does speculative LLM generation start replying before the user finishes?",
+    "url": "https://outcomeschool.com/blog/speculative-generation-in-voice-agents",
+    "word_count": 3163,
+    "reading_time_mins": 16,
+    "reading_time_display": "16 min read",
+    "char_count": 17235,
+    "category": "Comprehensive Guide",
+    "category_desc": "16+ mins",
+    "badge_class": "badge-amber",
+    "headings_count": 16,
+    "paragraphs_count": 90,
+    "code_blocks_count": 2,
+    "images_count": 2,
+    "author": "Amit Shekhar",
+    "published_date": "October 24, 2026",
+    "excerpt": "Speculative LLM generation is a technique where a voice agent starts preparing its reply while the user is still finishing their sentence, keeps that reply hidden, and plays it only if the user's final words match what the reply was based on.",
+    "status": "success"
+  },
+  {
+    "id": 163,
     "step": "Step 16: Supporting reads for AI System Design",
     "step_number": 16,
     "title": "What is System Design?",
@@ -3542,7 +3586,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 162,
+    "id": 164,
     "step": "Step 16: Supporting reads for AI System Design",
     "step_number": 16,
     "title": "HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events",
@@ -3564,7 +3608,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 163,
+    "id": 165,
     "step": "Step 16: Supporting reads for AI System Design",
     "step_number": 16,
     "title": "How do Voice and Video Call work?",
@@ -3586,7 +3630,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 164,
+    "id": 166,
     "step": "Step 17: Frontier Ideas in AI",
     "step_number": 17,
     "title": "What is Joint Embedding Predictive Architecture (JEPA)?",
@@ -3608,7 +3652,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 165,
+    "id": 167,
     "step": "Step 17: Frontier Ideas in AI",
     "step_number": 17,
     "title": "How do World Models work?",
@@ -3630,7 +3674,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 166,
+    "id": 168,
     "step": "Step 17: Frontier Ideas in AI",
     "step_number": 17,
     "title": "What is Recursive Self-Improvement (RSI)?",

@@ -1,6 +1,6 @@
 # Outcome School AI Engineering Roadmap — Blog Length & Structural Analysis
 
-> Modern React.js web application and quantitative analysis of word counts, reading commitment, and architectural depth for all **166 blog articles** across the [AI Engineer Roadmap](https://github.com/amitshekhariitbhu/ai-engineer-roadmap) by [Amit Shekhar](https://github.com/amitshekhariitbhu) ([Outcome School](https://outcomeschool.com)).
+> Modern React.js web application and quantitative analysis of word counts, reading commitment, and architectural depth for all **168 blog articles** across the [AI Engineer Roadmap](https://github.com/amitshekhariitbhu/ai-engineer-roadmap) by [Amit Shekhar](https://github.com/amitshekhariitbhu) ([Outcome School](https://outcomeschool.com)).
 
 🌐 **Live Application:**  
 **[https://kaisarnajar.github.io/outcome-school-blogs/](https://kaisarnajar.github.io/outcome-school-blogs/)**
@@ -11,10 +11,10 @@
 
 | Metric | Value | Details |
 | :--- | :--- | :--- |
-| **Total Blog Articles** | **166** | Synced with latest upstream roadmap commits |
-| **Total Word Count** | **583,427 words** | Extracted and normalized article prose body |
-| **Total Reading Time** | **~48.6 hours (2,917 mins)** | Calculated at standard reading pace of 200 WPM |
-| **Average Words / Blog** | **3,514 words** | In-depth technical articles (~18 min average read) |
+| **Total Blog Articles** | **168** | Synced with latest upstream roadmap commits |
+| **Total Word Count** | **590,033 words** | Extracted and normalized article prose body |
+| **Total Reading Time** | **~49.2 hours (2,950 mins)** | Calculated at standard reading pace of 200 WPM |
+| **Average Words / Blog** | **3,512 words** | In-depth technical articles (~18 min average read) |
 | **Longest Article** | **13,588 words (~68 mins)** | *Design a Real-Time Voice AI Agent* |
 | **Shortest Article** | **205 words (~1 min)** | *Positional Embeddings in LLMs* |
 
@@ -26,8 +26,8 @@
 | :--- | :--- | :---: | :---: |
 | 🟢 **Quick Read** | ≤ 4 minutes (under 900 words) | **7** | 4.2% |
 | 🔵 **Standard Read** | 5 – 8 minutes (900 – 1,700 words) | **6** | 3.6% |
-| 🟣 **Deep Dive** | 9 – 15 minutes (1,700 – 3,100 words) | **44** | 26.5% |
-| 🟠 **Comprehensive Guide** | 16+ minutes (3,100+ words) | **109** | 65.7% |
+| 🟣 **Deep Dive** | 9 – 15 minutes (1,700 – 3,100 words) | **44** | 26.2% |
+| 🟠 **Comprehensive Guide** | 16+ minutes (3,100+ words) | **111** | 66.1% |
 
 ---
 
@@ -50,10 +50,10 @@
 | **Step 13** | Evaluation and Observability | 4 | 16,572 | ~83 mins (1.4 hrs) |
 | **Step 14** | AI Safety and Security | 3 | 14,476 | ~72 mins (1.2 hrs) |
 | **Step 15** | Multimodal AI and Generative Models | 6 | 20,356 | ~101 mins (1.7 hrs) |
-| **Step 16** | AI Infrastructure, Deployment, and System Design | 15 | 64,238 | ~321 mins (5.4 hrs) |
+| **Step 16** | AI Infrastructure, Deployment, and System Design | 17 | 70,844 | ~354 mins (5.9 hrs) |
 | **Step 16+**| Supporting reads for AI System Design | 3 | 4,097 | ~20 mins (0.3 hrs) |
 | **Step 17** | Frontier Ideas in AI | 3 | 14,625 | ~73 mins (1.2 hrs) |
-| **Total** | **All Analyzed Roadmap Blogs** | **166** | **583,427** | **~48.6 Hours** |
+| **Total** | **All Analyzed Roadmap Blogs** | **168** | **590,033** | **~49.2 Hours** |
 
 ---
 
