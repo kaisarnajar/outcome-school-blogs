@@ -62,14 +62,9 @@ export default function App() {
     blogsData.forEach((b) => {
       const s = b.step || 'Other';
       if (!map.has(s)) {
-        let shortTitle = s;
-        if (s.includes(':')) {
-          const parts = s.split(':');
-          shortTitle = parts[0] + ': ' + parts[1].trim().slice(0, 18);
-        }
         map.set(s, {
           step: s,
-          shortTitle,
+          shortTitle: s,
           count: 0,
           totalWords: 0
         });

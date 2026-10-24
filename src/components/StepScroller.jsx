@@ -60,6 +60,7 @@ export default function StepScroller({ stepsData, selectedStep, onSelectStep, re
               key={step.step}
               className={`step-pill-btn ${selectedStep === step.step ? 'active' : ''}`}
               onClick={() => onSelectStep(step.step)}
+              title={step.shortTitle}
             >
               <div className="step-pill-top">{step.shortTitle}</div>
               <div className="step-pill-meta">
