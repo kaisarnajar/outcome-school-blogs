@@ -135,6 +135,7 @@ In this step, we will learn how a neural network actually learns. We will unders
 In this step, we will learn what Generative AI is and how the Transformer, the architecture behind every modern LLM, works from the inside. We will go from tokens to embeddings to attention, one piece at a time.
 
 - [What is Generative AI?](https://outcomeschool.com/blog/what-is-generative-ai)
+- [How does an LLM work?](https://outcomeschool.com/blog/large-language-model-llm)
 - [Inside ChatGPT: What Happens After You Hit Enter](https://outcomeschool.substack.com/p/inside-chatgpt-what-happens-after)
 - [What are Autoregressive Models?](https://outcomeschool.com/blog/autoregressive-models)
 - [Tokenization in LLMs](https://outcomeschool.com/blog/tokenization-in-llms)
@@ -342,6 +343,7 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [How does endpointing decide when the user has finished speaking?](https://outcomeschool.com/blog/endpointing-in-voice-agents)
 - [How do silence-based and model-based turn detection differ?](https://outcomeschool.com/blog/silence-vs-model-based-turn-detection)
 - [How does dynamic endpointing adapt to how fast a user talks?](https://outcomeschool.com/blog/dynamic-endpointing)
+- [How does a voice agent handle long pauses when the user is thinking?](https://outcomeschool.com/blog/long-pauses-in-voice-agents)
 - [What is barge-in in a voice AI agent?](https://outcomeschool.com/blog/what-is-barge-in-in-a-voice-ai-agent)
 - [Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture?](https://outcomeschool.com/blog/cascaded-vs-speech-to-speech)
 - [How do you build a latency budget for a voice AI agent?](https://outcomeschool.com/blog/voice-agent-latency-budget)
