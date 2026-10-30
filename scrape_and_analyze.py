@@ -237,6 +237,11 @@ def main():
         json.dump(results, f, indent=2, ensure_ascii=False)
         f.write(";\n")
     print("Saved blogs-data.js")
+
+    # Save to src/data/blogsData.json
+    with open('src/data/blogsData.json', 'w', encoding='utf-8') as f:
+        json.dump(results, f, indent=2, ensure_ascii=False)
+    print("Saved src/data/blogsData.json")
         
     total_words = sum(r['word_count'] for r in results if r['status'] == 'success')
     total_time = sum(r['reading_time_mins'] for r in results if r['status'] == 'success')
