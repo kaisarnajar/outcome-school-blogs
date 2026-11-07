@@ -109,8 +109,11 @@ In this step, we will learn what Machine Learning is, the different ways a machi
 - [What is Regularization in Machine Learning? L1 vs L2 Explained](https://outcomeschool.com/blog/regularization-in-machine-learning)
 - [Why do we split data into train, validation, and test sets?](https://outcomeschool.com/blog/train-validation-test-split)
 - [How does the Bias-Variance Tradeoff work?](https://outcomeschool.com/blog/bias-variance-tradeoff)
+- [How do Decision Trees and Random Forests work?](https://outcomeschool.com/blog/decision-trees-and-random-forests)
 - [How does Data Augmentation work?](https://outcomeschool.com/blog/data-augmentation)
 - [What is Reinforcement Learning?](https://outcomeschool.com/blog/reinforcement-learning)
+- [What is a Markov Decision Process (MDP)?](https://outcomeschool.com/blog/markov-decision-process-mdp)
+- [What is Exploration vs Exploitation in Reinforcement Learning?](https://outcomeschool.com/blog/exploration-vs-exploitation)
 - [What is Contrastive Learning?](https://outcomeschool.com/blog/contrastive-learning)
 
 ### Step 2: Deep Learning and Neural Networks
@@ -135,6 +138,7 @@ In this step, we will learn how a neural network actually learns. We will unders
 - [What is Dropout in Neural Networks?](https://outcomeschool.com/blog/dropout-in-neural-networks)
 - [Batch Normalization vs Layer Normalization](https://outcomeschool.com/blog/batch-normalization-vs-layer-normalization)
 - [What is RMSNorm? Root Mean Square Layer Normalization Explained](https://outcomeschool.com/blog/rmsnorm-root-mean-square-layer-normalization)
+- [Convolutional Neural Networks](https://outcomeschool.com/blog/convolutional-neural-network-cnn)
 - [What is a Recurrent Neural Network (RNN)?](https://outcomeschool.com/blog/recurrent-neural-network)
 - [How does PyTorch work?](https://outcomeschool.com/blog/how-does-pytorch-work)
 - [How does TensorFlow work?](https://outcomeschool.com/blog/how-does-the-machine-learning-library-tensorflow-work)
@@ -204,6 +208,7 @@ In this step, we will learn that not every language model is a large, text-gener
 
 In this step, we will learn how a pre-trained model is adapted to our own task, how it is made smaller, and how it is taught to follow instructions and human preferences.
 
+- [How does Pretraining work?](https://outcomeschool.com/blog/llm-pretraining)
 - [How does Fine-Tuning work?](https://outcomeschool.com/blog/how-does-fine-tuning-work)
 - [What is LoRA (Low-Rank Adaptation)?](https://outcomeschool.com/blog/lora-low-rank-adaptation-of-llms)
 - [How does Prefix Tuning work?](https://outcomeschool.com/blog/how-does-prefix-tuning-work)
@@ -366,6 +371,8 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [How do half-duplex and full-duplex voice agents differ?](https://outcomeschool.com/blog/half-duplex-vs-full-duplex-voice-agents)
 - [How does a voice agent tell a real interruption from a cough or background noise?](https://outcomeschool.com/blog/interruption-vs-background-noise)
 - [What are backchannels, and why should "mm-hmm" not stop the agent?](https://outcomeschool.com/blog/backchannels-in-voice-agents)
+- [How does a voice agent stop speaking instantly when interrupted?](https://outcomeschool.com/blog/stopping-speech-on-interruption)
+- [Why does TTS audio buffering make interruptions slow?](https://outcomeschool.com/blog/tts-audio-buffering)
 - [How do you build a latency budget for a voice AI agent?](https://outcomeschool.com/blog/voice-agent-latency-budget)
 - [How does the voice-to-voice latency of a voice agent get measured?](https://outcomeschool.com/blog/voice-to-voice-latency)
 - [Why does the time-to-first-audio matter more than total response time?](https://outcomeschool.com/blog/time-to-first-audio)
