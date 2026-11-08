@@ -114,6 +114,7 @@ In this step, we will learn what Machine Learning is, the different ways a machi
 - [What is Reinforcement Learning?](https://outcomeschool.com/blog/reinforcement-learning)
 - [What is a Markov Decision Process (MDP)?](https://outcomeschool.com/blog/markov-decision-process-mdp)
 - [What is Exploration vs Exploitation in Reinforcement Learning?](https://outcomeschool.com/blog/exploration-vs-exploitation)
+- [What is a Value Function? Q-Learning Explained Step by Step](https://outcomeschool.com/blog/value-function-and-q-learning)
 - [What is Contrastive Learning?](https://outcomeschool.com/blog/contrastive-learning)
 
 ### Step 2: Deep Learning and Neural Networks
@@ -343,6 +344,7 @@ In this step, we will learn how AI works with images and other types of data, an
 - [How do Image Embeddings work?](https://outcomeschool.com/blog/how-do-image-embeddings-work)
 - [How does a Vision-Language Model (VLM) work?](https://outcomeschool.com/blog/vision-language-model-vlm)
 - [What are Diffusion Models and How Do They Generate Images?](https://outcomeschool.com/blog/diffusion-models)
+- [How does flow matching train a generative model?](https://outcomeschool.com/blog/flow-matching)
 - [What are Generative Adversarial Networks (GANs)?](https://outcomeschool.com/blog/generative-adversarial-networks)
 - [What are Variational Autoencoders (VAEs)?](https://outcomeschool.com/blog/variational-autoencoders)
 
@@ -373,6 +375,7 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [What are backchannels, and why should "mm-hmm" not stop the agent?](https://outcomeschool.com/blog/backchannels-in-voice-agents)
 - [How does a voice agent stop speaking instantly when interrupted?](https://outcomeschool.com/blog/stopping-speech-on-interruption)
 - [Why does TTS audio buffering make interruptions slow?](https://outcomeschool.com/blog/tts-audio-buffering)
+- [How does a voice agent truncate its memory to only what the user actually heard?](https://outcomeschool.com/blog/truncating-context-on-interruption)
 - [How do you build a latency budget for a voice AI agent?](https://outcomeschool.com/blog/voice-agent-latency-budget)
 - [How does the voice-to-voice latency of a voice agent get measured?](https://outcomeschool.com/blog/voice-to-voice-latency)
 - [Why does the time-to-first-audio matter more than total response time?](https://outcomeschool.com/blog/time-to-first-audio)
