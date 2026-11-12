@@ -5,6 +5,8 @@
 🌐 **Live Application:**  
 **[https://kaisarnajar.github.io/outcome-school-blogs/](https://kaisarnajar.github.io/outcome-school-blogs/)**
 
+📈 **My Study Progress:** **[kaisarnajar.github.io/outcome-school-blogs/#/progress](https://kaisarnajar.github.io/outcome-school-blogs/#/progress)** (data in `src/data/progressData.json`)
+
 📝 **Study Notes:** Short notes with diagrams for every blog → **[notes/README.md](notes/README.md)**
 
 ---

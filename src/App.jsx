@@ -9,11 +9,25 @@ import BlogCard from './components/BlogCard';
 import BlogTable from './components/BlogTable';
 import BlogModal from './components/BlogModal';
 import Footer from './components/Footer';
+import ProgressPage from './components/ProgressPage';
 import { SearchX } from 'lucide-react';
 
 const DEFAULT_WPM = 200;
 
+const pageFromHash = () => (window.location.hash.startsWith('#/progress') ? 'progress' : 'analysis');
+
 export default function App() {
+  // Simple hash routing (works on GitHub Pages without server config)
+  const [page, setPage] = useState(pageFromHash);
+  useEffect(() => {
+    const onHash = () => {
+      setPage(pageFromHash());
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+
   // Theme state
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem('outcome_blogs_theme');
@@ -187,9 +201,13 @@ export default function App() {
         <div className="ambient-orb orb-3" />
       </div>
 
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <Navbar theme={theme} toggleTheme={toggleTheme} page={page} />
 
       <main className="container">
+        {page === 'progress' ? (
+          <ProgressPage />
+        ) : (
+        <>
         <HeroSection totalBlogs={blogsData.length} />
 
         <StatsGrid blogs={blogsData} readingSpeed={DEFAULT_WPM} />
@@ -260,6 +278,8 @@ export default function App() {
             readingSpeed={DEFAULT_WPM}
             onOpenModal={setActiveModalBlog}
           />
+        )}
+        </>
         )}
       </main>
 

@@ -1,0 +1,1475 @@
+{
+  "updated": "2026-11-12",
+  "entries": [
+    {
+      "url": "https://outcomeschool.com/blog/machine-learning",
+      "title": "What is Machine Learning?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/supervised-vs-unsupervised-learning",
+      "title": "Supervised vs Unsupervised Learning",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/linear-regression-vs-logistic-regression",
+      "title": "Linear Regression vs Logistic Regression",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/feature-engineering",
+      "title": "What is Feature Engineering in Machine Learning?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/one-hot-encoding",
+      "title": "What is One-hot Encoding in Machine Learning?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/precision-vs-recall",
+      "title": "Precision vs Recall",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/l1-and-l2-loss-functions",
+      "title": "What are L1 and L2 Loss Functions?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/regularization-in-machine-learning",
+      "title": "What is Regularization in Machine Learning? L1 vs L2 Explained",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Where the L1 and L2 Regularisation is used."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/train-validation-test-split",
+      "title": "Why do we split data into train, validation, and test sets?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/bias-variance-tradeoff",
+      "title": "How does the Bias-Variance Tradeoff work?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Some small terms aren’t yet clear."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/decision-trees-and-random-forests",
+      "title": "How do Decision Trees and Random Forests work?",
+      "status": "not-started",
+      "understanding": null,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/data-augmentation",
+      "title": "How does Data Augmentation work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/reinforcement-learning",
+      "title": "What is Reinforcement Learning?",
+      "status": "completed",
+      "understanding": 95,
+      "gap": "Common Families of RL Algorithms."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/markov-decision-process-mdp",
+      "title": "What is a Markov Decision Process (MDP)?",
+      "status": "not-started",
+      "understanding": null,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/exploration-vs-exploitation",
+      "title": "What is Exploration vs Exploitation in Reinforcement Learning?",
+      "status": "not-started",
+      "understanding": null,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/value-function-and-q-learning",
+      "title": "What is a Value Function? Q-Learning Explained Step by Step",
+      "status": "not-started",
+      "understanding": null,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/policy-gradient-reinforce",
+      "title": "What is Policy Gradient? The REINFORCE Algorithm Explained",
+      "status": "not-started",
+      "understanding": null,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/contrastive-learning",
+      "title": "What is Contrastive Learning?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "SimCLR, MoCo, CLIP etc."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/neural-network",
+      "title": "What is a Neural Network and How Does It Work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/bias-in-artificial-neural-network",
+      "title": "What is Bias in Artificial Neural Network?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/multilayer-perceptron-mlp",
+      "title": "What is a Multilayer Perceptron (MLP) and How Does It Work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/activation-functions",
+      "title": "What are Activation Functions in Neural Networks? Sigmoid, Tanh, ReLU, and Softmax Explained",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/softmax-function",
+      "title": "What is the Softmax Function and How Does It Work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/logits-in-machine-learning",
+      "title": "What are Logits in Machine Learning?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Haven't understood this formula: log(softmax(z_i)) = z_i - log(exp(z_1) + exp(z_2) + ... + exp(z_n))"
+    },
+    {
+      "url": "https://outcomeschool.com/blog/matrix-multiplication-in-neural-networks",
+      "title": "How Does Matrix Multiplication Work in Neural Networks?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/math-behind-gradient-descent",
+      "title": "How Does Gradient Descent Work?",
+      "status": "completed",
+      "understanding": 95,
+      "gap": "Can't get feeling of SGD and Mini-Batch Gradient Descent"
+    },
+    {
+      "url": "https://outcomeschool.com/blog/epoch-batch-and-iteration",
+      "title": "What are Epoch, Batch, Batch Size, and Iteration in Machine Learning?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/math-behind-backpropagation",
+      "title": "How Does Backpropagation Work? The Math Explained Step by Step",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/optimizers-in-deep-learning",
+      "title": "What are Optimizers in Deep Learning? SGD, Momentum, RMSProp, and Adam Explained",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Needs one more round."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/vanishing-and-exploding-gradients",
+      "title": "Why do vanishing and exploding gradients happen?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/random-weight-initialization",
+      "title": "Why Do We Initialize Weights Randomly in Neural Networks?",
+      "status": "completed",
+      "understanding": 70,
+      "gap": "Didn’t understood the python code etc."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/math-behind-cross-entropy-loss",
+      "title": "What is Cross-Entropy Loss?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Why Binary CE is using Sigmoid and Categorical Is using Softmax Function."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/kl-divergence",
+      "title": "What is KL Divergence? The Math Explained Step by Step",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Needs one more round."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/dropout-in-neural-networks",
+      "title": "What is Dropout in Neural Networks?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Can't get feeling of Variants of Dropout like Spatial Dropout, DropConnect etc."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/batch-normalization-vs-layer-normalization",
+      "title": "Batch Normalization vs Layer Normalization",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/rmsnorm-root-mean-square-layer-normalization",
+      "title": "What is RMSNorm? Root Mean Square Layer Normalization Explained",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/convolutional-neural-network-cnn",
+      "title": "Convolutional Neural Networks",
+      "status": "not-started",
+      "understanding": null,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/recurrent-neural-network",
+      "title": "What is a Recurrent Neural Network (RNN)?",
+      "status": "completed",
+      "understanding": 50,
+      "gap": "Haven't understood the architecture of RNN Properly."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-pytorch-work",
+      "title": "How does PyTorch work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-the-machine-learning-library-tensorflow-work",
+      "title": "How does TensorFlow work?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Pseudo Code of TensorFlow I have understood. But, not the Python Syntax."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/what-is-generative-ai",
+      "title": "What is Generative AI?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/large-language-model-llm",
+      "title": "How does an LLM work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.substack.com/p/inside-chatgpt-what-happens-after",
+      "title": "Inside ChatGPT: What Happens After You Hit Enter",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/autoregressive-models",
+      "title": "What are Autoregressive Models?",
+      "status": "completed",
+      "understanding": 95,
+      "gap": "Haven't understood KV Cache Properly."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/tokenization-in-llms",
+      "title": "Tokenization in LLMs",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/bpe-in-llms",
+      "title": "What is Byte Pair Encoding (BPE) in LLMs?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/what-are-embeddings",
+      "title": "What are Embeddings?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-do-rnns-and-transformers-differ",
+      "title": "How do RNNs and Transformers differ?",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Haven't understood the architecture of RNN Properly."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/decoding-transformer-architecture",
+      "title": "How Does the Transformer Architecture Work?",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Not able to figure out how it differs in training and inference phase."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/encoder-vs-decoder-in-transformers",
+      "title": "Encoder vs Decoder in Transformers",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Not able to figure out how it differs in training and inference phase."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/self-attention-in-transformers",
+      "title": "What is Self Attention in Transformers?",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Not able to figure out how it differs in training and inference phase."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/math-behind-attention-qkv",
+      "title": "How Does Attention Work? The Math Behind Q, K, and V",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/scaling-dot-product-attention",
+      "title": "Why Do We Scale Attention by √dₖ?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/causal-masking-in-attention",
+      "title": "What is Causal Masking in Attention?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/multi-head-attention-in-transformers",
+      "title": "What is Multi-Head Attention in Transformers?",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Not able to figure out how it differs in training and inference phase."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/cross-attention-in-transformers",
+      "title": "What is Cross Attention in Transformers?",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Needs one more revision."
+    },
+    {
+      "url": "https://outcomeschool.substack.com/p/positional-embeddings-in-llms",
+      "title": "Positional Embeddings in LLMs",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/math-behind-rope-rotary-position-embedding",
+      "title": "What is RoPE (Rotary Position Embedding)? The Math Behind It",
+      "status": "completed",
+      "understanding": 50,
+      "gap": "Haven't understood the concept itself properly."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/feed-forward-networks-in-llms",
+      "title": "What is the Feed-Forward Network in LLMs?",
+      "status": "completed",
+      "understanding": 70,
+      "gap": "Needs one more revision."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-temperature-control-llm-output",
+      "title": "How does Temperature control LLM output?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-do-top-k-and-top-p-sampling-work",
+      "title": "How do Top-k and Top-p Sampling work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/logprobs-in-llms",
+      "title": "What are Log Probabilities (Logprobs) in LLMs?",
+      "status": "not-started",
+      "understanding": null,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/stop-tokens-in-llms",
+      "title": "Stop Tokens in LLMs",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-token-streaming-work",
+      "title": "How does Token Streaming work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/context-window",
+      "title": "How does the Context Window work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/lost-in-the-middle-problem-in-llms",
+      "title": "What is the Lost in the Middle Problem in LLMs?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/why-do-llms-hallucinate-the-token-level-explanation",
+      "title": "Why Do LLMs Hallucinate? The Token-Level Explanation",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/mixture-of-experts",
+      "title": "What is Mixture of Experts (MoE)?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Needs one more revision."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/grouped-query-attention",
+      "title": "What is Grouped Query Attention (GQA)?",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Needs one more revision."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-sliding-window-attention-work",
+      "title": "How does Sliding Window Attention work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-do-attention-sinks-work",
+      "title": "How do Attention Sinks work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/decoding-flash-attention",
+      "title": "What is Flash Attention and Why Is It So Fast?",
+      "status": "completed",
+      "understanding": 70,
+      "gap": "Needs one more revision."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/decoding-deepseek-v4",
+      "title": "What is DeepSeek-V4 and How Does It Work? Architecture Explained",
+      "status": "completed",
+      "understanding": 40,
+      "gap": "I have understood very less from this Blog."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/small-language-models-slms",
+      "title": "What are Small Language Models (SLMs)?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/large-reasoning-models",
+      "title": "What are Large Reasoning Models (LRMs)?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/recursive-language-models",
+      "title": "What are Recursive Language Models (RLMs)?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-do-diffusion-language-models-dlms-work",
+      "title": "How do Diffusion Language Models (DLMs) work?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Didn't understood how Diffusion Model is using Transformer Architecture."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/jev-and-system-one-models-explained",
+      "title": "Jev and System One Models Explained",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Didn't know which architecture Jev is using internally."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/llm-pretraining",
+      "title": "How does Pretraining work?",
+      "status": "not-started",
+      "understanding": null,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-fine-tuning-work",
+      "title": "How does Fine-Tuning work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/lora-low-rank-adaptation-of-llms",
+      "title": "What is LoRA (Low-Rank Adaptation)?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-prefix-tuning-work",
+      "title": "How does Prefix Tuning work?",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Didn't undersood how reparameterization etc. works."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-knowledge-distillation-work",
+      "title": "How does Knowledge Distillation work?",
+      "status": "completed",
+      "understanding": 95,
+      "gap": "Didn't understood properly of \"how relation-based KD works\"."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/continual-learning-in-llms",
+      "title": "What is Continual Learning in LLMs? Solving Catastrophic Forgetting",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/decoding-deep-rl-from-human-preferences",
+      "title": "What is Deep RL from Human Preferences? The Paper That Started RLHF",
+      "status": "completed",
+      "understanding": 70,
+      "gap": "Haven't understood the preference math, smart bits etc. sections properly."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/decoding-instructgpt",
+      "title": "What is InstructGPT? How GPT-3 Learned to Follow Instructions",
+      "status": "completed",
+      "understanding": 70,
+      "gap": "Can't feel the 3 step loop properly."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/reinforcement-learning-from-human-feedback-rlhf",
+      "title": "What is RLHF? Reinforcement Learning from Human Feedback Explained",
+      "status": "completed",
+      "understanding": 70,
+      "gap": "I have undertood it. But can't feel it right now."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/proximal-policy-optimization-ppo",
+      "title": "What is Proximal Policy Optimization (PPO)?",
+      "status": "completed",
+      "understanding": 70,
+      "gap": "I have undertood it. But can't feel it right now."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/direct-preference-optimization-dpo",
+      "title": "What is Direct Preference Optimization (DPO)?",
+      "status": "completed",
+      "understanding": 70,
+      "gap": "I have undertood it. But can't feel it right now."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/group-relative-policy-optimization-grpo",
+      "title": "What is Group Relative Policy Optimization (GRPO)?",
+      "status": "completed",
+      "understanding": 70,
+      "gap": "I have undertood it. But can't feel it right now."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-chain-of-thought-prompting-work",
+      "title": "How does Chain-of-Thought (CoT) Prompting work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-tree-of-thoughts-work",
+      "title": "How does Tree of Thoughts work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-prompt-chaining-work",
+      "title": "How does Prompt Chaining work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-prompt-caching-work",
+      "title": "How does Prompt Caching work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/context-engineering",
+      "title": "What is Context Engineering?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-context-compaction-work",
+      "title": "How does Context Compaction work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/cosine-similarity",
+      "title": "How does Cosine Similarity work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-a-vector-database-work",
+      "title": "How does a Vector Database work?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Didn't know how HNSW, IVF, PQ work Internally."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-approximate-nearest-neighbor-ann-search-work",
+      "title": "How does Approximate Nearest Neighbor (ANN) Search work?",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Need to go through it once again."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-semantic-search-work",
+      "title": "How does Semantic Search work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-hybrid-search-work",
+      "title": "How does Hybrid Search work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-a-reranker-work",
+      "title": "How does a Reranker work?",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Can't feel the Bi-Encoder vs Cross-Encoder as of now."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/decoding-colbert",
+      "title": "What is ColBERT? Late Interaction Retrieval Explained",
+      "status": "completed",
+      "understanding": 70,
+      "gap": "Need to go through it once again."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/chunking-strategies-for-rag",
+      "title": "How to Chunk Documents for RAG? Chunking Strategies Explained",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-contextual-retrieval-work",
+      "title": "How does Contextual Retrieval work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-hyde-work",
+      "title": "How does HyDE work in RAG?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-do-query-rewriting-and-multi-query-retrieval-work",
+      "title": "How do Query Rewriting and Multi-Query Retrieval work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-an-embedding-cache-work",
+      "title": "How does an Embedding Cache work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-semantic-caching-work",
+      "title": "How does Semantic Caching work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/agentic-rag",
+      "title": "What is Agentic RAG?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/graphrag",
+      "title": "What is GraphRAG? How Knowledge Graphs Improve RAG",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/vectorless-rag",
+      "title": "What is Vectorless RAG? RAG Without Embeddings or a Vector Database",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/ai-agent",
+      "title": "What is an AI Agent? How It Works",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-function-calling-work-in-llms",
+      "title": "How does Function Calling work in LLMs?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/ai-agent-loop",
+      "title": "What is an AI Agent Loop?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/react-agent",
+      "title": "What is a ReAct Agent?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/plan-and-execute-agent",
+      "title": "What is a Plan-and-Execute Agent?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/reflection-agent",
+      "title": "What is a Reflection Agent?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/ai-agent-memory",
+      "title": "How does AI Agent Memory work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-chatgpt-remember-you",
+      "title": "How does ChatGPT remember you?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/what-is-mcp-model-context-protocol",
+      "title": "What is MCP (Model Context Protocol)?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/what-are-agent-skills",
+      "title": "What are Agent Skills?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/what-is-okf-open-knowledge-format",
+      "title": "What is OKF (Open Knowledge Format)?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/multi-agent-systems",
+      "title": "What are Multi-Agent Systems?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/ai-subagents",
+      "title": "What are AI SubAgents?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-ai-agents-communicate",
+      "title": "How AI Agents Communicate",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/ai-orchestration",
+      "title": "What is AI Orchestration?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/decoding-sakana-fugu",
+      "title": "What is Sakana Fugu? The Technical Report Explained",
+      "status": "completed",
+      "understanding": 50,
+      "gap": "Didn't understood selection head, Sep-CMA-ES, Conductor, Workflow etc."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-do-computer-use-agents-work",
+      "title": "How do Computer-Use Agents work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-do-browser-agents-work",
+      "title": "How do Browser Agents work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/harness-engineering-in-ai",
+      "title": "What is Harness Engineering?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/what-is-loop-engineering",
+      "title": "What is Loop Engineering?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/what-is-graph-engineering",
+      "title": "What is Graph Engineering?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/ai-is-only-as-good-as-our-definition-of-done",
+      "title": "AI Is Only as Good as Our Definition of Done",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-langchain-work",
+      "title": "How does LangChain work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-langgraph-work",
+      "title": "How does LangGraph work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-claude-code-work",
+      "title": "How does Claude Code work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-cursor-work",
+      "title": "How does Cursor work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/llm-inference-optimization",
+      "title": "LLM Inference Optimization",
+      "status": "completed",
+      "understanding": 100,
+      "gap": "NA, It mentions the list of blogs. Need to go through the individual blogs."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/prefill-vs-decode-llm-inference-optimization",
+      "title": "Prefill vs Decode: LLM Inference Optimization",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Needs one more revision."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/prefill-decode-disaggregation",
+      "title": "What is Prefill-Decode Disaggregation in LLM Inference?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/kv-cache-in-llms",
+      "title": "What is KV Cache in LLMs?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/kv-cache-compression",
+      "title": "What is KV Cache Compression?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Needs one more revision."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/paged-attention-in-llms",
+      "title": "What is Paged Attention in LLMs?",
+      "status": "completed",
+      "understanding": 95,
+      "gap": "Didn't understood what is Beam Search."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/continuous-batching-in-llms",
+      "title": "What is Continuous Batching in LLMs?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/speculative-decoding",
+      "title": "What is Speculative Decoding?",
+      "status": "completed",
+      "understanding": 95,
+      "gap": "Can't feel the mathematics behind max(0, p - q)"
+    },
+    {
+      "url": "https://outcomeschool.com/blog/n-gram-speculation-in-llms",
+      "title": "What is N-gram Speculation in LLMs?",
+      "status": "completed",
+      "understanding": 95,
+      "gap": "Didn't understood the statement of smarter verification incase of sampling."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/decoding-medusa",
+      "title": "What is Medusa? Multi-Head Speculative Decoding Explained",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Didn't know how the multiple medusa heads guess the next token."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/decoding-eagle",
+      "title": "What is EAGLE? Feature-Level Speculative Decoding Explained",
+      "status": "completed",
+      "understanding": 60,
+      "gap": "Didn't understood the \"feature level guessing\" and \"dynamic draft tree\" properly."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-model-quantization-work",
+      "title": "How does Model Quantization work?",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Needs one more revision."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-gguf-work",
+      "title": "How does GGUF work?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Need to know how memory mapping works during inference."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-llama-cpp-run-llms-on-everyday-hardware",
+      "title": "How does llama.cpp run LLMs on everyday hardware?",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Didn't understood K-Quant, Instruction Sets like AVX etc. properly."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-ollama-work",
+      "title": "How does Ollama work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-vllm-work",
+      "title": "How does vLLM work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-sglang-work",
+      "title": "How does SGLang work?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "How the frontend knows which parts are fixed and which are new."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-tensorrt-llm-work",
+      "title": "How does TensorRT-LLM work?",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Needs one more revision."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/llm-evaluation",
+      "title": "What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/llm-as-a-judge",
+      "title": "What is LLM as a Judge?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/ai-agent-evaluation",
+      "title": "How to Evaluate AI Agents? Metrics, Methods, and Best Practices",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/ai-agent-observability",
+      "title": "What is AI Agent Observability? Traces, Spans, and Metrics Explained",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-do-llm-guardrails-work",
+      "title": "How do LLM Guardrails work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/prompt-injection-in-llms",
+      "title": "What is Prompt Injection in LLMs and How Do We Defend Against It?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Some small terms are still not 100% clear."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/jailbreaking-in-llms",
+      "title": "What is jailbreaking in LLMs?",
+      "status": "not-started",
+      "understanding": null,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-llm-watermarking-work",
+      "title": "How does LLM Watermarking work?",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Needs one more revision."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/multimodal-ai",
+      "title": "What is Multimodal AI?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/decoding-vision-transformer-vit",
+      "title": "What is a Vision Transformer (ViT)?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Didn’t undersood how linear projection, CNN work."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-do-image-embeddings-work",
+      "title": "How do Image Embeddings work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/vision-language-model-vlm",
+      "title": "How does a Vision-Language Model (VLM) work?",
+      "status": "completed",
+      "understanding": 70,
+      "gap": "Didn't understand How a VLM is trained. Needs one more round."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/diffusion-models",
+      "title": "What are Diffusion Models and How Do They Generate Images?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/flow-matching",
+      "title": "How does flow matching train a generative model?",
+      "status": "not-started",
+      "understanding": null,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/generative-adversarial-networks",
+      "title": "What are Generative Adversarial Networks (GANs)?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Needs one more round."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/variational-autoencoders",
+      "title": "What are Variational Autoencoders (VAEs)?",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Can’t get feel of it. Needs one more round."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-a-gpu-work-for-deep-learning",
+      "title": "How does a GPU work for Deep Learning?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-do-cuda-kernels-work",
+      "title": "How do CUDA Kernels work?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Didn’t understood “what happens inside the GPU Properly”."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-a-google-tpu-work",
+      "title": "How does a Google TPU work?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Taking one example will make it more clear."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-does-an-lpu-work",
+      "title": "How does an LPU work?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Didn’t understood how GPU guesses and then caches"
+    },
+    {
+      "url": "https://outcomeschool.com/blog/cloud-vs-on-device-model-deployment",
+      "title": "Cloud vs On-device Model Deployment",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/model-serving",
+      "title": "How does Model Serving work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/android-tensorflow-lite-machine-learning-example",
+      "title": "Android TensorFlow Lite Machine Learning Example",
+      "status": "completed",
+      "understanding": 80,
+      "gap": "Need to practice on Tensorflow Lite Library."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/llm-routing",
+      "title": "What is LLM Routing? How to Send Each Query to the Right LLM",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/design-a-real-time-voice-ai-agent",
+      "title": "Design a Real-Time Voice AI Agent",
+      "status": "completed",
+      "understanding": 95,
+      "gap": "Understood almost everything. Can’t feel some small terms."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/what-is-turn-taking-in-a-voice-ai-agent",
+      "title": "What is turn-taking in a voice AI agent?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/endpointing-in-voice-agents",
+      "title": "How does endpointing decide when the user has finished speaking?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/silence-vs-model-based-turn-detection",
+      "title": "How do silence-based and model-based turn detection differ?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/dynamic-endpointing",
+      "title": "How does dynamic endpointing adapt to how fast a user talks?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/long-pauses-in-voice-agents",
+      "title": "How does a voice agent handle long pauses when the user is thinking?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/unfinished-input-in-voice-agents",
+      "title": "How does a voice agent know a phone number or email is not finished yet?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/voice-agents-cutting-users-off",
+      "title": "Why does a voice agent cut people off mid-sentence?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/what-is-barge-in-in-a-voice-ai-agent",
+      "title": "What is barge-in in a voice AI agent?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/cascaded-vs-speech-to-speech",
+      "title": "Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/half-duplex-vs-full-duplex-voice-agents",
+      "title": "How do half-duplex and full-duplex voice agents differ?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/interruption-vs-background-noise",
+      "title": "How does a voice agent tell a real interruption from a cough or background noise?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/backchannels-in-voice-agents",
+      "title": "What are backchannels, and why should \"mm-hmm\" not stop the agent?",
+      "status": "not-started",
+      "understanding": null,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/stopping-speech-on-interruption",
+      "title": "How does a voice agent stop speaking instantly when interrupted?",
+      "status": "not-started",
+      "understanding": null,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/tts-audio-buffering",
+      "title": "Why does TTS audio buffering make interruptions slow?",
+      "status": "not-started",
+      "understanding": null,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/truncating-context-on-interruption",
+      "title": "How does a voice agent truncate its memory to only what the user actually heard?",
+      "status": "not-started",
+      "understanding": null,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/voice-agent-latency-budget",
+      "title": "How do you build a latency budget for a voice AI agent?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/voice-to-voice-latency",
+      "title": "How does the voice-to-voice latency of a voice agent get measured?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/time-to-first-audio",
+      "title": "Why does the time-to-first-audio matter more than total response time?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/sentence-chunking-for-tts",
+      "title": "How does sentence chunking feed LLM output into TTS faster?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/streaming-tts",
+      "title": "How does a TTS model start speaking before the full sentence arrives?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Haven’t understood the Approach 5 properly."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/speculative-generation-in-voice-agents",
+      "title": "How does speculative LLM generation start replying before the user finishes?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/filler-phrases-in-voice-agents",
+      "title": "How do filler phrases hide latency in a voice agent?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/slow-tool-calls-in-voice-agents",
+      "title": "How does a voice agent hide the delay of a slow tool call?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/system-design",
+      "title": "What is System Design?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/http-request-long-polling-websocket-sse",
+      "title": "HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/voice-and-video-call",
+      "title": "How do Voice and Video Call work?",
+      "status": "completed",
+      "understanding": 90,
+      "gap": "Didn’t understood NAT Properly."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/joint-embedding-predictive-architecture-jepa",
+      "title": "What is Joint Embedding Predictive Architecture (JEPA)?",
+      "status": "completed",
+      "understanding": 70,
+      "gap": "Didn't understood the building blocks of JEPA well. Overall I can't feel it as of now."
+    },
+    {
+      "url": "https://outcomeschool.com/blog/how-do-world-models-work",
+      "title": "How do World Models work?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    },
+    {
+      "url": "https://outcomeschool.com/blog/what-is-recursive-self-improvement-rsi",
+      "title": "What is Recursive Self-Improvement (RSI)?",
+      "status": "completed",
+      "understanding": 100,
+      "gap": ""
+    }
+  ]
+}

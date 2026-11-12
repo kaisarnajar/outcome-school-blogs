@@ -19,11 +19,11 @@ function GithubIcon({ size = 16 }) {
   );
 }
 
-export default function Navbar({ theme, toggleTheme }) {
+export default function Navbar({ theme, toggleTheme, page }) {
   return (
     <nav className="navbar">
       <div className="container nav-container">
-        <a href="#" className="brand">
+        <a href="#/" className="brand">
           <div className="brand-icon">
             <BookOpen size={22} />
           </div>
@@ -36,6 +36,14 @@ export default function Navbar({ theme, toggleTheme }) {
         </a>
 
         <div className="nav-actions">
+          <div className="nav-tabs" role="tablist" aria-label="Pages">
+            <a href="#/" role="tab" aria-selected={page !== 'progress'} className={`nav-tab${page !== 'progress' ? ' active' : ''}`}>
+              Analysis
+            </a>
+            <a href="#/progress" role="tab" aria-selected={page === 'progress'} className={`nav-tab${page === 'progress' ? ' active' : ''}`}>
+              My Progress
+            </a>
+          </div>
           <a
             href="https://github.com/amitshekhariitbhu/ai-engineer-roadmap"
             target="_blank"
