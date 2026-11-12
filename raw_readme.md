@@ -118,6 +118,7 @@ In this step, we will learn what Machine Learning is, the different ways a machi
 - [What is a Value Function? Q-Learning Explained Step by Step](https://outcomeschool.com/blog/value-function-and-q-learning)
 - [What is Policy Gradient? The REINFORCE Algorithm Explained](https://outcomeschool.com/blog/policy-gradient-reinforce)
 - [What is Actor-Critic in Reinforcement Learning? The Advantage Function Explained](https://outcomeschool.com/blog/actor-critic)
+- [How does Self-Supervised Learning work?](https://outcomeschool.com/blog/self-supervised-learning)
 - [What is Contrastive Learning?](https://outcomeschool.com/blog/contrastive-learning)
 
 ### Step 2: Deep Learning and Neural Networks
@@ -222,6 +223,7 @@ In this step, we will learn how a pre-trained model is adapted to our own task, 
 - [What is InstructGPT? How GPT-3 Learned to Follow Instructions](https://outcomeschool.com/blog/decoding-instructgpt)
 - [What is RLHF? Reinforcement Learning from Human Feedback Explained](https://outcomeschool.com/blog/reinforcement-learning-from-human-feedback-rlhf)
 - [What is a Reward Model and How Is It Trained?](https://outcomeschool.com/blog/reward-model)
+- [What is Reward Hacking in Reinforcement Learning and How Do We Prevent It?](https://outcomeschool.com/blog/reward-hacking)
 - [What is Proximal Policy Optimization (PPO)?](https://outcomeschool.com/blog/proximal-policy-optimization-ppo)
 - [What is Direct Preference Optimization (DPO)?](https://outcomeschool.com/blog/direct-preference-optimization-dpo)
 - [What is Group Relative Policy Optimization (GRPO)?](https://outcomeschool.com/blog/group-relative-policy-optimization-grpo)
@@ -283,6 +285,7 @@ In this step, we will learn how an LLM goes from answering questions to actually
 - [What is Sakana Fugu? The Technical Report Explained](https://outcomeschool.com/blog/decoding-sakana-fugu)
 - [How do Computer-Use Agents work?](https://outcomeschool.com/blog/how-do-computer-use-agents-work)
 - [How do Browser Agents work?](https://outcomeschool.com/blog/how-do-browser-agents-work)
+- [How do Human-in-the-Loop agents work?](https://outcomeschool.com/blog/human-in-the-loop-agents)
 
 ### Step 11: Agentic Engineering and Agent Frameworks
 
@@ -384,6 +387,7 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [How does a voice agent truncate its memory to only what the user actually heard?](https://outcomeschool.com/blog/truncating-context-on-interruption)
 - [How does a voice agent recover from a false interruption?](https://outcomeschool.com/blog/false-interruption-recovery)
 - [How does a voice agent handle the user and agent talking at the same time?](https://outcomeschool.com/blog/overlapping-speech-in-voice-agents)
+- [How does a voice agent add its own backchannels like "okay" and "got it"?](https://outcomeschool.com/blog/agent-side-backchannels)
 - [How do you build a latency budget for a voice AI agent?](https://outcomeschool.com/blog/voice-agent-latency-budget)
 - [How does the voice-to-voice latency of a voice agent get measured?](https://outcomeschool.com/blog/voice-to-voice-latency)
 - [Why does the time-to-first-audio matter more than total response time?](https://outcomeschool.com/blog/time-to-first-audio)
