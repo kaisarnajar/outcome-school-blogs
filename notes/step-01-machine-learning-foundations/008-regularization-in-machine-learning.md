@@ -13,7 +13,11 @@ Regularization reduces overfitting by adding a penalty on the weights to the err
 - **Tuning parameter p** — decides how much we penalize the model (same role in L1 and L2).
 
 ## How It Works
-$$\text{Loss}_{reg} = \text{Loss} + p \sum_j |w_j| \quad (L1) \qquad \text{Loss}_{reg} = \text{Loss} + p \sum_j w_j^2 \quad (L2)$$
+
+$$
+\text{Loss}_{reg} = \text{Loss} + p \sum_j |w_j| \quad (L1) \qquad \text{Loss}_{reg} = \text{Loss} + p \sum_j w_j^2 \quad (L2)
+$$
+
 $w_j$ = weights, $p$ = penalty strength (blog shows these as images; written here in the standard form).
 
 1. Training minimizes the error function.

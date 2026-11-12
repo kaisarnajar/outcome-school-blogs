@@ -24,7 +24,9 @@ RLHF: train RM to score, then train LLM on scores (hire a critic, chef cooks by 
 
 ### Loss
 
-$$\mathcal{L} = -\log \sigma\Big(\beta\big[\underbrace{\log\tfrac{\pi_\theta(y_w|x)}{\pi_{\text{ref}}(y_w|x)}}_{\text{chosen}} - \underbrace{\log\tfrac{\pi_\theta(y_l|x)}{\pi_{\text{ref}}(y_l|x)}}_{\text{rejected}}\big]\Big)$$
+$$
+\mathcal{L} = -\log \sigma\Big(\beta\big[\underbrace{\log\tfrac{\pi_\theta(y_w|x)}{\pi_{\text{ref}}(y_w|x)}}_{\text{chosen}} - \underbrace{\log\tfrac{\pi_\theta(y_l|x)}{\pi_{\text{ref}}(y_l|x)}}_{\text{rejected}}\big]\Big)
+$$
 
 $\pi_\theta$ = new model, $\pi_{\text{ref}}$ = frozen reference, $y_w$ chosen, $y_l$ rejected, $\sigma$ = sigmoid, $\beta$ = strength of anchoring.
 - Want chosen probability up relative to rejected, without drifting far from the reference.

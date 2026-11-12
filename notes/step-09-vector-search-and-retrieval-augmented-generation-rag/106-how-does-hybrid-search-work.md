@@ -41,7 +41,11 @@ BM25 scores have no fixed top (2, 6, 40...); semantic scores are usually 0..1. A
 Doc-7 wins since both agree. Real formula adds a small constant to the rank so the top ranks aren't too far ahead. RRF is also used in Multi-Query Retrieval to merge lists from multiple query versions.
 
 **Weighted score combination**: normalize, then blend:
-$$\text{final}=w_k\cdot s_k^{norm}+w_s\cdot s_s^{norm}$$
+
+$$
+\text{final}=w_k\cdot s_k^{norm}+w_s\cdot s_s^{norm}
+$$
+
 $w_k,w_s$ are weights for keyword and semantic. 0.5/0.5 equal trust; for code/product-name heavy corpora, 0.7 keyword / 0.3 semantic; reverse if meaning matters more.
 
 | Point | RRF | Weighted |

@@ -20,7 +20,11 @@ Logits are the raw, unnormalized scores from a model's last layer, one per possi
 Layers multiply by weights and add bias. Last layer has one output per class (3 classes = 3 logits; yes/no = 1 logit), with no activation. Pipeline: input -> hidden layers -> last layer -> logits -> softmax -> probabilities.
 
 ### Softmax
-$$\text{softmax}(z_i)=\frac{e^{z_i}}{\sum_j e^{z_j}}$$
+
+$$
+\text{softmax}(z_i)=\frac{e^{z_i}}{\sum_j e^{z_j}}
+$$
+
 Logits cat 2.0, dog 1.0, bird 0.1: exps 7.389, 2.718, 1.105; total 11.212; probs 0.659, 0.242, 0.099 (65.9% cat). Order is preserved (highest logit = highest probability). Adding the same number to all logits changes nothing (12.0, 11.0, 10.1 give the same).
 
 ### Sigmoid for yes/no
@@ -32,7 +36,11 @@ Odds example: rain p=0.8, odds $0.8/0.2=4$. $\text{logit}(p)=\log\frac{p}{1-p}$,
 ### Why models output logits, not probabilities
 1. **Numerical stability** — exp(1000) overflows to infinity (in 32-bit even exp(100)); one infinity breaks everything. Subtract the max logit first so the largest exp input is 0 (exp(0)=1). Logits 2.0,1.0,0.1 and 1000.0,999.0,998.1 both give 0.659, 0.242, 0.099; without subtraction np.exp(1000) = inf and result nan.
 2. **Loss functions take logits** — cross-entropy needs log of the correct-class probability. Softmax then log risks a tiny probability rounding to 0 and log(0) = -inf. Combine stably:
-$$\log\text{softmax}(z_i)=z_i-\log\sum_j e^{z_j}$$
+
+$$
+\log\text{softmax}(z_i)=z_i-\log\sum_j e^{z_j}
+$$
+
 With the max-subtraction the sum inside the log is at least 1, so never -inf.
    - PyTorch: `nn.CrossEntropyLoss` takes logits; `nn.BCEWithLogitsLoss` takes the single yes/no logit. TensorFlow: `from_logits=True`.
    - Pitfall: applying softmax in the model and again in the loss (applied twice, poor learning).

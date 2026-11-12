@@ -25,7 +25,11 @@ Actor-Critic uses two networks: an Actor (the policy) picks actions, and a Criti
 Both are usually neural nets and learn simultaneously. Analogy: batter (Actor) with a coach (Critic) saying "better/worse than your usual" after every shot instead of waiting for the match score.
 
 ### Advantage function
-$$A(s,a)=Q(s,a)-V(s)$$
+
+$$
+A(s,a)=Q(s,a)-V(s)
+$$
+
 - Positive: better than usual, make more likely. Negative: worse, make less likely. Zero: unchanged.
 - REINFORCE asks "was the total high?"; advantage asks "was this better than what we normally get here?" — removes the luck of the state itself (a great state makes everything look good; subtracting $V(s)$ takes that out).
 
@@ -37,7 +41,11 @@ $V(s)=10$, $Q(s,\text{jump})=14$, $Q(s,\text{wait})=7$:
 
 ### TD error
 Estimate $Q(s,a)\approx r+\gamma V(s')$ (reward now + discounted value of the landing state $s'$). Plug in:
-$$\delta = r+\gamma V(s')-V(s)$$
+
+$$
+\delta = r+\gamma V(s')-V(s)
+$$
+
 $\delta$ estimates the advantage and needs only the Critic.
 - Example 1: $V(s)=9$, $r=2$, $V(s')=10$, $\gamma=0.9$: $\delta=2+9-9=+2$ (better than expected, positive advantage).
 - Example 2: $V(s)=9$, wait, $r=0$, $V(s')=5$: $\delta=0+4.5-9=-4.5$ (worse, negative advantage).

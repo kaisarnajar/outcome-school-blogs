@@ -14,7 +14,11 @@ BatchNorm normalizes each feature across all examples in a batch (column-wise); 
 ## How It Works
 
 Shared formulas:
-$$\hat x=\frac{x-\mu}{\sqrt{\sigma^2+\epsilon}},\qquad y=\gamma\hat x+\beta$$
+
+$$
+\hat x=\frac{x-\mu}{\sqrt{\sigma^2+\epsilon}},\qquad y=\gamma\hat x+\beta
+$$
+
 $\mu,\sigma^2$ = mean and variance over the chosen dimension. The only difference between the two methods is that dimension.
 
 Example batch (4 examples x 3 features): [10,12,14], [20,22,24], [30,32,34], [40,42,44].

@@ -33,7 +33,9 @@ InstructGPT (OpenAI, "Training language models to follow instructions with human
 - Reward model: 6B parameters (vs 175B GPT-3); reads (prompt, answer), outputs one number. Idea comes from the 2017 Deep RL from Human Preferences paper.
 - Loss per pair:
 
-$$\text{loss} = -\log\big(\sigma(r_w - r_l)\big)$$
+$$
+\text{loss} = -\log\big(\sigma(r_w - r_l)\big)
+$$
 
 $r_w$ = score of preferred answer, $r_l$ = score of losing answer, $\sigma$ = sigmoid (gap to probability).
 - Example: $r_w=2, r_l=1$: gap 1, $\sigma(1)=0.731$, loss 0.313. Gap 3 ($3.0$ vs $0.0$): $\sigma=0.953$, loss 0.048. Tie: $\sigma(0)=0.5$, loss 0.693 (unsure). Bigger winning gap gives smaller loss.
@@ -44,7 +46,9 @@ Loop: prompt, model answers, reward model scores, nudge model toward higher scor
 - Risk: **reward hacking** — weird text that fools the reward model.
 - Fix: KL penalty vs the SFT model:
 
-$$\text{final reward} = r_{RM} - \beta \cdot \text{drift}$$
+$$
+\text{final reward} = r_{RM} - \beta \cdot \text{drift}
+$$
 
 $\beta$ sets leash strength. Example: score 5.0, drift 3.0, $\beta=0.2$: $5.0-0.6=4.4$. Drift 10.0: $5.0-2.0=3.0$. Real training measures drift per word.
 

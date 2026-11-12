@@ -35,7 +35,9 @@ Loop: read the entire model, compute next token, append, stop at an end token. T
 ### Why a GPU struggles
 Numbers for a 70B model at 8-bit on a GPU with about 3 TB/s HBM:
 
-$$t=\frac{70\text{ GB}}{3000\text{ GB/s}}\approx 23\text{ ms/token}\approx 43\text{ tokens/s}$$
+$$
+t=\frac{70\text{ GB}}{3000\text{ GB/s}}\approx 23\text{ ms/token}\approx 43\text{ tokens/s}
+$$
 
 - That is the ceiling even in the perfect case.
 - Batching: read once, serve many users; high throughput, but each user's chain is still slow, and filling a batch adds delay.
@@ -45,13 +47,17 @@ $$t=\frac{70\text{ GB}}{3000\text{ GB/s}}\approx 23\text{ ms/token}\approx 43\te
 ### Idea 1: keep the model on chip (SRAM)
 With about 80 TB/s on-chip SRAM:
 
-$$t=\frac{70}{80000}\approx 0.875\text{ ms}\approx 1100\text{ tokens/s}$$
+$$
+t=\frac{70}{80000}\approx 0.875\text{ ms}\approx 1100\text{ tokens/s}
+$$
 
 About 26x faster for a single user, no batching. (Rough numbers; the gap matters, not the digits.) A person reads about 5 words/s, so text appears in paragraphs.
 
 **Catch:** SRAM is expensive and takes chip space; an LPU chip has about 230 MB.
 
-$$\frac{70{,}000\text{ MB}}{230\text{ MB}}\approx 305\text{ chips}$$
+$$
+\frac{70{,}000\text{ MB}}{230\text{ MB}}\approx 305\text{ chips}
+$$
 
 - Trade: give up memory size to gain memory speed.
 - Fix: slice the model by layers, one slice per chip, held permanently.

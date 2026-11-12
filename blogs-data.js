@@ -238,7 +238,7 @@ window.BLOGS_DATA = [
     "images_count": 2,
     "author": "Amit Shekhar",
     "published_date": "November 6, 2026",
-    "excerpt": "Decision Trees and Random Forests areMachine Learningmodels that make a decision by asking a series of simple yes-or-no questions about the data. A Decision Tree is one such flowchart of questions, and a Random Forest is a team of many slightly different Decision Trees that vote ...",
+    "excerpt": "Decision Trees and Random Forests are Machine Learning models that make a decision by asking a series of simple yes-or-no questions about the data. A Decision Tree is one such flowchart of questions, and a Random Forest is a team of many slightly different Decision Trees that vot...",
     "status": "success"
   },
   {
@@ -502,7 +502,7 @@ window.BLOGS_DATA = [
     "images_count": 8,
     "author": "Amit Shekhar",
     "published_date": "August 2, 2019",
-    "excerpt": "Bias in an Artificial Neural Network is the constantcin the modely = mx + c. Without bias, the line must pass through the origin. With bias, the model can shift the line and fit the data better.",
+    "excerpt": "Bias in an Artificial Neural Network is the constant c in the model y = mx + c. Without bias, the line must pass through the origin. With bias, the model can shift the line and fit the data better.",
     "status": "success"
   },
   {
@@ -1008,7 +1008,7 @@ window.BLOGS_DATA = [
     "images_count": 1,
     "author": "Amit Shekhar",
     "published_date": "Mar 07, 2026",
-    "excerpt": "I’mAmit ShekharfromOutcome School, where I teachAI and Machine Learning.",
+    "excerpt": "I’m Amit Shekhar from Outcome School, where I teach AI and Machine Learning.",
     "status": "success"
   },
   {
@@ -1206,7 +1206,7 @@ window.BLOGS_DATA = [
     "images_count": 2,
     "author": "Amit Shekhar",
     "published_date": "April 3, 2026",
-    "excerpt": "Attention works by comparing the Query (Q) of each word with the Key (K) of every word to get scores, turning those scores into weights using softmax, and then using the weights to mix the Values (V). The formula issoftmax(Q x K^T / sqrt(d_k)) x V.",
+    "excerpt": "Attention works by comparing the Query (Q) of each word with the Key (K) of every word to get scores, turning those scores into weights using softmax, and then using the weights to mix the Values (V). The formula is softmax(Q x K^T / sqrt(d_k)) x V.",
     "status": "success"
   },
   {

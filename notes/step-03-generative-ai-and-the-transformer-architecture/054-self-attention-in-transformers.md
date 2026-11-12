@@ -27,7 +27,9 @@ Self Attention lets every token in a sequence look at every other token (includi
 5. Softmax: each row sums to 1.
 6. Multiply by V -> context-enriched output.
 
-$$\text{Attention}(Q,K,V)=\text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V$$
+$$
+\text{Attention}(Q,K,V)=\text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+$$
 
 ### Example: "I love AI"
 Weights for token "I": I 0.070, love 0.707, AI 0.223 (7% self, 70.7% love, 22.3% AI). Full matrix (rows sum to 1):

@@ -31,14 +31,22 @@ $A=\begin{bmatrix}1&2&3\\4&5&6\end{bmatrix}$ (2x3), $B=\begin{bmatrix}7&8\\9&10\
 $C=\begin{bmatrix}58&64\\139&154\end{bmatrix}$. NumPy: `C = A @ B`, `C.shape` is (2, 2).
 
 ### Shape rule
-$$(m\times n)\,@\,(n\times p)=(m\times p)$$
+
+$$
+(m\times n)\,@\,(n\times p)=(m\times p)
+$$
+
 Inside numbers must match; outside numbers give the result shape. (2x3)@(3x2)=(2x2). Mismatch (2x3)@(2x3) raises `ValueError ... size 2 is different from 3`. Shape mismatches are among the most common errors in building networks; this rule is how to debug them.
 
 ### One layer = one matrix multiplication
 Input $x=[1,2,3]$; neuron 1 weights [2,1,0] bias 1; neuron 2 weights [0,1,3] bias -2.
 - Neuron 1: (2+2+0)+1 = 5; neuron 2: (0+2+9)-2 = 9.
 - Put each neuron's weights as a column of W (3x2): W = [[2,0],[1,1],[0,3]], b = [1,-2].
-$$\text{output}=xW+b$$
+
+$$
+\text{output}=xW+b
+$$
+
 x is 1x3, (1x3)@(3x2) = (1x2) = [4, 11]; add bias gives [5, 9]. Bias doesn't change shape. A 1,000-neuron layer is still one line; only W's shape changes: $W=(\#inputs)\times(\#neurons)$. (Some libraries store W transposed and flip before multiplying.) Activation comes after the multiplication and is kept separate. Deep network = many such layers, output of one is input of next.
 
 ### Many inputs at once

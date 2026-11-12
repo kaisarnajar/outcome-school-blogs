@@ -1,42 +1,37 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Outcome School AI Engineering Roadmap — Interactive Blog & Reading Tracker</title>
+    <title>AI Engineering Notes — Outcome School AI Engineer Roadmap</title>
     <meta
       name="description"
-      content="Interactive quantitative analysis, reading time tracker, and learning companion for all 166 articles in the AI Engineer Roadmap by Amit Shekhar (Outcome School)."
+      content="Revision notes with diagrams for every article in the AI Engineer Roadmap by Amit Shekhar (Outcome School), with reading-time analysis and a personal study tracker."
     />
-    <meta name="theme-color" content="#0a0d14" />
+    <meta name="theme-color" content="#fbfaf7" />
 
-    <!-- Google Fonts: Inter, Outfit, JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Favicon SVG -->
     <link
       rel="icon"
       type="image/svg+xml"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%236366f1'/><path d='M30 70 L50 25 L70 70 Z' fill='none' stroke='white' stroke-width='8' stroke-linejoin='round'/><circle cx='50' cy='52' r='6' fill='%2338bdf8'/></svg>"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231d1c19'/><text x='32' y='45' font-family='Georgia,serif' font-weight='700' font-size='38' text-anchor='middle' fill='%23fbfaf7'>A</text></svg>"
     />
 
-    <!-- Prevent Theme Flash -->
+    <!-- Apply the saved / system theme before first paint (no flash) -->
     <script>
       (function () {
-        try {
-          var t = localStorage.getItem('outcome_blogs_theme');
-          if (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-            t = 'light';
-          }
-          if (t) {
-            document.documentElement.setAttribute('data-theme', t);
-          }
-        } catch (e) {}
+        var t;
+        try { t = localStorage.getItem('outcome_blogs_theme'); } catch (e) {}
+        if (t !== 'dark' && t !== 'light') {
+          t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', t);
       })();
     </script>
   </head>

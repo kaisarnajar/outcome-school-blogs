@@ -28,7 +28,9 @@ A TPU (Tensor Processing Unit) is a Google-built chip specialised for machine le
 ### The core operation
 Matrix multiplication reduces to multiply-and-accumulate. Example: inputs 2, 3, 4 and weights 5, 6, 7:
 
-$$(2\times5)+(3\times6)+(4\times7)=10+18+28=56$$
+$$
+(2\times5)+(3\times6)+(4\times7)=10+18+28=56
+$$
 
 A neural network does this billions of times, so a chip that does MAC extremely fast wins.
 

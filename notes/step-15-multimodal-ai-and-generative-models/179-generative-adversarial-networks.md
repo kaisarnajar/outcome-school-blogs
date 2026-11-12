@@ -31,7 +31,11 @@ Counterfeiter (Generator) vs police (Discriminator). Early fakes are obvious; th
 - They pull opposite ways; equilibrium is score ~0.5 for everything (guessing), where the Generator has won.
 
 The classic objective summarising this:
-$$\min_G \max_D \; \mathbb{E}[\log D(x)] + \mathbb{E}[\log(1-D(G(z)))]$$
+
+$$
+\min_G \max_D \; \mathbb{E}[\log D(x)] + \mathbb{E}[\log(1-D(G(z)))]
+$$
+
 $x$ real sample, $z$ noise, $G(z)$ fake, $D(\cdot)$ real-probability.
 
 ### Code sketch

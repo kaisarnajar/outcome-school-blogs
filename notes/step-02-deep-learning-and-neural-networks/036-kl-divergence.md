@@ -21,7 +21,10 @@ KL Divergence is one number saying how different a guess distribution Q is from 
 3. **Weight by P(x)** — mistakes on common outcomes matter more.
 4. **Sum**.
 
-$$KL(P\|Q)=\sum_x P(x)\log\frac{P(x)}{Q(x)}$$
+$$
+KL(P\|Q)=\sum_x P(x)\log\frac{P(x)}{Q(x)}
+$$
+
 Weighted average of log ratio, weights = true chances. If P(x)=0 the term is 0; if Q(x)=0 where P says possible, it is infinite.
 
 ### Worked example
@@ -40,7 +43,11 @@ $KL(P\|Q)=0.4159+0-0.1386=0.2773$ nats. Code `np.sum(p*np.log(p/q))` prints KL(P
 3. **Not symmetric**: $KL(Q\|P)$ = -0.2079 + 0 + 0.5545 = 0.3466 vs 0.2773. Weights come from Q now (Q gives Rainy 0.4 vs P's 0.1), so the big Rainy error weighs more. Hence "divergence", not "distance".
 
 ### Relation to cross-entropy
-$$KL(P\|Q)=H(P,Q)-H(P)$$
+
+$$
+KL(P\|Q)=H(P,Q)-H(P)
+$$
+
 From log(P/Q) = log P - log Q. KL = extra surprise from using Q instead of P. Check: H(P) = 0.3065+0.3612+0.2303 = about 0.898; H(P,Q) = 0.7224+0.3612+0.0916 = about 1.175; difference 0.277. In training P comes from data, so H(P) is fixed: minimizing cross-entropy = minimizing KL. For a one-hot label H(P)=0, so CE loss equals KL exactly.
 
 ### Where used

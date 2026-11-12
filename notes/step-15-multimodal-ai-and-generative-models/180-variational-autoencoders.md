@@ -31,12 +31,18 @@ Instead of "this 7 lives exactly at 1.5", say "around 1.5, give or take a little
 ### Reparameterization trick
 Sampling is random and blocks gradients, so backpropagation could not reach $\mu$ and $\sigma$. Rewrite:
 
-$$z=\mu+\sigma\cdot\epsilon,\quad \epsilon\sim\mathcal N(0,1)$$
+$$
+z=\mu+\sigma\cdot\epsilon,\quad \epsilon\sim\mathcal N(0,1)
+$$
 
 Randomness is isolated in $\epsilon$ (independent of the network); the path from $\mu,\sigma$ to z is plain multiply and add, so gradients flow. This is the heart of the VAE.
 
 ### Loss
-$$\text{Total Loss}=\text{Reconstruction Loss}+\text{KL Divergence Loss}$$
+
+$$
+\text{Total Loss}=\text{Reconstruction Loss}+\text{KL Divergence Loss}
+$$
+
 - Reconstruction pushes accurate rebuilds, spreading regions apart so inputs are not confused.
 - KL pulls every region towards the centre (standard normal), packing them together and removing gaps. Without KL the regions drift apart and gaps return.
 - The two oppose each other; the balance gives a space that is both accurate and smooth.

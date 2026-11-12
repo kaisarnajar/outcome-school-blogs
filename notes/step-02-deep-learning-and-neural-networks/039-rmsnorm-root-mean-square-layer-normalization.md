@@ -19,7 +19,11 @@ RMSNorm is LayerNorm with only the re-scaling step: divide by the root mean squa
 Introduced 2019 by Biao Zhang and Rico Sennrich ("Root Mean Square Layer Normalization"). Insight: most of LayerNorm's benefit comes from re-scaling, not re-centering. Mean shifts are absorbed by residual connections and learned projections in Transformers, so only scale needs a dedicated fix. LayerNorm controls shift and scale; RMSNorm only scale.
 
 ### Math
-$$RMS(x)=\sqrt{\tfrac1n\sum x_i^2},\qquad RMSNorm(x)=\gamma\odot\frac{x}{\sqrt{\text{mean}(x^2)+\epsilon}}$$
+
+$$
+RMS(x)=\sqrt{\tfrac1n\sum x_i^2},\qquad RMSNorm(x)=\gamma\odot\frac{x}{\sqrt{\text{mean}(x^2)+\epsilon}}
+$$
+
 Three steps: square, mean, sqrt. No beta (nothing was subtracted, so nothing to shift back).
 
 ### Numeric example

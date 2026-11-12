@@ -48,7 +48,9 @@ Training automatically places similar images close together (contrastive learnin
 ### Similarity
 Cosine similarity checks direction: near 1 = very similar, near 0 = unrelated, near -1 = opposite. A and B point almost the same way, so close to 1.
 
-$$\cos(a,b)=\frac{a\cdot b}{\lVert a\rVert\,\lVert b\rVert}$$
+$$
+\cos(a,b)=\frac{a\cdot b}{\lVert a\rVert\,\lVert b\rVert}
+$$
 
 ### Code
 ```python

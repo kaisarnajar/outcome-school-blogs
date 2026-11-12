@@ -43,7 +43,9 @@ GRPO (introduced by DeepSeek, used for their reasoning models) is an RL algorith
 
 Mean = (1+0+1+0)/4 = 0.5. In practice advantages are also divided by the group's standard deviation (normalization):
 
-$$A_i = \frac{r_i - \text{mean}(r)}{\text{std}(r)+\varepsilon}$$
+$$
+A_i = \frac{r_i - \text{mean}(r)}{\text{std}(r)+\varepsilon}
+$$
 
 ### Objective (three parts)
 1. **Policy ratio** — new vs old policy probability of each answer.

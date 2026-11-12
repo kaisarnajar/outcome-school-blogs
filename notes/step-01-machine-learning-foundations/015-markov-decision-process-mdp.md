@@ -33,7 +33,11 @@ Places: Kitchen (start), Hall, Corridor (long safe path), Dock (goal), Stairs (r
 The goal of RL is the best policy (most total reward on average).
 
 ### Return
-$$G = R_1 + \gamma R_2 + \gamma^2 R_3 + \gamma^3 R_4 + \dots$$
+
+$$
+G = R_1 + \gamma R_2 + \gamma^2 R_3 + \gamma^3 R_4 + \dots
+$$
+
 First reward counts fully; each later one is multiplied by gamma once more.
 Policy B run Kitchen, Hall, Corridor, Dock: rewards -1, -1, +10: -1 + 0.9(-1) + 0.81(10) = -1 - 0.9 + 8.1 = **6.2**. Python: sum `(gamma ** t) * r` over rewards.
 

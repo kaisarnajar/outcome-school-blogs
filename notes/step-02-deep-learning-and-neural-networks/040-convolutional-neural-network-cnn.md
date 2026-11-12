@@ -33,7 +33,11 @@ Real layers use many filters (32 or 64), each giving a feature map; color filter
 
 ### Stride, padding, size
 Stride 2 roughly halves the map. Padding of 1 turns 5x5 into 7x7 so the output stays 5x5 and edges are examined properly.
-$$\text{out}=\frac{\text{in}+2p-f}{s}+1$$
+
+$$
+\text{out}=\frac{\text{in}+2p-f}{s}+1
+$$
+
 Unpadded: (5+0-3)/1+1=3. Padded: (5+2-3)/1+1=5.
 
 ### ReLU

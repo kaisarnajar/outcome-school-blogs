@@ -17,7 +17,11 @@ Linear Regression predicts a continuous value (e.g. house price) with a straight
 ## How It Works
 
 ### Linear Regression
-$$y = w_1 x_1 + w_2 x_2$$
+
+$$
+y = w_1 x_1 + w_2 x_2
+$$
+
 x = input features, w = weights, y = predicted continuous value.
 - Finds the line (hyperplane in higher dimensions) that best fits the data by minimizing MSE between predicted and actual.
 - Output unbounded: can go below 0 or above 1.

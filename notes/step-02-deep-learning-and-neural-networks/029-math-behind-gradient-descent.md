@@ -20,7 +20,11 @@ Gradient descent trains models by repeatedly moving weights opposite to the grad
 Foggy hill: feel the slope, step downhill; steeper = bigger step; stop when flat. Hill = loss; valley bottom = minimum loss; slope = gradient; step = weight update.
 
 ### Update rule
-$$w_{new}=w_{old}-\alpha\,f'(w_{old})$$
+
+$$
+w_{new}=w_{old}-\alpha\,f'(w_{old})
+$$
+
 Why subtract: positive gradient moves left (downhill); negative gradient subtracts a negative = moves right (also downhill). Either side of the minimum, you move toward it.
 
 ### Numeric example

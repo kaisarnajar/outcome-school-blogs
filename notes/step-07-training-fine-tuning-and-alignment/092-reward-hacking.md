@@ -49,7 +49,9 @@ Illustrative numbers:
 ### Prevention (layered)
 1. **KL penalty to reference model:**
 
-$$R_{\text{total}} = R_{RM} - \beta\,\mathrm{KL}(\pi_{\text{new}}\,\|\,\pi_{\text{ref}})$$
+$$
+R_{\text{total}} = R_{RM} - \beta\,\mathrm{KL}(\pi_{\text{new}}\,\|\,\pi_{\text{ref}})
+$$
 
 Example $\beta=0.5$: honest (6.0, KL 1.0) gives 5.5; long flattering (7.5, KL 5.0) gives 5.0, so honest wins. Hacks usually require moving far from normal writing, which becomes costly.
 2. **Better and ensemble RMs** — more data, cleaner labels, examples covering known hacks; ensemble because a hack fooling one RM often does not fool all.

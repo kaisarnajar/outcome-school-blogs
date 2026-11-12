@@ -38,7 +38,9 @@ $e^x$ explodes: e^1=2.718, e^5=148.4, e^10=22,026, e^20=485,165,195, e^50 about 
 ### Why exactly $\sqrt{d_k}$
 Dividing by constant $c$ divides variance by $c^2$ (variance uses squared differences). Check: [2,4,6] has variance 2.67; divided by 2 -> [1,2,3] variance 0.67 = 2.67/4.
 
-$$\text{Var}\!\left(\frac{q\cdot k}{c}\right)=\frac{d_k}{c^2}=1\;\Rightarrow\;c=\sqrt{d_k}$$
+$$
+\text{Var}\!\left(\frac{q\cdot k}{c}\right)=\frac{d_k}{c^2}=1\;\Rightarrow\;c=\sqrt{d_k}
+$$
 
 After scaling: variance $d_k/d_k=1$ regardless of $d_k$. Chosen in "Attention Is All You Need".
 

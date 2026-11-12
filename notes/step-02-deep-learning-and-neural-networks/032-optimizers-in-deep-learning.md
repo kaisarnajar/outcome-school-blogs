@@ -19,14 +19,22 @@ All examples use loss $w^2$ (min at $w=0$, gradient $2w$), start $w=2$, lr 0.1.
 ## How It Works
 
 ### SGD
-$$w\leftarrow w-\eta\,g$$
+
+$$
+w\leftarrow w-\eta\,g
+$$
+
 "Stochastic" = random: gradient computed on a small random batch, much faster than the whole dataset.
 - Step 1: $g=4$, $w=2-0.1\cdot4=1.6$. Step 2: $g=3.2$, $w=1.6-0.32=1.28$.
 - Problems: **zig-zag** in long narrow valleys (steep across, gentle along: bounces between walls, slow along the floor); **slow in flat areas** (tiny gradient = tiny step). Each step only looks at the current gradient and forgets the past.
 
 ### Momentum
 Ball rolling downhill builds speed.
-$$v\leftarrow\beta v+g,\qquad w\leftarrow w-\eta v$$
+
+$$
+v\leftarrow\beta v+g,\qquad w\leftarrow w-\eta v
+$$
+
 $\beta\approx0.9$ keeps 90% of old velocity. Steps: $v=4$, $w=1.6$; then $v=0.9\cdot4+3.2=6.8$, $w=1.6-0.68=0.92$ (vs SGD 1.28 after two steps).
 - Fixes zig-zag: opposite side-to-side gradients cancel in velocity, along-valley gradients add up.
 - Fixes flat areas: velocity carries earlier speed.
@@ -34,7 +42,11 @@ $\beta\approx0.9$ keeps 90% of old velocity. Steps: $v=4$, $w=1.6$; then $v=0.9\
 
 ### RMSProp (Root Mean Square Propagation)
 Per-weight step size: divide gradient by typical recent gradient size.
-$$s\leftarrow\beta s+(1-\beta)g^2,\qquad w\leftarrow w-\eta\frac{g}{\sqrt{s}+\epsilon}$$
+
+$$
+s\leftarrow\beta s+(1-\beta)g^2,\qquad w\leftarrow w-\eta\frac{g}{\sqrt{s}+\epsilon}
+$$
+
 $s$ starts at 0, $\beta\approx0.9$, $\epsilon\approx10^{-8}$ avoids division by zero.
 Weights A ($g=4$) and B ($g=0.04$), lr 0.1:
 - A: $s=0.1\cdot16=1.6$, $\sqrt s=1.2649$, step $=0.1\cdot4/1.2649=0.3162$.
@@ -43,8 +55,15 @@ Same step despite 100x gradient difference; plain SGD would give 0.4 vs 0.004. L
 
 ### Adam (Adaptive Moment Estimation)
 Momentum average of gradients (direction/speed) + RMSProp average of squared gradients (per-weight scale):
-$$m\leftarrow\beta_1m+(1-\beta_1)g,\quad v\leftarrow\beta_2v+(1-\beta_2)g^2$$
-$$\hat m=\frac{m}{1-\beta_1^t},\quad \hat v=\frac{v}{1-\beta_2^t},\quad w\leftarrow w-\eta\frac{\hat m}{\sqrt{\hat v}+\epsilon}$$
+
+$$
+m\leftarrow\beta_1m+(1-\beta_1)g,\quad v\leftarrow\beta_2v+(1-\beta_2)g^2
+$$
+
+$$
+\hat m=\frac{m}{1-\beta_1^t},\quad \hat v=\frac{v}{1-\beta_2^t},\quad w\leftarrow w-\eta\frac{\hat m}{\sqrt{\hat v}+\epsilon}
+$$
+
 $\beta_1\approx0.9$, $\beta_2\approx0.999$, $t$ = step number.
 Bias correction: $m,v$ start at 0 so early values are much smaller than true gradients; dividing by $(1-\beta^t)$ corrects it, and as $t$ grows $\beta^t\to0$ so the correction vanishes.
 One step ($g=4$, $t=1$, lr 0.1): $m=0.4$, $v=0.016$; $\hat m=0.4/0.1=4$, $\hat v=0.016/0.001=16$; $w=2-0.1\cdot4/\sqrt{16}=1.9$. Without correction $m$ would be 0.4 instead of 4.
@@ -53,7 +72,11 @@ Code test: two weights at 2.0 with gradients $[2.0,0.02]\cdot w$ (100x apart), l
 
 ### AdamW
 Common for LLMs. In plain Adam, weight decay is added to the gradient, so it gets divided by $\sqrt{\hat v}$ and shrinking becomes uneven. AdamW applies decay separately:
-$$w\leftarrow w-\eta\frac{\hat m}{\sqrt{\hat v}+\epsilon}-\eta\,\lambda\,w$$
+
+$$
+w\leftarrow w-\eta\frac{\hat m}{\sqrt{\hat v}+\epsilon}-\eta\,\lambda\,w
+$$
+
 ($\lambda$ = weight decay) so every weight shrinks by the same fraction regardless of gradient size; models often generalize better.
 
 ### Comparison

@@ -37,7 +37,11 @@ State (e.g. game screen) goes into the network, which outputs raw scores (Left 0
 Change $\theta$ to increase expected return: high return means action more likely next time in that state; low return means less likely. "Gradient" = direction to change weights to increase something. Going up the gradient is gradient ascent.
 
 ### The formula
-$$\nabla J(\theta) \approx \nabla \log \pi(a|s)\cdot G,\qquad \theta \leftarrow \theta + \alpha\,\nabla \log \pi(a|s)\,G$$
+
+$$
+\nabla J(\theta) \approx \nabla \log \pi(a|s)\cdot G,\qquad \theta \leftarrow \theta + \alpha\,\nabla \log \pi(a|s)\,G
+$$
+
 - $\pi(a|s)$: probability given to the action actually taken; $\nabla\log\pi$: direction that makes that action more likely; $G$: return after it; $\alpha$: learning rate.
 - Exact gradient would need every possible game, so it is estimated from games actually played.
 - Large positive $G$ = strong push toward the action; small $G$ = small push; negative $G$ = push the opposite way.
@@ -74,7 +78,11 @@ theta = theta + lr * G * grad_log_pi
 
 ### Baseline subtraction
 Use $G-b$ instead of $G$ ($b$ e.g. average recent return):
-$$\theta \leftarrow \theta + \alpha\,\nabla\log\pi(a|s)\,(G-b)$$
+
+$$
+\theta \leftarrow \theta + \alpha\,\nabla\log\pi(a|s)\,(G-b)
+$$
+
 Returns 8, 10, 12 with baseline 10:
 | Return | G - b | Effect |
 |---|---|---|

@@ -51,7 +51,9 @@ Libraries do this in practice: `pd.get_dummies` (pandas), `OneHotEncoder` (sciki
 ### One-hot for the correct answer (classification)
 Photo of cat/dog/horse; model outputs probabilities (softmax) e.g. cat 0.7, dog 0.2, horse 0.1. Target for a cat photo is [1, 0, 0] (not 1,2,3, which adds fake order). Both vectors have same length so compare position by position:
 
-$$L = -\sum_i t_i \log(p_i)$$
+$$
+L = -\sum_i t_i \log(p_i)
+$$
 
 $t_i$ = target at position i, $p_i$ = predicted probability, log = natural log. With one-hot target all terms vanish except the correct class: $L = -\log(p_{\text{correct}})$.
 - cat = 0.7: loss = -log(0.7) = 0.36

@@ -17,7 +17,10 @@ Sliding window attention lets each token attend only to a fixed number of nearby
 ### Problem: full attention cost
 Connections = n x n: 100 words = 10,000; 1,000 words = 1,000,000. 10x longer text = 100x work (quadratic); double text = 4x work. Slow and memory-hungry for books or long documents. Classroom analogy: speaker looking at all 10,000 students versus the few neighbors.
 
-$$\text{Full attention cost} \propto n^2 \qquad \text{Sliding window cost} \propto n \cdot w$$
+$$
+\text{Full attention cost} \propto n^2 \qquad \text{Sliding window cost} \propto n \cdot w
+$$
+
 $n$ = text length, $w$ = window size (fixed). Linear growth: 10x text = 10x work.
 
 ### Walkthrough
@@ -35,7 +38,9 @@ Window slides one step each time.
 ### Far-away information via layers
 Word 100 can't see word 1 directly, but layers pass info along neighbors: layer 1 A tells B; layer 2 B (knowing A) tells C; layer 3 C tells D, so D indirectly learns of A. Reach: if window looks 4 back per layer, 1 layer = 4, 2 layers = about 8, 10 layers = about 40 words back.
 
-$$\text{reach} \approx \text{layers} \times \text{window}$$
+$$
+\text{reach} \approx \text{layers} \times \text{window}
+$$
 
 ### Normal vs sliding
 | Point | Normal | Sliding window |

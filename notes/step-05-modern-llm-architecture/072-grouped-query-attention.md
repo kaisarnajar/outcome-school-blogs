@@ -37,7 +37,10 @@ Steps:
 - 1 < groups < heads: GQA.
 Changing group count tunes the quality/memory trade-off.
 
-$$\text{Heads per group}=\frac{\text{num\_attention\_heads}}{\text{num\_key\_value\_heads}}$$
+$$
+\text{Heads per group}=\frac{\text{num\_attention\_heads}}{\text{num\_key\_value\_heads}}
+$$
+
 Example: 32 query heads, 8 KV heads = 8 groups of 4.
 
 ### Comparison

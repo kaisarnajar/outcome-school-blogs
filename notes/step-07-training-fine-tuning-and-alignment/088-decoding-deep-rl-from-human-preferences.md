@@ -28,7 +28,9 @@ Human sees two clips and has four buttons: clip 1, clip 2, equal, cannot tell. N
 2. Clip total = sum of step rewards (no special clip model).
 3. Bradley-Terry:
 
-$$P(\text{clip 1 preferred}) = \frac{e^{R_1}}{e^{R_1} + e^{R_2}}$$
+$$
+P(\text{clip 1 preferred}) = \frac{e^{R_1}}{e^{R_1} + e^{R_2}}
+$$
 
 where $R_i$ is the sum of predicted step rewards in clip $i$.
 
@@ -38,7 +40,9 @@ Example: clip 1 steps [1,0,1] gives 2; clip 2 [0,0,1] gives 1. $e^2=7.389$, $e^1
 Cross-entropy: if the human picked clip 1, loss $=-\log P(\text{clip 1 preferred})$.
 - Model says 0.731: loss = 0.313. Model says 0.20: loss = 1.609 (bigger when it disagrees).
 
-$$\text{loss} = -\log\frac{e^{R_{\text{picked}}}}{e^{R_1}+e^{R_2}}$$
+$$
+\text{loss} = -\log\frac{e^{R_{\text{picked}}}}{e^{R_1}+e^{R_2}}
+$$
 
 Note: numbers like [1,0,1] are illustrative. Real clips have many more steps and the network outputs arbitrary real values; the math is identical.
 

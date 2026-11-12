@@ -40,7 +40,11 @@ Making a model more flexible lowers bias but makes it sensitive to noise (varian
 | Very complex | Low | High | High |
 
 ### Decomposition
-$$\text{Total Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}$$
+
+$$
+\text{Total Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Error}
+$$
+
 Bias squared because errors are measured as squared differences (so positive and negative do not cancel). Exact formula holds for squared-error (typical numeric prediction); the idea stays for other problems. Irreducible error is a floor, so we minimise Bias^2 + Variance.
 
 ### Code experiment

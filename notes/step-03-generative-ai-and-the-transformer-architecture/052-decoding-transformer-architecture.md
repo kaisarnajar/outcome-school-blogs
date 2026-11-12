@@ -35,7 +35,9 @@ Example: "The cat sat on the mat because it was tired." — "it" should focus on
 3. Softmax -> probabilities summing to 1.
 4. Weighted mix of Values.
 
-$$\text{Attention}(Q,K,V)=\text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V$$
+$$
+\text{Attention}(Q,K,V)=\text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+$$
 
 Attention lets each token borrow information from relevant tokens. Multi-head = team of editors (grammar, facts, flow) on the same text.
 

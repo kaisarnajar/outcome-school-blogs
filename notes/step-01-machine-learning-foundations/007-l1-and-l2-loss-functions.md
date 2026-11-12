@@ -11,7 +11,11 @@ L1 and L2 are loss functions used to minimize error. L1 sums absolute difference
 - **Outlier** — data point far from the rest; heavily distorts squared error.
 
 ## How It Works
-$$L1 = \sum_i |y_i - \hat{y}_i| \qquad L2 = \sum_i (y_i - \hat{y}_i)^2$$
+
+$$
+L1 = \sum_i |y_i - \hat{y}_i| \qquad L2 = \sum_i (y_i - \hat{y}_i)^2
+$$
+
 $y_i$ = true value, $\hat{y}_i$ = predicted value.
 
 ### Choosing between them

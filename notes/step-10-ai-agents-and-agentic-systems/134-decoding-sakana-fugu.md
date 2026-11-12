@@ -30,13 +30,17 @@ Sakana Fugu (Sakana AI, Tokyo; "Sakana Fugu Technical Report") is a family of or
 ### Stage 1: Supervised fine-tuning (SFT)
 Collect questions with known answers; run every worker several times; average reward in [0,1] per model. Example: GPT 0.9, Opus 0.6, Gemini 0.3. A hard label ("GPT") loses information, so make a soft target via softmax:
 
-$$p(j)=\frac{\exp(r_j/T)}{\sum_{j'}\exp(r_{j'}/T)}$$
+$$
+p(j)=\frac{\exp(r_j/T)}{\sum_{j'}\exp(r_{j'}/T)}
+$$
 
 $r_j$ = average reward, $T$ = temperature (small $T$ = sharper, large $T$ = flatter). With $T=1$: exp = 2.460, 1.822, 1.350; sum 5.632; target = (0.437, 0.324, 0.240) — GPT best about 44%, Opus a strong backup about 32%.
 
 Fugu's selection scores pass through softmax to give $\pi(\cdot|q)$; loss is KL divergence averaged over questions:
 
-$$L_{SFT}=\text{avg}_q\, D_{KL}(p\,\|\,\pi(\cdot|q)),\quad D_{KL}=\sum_j p(j)\ln\frac{p(j)}{\pi(j)}$$
+$$
+L_{SFT}=\text{avg}_q\, D_{KL}(p\,\|\,\pi(\cdot|q)),\quad D_{KL}=\sum_j p(j)\ln\frac{p(j)}{\pi(j)}
+$$
 
 Example with prediction (0.5, 0.3, 0.2): terms -0.059 + 0.025 + 0.044 = about 0.010 (small since close); equals 0 when distributions match.
 
@@ -44,7 +48,9 @@ Example with prediction (0.5, 0.3, 0.2): terms -0.059 + 0.025 + 0.044 = about 0.
 Real tasks are multi-turn (read repo, edit, run tools, retry) and give only one final reward (1 done / 0 not), so gradient training fits poorly. Evolution: try variations, keep best, move toward them; no gradients.
 Toy example: parent $\theta=0$, $\sigma=1$, population 4 with nudges z = 0.5, -0.3, 1.0, -0.8; fitness 0.8, 0.5, 0.9, 0.2; keep top 2 (z=1.0, z=0.5), weights 0.7 and 0.3: new $\theta = 0+1\cdot(0.7\cdot1.0+0.3\cdot0.5)=0.85$.
 
-$$\theta_k=\theta_t+\sigma_t D_t z_k,\qquad \theta_{next}=\theta_t+\sigma_t D_t\sum_j w_j z_j$$
+$$
+\theta_k=\theta_t+\sigma_t D_t z_k,\qquad \theta_{next}=\theta_t+\sigma_t D_t\sum_j w_j z_j
+$$
 
 $\sigma_t$ step size, $D_t$ diagonal scaling per direction, $z$ normal random nudge, $w_j$ weights for top candidates. "sep" = separable: only diagonal $D_t$, tunes each value on its own, cheap for many values. Same method trained Trinity.
 
@@ -54,7 +60,9 @@ Writes an **agentic workflow**, a sequence of steps each with: subtask (plain-la
 ### Training Fugu-Ultra: GRPO
 Reinforcement learning (Group Relative Policy Optimization, from DeepSeekMath). Reward: r=0 malformed workflow, r=1 valid and correct, r=0.5 valid but wrong. For a question, write $G$ workflows, score relative to group (no separate judge network):
 
-$$A_i=\frac{r_i-\text{mean}(r_1..r_G)}{\text{std}(r_1..r_G)}$$
+$$
+A_i=\frac{r_i-\text{mean}(r_1..r_G)}{\text{std}(r_1..r_G)}
+$$
 
 Example $G=4$, rewards 1.0, 0.5, 0.5, 0.0: mean 0.5, variance 0.125, std 0.354; advantages +1.41, 0, 0, -1.41. Correct plan reinforced, malformed discouraged. Full objective also has a clip (limits update size) and a KL term (paper trained Ultra without the KL term).
 

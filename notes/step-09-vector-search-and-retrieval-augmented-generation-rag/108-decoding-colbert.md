@@ -41,7 +41,11 @@ flowchart TD
 Shared BERT with markers: [Q] for queries (short queries padded with [MASK] up to fixed length; BERT fills them with useful extra terms = learned query expansion); [D] for docs (punctuation tokens dropped). Each token vector projected to 128 numbers and made unit-length, so cosine = dot product. Check: q1=[0.6,0.8,0], d1=[0.8,0.6,0] gives 0.48+0.48=0.96.
 
 ### MaxSim
-$$S(q,d)=\sum_i \max_j \; E_{q_i}\cdot E_{d_j}$$
+
+$$
+S(q,d)=\sum_i \max_j \; E_{q_i}\cdot E_{d_j}
+$$
+
 $E_{q_i}$ = i-th query token vector, $E_{d_j}$ = j-th doc token vector; for each query token take its best doc token, sum.
 
 Worked example: q1=[0.6,0.8,0], q2=[0,0.6,0.8]; d1=[0.8,0.6,0], d2=[0,0,1], d3=[1,0,0].

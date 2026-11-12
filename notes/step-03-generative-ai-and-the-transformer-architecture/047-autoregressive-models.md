@@ -18,7 +18,11 @@ An autoregressive model generates one token at a time, predicting the next from 
 
 ### Idea and math
 "I love AI": see "I", predict "love"; see "I love", predict "AI"; see all, predict end marker. Used by ChatGPT (text), WaveNet (audio), PixelCNN (pixels).
-$$P(x_1,\dots,x_n)=P(x_1)\,P(x_2|x_1)\,P(x_3|x_1,x_2)\cdots P(x_n|x_1,\dots,x_{n-1})$$
+
+$$
+P(x_1,\dots,x_n)=P(x_1)\,P(x_2|x_1)\,P(x_3|x_1,x_2)\cdots P(x_n|x_1,\dots,x_{n-1})
+$$
+
 $x_i$ tokens, $|$ means "given". Example: P("I love AI") = P("I")·P("love"|"I")·P("AI"|"I","love"). The model is trained to answer "given everything so far, what is the next token's probability?".
 
 ### Generation loop

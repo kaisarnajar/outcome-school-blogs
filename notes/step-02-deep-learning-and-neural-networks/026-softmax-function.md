@@ -19,7 +19,11 @@ Softmax turns a list of raw scores (logits) into probabilities in (0,1) that sum
 Scores 2.0, 1.0, 0.1 (sum 3.1) give 0.65, 0.32, 0.03 and seem fine. But for 3, 1, -2 (sum 2): 1.5, 0.5, -1.0 — above 1 and negative. For 2 and -2 the sum is 0 (division impossible). Negatives are the problem; first make all scores positive while preserving order.
 
 ### Formula
-$$\text{softmax}(x_i)=\frac{e^{x_i}}{\sum_{j=1}^{n}e^{x_j}}$$
+
+$$
+\text{softmax}(x_i)=\frac{e^{x_i}}{\sum_{j=1}^{n}e^{x_j}}
+$$
+
 Exponent makes all positive (exp(-2)=0.135, exp(-100) tiny positive) and monotonic; division makes them sum to 1.
 
 ### Worked example (Cat 2.0, Dog 1.0, Bird 0.1)

@@ -36,7 +36,9 @@ Points to note:
 5. Softmax: each row sums to 1.
 6. Multiply by V: new vector per decoder position, enriched with relevant input info; decoder uses it to predict the next word.
 
-$$\text{Attention}(Q,K,V)=\text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V$$
+$$
+\text{Attention}(Q,K,V)=\text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+$$
 
 Same math as Self Attention; difference is where Q, K, V come from.
 

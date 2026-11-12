@@ -29,7 +29,11 @@ Cat example: T = 1 → cat 0.95, dog 0.04, car 0.005, horse 0.005. T = 4 → cat
 Student does two things:
 1. Match the teacher's soft labels (KL divergence) → distillation loss.
 2. Get the true hard label right → normal loss; keeps the student grounded so it does not blindly copy teacher mistakes.
-$$L_{total} = w \cdot L_{distill} + (1-w)\cdot L_{normal}$$
+
+$$
+L_{total} = w \cdot L_{distill} + (1-w)\cdot L_{normal}
+$$
+
 $w$ is a chosen weight (often larger on the teacher's soft labels, where the extra knowledge is).
 
 ### Training walkthrough (animal photos)

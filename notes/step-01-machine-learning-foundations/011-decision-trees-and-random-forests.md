@@ -22,7 +22,11 @@ A Decision Tree predicts by asking a chain of yes/no questions, choosing at each
 Walk root to leaf. Example (cricket): not raining, not holiday, homework done: raining? No, holiday? No, homework? Yes, leaf Play Cricket.
 
 ### Learning the best question: Gini
-$$\text{Gini} = 1 - p_{yes}^2 - p_{no}^2$$
+
+$$
+\text{Gini} = 1 - p_{yes}^2 - p_{no}^2
+$$
+
 $p$ = share of each answer in the group. 4 Yes/0 No gives 0 (pure); 2/2 gives 0.5 (max for two answers). Choose the split with the lowest weighted average Gini (bigger groups weigh more).
 
 Training data: 10 days, 6 Yes and 4 No; Gini before split = 1 - 0.36 - 0.16 = 0.48.

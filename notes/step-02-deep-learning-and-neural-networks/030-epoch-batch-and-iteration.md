@@ -31,12 +31,20 @@ Batches: update after each small group, so improvement starts after the first gr
 ### Example (1000 photos, batch size 100, 5 epochs)
 - 10 batches; 10 iterations see every photo once = 1 epoch. Iteration count keeps rising across epochs (epoch 2 = iterations 11 to 20, epoch 5 = 41 to 50).
 - Shuffle before each epoch so batches differ and the model doesn't learn from order.
-$$\text{iterations/epoch}=\frac{N}{B}=\frac{1000}{100}=10,\qquad \text{total}=10\times5=50$$
+
+$$
+\text{iterations/epoch}=\frac{N}{B}=\frac{1000}{100}=10,\qquad \text{total}=10\times5=50
+$$
+
 50 updates; each photo seen 5 times.
 
 ### Uneven division
 1050 photos, batch 100: 10 full batches + one of 50 = 11 iterations.
-$$\text{iterations/epoch}=\lceil N/B\rceil=\lceil10.5\rceil=11$$
+
+$$
+\text{iterations/epoch}=\lceil N/B\rceil=\lceil10.5\rceil=11
+$$
+
 3 epochs = 33. Some tools can drop the last small batch (then 10 per epoch; 50 photos skipped that epoch).
 
 ### Batch vs mini-batch vs SGD

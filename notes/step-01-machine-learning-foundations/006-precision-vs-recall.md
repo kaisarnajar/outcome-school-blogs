@@ -25,14 +25,22 @@ TP and TN are correct decisions; FP and FN are mistakes.
 
 ### Precision
 Question: out of all emails flagged as spam, how many were spam?
-$$\text{Precision} = \frac{TP}{TP + FP}$$
+
+$$
+\text{Precision} = \frac{TP}{TP + FP}
+$$
+
 Example: flagged 10, 8 truly spam, 2 good: 8/10 = 80%.
 - High: when the filter says spam we can trust it; few good emails wrongly flagged.
 - Low: too many good emails flagged; important mail can get lost.
 
 ### Recall
 Question: out of all real spam, how many did we catch?
-$$\text{Recall} = \frac{TP}{TP + FN}$$
+
+$$
+\text{Recall} = \frac{TP}{TP + FN}
+$$
+
 Example: 20 real spam, caught 8, missed 12: 8/20 = 40%.
 - High: catches most spam.
 - Low: lots of spam slips into inbox.

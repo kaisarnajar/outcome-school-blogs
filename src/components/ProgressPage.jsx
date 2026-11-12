@@ -1,294 +1,201 @@
 import React, { useMemo, useState } from 'react';
-import { CheckCircle2, RotateCcw, Circle, Sparkles, Gauge, Search, X, ExternalLink, NotebookPen } from 'lucide-react';
-import blogsData from '../data/blogsData.json';
-import progressData from '../data/progressData.json';
-import { noteHref } from '../notes';
+import { Search, X, ExternalLink } from 'lucide-react';
+import { blogs, steps, totals, progressUpdated, fmtHours, STATUS } from '../lib/data';
 
-// Filters survive leaving the page (e.g. opening a note and coming back).
-const saved = { filter: 'all', step: 'all', search: '' };
+const saved = { filter: 'all', q: '' };
 
-const STATUS_META = {
-  mastered: { label: 'Mastered', cls: 'pg-mastered', Icon: CheckCircle2 },
-  revision: { label: 'Needs revision', cls: 'pg-revision', Icon: RotateCcw },
-  pending: { label: 'Not started', cls: 'pg-pending', Icon: Circle },
-  new: { label: 'New · not started', cls: 'pg-new', Icon: Sparkles },
-};
-
-function classify(entry) {
-  if (!entry) return 'new';
-  if (entry.status !== 'completed') return 'pending';
-  return entry.understanding === 100 ? 'mastered' : 'revision';
+function SegBar({ s, className = '' }) {
+  return (
+    <div className={`segbar ${className}`} aria-hidden="true">
+      {['mastered', 'revision', 'pending', 'new'].map((k) => (s[k] ? <span key={k} className={`st-${k}`} style={{ flexGrow: s[k] }} /> : null))}
+    </div>
+  );
 }
 
-function shortStep(step) {
-  const [num, rest] = step.split(':');
-  return { num: num.replace('Step ', ''), name: (rest || '').trim() };
+function Meter({ value, kind }) {
+  return (
+    <span className={`meter st-${kind}`} title={`Understanding ${value}%`}>
+      <span className="meter-track"><span className="meter-fill" style={{ width: `${value}%`, background: 'var(--c)' }} /></span>
+      <span className="meter-num">{value}%</span>
+    </span>
+  );
 }
 
 export default function ProgressPage() {
-  const [filter, setFilterState] = useState(saved.filter);
-  const [step, setStepState] = useState(saved.step);
-  const [search, setSearchState] = useState(saved.search);
-  const setFilter = (v) => setFilterState((saved.filter = v));
-  const setStep = (v) => setStepState((saved.step = v));
-  const setSearch = (v) => setSearchState((saved.search = v));
+  const [filter, setF] = useState(saved.filter);
+  const [q, setQ_] = useState(saved.q);
+  const setFilter = (v) => setF((saved.filter = v));
+  const setQ = (v) => setQ_((saved.q = v));
 
-  const items = useMemo(() => {
-    const byUrl = new Map(progressData.entries.map((e) => [e.url, e]));
-    return blogsData.map((b) => {
-      const entry = byUrl.get(b.url);
-      return {
-        ...b,
-        progress: entry || null,
-        kind: classify(entry),
-        notesUrl: noteHref(b),
-      };
+  const queue = useMemo(
+    () => blogs.filter((b) => b.status === 'revision').sort((a, b) => a.progress.understanding - b.progress.understanding || a.id - b.id),
+    []
+  );
+
+  const listed = useMemo(() => {
+    const query = q.trim().toLowerCase();
+    return blogs.filter((b) => {
+      if (filter === 'done' && !(b.status === 'mastered' || b.status === 'revision')) return false;
+      if (filter === 'todo' && !(b.status === 'pending' || b.status === 'new')) return false;
+      if ((filter === 'mastered' || filter === 'revision') && b.status !== filter) return false;
+      if (query && !(b.title.toLowerCase().includes(query) || (b.progress?.gap || '').toLowerCase().includes(query))) return false;
+      return true;
     });
-  }, []);
+  }, [filter, q]);
 
-  const totals = useMemo(() => {
-    const t = { mastered: 0, revision: 0, pending: 0, new: 0 };
-    items.forEach((i) => (t[i.kind] += 1));
-    const completed = t.mastered + t.revision;
-    const levels = items.filter((i) => i.progress?.understanding != null).map((i) => i.progress.understanding);
-    const avg = levels.length ? Math.round(levels.reduce((a, b) => a + b, 0) / levels.length) : 0;
-    const minsDone = items
-      .filter((i) => i.kind === 'mastered' || i.kind === 'revision')
-      .reduce((a, i) => a + (i.reading_time_mins || 0), 0);
-    const minsTotal = items.reduce((a, i) => a + (i.reading_time_mins || 0), 0);
-    return { ...t, completed, total: items.length, avg, minsDone, minsTotal };
-  }, [items]);
-
-  const steps = useMemo(() => {
-    const map = new Map();
-    items.forEach((i) => {
-      if (!map.has(i.step)) map.set(i.step, { step: i.step, items: [], mastered: 0, revision: 0, pending: 0, new: 0 });
-      const s = map.get(i.step);
-      s.items.push(i);
-      s[i.kind] += 1;
-    });
-    return Array.from(map.values());
-  }, [items]);
-
-  const visibleSteps = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    return steps
-      .filter((s) => step === 'all' || s.step === step)
-      .map((s) => ({
-        ...s,
-        visible: s.items.filter((i) => {
-          if (filter === 'completed' && !(i.kind === 'mastered' || i.kind === 'revision')) return false;
-          if (filter === 'not-started' && !(i.kind === 'pending' || i.kind === 'new')) return false;
-          if (filter !== 'all' && filter !== 'completed' && filter !== 'not-started' && i.kind !== filter) return false;
-          if (q && !(i.title.toLowerCase().includes(q) || (i.progress?.gap || '').toLowerCase().includes(q))) return false;
-          return true;
-        }),
-      }))
-      .filter((s) => s.visible.length > 0);
-  }, [steps, filter, step, search]);
-
-  const visibleCount = visibleSteps.reduce((a, s) => a + s.visible.length, 0);
-  const pct = (n) => Math.round((n / totals.total) * 100);
+  const grouped = steps.map((s) => ({ ...s, visible: listed.filter((b) => b.step === s.step) })).filter((s) => s.visible.length);
+  const updated = new Date(progressUpdated).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
   const chips = [
-    { key: 'all', label: 'All', count: totals.total },
-    { key: 'completed', label: 'Completed', count: totals.completed },
-    { key: 'mastered', label: 'Mastered', count: totals.mastered },
-    { key: 'revision', label: 'Needs revision', count: totals.revision },
-    { key: 'not-started', label: 'Not started', count: totals.pending + totals.new },
+    ['all', 'All', totals.count],
+    ['done', 'Studied', totals.done],
+    ['mastered', 'Mastered', totals.mastered],
+    ['revision', 'Needs revision', totals.revision],
+    ['todo', 'Not started', totals.pending + totals.new],
   ];
 
   return (
     <>
-      <header className="hero-section">
-        <div className="hero-pill">
-          <span className="dot" />
-          <span>Tracker last updated {new Date(progressData.updated).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-        </div>
-        <h1 className="hero-title">
-          My Study Progress <br />
-          <span className="gradient-text">AI Engineering Roadmap</span>
-        </h1>
-        <p className="hero-desc">
-          Which roadmap blogs I've completed, how well I understood each one, and what still needs another round.
-        </p>
-      </header>
-
-      <section className="pg-overview" aria-label="Overall progress">
-        <div className="pg-ring-card">
-          <div className="pg-ring" style={{ '--p': pct(totals.completed) }}>
-            <div className="pg-ring-inner">
-              <div className="pg-ring-num">{pct(totals.completed)}%</div>
-              <div className="pg-ring-label">complete</div>
+      <section className="hero">
+        <div className="wrap">
+          <span className="eyebrow">Study progress · updated {updated}</span>
+          <div className="progress-hero" style={{ marginTop: 18 }}>
+            <div>
+              <div className="big-pct">{totals.pct}<small>% studied</small></div>
+              <p className="lead" style={{ marginTop: 18 }}>
+                {totals.done} of {totals.count} articles read — about {Math.round(totals.minsDone / 60)} of {Math.round(totals.mins / 60)} hours.
+                Average understanding across them is <b style={{ color: 'var(--ink)' }}>{totals.avg}%</b>.
+              </p>
+            </div>
+            <div className="progress-summary">
+              <SegBar s={totals} />
+              <div className="legend">
+                {['mastered', 'revision', 'pending', 'new'].map((k) => (
+                  <span key={k} className={`status st-${k}`}>{STATUS[k].label}<b>{totals[k]}</b></span>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="pg-ring-meta">
-            <div className="pg-ring-title">
-              <strong>{totals.completed}</strong> of {totals.total} blogs
-            </div>
-            <div className="pg-ring-sub">
-              ~{Math.round(totals.minsDone / 60)} of {Math.round(totals.minsTotal / 60)} reading hours done
-            </div>
-            <div className="pg-stack" role="img" aria-label="Progress breakdown">
-              {['mastered', 'revision', 'pending', 'new'].map((k) =>
-                totals[k] ? <span key={k} className={`pg-seg ${STATUS_META[k].cls}`} style={{ flexGrow: totals[k] }} title={`${STATUS_META[k].label}: ${totals[k]}`} /> : null
-              )}
-            </div>
-            <div className="pg-legend">
-              {['mastered', 'revision', 'pending', 'new'].map((k) => (
-                <span key={k} className="pg-legend-item">
-                  <span className={`pg-dot ${STATUS_META[k].cls}`} />
-                  {STATUS_META[k].label} <strong>{totals[k]}</strong>
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="stats-grid pg-stats">
-          <div className="stat-card accent-emerald">
-            <div className="stat-header"><span className="stat-label">Mastered</span><div className="stat-icon"><CheckCircle2 size={18} /></div></div>
-            <div className="stat-value">{totals.mastered}</div>
-            <div className="stat-subtext">Completed at 100% understanding</div>
-          </div>
-          <div className="stat-card accent-amber">
-            <div className="stat-header"><span className="stat-label">Needs revision</span><div className="stat-icon"><RotateCcw size={18} /></div></div>
-            <div className="stat-value">{totals.revision}</div>
-            <div className="stat-subtext">Completed, below 100%</div>
-          </div>
-          <div className="stat-card accent-cyan">
-            <div className="stat-header"><span className="stat-label">Not started</span><div className="stat-icon"><Circle size={18} /></div></div>
-            <div className="stat-value">{totals.pending + totals.new}</div>
-            <div className="stat-subtext">{totals.new} newly added to the roadmap</div>
-          </div>
-          <div className="stat-card accent-purple">
-            <div className="stat-header"><span className="stat-label">Avg understanding</span><div className="stat-icon"><Gauge size={18} /></div></div>
-            <div className="stat-value">{totals.avg}%</div>
-            <div className="stat-subtext">Across completed blogs</div>
+          <div className="figures">
+            <div className="figure"><div className="figure-num">{totals.mastered}</div><div className="figure-label">mastered at 100%</div></div>
+            <div className="figure"><div className="figure-num">{totals.revision}</div><div className="figure-label">need another round</div></div>
+            <div className="figure"><div className="figure-num">{totals.pending + totals.new}</div><div className="figure-label">not started ({totals.new} new)</div></div>
+            <div className="figure"><div className="figure-num">{totals.avg}<small>%</small></div><div className="figure-label">average understanding</div></div>
           </div>
         </div>
       </section>
 
-      <section className="pg-steps" aria-label="Progress by step">
-        <h2 className="pg-section-title">Progress by step</h2>
-        <div className="pg-step-grid">
-          {steps.map((s) => {
-            const done = s.mastered + s.revision;
-            const { num, name } = shortStep(s.step);
-            const active = step === s.step;
-            return (
-              <button
-                key={s.step}
-                className={`pg-step-card${active ? ' active' : ''}`}
-                onClick={() => setStep(active ? 'all' : s.step)}
-                title={active ? 'Show all steps' : `Show only ${s.step}`}
-              >
-                <div className="pg-step-head">
-                  <span className="pg-step-num">{num}</span>
-                  <span className="pg-step-name">{name}</span>
-                  <span className="pg-step-count">{done}/{s.items.length}</span>
-                </div>
-                <div className="pg-stack small">
-                  {['mastered', 'revision', 'pending', 'new'].map((k) =>
-                    s[k] ? <span key={k} className={`pg-seg ${STATUS_META[k].cls}`} style={{ flexGrow: s[k] }} /> : null
-                  )}
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="control-bar pg-controls">
-        <div className="search-and-selects">
-          <div className="search-box-wrapper">
-            <Search size={16} className="search-icon-inside" />
-            <input
-              className="search-input"
-              placeholder="Search titles or what I haven't understood…"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            {search && (
-              <button className="clear-search-btn" onClick={() => setSearch('')} aria-label="Clear search">
-                <X size={14} />
-              </button>
-            )}
+      <div className="wrap" style={{ paddingBottom: 96 }}>
+        <section className="section">
+          <div className="section-head">
+            <div>
+              <h2>Revision queue</h2>
+              <p>Everything below 100%, weakest first — with what I noted as still unclear.</p>
+            </div>
+            <span className="muted" style={{ fontSize: 13 }}>{queue.length} articles</span>
           </div>
-          <select className="select-dropdown" value={step} onChange={(e) => setStep(e.target.value)}>
-            <option value="all">All steps</option>
-            {steps.map((s) => (
-              <option key={s.step} value={s.step}>{s.step}</option>
+          <div className="queue">
+            {queue.slice(0, 12).map((b) => (
+              <div key={b.id} className="queue-card">
+                <div className="queue-top">
+                  <span>Step {b.stepInfo.num} · {b.mins} min</span>
+                  <Meter value={b.progress.understanding} kind="revision" />
+                </div>
+                <a href={b.href}>{b.title}</a>
+                {b.progress.gap && <p>{b.progress.gap}</p>}
+              </div>
             ))}
-          </select>
-        </div>
-        <div className="chips-group">
-          {chips.map((c) => (
-            <button key={c.key} className={`filter-chip${filter === c.key ? ' active' : ''}`} onClick={() => setFilter(c.key)}>
-              {c.label} <span className="chip-count">{c.count}</span>
-            </button>
-          ))}
-        </div>
-      </section>
-
-      <div className="results-meta-bar">
-        <div>Showing <strong>{visibleCount}</strong> of <strong>{totals.total}</strong> blogs</div>
-      </div>
-
-      {visibleSteps.length === 0 && (
-        <div className="empty-state">
-          <h3 className="empty-title">Nothing matches these filters</h3>
-          <button className="reset-filters-btn" onClick={() => { setFilter('all'); setStep('all'); setSearch(''); }}>Reset filters</button>
-        </div>
-      )}
-
-      {visibleSteps.map((s) => (
-        <section key={s.step} className="pg-group">
-          <h3 className="pg-group-title">
-            {s.step}
-            <span className="pg-group-count">{s.mastered + s.revision}/{s.items.length} done</span>
-          </h3>
-          <ul className="pg-list">
-            {s.visible.map((i) => {
-              const meta = STATUS_META[i.kind];
-              const lvl = i.progress?.understanding;
-              return (
-                <li key={i.id} className={`pg-row ${meta.cls}`}>
-                  <span className="pg-row-id">{i.id}</span>
-                  <div className="pg-row-main">
-                    <a className="pg-row-title" href={i.notesUrl} title="Open my short notes">
-                      {i.title}
-                    </a>
-                    {i.progress?.gap && <div className="pg-row-gap">{i.progress.gap}</div>}
-                  </div>
-                  <div className="pg-row-side">
-                    <span className={`pg-badge ${meta.cls}`}>
-                      <meta.Icon size={13} /> {meta.label}
-                    </span>
-                    {lvl != null && (
-                      <span className="pg-level" title={`Understanding: ${lvl}%`}>
-                        <span className="pg-level-track"><span className="pg-level-fill" style={{ width: `${lvl}%` }} /></span>
-                        <span className="pg-level-num">{lvl}%</span>
-                      </span>
-                    )}
-                    <span className="pg-row-links">
-                      <span className="pg-row-time">{i.reading_time_mins} min</span>
-                      {i.notesUrl && (
-                        <a href={i.notesUrl} title="My notes" className="pg-icon-link">
-                          <NotebookPen size={15} />
-                        </a>
-                      )}
-                      <a href={i.url} target="_blank" rel="noopener noreferrer" title="Read the blog" className="pg-icon-link">
-                        <ExternalLink size={15} />
-                      </a>
-                    </span>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+          </div>
+          {queue.length > 12 && (
+            <p style={{ marginTop: 14, fontSize: 13.5 }}>
+              <button className="text-btn" onClick={() => { setFilter('revision'); document.getElementById('all-articles')?.scrollIntoView({ behavior: 'smooth' }); }}>
+                See all {queue.length} in the list below
+              </button>
+            </p>
+          )}
         </section>
-      ))}
+
+        <section className="section">
+          <div className="section-head">
+            <div>
+              <h2>By step</h2>
+              <p>How far along each part of the curriculum is.</p>
+            </div>
+          </div>
+          <div className="step-table">
+            {steps.map((s) => (
+              <a key={s.id} className="step-row" href={`#/progress`} onClick={(e) => { e.preventDefault(); setFilter('all'); setQ(''); requestAnimationFrame(() => document.getElementById('p-' + s.id)?.scrollIntoView({ behavior: 'smooth' })); }}>
+                <span className="step-row-num">{s.num.padStart(2, '0')}</span>
+                <span className="step-row-name">{s.name}</span>
+                <SegBar s={s} />
+                <span className="step-row-count">{s.done}/{s.total}</span>
+                <span className="step-row-avg">{s.avg != null ? `avg ${s.avg}%` : '—'}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section className="section" id="all-articles">
+          <div className="section-head">
+            <div>
+              <h2>Every article</h2>
+              <p>Status, understanding and notes-to-self for all {totals.count}.</p>
+            </div>
+          </div>
+          <div className="toolbar">
+            <div className="search-field">
+              <Search size={16} />
+              <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search titles or what I haven't understood…" aria-label="Search progress" />
+              {q && <button className="icon-btn clear" style={{ width: 26, height: 26 }} onClick={() => setQ('')} aria-label="Clear"><X size={14} /></button>}
+            </div>
+          </div>
+          <div className="chips" role="group" aria-label="Filter by status">
+            {chips.map(([k, label, n]) => (
+              <button key={k} className="chip" aria-pressed={filter === k} onClick={() => setFilter(k)}>
+                {label} <span className="count">{n}</span>
+              </button>
+            ))}
+          </div>
+
+          {grouped.length === 0 && (
+            <div className="empty"><h3>Nothing matches</h3><button className="btn btn-sm" onClick={() => { setFilter('all'); setQ(''); }}>Clear filters</button></div>
+          )}
+
+          {grouped.map((s) => (
+            <section key={s.id} id={'p-' + s.id} className="step-section">
+              <div className="step-head">
+                <div>
+                  <span className="eyebrow">Step {s.num}</span>
+                  <h2>{s.name}</h2>
+                </div>
+                <div className="step-head-meta">{s.done} of {s.total} studied<br />{fmtHours(s.mins)} h of reading</div>
+              </div>
+              <ul className="post-list">
+                {s.visible.map((b) => (
+                  <li key={b.id} className="post">
+                    <span className="post-num">{String(b.id).padStart(3, '0')}</span>
+                    <div>
+                      <a href={b.href} className="post-title" style={{ fontSize: 17.5 }}>{b.title}</a>
+                      {b.progress?.gap && <div className="post-gap"><b>To revisit:</b> {b.progress.gap}</div>}
+                    </div>
+                    <div className="post-side">
+                      {b.progress?.understanding != null ? (
+                        <Meter value={b.progress.understanding} kind={b.status} />
+                      ) : (
+                        <span className={`status st-${b.status}`}>{STATUS[b.status].label}</span>
+                      )}
+                      <span className="post-meta">{b.mins} min read</span>
+                      <a className="post-ext" href={b.url} target="_blank" rel="noopener noreferrer" title="Read the original blog" aria-label={`Original: ${b.title}`}>
+                        <ExternalLink size={14} />
+                      </a>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </section>
+      </div>
     </>
   );
 }

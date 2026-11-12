@@ -21,13 +21,21 @@ $z_h=w_1x+b_1$, $a_h=\sigma(z_h)$, $z_o=w_2a_h+b_2$, $a_o=\sigma(z_o)$ (predicti
 
 ### Gradients via chain rule
 **$w_2$:**
-$$\frac{\partial L}{\partial w_2}=\frac{\partial L}{\partial a_o}\frac{\partial a_o}{\partial z_o}\frac{\partial z_o}{\partial w_2}=-(y-a_o)\,a_o(1-a_o)\,a_h$$
+
+$$
+\frac{\partial L}{\partial w_2}=\frac{\partial L}{\partial a_o}\frac{\partial a_o}{\partial z_o}\frac{\partial z_o}{\partial w_2}=-(y-a_o)\,a_o(1-a_o)\,a_h
+$$
+
 - $\partial L/\partial a_o=-(y-a_o)$
 - Sigmoid derivative: $a(1-a)$. Derivation: $a=(1+e^{-z})^{-1}$, derivative $e^{-z}/(1+e^{-z})^2$; and $1-a=e^{-z}/(1+e^{-z})$, so product $=a(1-a)$. Convenient: reuses $a_o$ from the forward pass.
 - $\partial z_o/\partial w_2=a_h$.
 
 **$w_1$** (longer chain):
-$$\frac{\partial L}{\partial w_1}=-(y-a_o)\,a_o(1-a_o)\,w_2\,a_h(1-a_h)\,x$$
+
+$$
+\frac{\partial L}{\partial w_1}=-(y-a_o)\,a_o(1-a_o)\,w_2\,a_h(1-a_h)\,x
+$$
+
 Uses $\partial z_o/\partial a_h=w_2$, $\partial a_h/\partial z_h=a_h(1-a_h)$, $\partial z_h/\partial w_1=x$. It reuses the error signal $\frac{\partial L}{\partial a_o}\frac{\partial a_o}{\partial z_o}$ from $w_2$ — the key insight and source of efficiency. (Long chains cause vanishing/exploding gradients.)
 
 **Biases:** last chain term is 1 instead of the input:
@@ -43,7 +51,11 @@ $x=0.5,\ y=1.0,\ w_1=0.3,\ b_1=0.1,\ w_2=0.7,\ b_2=0.2$ (4-decimal rounding).
 - Negative gradients mean both weights should increase.
 
 ### Weight update
-$$w_{new}=w_{old}-\eta\,\frac{\partial L}{\partial w}$$
+
+$$
+w_{new}=w_{old}-\eta\,\frac{\partial L}{\partial w}
+$$
+
 $\eta=0.5$: $w_2=0.7+0.0229=0.7229$; $w_1=0.3+0.0035=0.3035$. Learning rate too large overshoots, too small is slow. Repeat forward, loss, backward, update many times; the same loop runs in fine-tuning.
 
 ### Python (1000 epochs, one example)

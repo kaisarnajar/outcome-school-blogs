@@ -61,16 +61,14 @@
 
 ---
 
-## ⚡ React Application Features
+## ⚡ Web App Features
 
-- **Modern Tech Stack**: React 19 + Vite + Lucide Icons.
-- **Aesthetic Excellence**: Sleek dark and light modes, ambient radial glows, glassmorphism, responsive grid layouts.
-- **Standardized Reading Metrics**: Standard pace (200 WPM) calculates consistent estimated reading times across every article and cumulative steps.
-- **Multi-Filter Engine**: Filter by Roadmap Step, Reading Length (Quick, Standard, Deep, Comprehensive), and instant keyword search.
-- **Dual View Modes**: Switch between immersive **Card Grid** view and high-density sortable **Table** view.
-- **Deep-Dive Article Modal**: Inspect detailed prose metrics: word count, headings, code blocks, paragraphs, published dates, and excerpts.
-- **Exporting**: Download filtered datasets directly as CSV or JSON.
-- **Continuous Deployment**: Single-branch workflow (`main`) deployed automatically via GitHub Actions to GitHub Pages.
+- **Editorial design**: paper-and-ink light theme and a warm dark theme, serif type for reading (Source Serif 4), Inter for UI, one accent colour.
+- **Roadmap index**: every article grouped by step, with a sticky curriculum sidebar that tracks the step in view; filter by text, study status and length, sort, list/table views, CSV export.
+- **Notes pages** (`#/notes/<slug>`): revision notes with a TL;DR card, key-concept glossary, KaTeX math, theme-aware Mermaid diagrams, sticky "On this page" table of contents with scroll-spy, reading progress bar and previous/next navigation.
+- **Study progress** (`#/progress`): overall completion, a revision queue sorted weakest-first with "to revisit" notes, per-step progress and the full per-article list.
+- **Quick open**: press `⌘K` / `Ctrl K` (or `/`) to jump to any note.
+- **Continuous deployment**: pushing to `main` deploys to GitHub Pages via GitHub Actions.
 
 ---
 
@@ -108,4 +106,3 @@ python scrape_and_analyze.py
 - Original content & AI Engineer Roadmap by [Amit Shekhar](https://github.com/amitshekhariitbhu) ([Outcome School](https://outcomeschool.com)).
 - Web application & analysis engine created by Kaisar Najar.
 - Licensed under the [MIT License](LICENSE).
-So

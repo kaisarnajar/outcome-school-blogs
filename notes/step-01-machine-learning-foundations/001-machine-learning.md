@@ -21,7 +21,9 @@ Machine Learning gives computers the ability to learn from data without being ex
 ### Finding a pattern by hand
 Dataset (rows of x1, x2, y): (4,2,8), (1,2,5), (0,5,10), (2,1,4). The hidden pattern:
 
-$$y = w_1 x_1 + w_2 x_2,\quad w_1 = 1,\ w_2 = 2$$
+$$
+y = w_1 x_1 + w_2 x_2,\quad w_1 = 1,\ w_2 = 2
+$$
 
 - Built a linear model, then learned the weights by observing the data.
 - Predict for new input: x1=3, x2=4 gives y = 3 + 8 = 11.

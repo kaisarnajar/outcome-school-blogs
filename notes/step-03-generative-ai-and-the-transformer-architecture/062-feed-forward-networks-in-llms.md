@@ -24,7 +24,9 @@ Each Transformer layer = Multi-Head Attention -> Add & Norm -> FFN -> Add & Norm
 2. Activate: ReLU/GELU.
 3. Contract: $y=\text{act}(h)W_2+b_2$ (back to input dim).
 
-$$\text{FFN}(x)=\text{ReLU}(xW_1+b_1)W_2+b_2$$
+$$
+\text{FFN}(x)=\text{ReLU}(xW_1+b_1)W_2+b_2
+$$
 
 ### Expand-then-contract numbers
 - GPT-3 (175B): $d_{model}=12288$ -> 49152 -> 12288.
@@ -36,7 +38,11 @@ $$\text{FFN}(x)=\text{ReLU}(xW_1+b_1)W_2+b_2$$
 - **ReLU** $=\max(0,x)$: ReLU(5)=5, ReLU(-3)=0, ReLU(0)=0. Creates sparsity (many neurons inactive), neurons specialise. Original Transformer used it.
 - **GELU**: smoother, gradually reduces small negatives; used in GPT, BERT; reduces explicit sparsity but tends to improve performance.
 - **SwiGLU**: gating mechanism, used in LLaMA; tends to perform better.
-  $$\text{SwiGLU}(x)=(\text{Swish}(xW_1)\odot(xV))W_2$$
+
+  $$
+  \text{SwiGLU}(x)=(\text{Swish}(xW_1)\odot(xV))W_2
+  $$
+
   Three matrices ($W_1$, $V$, $W_2$), $\odot$ = element-wise product. To keep parameters similar, hidden dim cut from 4x to about 2.7x (LLaMA 2 7B: 11008/4096 = 2.69x). Not strict: LLaMA 2 70B has 28672 with $d_{model}$ 8192 = about 3.5x.
 - Evolution: ReLU -> GELU -> SwiGLU; core idea (non-linearity) unchanged.
 

@@ -44,7 +44,11 @@ One query = one angle. "Is the new phone good for gaming?" needs processor, refr
 1. User question. 2. LLM makes (e.g.) 3 queries: processor/graphics; display refresh rate/touch; heating/battery. 3. Search each. 4. Merge, dedupe. 5. LLM answers with merged chunks + original question. Many systems keep the original question as one of the queries (never lose a plain search's results, and backup against bad rewrite). Also handles many-in-one via decomposition: "phone A battery life", "phone A price", "phone B battery life", "phone B price". (Lost key: three people searching different rooms.)
 
 ### Merging with RRF
-$$\text{RRF}(d)=\sum_{\text{lists}} \frac{1}{k+\text{rank}(d)}$$
+
+$$
+\text{RRF}(d)=\sum_{\text{lists}} \frac{1}{k+\text{rank}(d)}
+$$
+
 rank = position (1 = top), k = constant, commonly 60. Needs only positions, not raw scores, so it also merges keyword + semantic results (common in Hybrid Search).
 
 Example (k = 60): Q1 [D2,D5,D1], Q2 [D5,D3,D2], Q3 [D5,D2,D4].

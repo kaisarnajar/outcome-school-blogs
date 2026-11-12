@@ -32,7 +32,9 @@ Generating an image from scratch is hard: millions of pixels must be right or th
 ### Forward process
 Start with x_0, add small noise to get x_1, x_2, ..., x_T (about 1000 steps) until pure noise. Noise amount per step is small and controlled by the noise schedule. Mixing in code:
 
-$$x_t=\sqrt{\bar\alpha_t}\,x_0+\sqrt{1-\bar\alpha_t}\,\epsilon$$
+$$
+x_t=\sqrt{\bar\alpha_t}\,x_0+\sqrt{1-\bar\alpha_t}\,\epsilon
+$$
 
 $\bar\alpha_t$ near 1 = mostly clean, near 0 = mostly noise; $\epsilon$ is random noise.
 

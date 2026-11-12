@@ -23,7 +23,9 @@ Temperature is one number that divides the model's raw scores (logits) before so
 ### Where Temperature enters
 Applied to scores just before softmax:
 
-$$\text{New Score} = \frac{\text{Score}}{T}$$
+$$
+\text{New Score} = \frac{\text{Score}}{T}
+$$
 
 - $T=1$: no change (model's natural, as-trained behavior).
 - $T<1$ (e.g. 0.5): scores multiplied, gaps grow, top token dominates.

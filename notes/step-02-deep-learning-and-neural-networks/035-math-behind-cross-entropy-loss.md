@@ -19,7 +19,11 @@ Cross-entropy loss measures how wrong predicted probabilities are versus the tru
 ## How It Works
 
 ### Formula
-$$CE = -\sum_i y_i \log p_i \;\;\Rightarrow\;\; CE = -\log p_{correct}$$
+
+$$
+CE = -\sum_i y_i \log p_i \;\;\Rightarrow\;\; CE = -\log p_{correct}
+$$
+
 $y_i$ true label (1 or 0), $p_i$ predicted probability, natural log. Pipeline: logits then softmax then $-\log$ of correct class's probability (e.g. z=[2,3,1] gives p=[0.24,0.66,0.09], loss 0.4076). Training minimizes it via gradient descent.
 
 ### Why negative log
@@ -28,7 +32,11 @@ $y_i$ true label (1 or 0), $p_i$ predicted probability, natural log. Pipeline: l
 - **Why negative**: log of a probability is negative; flip to get positive loss. p=0.9 gives 0.105; p=0.1 gives 2.303; p=1 gives 0; p near 0 gives near infinity.
 
 ### Binary cross-entropy (sigmoid, two classes)
-$$BCE = -[y\log p + (1-y)\log(1-p)]$$
+
+$$
+BCE = -[y\log p + (1-y)\log(1-p)]
+$$
+
 Only one term is active. y=1, p=0.8 gives 0.223; y=1, p=0.2 gives 1.609.
 
 ### Categorical cross-entropy (softmax, multi-class)
@@ -50,7 +58,11 @@ Practice: frameworks fuse softmax + CE (PyTorch `CrossEntropyLoss`, TF `softmax_
 Predict next token over a 50,000+ vocabulary; true label is one-hot of the actual token. Sequence loss = average of $-\log p_{actual}$ over N positions (e.g. "The cat sat on the mat": average over cat, sat, on, the, mat). Perplexity = exp(avg CE); lower is better.
 
 ### Gradient
-$$\frac{\partial CE}{\partial z_i} = p_i - y_i$$
+
+$$
+\frac{\partial CE}{\partial z_i} = p_i - y_i
+$$
+
 Example: p=[0.2447,0.6652,0.0900], y=[0,1,0] gives [0.2447, -0.3348, 0.0900]: positive lowers cat/rabbit scores, negative raises dog. Clean, no chain-rule blow-up or vanishing from the loss; it is the starting point of backpropagation. This is why softmax + CE is the default pairing.
 
 ### FAQ

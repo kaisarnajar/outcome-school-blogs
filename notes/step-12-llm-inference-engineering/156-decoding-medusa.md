@@ -36,7 +36,11 @@ flowchart TD
 
 ### Speedup math
 Normal: 1 token per pass, 6 tokens = 6 passes. Medusa: each round guesses 4 tokens; if on average 3 are accepted, 2 rounds give 6 tokens = 2 passes, 3x faster.
-$$\text{speedup} = \text{average accepted tokens per pass}$$
+
+$$
+\text{speedup} = \text{average accepted tokens per pass}
+$$
+
 2.5 accepted per pass means about 2.5x. Numbers (3 heads, 3 accepted) are illustrative; real setups tune number of heads and tree shape.
 
 ### Results

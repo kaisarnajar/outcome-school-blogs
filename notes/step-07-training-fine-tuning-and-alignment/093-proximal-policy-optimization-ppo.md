@@ -22,7 +22,9 @@ PPO is a reinforcement learning algorithm that improves a policy in small, safe 
 ### Clipping and objective
 If ratio is too far from 1, clip it. Example: new policy wants an action 3x more (ratio 3), so it is clipped to 1.2.
 
-$$L = \min\big(\rho\,A,\; \text{clip}(\rho,\,1-\epsilon,\,1+\epsilon)\,A\big)$$
+$$
+L = \min\big(\rho\,A,\; \text{clip}(\rho,\,1-\epsilon,\,1+\epsilon)\,A\big)
+$$
 
 $\rho$ = ratio, $A$ = advantage, $\epsilon$ = 0.2. The `min` takes the smaller of normal and clipped update, which prevents large jumps even if data suggests a big change. For positive advantage and a very high ratio, the clipped value is smaller and gets used: right direction, small step.
 

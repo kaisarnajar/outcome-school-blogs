@@ -18,7 +18,11 @@ KV Cache Compression is a set of techniques that shrink the memory an LLM uses t
 
 ### Why the cache gets huge
 Example (close to Llama 2): 32 layers, 32 heads, K = 128 numbers, V = 128 numbers per head, 16 bits (2 bytes) each.
-$$\text{per token} = 2 \times \text{layers} \times \text{heads} \times \text{head\_dim} \times \text{bytes}$$
+
+$$
+\text{per token} = 2 \times \text{layers} \times \text{heads} \times \text{head\_dim} \times \text{bytes}
+$$
+
 - Per head: 256 numbers; x32 heads = 8,192; x32 layers = 262,144 numbers; x2 bytes = 524,288 bytes = **0.5 MB per token**.
 - 4,000-token chat = 2 GB. 100,000-token document = 50 GB for one user.
 - GPUs have 24-80 GB, and a big part is already taken by the model. 100 concurrent users means far beyond any GPU.

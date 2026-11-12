@@ -16,11 +16,19 @@ An LLM's GPU memory is used by three things: VRAM = weights + KV cache + overhea
 ## How It Works
 
 ### Weights
-$$\text{weights memory} = \text{params} \times \text{bytes per weight}$$
+
+$$
+\text{weights memory} = \text{params} \times \text{bytes per weight}
+$$
+
 7B x 2 bytes = 14 billion bytes, which is about 13 GB (divide by 1024^3). So loading a 7B FP16 model needs about 13 GB VRAM.
 
 ### KV cache
-$$\text{KV bytes} = 2 \times \text{tokens} \times \text{layers} \times \text{hidden size} \times \text{bytes}$$
+
+$$
+\text{KV bytes} = 2 \times \text{tokens} \times \text{layers} \times \text{hidden size} \times \text{bytes}
+$$
+
 2 = Key and Value; tokens = one entry each; layers = each keeps a copy.
 Example: 4000 tokens, 32 layers, hidden 4096, 2 bytes gives about 2 GB. Assumes every head has its own K/V (like Llama 2 7B); models that share K/V across heads have smaller caches.
 10 users x 4000 tokens = about 20 GB for KV cache alone. Long chats and many users fill the GPU fast.

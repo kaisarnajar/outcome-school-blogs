@@ -23,7 +23,11 @@ Cosine Similarity measures how similar two vectors are by the cosine of the angl
 | near -1 | opposite |
 
 ### Formula
-$$\cos(\theta)=\frac{A\cdot B}{\lVert A\rVert\,\lVert B\rVert}$$
+
+$$
+\cos(\theta)=\frac{A\cdot B}{\lVert A\rVert\,\lVert B\rVert}
+$$
+
 - $A\cdot B=a_1b_1+a_2b_2+\dots$ (dot product, top part).
 - $\lVert A\rVert=\sqrt{a_1^2+a_2^2+\dots}$ (magnitude, bottom part).
 - Dividing by lengths removes size and keeps only direction.

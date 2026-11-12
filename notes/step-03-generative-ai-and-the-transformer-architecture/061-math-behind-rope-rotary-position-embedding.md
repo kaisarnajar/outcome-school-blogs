@@ -23,7 +23,11 @@ Transformers process tokens in parallel; "The cat chased the dog" and "The dog c
 - Problems: (1) addition mixes position into word meaning so they compete in one vector; (2) no built-in relative distance (positions 5 and 10 vs 105 and 110 must be learned separately); (3) struggle with longer sequences (trained on 2048, given 8192: learned embeddings have nothing; sinusoidal can theoretically extrapolate but works poorly in practice).
 
 ### 2D rotation
-$$\begin{pmatrix}x'\\y'\end{pmatrix}=\begin{pmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}$$
+
+$$
+\begin{pmatrix}x'\\y'\end{pmatrix}=\begin{pmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}
+$$
+
 Only direction changes; length stays.
 
 ### Applying to Q and K
@@ -35,7 +39,11 @@ Only direction changes; length stays.
 - Applied only to Q and K; V untouched (position effect comes from $Q\cdot K$; V is just content).
 
 ### Why relative position falls out
-$$ (R_mQ)^\top(R_nK)=Q^\top R_m^\top R_nK=Q^\top R_{-m}R_nK=Q^\top R_{n-m}K $$
+
+$$
+(R_mQ)^\top(R_nK)=Q^\top R_m^\top R_nK=Q^\top R_{-m}R_nK=Q^\top R_{n-m}K
+$$
+
 The $m$ rotation cancels; the score depends only on $n-m$. Example: in "The cat sat on the mat" cat is at 2, mat at 6 (distance 4); in "Yesterday, the cat sat on the mat" cat 3, mat 7 (distance 4) — same relationship. With absolute positions the model would relearn each pair (2,6), (3,7), (100,104)...; RoPE learns it once. This property comes out of the math for free.
 
 ### Numeric check

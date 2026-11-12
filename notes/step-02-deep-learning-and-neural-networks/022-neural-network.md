@@ -26,7 +26,11 @@ Predict test score (out of 10) from hours studied = 2 and hours slept = 3. It **
 
 ### Single neuron
 Weights $w_1=0.5,w_2=0.25$, bias $b=0.25$:
-$$z=(0.5\cdot2)+(0.25\cdot3)+0.25=2.0,\quad \text{ReLU}(2.0)=2.0$$
+
+$$
+z=(0.5\cdot2)+(0.25\cdot3)+0.25=2.0,\quad \text{ReLU}(2.0)=2.0
+$$
+
 Why activation: stacking only multiply-add stays a straight line and cannot capture complex patterns (e.g. faces). ReLU: keep positive, negative becomes 0 (ReLU(-0.5)=0).
 
 ### Layers
@@ -44,7 +48,11 @@ Real networks use matrices to do this at scale.
 Real score is 5, prediction 3.5.
 - **Loss** (squared error): $(5-3.5)^2=2.25$. Squared so always positive and big mistakes are penalized more. Goal: minimize loss.
 - **Gradient descent** — hill-in-fog analogy: loss = height, weights = position, gradient = slope underfoot. 
-$$w_{new}=w_{old}-\eta\cdot\text{gradient}$$
+
+$$
+w_{new}=w_{old}-\eta\cdot\text{gradient}
+$$
+
 Learning rate $\eta$ (e.g. 0.01): too big overshoots the valley, too small is slow.
 - **Backpropagation** — moves backward from output to input to find each weight's gradient (chain rule; libraries like PyTorch automate it).
   - Output too low by 1.5, so must go up.

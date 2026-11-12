@@ -28,7 +28,11 @@ Quantization stores and computes a model's numbers (weights, sometimes activatio
 - Price: small accuracy loss.
 
 ### Core mechanic
-$$q = \text{round}(x / s) + z \qquad x \approx (q - z)\cdot s$$
+
+$$
+q = \text{round}(x / s) + z \qquad x \approx (q - z)\cdot s
+$$
+
 (s = scale, z = zero-point.) De-quantizing gives close, not exact, values; the gap is rounding error, the source of accuracy loss.
 Example: weights in [-1.0, 1.0] to INT8 slots 0-255. Scale = 2.0/255 about 0.00784; zero-point about 128; weight 0.5 gives round(63.7)+128 = 192; back: (192-128) x 0.00784 about 0.502.
 

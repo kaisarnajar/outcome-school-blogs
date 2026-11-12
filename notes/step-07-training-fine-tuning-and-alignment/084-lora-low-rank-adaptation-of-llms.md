@@ -20,7 +20,11 @@ LoRA freezes the pretrained weights and learns a tiny low-rank update $\Delta W 
 
 ### Core math
 Full: $W_{new} = W + \Delta W$ (both $d \times d$). LoRA:
-$$\Delta W = BA,\quad A\in\mathbb{R}^{r\times d},\ B\in\mathbb{R}^{d\times r}$$
+
+$$
+\Delta W = BA,\quad A\in\mathbb{R}^{r\times d},\ B\in\mathbb{R}^{d\times r}
+$$
+
 Forward pass: $h = Wx + \frac{\alpha}{r}(BA)x$. $W$ frozen; only A, B trained. For rectangular $W$ ($d\times k$): B is $d\times r$, A is $r\times k$ (feed-forward layers are $d\times 4d$; attention projections are square).
 
 ### Steps

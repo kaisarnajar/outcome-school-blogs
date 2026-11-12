@@ -17,7 +17,10 @@ A logprob is the natural log of the probability the model assigns to a token: al
 
 ## How It Works
 ### From logits to logprobs
-$$\text{logprob}=\ln(p)$$
+
+$$
+\text{logprob}=\ln(p)
+$$
 
 Example "My pet is a": cat logit 3.64 gives p 0.70 gives logprob -0.36; dog 2.61 gives 0.25 gives -1.39; car 1.00 gives 0.05 gives -3.00. Code: `np.exp` + division (softmax), then `np.log` (natural log, not base 10).
 

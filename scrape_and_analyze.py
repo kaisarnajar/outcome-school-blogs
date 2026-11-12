@@ -78,7 +78,7 @@ def analyze_blog(item, index):
                 # First non-empty paragraph as clean excerpt
                 excerpt = ""
                 for p in paragraphs:
-                    p_text = p.get_text(strip=True)
+                    p_text = re.sub(r'\s+', ' ', p.get_text(' ', strip=True)).replace(' ,', ',').replace(' .', '.')
                     if len(p_text) > 40 and not p_text.startswith("Author"):
                         excerpt = p_text
                         break

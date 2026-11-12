@@ -36,7 +36,9 @@ A silence is long or short only relative to this user's normal pauses (500 ms is
 2. Multiply by a factor (e.g. 2): finished only when silence is clearly longer than normal.
 3. Clamp between min and max (e.g. 300 and 2000 ms).
 
-$$\text{waiting\_time} = \text{clamp}(\text{average\_pause} \times 2,\ 300,\ 2000)$$
+$$
+\text{waiting\_time} = \text{clamp}(\text{average\_pause} \times 2,\ 300,\ 2000)
+$$
 
 - Min protects against replying too fast (100 ms is too short for anyone); max prevents waiting forever.
 - Variants: moving average weighting recent pauses more; wait slightly above the longest recent pause.

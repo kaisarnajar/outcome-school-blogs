@@ -24,11 +24,15 @@ Generation = a journey from noise (t=0) to data (t=1). The model must learn the 
 ### The straight-line trick
 Pick noise $x_0$ and real data $x_1$. Point on line at time t:
 
-$$x_t=(1-t)\,x_0+t\,x_1$$
+$$
+x_t=(1-t)\,x_0+t\,x_1
+$$
 
 Steady speed along this line gives constant velocity:
 
-$$\text{velocity}=x_1-x_0$$
+$$
+\text{velocity}=x_1-x_0
+$$
 
 So the target at $x_t$ is $x_1-x_0$, with no simulation.
 
@@ -39,7 +43,11 @@ So the target at $x_t$ is $x_1-x_0$, with no simulation.
 4. Compute $x_t$.
 5. Predict $v(x_t,t)$.
 6. Loss:
-$$\mathcal{L}=\mathbb{E}\big[(v(x_t,t)-(x_1-x_0))^2\big]$$
+
+$$
+\mathcal{L}=\mathbb{E}\big[(v(x_t,t)-(x_1-x_0))^2\big]
+$$
+
 7. Update parameters.
 Repeat millions of times with different photos, noise, times.
 

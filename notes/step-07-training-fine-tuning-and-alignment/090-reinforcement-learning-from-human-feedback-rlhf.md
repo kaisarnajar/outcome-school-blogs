@@ -49,7 +49,9 @@ GRPO (used in DeepSeek-R1) removes the Value Model by using a group-sampled base
 ### The KL penalty
 Pure reward chasing makes the LLM drift into strange, repetitive, off-topic text that scores high. Add a penalty:
 
-$$\text{Objective} = R(\text{response}) - \beta \cdot \mathrm{KL}(\text{LLM}\,\|\,\text{SFT})$$
+$$
+\text{Objective} = R(\text{response}) - \beta \cdot \mathrm{KL}(\text{LLM}\,\|\,\text{SFT})
+$$
 
 $R$ = RM score (want high), KL = distance from SFT (want small), $\beta$ = penalty strength, often 0.01 to 0.2.
 Example: $R=3.0$, KL $=4.0$, $\beta=0.1$ gives $3.0-0.4=2.6$; KL $=20$ gives $3.0-2.0=1.0$. Drifting costs reward.

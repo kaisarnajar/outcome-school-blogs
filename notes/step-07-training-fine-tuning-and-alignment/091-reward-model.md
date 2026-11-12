@@ -32,7 +32,9 @@ Example: "capital of France?" "The capital of France is Paris." scores 2.1; "I a
 ### The pairwise loss
 We only need chosen score above rejected score. With $\text{diff}=r_{c}-r_{r}$:
 
-$$\sigma(x)=\frac{1}{1+e^{-x}},\qquad \mathcal{L} = -\log\sigma(r_{c}-r_{r})$$
+$$
+\sigma(x)=\frac{1}{1+e^{-x}},\qquad \mathcal{L} = -\log\sigma(r_{c}-r_{r})
+$$
 
 $r_c$ chosen score, $r_r$ rejected score. $\sigma(\text{diff})$ is the model's probability that chosen is better: large positive gap near 1, gap 0 gives 0.5 (cannot tell), negative near 0. Negative log makes the loss small when confident-right and punishes confident-wrong heavily.
 
@@ -64,7 +66,9 @@ Only the gap matters: adding 10 to both scores changes nothing, so a reward has 
 ### Using it
 **RLHF with PPO** — policy writes answer, RM scores, PPO updates, repeat. Humans only needed in stage 1 (e.g. 50,000 prompts x 2 answers). Add KL penalty:
 
-$$\text{final} = r_{RM} - \beta\,\mathrm{KL}(\text{policy}\,\|\,\text{original})$$
+$$
+\text{final} = r_{RM} - \beta\,\mathrm{KL}(\text{policy}\,\|\,\text{original})
+$$
 
 **Best-of-N** — N=4 rewards 0.8, 2.3, -0.4, 1.1: pick answer 2. Simple, often improves quality, costs N times more generation per prompt, no LLM training.
 

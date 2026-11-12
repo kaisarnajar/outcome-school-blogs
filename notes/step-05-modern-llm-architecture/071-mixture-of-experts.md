@@ -20,7 +20,11 @@ MoE replaces a Transformer layer's single feed-forward network with many small e
 Dense models: (1) compute cost grows with size (slower inference, higher GPU bills per token); (2) wasted capacity, since every input passes all parameters whether needed or not. MoE gives huge total parameters while using a small fraction per input. Hospital analogy: receptionist (router) sends patient to the right specialist (expert).
 
 ### Router
-$$\text{Router}(x)=\text{Softmax}(x\,W_{\text{router}})$$
+
+$$
+\text{Router}(x)=\text{Softmax}(x\,W_{\text{router}})
+$$
+
 $x$ is the token vector, $W_{\text{router}}$ learned weights, softmax turns scores into probabilities summing to 1.
 1. Score every expert (8 experts = 8 scores).
 2. Pick top-k.
@@ -38,7 +42,11 @@ If router keeps picking the same 2 experts, others never learn (model collapses,
 
 ### Combining outputs
 Router also gives weights; softmax over only the picked experts' scores so weights sum to 1.
-$$y = w_1\,E_1(x) + w_2\,E_2(x)$$
+
+$$
+y = w_1\,E_1(x) + w_2\,E_2(x)
+$$
+
 Example: Expert 3 score 0.7, Expert 5 score 0.3: output = 0.7 Out_3 + 0.3 Out_5, passed to the next layer (blended, smoother than one-expert answer).
 
 ### Advantages vs challenges

@@ -37,7 +37,11 @@ Reinforcement Learning (RL) is trial-and-error learning: an Agent interacts with
 RL is the only one with an agent-environment feedback loop; reward is the only thing it learns from.
 
 ### Discount factor and return
-$$G = \sum_{t} \gamma^t r_t$$
+
+$$
+G = \sum_{t} \gamma^t r_t
+$$
+
 $r_t$ = reward at step t, $\gamma$ = discount factor. Small gamma = greedy for now; large gamma = patient.
 Example, rewards 0, 0, +1, 0, +10 with gamma = 0.9: 0 + 0 + 0.81 + 0 + 0.6561x10 = 7.371. The +10 at the end is worth 6.561 at the start; smaller gamma discounts it more. (MDP blog covers how these fit together.)
 

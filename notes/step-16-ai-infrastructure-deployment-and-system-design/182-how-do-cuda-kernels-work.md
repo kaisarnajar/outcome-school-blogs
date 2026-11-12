@@ -49,7 +49,11 @@ add<<<blocks, threadsPerBlock>>>(n, d_a, d_b, d_c);
 - `<<<blocks, threadsPerBlock>>>` is launch syntax; `d_` prefix = device pointers.
 
 ### How a thread finds its work
-$$i=\text{blockIdx.x}\times\text{blockDim.x}+\text{threadIdx.x}$$
+
+$$
+i=\text{blockIdx.x}\times\text{blockDim.x}+\text{threadIdx.x}
+$$
+
 Examples (blockDim = 256): block 0 thread 0 -> 0; block 0 thread 5 -> 5; block 1 thread 0 -> 256; block 2 thread 10 -> 522. Each i is unique: table number and seat number tell the helper which potato to pick.
 
 ### Inside the GPU

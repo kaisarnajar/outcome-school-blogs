@@ -23,11 +23,19 @@ With Q the agent picks the action with the highest Q directly; with only V it wo
 
 ### Bellman idea
 Value of now = reward now + discounted value of where we land:
-$$Q(s,a) = r + \gamma \max_{a'} Q(s',a')$$
+
+$$
+Q(s,a) = r + \gamma \max_{a'} Q(s',a')
+$$
+
 s' = next state, a' = actions there. Assumes the same action gives the same reward/next state (if random, average over outcomes). Needs only one real step of reward plus current guess for the next state, not the whole game.
 
 ### Q-Learning update rule
-$$Q(s,a) \leftarrow Q(s,a) + \alpha\,\big(r + \gamma \max_{a'} Q(s',a') - Q(s,a)\big)$$
+
+$$
+Q(s,a) \leftarrow Q(s,a) + \alpha\,\big(r + \gamma \max_{a'} Q(s',a') - Q(s,a)\big)
+$$
+
 Max term is 0 if s' is terminal. Moves the old guess a fraction alpha of the way to the target. One action = one cell update. Loop: in state s, pick a, get r and s', compute target, error, update, s' becomes s, repeat until goal, then new episode.
 
 ### Tiny corridor example

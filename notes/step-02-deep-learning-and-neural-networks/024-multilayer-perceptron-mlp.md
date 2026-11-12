@@ -25,7 +25,10 @@ XOR = 1 when exactly one input is 1. Points (0,1),(1,0) are 1; (0,0),(1,1) are 0
 
 ### MLP structure and parameters
 Example 2 inputs, 2 hidden, 1 output: input-to-hidden $2\times2=4$ weights + 2 biases = 6; hidden-to-output 2 weights + 1 bias = 3; total 9 parameters. Matrix form (`.` = matrix multiplication):
-$$h=\text{act}(xW_1+b_1),\qquad y=\text{act}(hW_2+b_2)$$
+
+$$
+h=\text{act}(xW_1+b_1),\qquad y=\text{act}(hW_2+b_2)
+$$
 
 ### Solving XOR with an MLP (step activation, hand-picked)
 XOR = (at least one is 1: OR) and not (both are 1: AND).
