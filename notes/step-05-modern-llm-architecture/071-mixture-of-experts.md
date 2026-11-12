@@ -3,53 +3,96 @@
 > **Step 5: Modern LLM Architecture** · ⏱️ 16 min read · [Read original](https://outcomeschool.com/blog/mixture-of-experts)
 
 ## TL;DR
-MoE replaces a Transformer's single big feed-forward network with many small expert networks and a router that sends each token to only the top-k of them. This gives a model with a huge total parameter count but small per-token compute.
+MoE replaces a Transformer layer's single feed-forward network with many small expert networks plus a router that activates only the top-k (usually 2) per token. Total parameters are huge but compute per token stays small ("a big brain with a small bill"); the cost is memory, load balancing, and communication.
 
 ## Key Concepts
-- **Dense model** — every token uses every parameter; costly and wasteful.
-- **Expert** — a small feed-forward network (e.g. 8, 64, or 128 per layer). Not hand-assigned topics; experts tend to specialize on low-level patterns such as punctuation or token shapes.
-- **Router** — usually a linear layer plus softmax: $\text{Router}(x) = \text{Softmax}(x W_{router})$. Picks top-k experts (commonly k = 2; Switch Transformer uses k = 1).
-- **Sparse activation** — only picked experts run for a token; each MoE layer has its own router.
-- **Total vs active parameters** — total = full model size; active = used per token.
-- **Load balancing loss** — auxiliary training loss that spreads tokens evenly across experts.
-- **Expert capacity** — fixed tokens per expert per batch; overflow is dropped or sent to the next-best expert.
+- **Dense model** — every token uses every parameter (100B params = all 100B per token).
+- **Expert** — a small feed-forward network (FFN); layers may have 8, 64, 128 experts. Not manually specialized on topics; learned on its own, often specializing by low-level patterns (punctuation, word types, token shapes).
+- **Router** — tiny network (usually a linear layer + softmax) scoring experts per token.
+- **Top-k** — number of experts picked per token; usually k = 2, Switch Transformer uses k = 1.
+- **Sparse activation** — only picked experts run.
+- **Total vs active parameters** — full model size vs params used per token.
+- **Load imbalance / load balancing loss** — router overusing a few experts; auxiliary loss (Switch Transformer, GShard) spreads tokens.
+- **Expert capacity** — fixed number of tokens an expert can process per batch.
 
 ## How It Works
-1. The attention sub-layer stays unchanged; only the feed-forward sub-layer becomes an MoE block (some models alternate dense and MoE layers).
-2. The router scores all experts for a token and picks the top-k.
-3. Only those experts run.
-4. Outputs are combined as a weighted sum using softmax weights over just the picked experts. Example: Expert 3 (0.7) and Expert 5 (0.3) give $0.7 \cdot Out_3 + 0.3 \cdot Out_5$.
-5. The result goes to the next Transformer layer.
+### Why MoE
+Dense models: (1) compute cost grows with size (slower inference, higher GPU bills per token); (2) wasted capacity, since every input passes all parameters whether needed or not. MoE gives huge total parameters while using a small fraction per input. Hospital analogy: receptionist (router) sends patient to the right specialist (expert).
 
-### Active vs total
-8 experts of 10B each = 80B total, 20B active per token with top-2. Mixtral 8x7B is about 47B total (not 56B, since attention, embeddings, and norms are shared) with about 13B active.
+### Router
+$$\text{Router}(x)=\text{Softmax}(x\,W_{\text{router}})$$
+$x$ is the token vector, $W_{\text{router}}$ learned weights, softmax turns scores into probabilities summing to 1.
+1. Score every expert (8 experts = 8 scores).
+2. Pick top-k.
+3. Send token only to those; others skipped.
 
-### Pros and cons
+### Placement in Transformer
+Layer has multi-head attention + FFN. In MoE, only the **FFN is replaced** by the MoE block; attention unchanged. Not every layer must be MoE; some models alternate dense and MoE layers. Each MoE layer has its own router (32 MoE layers = 32 routers) and its own experts; picked experts differ per layer.
+
+### Active vs total parameters
+- Example: 8 experts x 10B = 80B total; top-2 means 20B active; behaves like 20B in compute, knowledge of 80B.
+- Mixtral 8x7B: about 47B total, about 13B active. Not 8x7=56B because only FFN is replicated; attention, embeddings and normalization are shared.
+
+### Load balancing
+If router keeps picking the same 2 experts, others never learn (model collapses, dead weight). Auxiliary load-balancing loss added to the main loss spreads tokens (manager spreading work fairly). Expert capacity: overflow tokens are dropped or sent to next-best expert, making balancing critical in real systems.
+
+### Combining outputs
+Router also gives weights; softmax over only the picked experts' scores so weights sum to 1.
+$$y = w_1\,E_1(x) + w_2\,E_2(x)$$
+Example: Expert 3 score 0.7, Expert 5 score 0.3: output = 0.7 Out_3 + 0.3 Out_5, passed to the next layer (blended, smoother than one-expert answer).
+
+### Advantages vs challenges
 | Advantages | Challenges |
 |---|---|
-| Huge scale at lower compute | All experts must sit in memory |
-| Faster inference per token | Load balancing can collapse to a few experts |
-| Natural specialization | Communication cost across GPUs |
-| Better training scaling | Harder to fine-tune (router can shift) |
+| Massive scale (hundreds of billions to trillions of params) at fraction of cost | Memory: all experts must be loaded (80B MoE still needs memory for 80B) |
+| Faster inference, lower GPU cost | Load balancing tricky, needs tuned losses |
+| Natural specialization learned by router | Communication cost when experts sit on different GPUs (serving engines like SGLang help) |
+| Often reaches dense quality with less training compute | Harder to fine-tune (router behavior can shift) |
 
-Used in Mixtral, DeepSeek-V2, and DeepSeek-V3.
+### Why modern LLMs use it
+Mixtral, DeepSeek-V2, DeepSeek-V3 and other frontier models are MoE; rumors say many closed models too. Dense models hit a cost wall; MoE grows total size without growing per-token compute equally.
 
-## Diagram
+## Diagram(s)
+### Token routed through experts
 ```mermaid
 flowchart TD
-    T["Token"] --> A["Multi-head attention"]
-    A --> R["Router (softmax scores)"]
-    R -->|"top-k"| E3["Expert 3"]
-    R -->|"top-k"| E5["Expert 5"]
-    R -.->|"skipped"| EO["Other experts idle"]
-    E3 --> W["Weighted sum"]
-    E5 --> W
-    W --> N["Next Transformer layer"]
+    T1["Token"] --> R1["Router<br/>scores all experts"]
+    R1 -->|"top-k"| E3["Expert 3"]
+    R1 -->|"top-k"| E5["Expert 5"]
+    R1 -.->|"skipped"| EO["Other experts idle"]
+    E3 --> WS["Weighted sum<br/>0.7 x Out3 + 0.3 x Out5"]
+    E5 --> WS
+    WS --> OUT["Output to next layer"]
 ```
 
+### MoE inside a Transformer layer
+```mermaid
+flowchart TD
+    I1["Input"] --> A1["Multi-head attention<br/>unchanged"]
+    A1 --> M1["MoE block<br/>replaces dense FFN"]
+    M1 --> R2["Router -> top-k experts -> weighted sum"]
+    R2 --> O1["Layer output"]
+```
+
+## Trade-offs & Pitfalls
+- Saves compute, not memory.
+- Router collapse without balancing loss.
+- Expert capacity overflow drops tokens.
+- Cross-GPU communication overhead.
+- Fine-tuning instability.
+
+## FAQ
+- Reduces GPU memory? → No.
+- Mixtral 47B not 56B? → Only FFN replicated.
+- Experts topic-trained? → No, learned patterns.
+- Shared router? → No, one per MoE layer.
+- Too many tokens to one expert? → Capacity limit: dropped or rerouted.
+
 ## Key Takeaways
-- MoE = many small experts plus a router that activates only a few per token.
-- Only the feed-forward sub-layer is replaced; attention stays dense.
-- It saves compute, not memory: all experts must be loaded.
-- Load balancing loss prevents router collapse onto a few experts.
-- Fast like the active parameter count, smart like the total parameter count.
+- MoE = many FFN experts + router; only top-k run per token.
+- Only the FFN sub-layer is replaced; attention stays.
+- Total params give knowledge; active params set compute.
+- Output = router-weighted sum of chosen experts.
+- Load-balancing loss prevents expert collapse.
+- Benefit is compute savings; memory and comms cost remain.
+- Powers Mixtral, DeepSeek and other frontier LLMs.

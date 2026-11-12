@@ -3,67 +3,102 @@
 > **Step 10: AI Agents and Agentic Systems** · ⏱️ 20 min read · [Read original](https://outcomeschool.com/blog/what-are-agent-skills)
 
 ## TL;DR
-An Agent Skill is a folder of instructions (optionally with scripts and reference files) that an agent loads by itself only when a task needs it. Introduced by Anthropic in October 2025 as an open format, Skills teach an agent your way of working without permanently filling the context window.
+An Agent Skill is a folder of plain-English instructions (optionally scripts and reference files) that an agent loads by itself only when the task needs it. The description is the trigger, and progressive disclosure keeps the context window nearly empty until a Skill is used. Skills give know-how; MCP gives reach.
 
 ## Key Concepts
-- **Skill** — a folder with a required `SKILL.md`; plain English, no programming needed.
-- **Frontmatter** — top of `SKILL.md`: `name` (lowercase, hyphens) and `description`.
-- **Body** — the detailed instructions below the frontmatter.
-- **Description as trigger** — the agent matches requests against descriptions to pick a Skill.
-- **Progressive disclosure** — revealing information in stages as needed.
-- **Personal vs Project Skills** — in `~/.claude/skills/` (yours, all projects) vs `.claude/skills/` (travels with the project to the team).
+- **Problem** — agents do not know your team's formats, procedures, brand rules, so you retype them every time. Keeping one giant instruction file always loaded wastes the limited context window ("desk"): twenty procedures loaded means reading nineteen irrelevant ones. (Context Engineering decides what deserves the space.)
+- **Agent Skill** — introduced by Anthropic in October 2025; open format. Analogy: a team handbook with chapters; the agent opens only the relevant chapter.
+- **SKILL.md** — required markdown file. Part 1 **frontmatter** (between dashes): `name` (lowercase, hyphens, e.g. weekly-report) and `description`. Part 2 **body**: instructions in plain English.
+- **Description = trigger** — the agent compares requests to every Skill's name/description. Weak ("Report helper.") never fires; strong states what it does AND when to use it. Write it for the agent to read.
+- **Progressive disclosure** — reveal info in stages.
+- **Token** — roughly a piece of a word; the unit of desk space.
+- **Personal Skills** — `~/.claude/skills/`, yours, in every project. **Project Skills** — `.claude/skills/` inside the project; travel with it so teammates get them automatically.
 
 ## How It Works
-### The problem
-Agents do not know your team's formats and procedures, so you retype them. A single always-loaded giant instruction file wastes limited context-window space.
-
-### Description is the trigger
-Weak: "Report helper." Strong: states what it does and when to use it ("Use this whenever the user asks for a weekly report or a team update"). If a Skill is ignored, the description is almost always the reason.
-
-### Progressive disclosure (three levels)
-| Level | What loads | When | Cost |
+### Three levels of progressive disclosure
+| Level | Loaded | When | Cost |
 |---|---|---|---|
-| 1 | Name and description | Always | About 100 tokens per Skill |
-| 2 | Full `SKILL.md` body | When a request matches | Normally under about 5,000 tokens |
-| 3 | Extra files in folder | Only if needed | As needed |
+| 1 | name + description | always, at start | about 100 tokens per Skill |
+| 2 | full SKILL.md body | when request matches | normally under 5,000 tokens, only for the used Skill |
+| 3 | extra files in folder (references, templates, scripts) | only if body points to them and they are needed | on demand |
 
-Fifty Skills at Level 1 cost about 5,000 tokens, roughly one Skill body.
+Fifty Skills at Level 1 cost about 5,000 tokens total, equal to one Skill body. The agent acts as if it knows fifty procedures while the desk stays almost empty.
 
-### Scripts
-Judgment tasks: write plain-English instructions. Exact, repeatable tasks: include a script so the result is the same every time and costs little context.
+### Skills can carry code
+- Without a script the agent rewrites code each time: slower, varies, fills the desk.
+- With a script it runs one tested file: fast, identical results, nearly free.
+- Rule: judgment needed means plain-English instructions; exactness needed means a script.
 
-### Creating one
-Make `.claude/skills/<skill-name>/SKILL.md`, add frontmatter, write steps for a capable new teammate, covering only what is specific to you.
+### Creating a Skill (no install, no code)
+1. Create `.claude/skills/` in the project.
+2. Add a folder named after the Skill (weekly-report).
+3. Add `SKILL.md` inside.
+4. Write frontmatter with name and description.
+5. Write steps in plain English like for a capable new teammate: skip what they already know, record only what is specific to you.
 
-### Skills vs MCP
+Example weekly-report body: collect tasks of last 7 days, group under Shipped / In Progress / Blocked, one short line per task, total count at top, never include internal ticket numbers. (`.claude` folders are read by a coding agent at session start.)
+
+### Worked flow
+1. Session starts: only names/descriptions loaded.
+2. User: "prepare this week's team update."
+3. Matches description ("weekly report or team update").
+4. Agent reads full SKILL.md body.
+5. Produces report in the exact format without being reminded.
+
+### Agent Skills vs MCP
 | Point | Agent Skills | MCP |
 |---|---|---|
-| Gives | Know-how | Reach |
-| Made of | Folder of instructions | Running program |
+| Gives | Know-how (your steps/format) | Reach (connection to outside systems) |
+| Made of | Folder of instructions, sometimes scripts | Running program offering tools/data |
 | Answers | How should this be done? | What can the agent reach? |
 | Server needed | No | Yes |
+| Best for | Procedures, formats, style, checklists | Databases, apps, live data, actions |
 
-They work together: MCP connects the issue tracker, a Skill says how your team writes issues. OKF is a third, similar piece for data meaning.
+Often used together (MCP connects to issue tracker, a Skill says how your team writes an issue). OKF is a third piece: folder of markdown describing what data tables mean.
 
-### Cautions
-Skills can run code, so use only trusted ones and read them first. Vague descriptions never fire. Too-long bodies waste space. One Skill, one job.
-
-## Diagram
+## Diagram(s)
+### Progressive disclosure
 ```mermaid
 flowchart TD
-    A["Session starts: load name and description of every Skill"] --> B["User makes a request"]
-    B --> C{"Matches a description?"}
-    C -->|"Yes"| D["Load full SKILL.md body"]
-    C -->|"No"| E["Proceed without a Skill"]
-    D --> F{"Body points to extra files?"}
-    F -->|"Yes, if needed"| G["Open reference files or run scripts"]
-    F -->|"No"| H["Follow instructions"]
-    G --> H
+    A["Session start"] --> L1["Level 1: load name + description of all Skills (about 100 tokens each)"]
+    L1 --> Q["User request"]
+    Q --> M{"Matches a description?"}
+    M -->|"no"| N["Skill stays unloaded"]
+    M -->|"yes"| L2["Level 2: read full SKILL.md body"]
+    L2 --> X{"Body points to extra files?"}
+    X -->|"yes, and needed"| L3["Level 3: open reference / template / run script"]
+    X -->|"no"| D["Do the job"]
+    L3 --> D
 ```
 
+### Skill folder layout
+```mermaid
+flowchart LR
+    P["project"] --> CL[".claude"] --> SK["skills"] --> W["weekly-report"]
+    W --> F["SKILL.md: frontmatter + body"]
+    W --> O["optional: references, templates, scripts"]
+```
+
+## Importance
+- Write once, use forever; desk stays clean; team knowledge shared via Project Skills; no programming needed; portable across tools supporting the open format; compose (one Skill for format, another for checks).
+
+## Trade-offs & Pitfalls
+- **Scripts can run code** — like installing a program; use trusted sources and read a Skill first.
+- **Vague description** — most common mistake; Skill never fires. If ignored, suspect the description.
+- **Too long** — include only what the agent cannot guess (your steps, format, rules), not general knowledge.
+- **One Skill, one job** — many small focused Skills match better and load less than a giant one.
+
+## FAQ
+- Who created? → Anthropic, Oct 2025, open format.
+- Skill not used? → almost always a vague description.
+- Many Skills fill context? → No, about 100 tokens each at Level 1.
+- Multiple Skills per task? → Yes, they compose.
+- Safe from internet? → Only if trusted and read first.
+
 ## Key Takeaways
-- A Skill is a folder with `SKILL.md`; the description decides when it fires.
-- Progressive disclosure keeps context nearly empty until a Skill is needed.
-- Scripts give exactness; instructions give judgment.
-- MCP = reach, Skills = know-how; use both.
-- Trust and read Skills before use, and keep each focused.
+- A Skill is a folder with SKILL.md (frontmatter + body), plus optional scripts/files.
+- The description is the trigger; say what and when.
+- Progressive disclosure: metadata always, body on match, extra files on need.
+- Scripts give exact, repeatable results; instructions give judgment.
+- Personal (`~/.claude/skills/`) vs Project (`.claude/skills/`) Skills.
+- Skills = know-how, MCP = reach; use both.

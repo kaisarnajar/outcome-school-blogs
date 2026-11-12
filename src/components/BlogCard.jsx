@@ -1,5 +1,6 @@
 import React from 'react';
-import { Clock, FileCode, Layers, ExternalLink, Info } from 'lucide-react';
+import { Clock, FileCode, Layers, ExternalLink, Info, NotebookPen } from 'lucide-react';
+import { noteHref } from '../notes';
 
 export default function BlogCard({
   blog,
@@ -45,8 +46,8 @@ export default function BlogCard({
         </div>
       </div>
 
-      <h3 className="blog-card-title" onClick={() => onOpenModal(blog)}>
-        {blog.title}
+      <h3 className="blog-card-title">
+        <a href={noteHref(blog)} className="blog-card-title-link">{blog.title}</a>
       </h3>
 
       <p className="blog-card-excerpt">
@@ -77,16 +78,22 @@ export default function BlogCard({
           {badgeLabel}
         </span>
 
-        <a
-          href={blog.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="card-read-btn"
-          title="Read on Outcome School / Substack"
-        >
-          <span>Read</span>
-          <ExternalLink size={13} />
-        </a>
+        <div className="card-footer-actions">
+          <a
+            href={blog.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="action-icon-btn"
+            title="Read the original blog (new tab)"
+            aria-label="Read the original blog"
+          >
+            <ExternalLink size={15} />
+          </a>
+          <a href={noteHref(blog)} className="card-read-btn" title="Open my short notes">
+            <NotebookPen size={13} />
+            <span>Notes</span>
+          </a>
+        </div>
       </div>
     </article>
   );

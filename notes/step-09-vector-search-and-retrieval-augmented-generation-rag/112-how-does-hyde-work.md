@@ -1,63 +1,85 @@
 # How does HyDE work in RAG?
 
-> **Step 9: Vector Search and Retrieval-Augmented Generation (RAG)** · ⏱️ 16 min read · [Read original](https://outcomeschool.com/blog/how-does-hyde-work)
+> **Step 9: Vector Search and RAG** · ⏱️ 16 min read · [Read original](https://outcomeschool.com/blog/how-does-hyde-work)
 
 ## TL;DR
-HyDE (Hypothetical Document Embeddings) has the LLM write a fake answer to the question and uses that fake answer, not the question, as the search key. Because an answer looks like an answer, it lands closer to the real chunks; the final response is still written only from the retrieved real documents.
+HyDE (Hypothetical Document Embeddings) has the LLM write a fake answer to the question, then searches with that fake answer instead of the question. A fake answer is shaped like a real answer, so its embedding lands close to the real chunks. The final answer is written only from real retrieved documents.
 
 ## Key Concepts
-- **RAG** — retrieve relevant text, augment the prompt, generate the answer.
-- **Embedding** — list of numbers capturing meaning; similar meaning gives similar numbers.
-- **Chunk / vector database** — small text blocks stored as embeddings and searched by closeness.
-- **Hypothetical document** — the made-up answer written by the model; never shown to the user and not trusted for facts.
-- **Search key** — the text we embed and search with.
+- **RAG** — Retrieval (fetch right text) + Augmented (add to prompt) + Generation (LLM answers from it).
+- **Embedding** — list of numbers representing meaning; similar meaning gives similar numbers.
+- **Chunk** — short block of text (like a paragraph); stored as embeddings in a vector database.
+- **Hypothetical document** — the made-up answer; never shown to the user, not trusted, used only as a search key.
+- **Shape vs facts** — HyDE works due to answer-like vocabulary, not correct facts.
 
 ## How It Works
-**The weakness.** RAG search compares meaning, but a question ("Why is my laptop battery draining so fast?") and its answer ("Background applications, high screen brightness, old battery health reduce battery life...") are shaped differently, so their embeddings can be far apart and the right chunk can be missed.
+### Why question search is weak
+RAG matches meaning via embeddings: embed chunks, embed question, pick closest chunks. But questions and answers are written differently. "Why is my laptop battery draining so fast?" (short, "draining", "fast") vs answer "Background applications, high screen brightness, and old battery health reduce battery life..." So the question embedding can sit far from the perfect answer chunk.
 
-**The trick.** Search with something shaped like the answer. A fake answer naturally uses answer-like words (background apps, brightness, battery health). The shape matters, not the facts: even a partly wrong fake answer points the search in the right direction, and wrong facts vanish because the final answer uses only real documents.
+### Why a fake answer works
+The model's fake answer naturally uses "background apps", "screen brightness", "battery health" - same words as the real answer. Embeddings become close even if some facts are wrong; wrong facts are discarded since the final answer uses only real docs.
 
-**Steps**
+### Steps
 1. User asks a question.
-2. LLM writes a short fake answer ("even if you are not sure").
+2. Ask the model: "Write a short answer, even if you are not sure" - hypothetical document.
 3. Embed the fake answer.
-4. Search stored chunk embeddings and pick the closest real chunks.
-5. Send the real chunks plus the original question to the LLM.
-6. LLM writes the final answer from real chunks only.
+4. Compare with stored chunk embeddings, pick closest real chunks.
+5. Send real chunks + original question to the model.
+6. Model writes final answer from real chunks.
 
-```python
-fake_answer = model.generate("Write a short answer to this question: " + question)
-top_chunks  = vector_store.search(model.embed(fake_answer), top_k=5)
-```
-
-Illustrative closeness (not real measurements): question to real chunk 0.55, fake answer to real chunk 0.88.
-
-| | Normal RAG | HyDE |
+### Normal RAG vs HyDE
+| Stage | Normal RAG | HyDE |
 |---|---|---|
-| Searches with | The question | A fake answer |
+| Search with | User question | Fake answer |
 | Text shape | Short, question-like | Detailed, answer-like |
 | Closeness to real answers | Often far | Often close |
-| Final answer from | Real documents | Real documents |
+| Final answer source | Real docs | Real docs |
 
-**Pros:** closes the question-answer gap; better chunks; helps short or vague questions; no extra model training.
-**Cons:** extra LLM call (slower, costlier); the fake answer can drift off topic; little gain on simple direct lookups.
-**When to use:** questions and answers look very different (short questions, support tickets, technical docs). Test plain search and HyDE on the same questions and keep the better one. Related: Query Rewriting and Multi-Query Retrieval (question side), Contextual Retrieval (chunk side).
+Illustrative closeness (0-1): question vs real chunk 0.55; fake answer vs real chunk 0.88 (numbers for understanding only).
 
-## Diagram
+### Code
+```python
+def hyde_search(question, model, vector_store):
+    fake_answer = model.generate("Write a short answer to this question: " + question)
+    emb = model.embed(fake_answer)
+    return vector_store.search(emb, top_k=5)
+
+def answer_with_hyde(question, model, vector_store):
+    chunks = hyde_search(question, model, vector_store)
+    context = "\n".join(chunks)
+    return model.generate("Use the context below...\nContext: " + context + "\nQuestion: " + question)
+```
+Never search with the original question; the fake answer never touches the final answer.
+
+## Diagram(s)
+### HyDE flow
 ```mermaid
 flowchart TD
-    Q["User question"] --> F["LLM writes fake answer"]
-    F --> E["Embed fake answer"]
-    E --> S["Search vector database"]
-    S --> C["Closest real chunks"]
-    C --> G["LLM answers using real chunks"]
-    Q --> G
-    G --> A["Final answer"]
+Q1["User question"] --> G1["LLM writes fake answer"]
+G1 --> E1["Embed fake answer"]
+E1 --> S1["Search stored chunk embeddings"]
+S1 --> C1["Closest real chunks"]
+C1 --> F1["LLM writes final answer<br/>from real chunks only"]
+Q1 -->|"original question"| F1
+F1 --> A1["Final answer"]
 ```
 
+## Trade-offs & Pitfalls
+| Advantages | Disadvantages |
+|---|---|
+| Closes question/answer gap | Slower (extra LLM call) |
+| Often finds better chunks | Costs more compute |
+| Works with short or vague questions | Fake answer can drift off topic and misdirect search |
+| No training or fine-tuning needed; only changes search | Little gain for simple questions |
+
+- Use when questions and answers look very different: short questions, support tickets, technical document search.
+- For short direct lookups plain search may suffice; best practice: test both on the same questions and keep the better.
+- Related: Query Rewriting / Multi-Query (also question side), Contextual Retrieval (chunk side).
+
 ## Key Takeaways
-- Questions and answers are shaped differently, so searching with the question can miss the right chunk.
-- HyDE searches with an LLM-written fake answer because it resembles real answers.
-- It works on shape, not facts; the fake answer is discarded after search.
-- The final answer is grounded in real retrieved chunks only.
-- Cost: one extra LLM call; test it against plain RAG on your data.
+- Search with a fake answer to find the real one.
+- It is about shape, not facts; wrong facts are discarded.
+- The fake answer is never shown to the user and never used in the final answer.
+- No model training needed; only the search step changes.
+- Costs one extra LLM call: slower and pricier.
+- Evaluate against plain RAG on your own data.

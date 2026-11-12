@@ -3,32 +3,34 @@
 > **Step 3: Generative AI and the Transformer Architecture** · ⏱️ 1 min read · [Read original](https://outcomeschool.substack.com/p/positional-embeddings-in-llms)
 
 ## TL;DR
-LLMs process tokens in parallel, so they have no built-in sense of word order. Positional embeddings are added to inject each token's position into the model.
+LLMs process tokens in parallel rather than sequentially, so they have no built-in notion of word order. Positional embeddings are added to token embeddings to tell the model each token's position.
 
 ## Key Concepts
-- **Positional embedding** — information about a token's position in the sequence, given to the model.
-- **Token embedding** — vector representation of the token's meaning.
-- **Tokenization** — converting raw text into tokens and mapping them to numbers.
+- **Positional embedding** — information about a token's position added to its representation.
+- **Tokenization** — converting raw text into smaller units (tokens) mapped to numbers.
+- **Token embedding** — vector for each token.
 
 ## How It Works
-Unlike RNNs, which read sequentially, Transformers see all tokens at once. Without position information the model cannot tell "Outcome School" from "School Outcome".
-
-Before input reaches the Transformer:
-1. **Tokenization** — text to tokens to numbers.
-2. **Token embedding + positional embedding** — the two are combined so each token carries both meaning and position.
+- Unlike RNNs (sequential), Transformers see all tokens at once, so order is invisible without help.
+- Example: without position info the model can't tell "Outcome School" from "School Outcome".
+- Pre-processing before the Transformer:
+  1. Tokenization (text -> tokens -> numbers).
+  2. Token embedding + positional embedding.
 
 ## Diagram
+
+### Input preparation
 ```mermaid
 flowchart LR
-    A["Raw text"] --> B["Tokenization"]
-    B --> C["Token embedding"]
-    B --> D["Positional embedding"]
-    C --> E["Add together"]
-    D --> E
-    E --> F["Transformer"]
+    A1["Raw text"] --> A2["Tokenization"]
+    A2 --> A3["Token embedding"]
+    A3 --> A4(("+"))
+    A5["Positional embedding"] --> A4
+    A4 --> A6["Transformer"]
 ```
 
 ## Key Takeaways
-- Parallel processing means no inherent word order.
-- Positional embeddings tell the model where each token sits.
-- Input to the Transformer is token embedding plus positional embedding.
+- Parallel processing loses word order.
+- Positional embeddings restore position information.
+- Input = token embedding + positional embedding.
+- Without them "Outcome School" and "School Outcome" look identical.

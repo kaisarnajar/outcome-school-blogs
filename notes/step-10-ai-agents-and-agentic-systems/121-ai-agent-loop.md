@@ -3,62 +3,84 @@
 > **Step 10: AI Agents and Agentic Systems** · ⏱️ 20 min read · [Read original](https://outcomeschool.com/blog/ai-agent-loop)
 
 ## TL;DR
-The AI Agent Loop is the runtime code that runs an agent: send the situation to the LLM, run the tool it picks, feed the result back, and repeat until done. Without it, an LLM answers once and stops; with it, the LLM can finish multi-step goals.
+The AI Agent Loop (agentic loop) is the runtime code that powers an agent: Think (LLM decides) -> Act (loop runs the tool) -> Observe (result appended to history) -> repeat until the LLM says it is done or a safety limit hits. Without it an LLM answers once; with it, the LLM becomes a goal-completing agent. It is about 20 lines of code.
 
 ## Key Concepts
-- **Agent loop / agentic loop** — Think, Act, Observe, repeat. One pass is a step or turn.
-- **Stateless LLM** — remembers nothing between calls; the loop re-sends the full history.
-- **Observation** — tool result added to the history.
-- **Natural stop** — the LLM says it is done.
-- **Safety stop** — step limit and other guards from our code.
-- **Loop Engineering** — designing turns, carry-forward, and exits on purpose.
+- **AI Agent Loop** — the engine: sends goal/instructions/history to the LLM, runs the picked tool, feeds results back, repeats. One pass = a **step** or **turn**. The loop wraps LLM, Instructions, Memory and Tools.
+- **The LLM does not call tools; the loop does.** LLM = brain; loop = runtime turning decisions into actions.
+- **Stateless LLM** — remembers nothing between calls, so the loop re-sends the full history each turn; this growing history is short-term memory.
+- **Observation** — tool result added to history.
+- **ReAct** (Reason and Act) — the most common pattern built on this cycle, but every loop is some version of think/act/observe.
+- **Loop Engineering** — deliberately designing turns, what carries forward, and when to stop.
+- **Context window** — max text the model can read at once.
 
 ## How It Works
 ### Why a loop is needed
-1. One LLM call cannot finish a multi-step task whose steps depend on one another.
-2. The LLM is stateless; the growing history held by the loop is the agent's short-term memory.
+1. One LLM call cannot finish a multi-step task ("cheapest flight to Delhi tomorrow": search live data, read, compare, pick; each step depends on the previous).
+2. The LLM is stateless; the loop carries history (goal, every tool picked, every result).
 
-### Think, Act, Observe
-- **Think** — LLM reads goal, instructions, tools, and history; picks a tool or gives a final answer.
-- **Act** — the loop (not the LLM) runs the tool.
-- **Observe** — result is appended to history and fed back next turn.
+### Think -> Act -> Observe
+1. **Think** — loop sends goal, instructions, tools, full history; LLM outputs "use tool X with inputs" or final answer.
+2. **Act** — loop runs the tool.
+3. **Observe** — result appended to history as an observation, fed back next turn.
+Each turn the LLM knows a bit more.
 
-This is the core of the ReAct agent, but every agent loop is some version of it.
+### Step by step (flights example: "3 cheapest direct flights to Delhi tomorrow under 8000 rupees")
+1. Goal. 2. Loop sends goal, instructions, history. 3. LLM: search flights (Think). 4. Loop runs flight search (Act). 5. Result fed back (Observe). 6. LLM filters/picks top 3 (Think). 7. Repeat. 8. Final answer: AI-123 6500, IX-201 7200, SG-312 7800. Flow is not hardcoded; the number of turns and tools are decided as it goes.
 
-### Real code skeleton
-A `while True` with a `max_steps` guard, a `call_llm`, an `is_done` check, and a branch that runs each tool call and appends the result to `messages`. About 20 lines; long-term memory, retries, and logging are extras.
+### Code
+```python
+async def run_agent(user_goal, tools, max_steps=10):
+    messages = [{"role": "user", "content": user_goal}]
+    step = 0
+    while True:
+        if step >= max_steps: return "Reached step limit"
+        step += 1
+        response = await call_llm(messages, tools)       # Think
+        if response.is_done: return response.final_answer
+        for tc in response.tool_calls:                    # Act + Observe
+            result = await call_tool(tc.name, tc.arguments)
+            messages.append({"role":"tool","name":tc.name,"content":str(result)})
+```
+`messages` is the short-term memory. Long-term memory, parallel calls, retries, logging are polish.
 
 ### Parallel tool calls
-A single turn can contain several tool calls (weather in three cities); the loop runs them in parallel. The loop shape does not change.
+Modern LLMs (Claude, GPT) may emit several tool calls in one turn (e.g. weather in three cities); the loop runs them in parallel and feeds all results back. Loop shape unchanged. Same loop powers computer-use agents (clicks and keystrokes).
 
 ### When to stop
-- Natural stop: LLM returns a final answer.
-- Safety stop: max steps.
-- Extra production guards: time budget, cost budget, human interrupt.
-Always have both natural and safety stops; hitting the limit often signals bad instructions or tools.
+1. **Natural stop** — LLM returns final answer (`is_done`).
+2. **Safety stop** — `max_steps`; hitting it often means instructions/tools need fixing.
+Extra guards: time budget, cost budget (tokens/money), human interrupt. Always have both stops; never trust the LLM to stop alone. Claude Code runs this loop: gather context, act, verify, repeat.
 
-### Common failures
-| Failure | Fix |
-|---|---|
-| Infinite loop | Hard step limit |
-| Repeating the same action | Detect repeats, tell the LLM to try something else, improve instructions |
-| Context overflow (history keeps growing) | Summarize old turns, drop stale observations |
-| Premature stopping | Clear definition of done |
-
-## Diagram
+## Diagram(s)
+### Loop with stop conditions
 ```mermaid
-flowchart LR
-    S["Goal plus history"] --> TH["Think: LLM decides"]
-    TH -->|"Tool chosen"| AC["Act: loop runs tool"]
-    AC --> OB["Observe: result added to history"]
-    OB --> TH
-    TH -->|"Goal achieved"| FA["Final answer"]
-    TH -.->|"Step limit hit"| SS["Safety stop"]
+flowchart TD
+G1["User goal"] --> C1{"step limit hit?"}
+C1 -->|"yes"| S1["Safety stop"]
+C1 -->|"no"| T1["Think: LLM reads goal + history"]
+T1 --> D1{"Done?"}
+D1 -->|"yes"| F1["Final answer"]
+D1 -->|"no, tool picked"| A1["Act: loop runs tool"]
+A1 --> O1["Observe: append result to history"]
+O1 --> C1
 ```
 
+## Trade-offs & Pitfalls
+| Failure | Fix |
+|---|---|
+| Infinite loops | Hard step limit (most important guard) |
+| Repeating the same action | Detect repeated calls, tell the LLM "you already tried this, try another approach"; better instructions |
+| Context overflow (history re-sent each turn keeps growing) | Summarize older turns / drop stale observations |
+| Premature stopping | Instructions clear about when the task is truly done |
+Production agents are mostly about handling these; see AI Agent Evaluation (outcome, trajectory, tool use).
+
+FAQ: ReAct is a pattern on this cycle, not identical to it. Loop is ~20 lines. Frequently hitting the step limit signals bad instructions/tools.
+
 ## Key Takeaways
-- Agent Loop = Think, Act, Observe, repeat until the goal is achieved.
-- The LLM decides; the loop executes tools and carries memory.
-- Re-sending the history every turn is what gives a stateless LLM continuity.
-- Use two stop conditions: LLM done, plus step limit.
-- Production agent work is mostly handling loop failures well.
+- Loop = Think, Act, Observe, repeat.
+- LLM decides; loop executes tools.
+- Loop exists because tasks are multi-step and the LLM is stateless.
+- Messages list is the short-term memory re-sent every turn.
+- Two stops: LLM done plus step limit (and time/cost/human guards).
+- Watch for infinite loops, repetition, context overflow, premature stop.

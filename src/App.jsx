@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, Suspense, lazy } from 'react';
 import blogsData from './data/blogsData.json';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
@@ -10,19 +10,47 @@ import BlogTable from './components/BlogTable';
 import BlogModal from './components/BlogModal';
 import Footer from './components/Footer';
 import ProgressPage from './components/ProgressPage';
+import { flushSync } from 'react-dom';
+import { nav } from './notes';
+
+const NotesPage = lazy(() => import('./components/NotesPage'));
 import { SearchX } from 'lucide-react';
 
 const DEFAULT_WPM = 200;
 
-const pageFromHash = () => (window.location.hash.startsWith('#/progress') ? 'progress' : 'analysis');
+function routeFromHash(hash = window.location.hash) {
+  const m = hash.match(/^#\/notes\/([^/?#]+)/);
+  if (m) return { page: 'notes', slug: decodeURIComponent(m[1]) };
+  if (hash.startsWith('#/progress')) return { page: 'progress' };
+  return { page: 'analysis' };
+}
+
+// Remember scroll position per list page so "Back" from a note lands where you were.
+const scrollMemory = {};
+const pageKey = (r) => (r.page === 'notes' ? null : r.page);
 
 export default function App() {
   // Simple hash routing (works on GitHub Pages without server config)
-  const [page, setPage] = useState(pageFromHash);
+  const [route, setRoute] = useState(() => routeFromHash());
+  const page = route.page;
   useEffect(() => {
-    const onHash = () => {
-      setPage(pageFromHash());
-      window.scrollTo(0, 0);
+    const onHash = (e) => {
+      const from = routeFromHash(new URL(e.oldURL).hash);
+      const to = routeFromHash();
+      if (pageKey(from)) {
+        scrollMemory[pageKey(from)] = window.scrollY;
+        nav.returnTo = from.page === 'progress' ? '#/progress' : '#/';
+      }
+      const y = pageKey(to) ? scrollMemory[pageKey(to)] || 0 : 0;
+      flushSync(() => setRoute(to));
+      // Jump (not smooth-scroll) to the right spot for the new page.
+      const root = document.documentElement;
+      root.style.scrollBehavior = 'auto';
+      window.scrollTo(0, y);
+      requestAnimationFrame(() => {
+        window.scrollTo(0, y);
+        root.style.scrollBehavior = '';
+      });
     };
     window.addEventListener('hashchange', onHash);
     return () => window.removeEventListener('hashchange', onHash);
@@ -204,7 +232,11 @@ export default function App() {
       <Navbar theme={theme} toggleTheme={toggleTheme} page={page} />
 
       <main className="container">
-        {page === 'progress' ? (
+        {page === 'notes' ? (
+          <Suspense fallback={<div className="note-loading">Loading notes…</div>}>
+            <NotesPage slug={route.slug} theme={theme} />
+          </Suspense>
+        ) : page === 'progress' ? (
           <ProgressPage />
         ) : (
         <>

@@ -3,56 +3,103 @@
 > **Step 1: Machine Learning Foundations** · ⏱️ 14 min read · [Read original](https://outcomeschool.com/blog/data-augmentation)
 
 ## TL;DR
-Data Augmentation creates new training examples from existing ones through small, meaning-preserving changes (flip an image, reword a sentence). It fights overfitting when data is scarce, without collecting new data.
+Data Augmentation creates new training examples from existing ones by applying small, meaning-preserving changes (flip, rotate, reword). The label stays the same but the data looks new, so the model learns the general idea instead of memorizing, reducing overfitting when data is scarce. Apply only to training data and only with transformations that keep the meaning.
 
 ## Key Concepts
-- **Augmentation** — increasing training data by transforming existing examples.
-- **Transformation** — a small change that keeps the meaning, so the label stays the same.
-- **Overfitting** — memorising training examples instead of learning the general idea.
-- **On-the-fly augmentation** — random changes applied during training; nothing saved to disk.
+- **Data Augmentation** — increase the amount of training data without collecting new data, by transforming existing examples.
+- **Transformation** — small change that keeps meaning but looks different to the model.
+- **Label** — correct answer attached to an example; unchanged by augmentation (flipped cat is still "cat").
+- **Overfitting** — good on training data, poor on unseen data (student who memorized 10 specific questions).
+- **On-the-fly augmentation** — changes applied during training, never saved to disk.
 
 ## How It Works
-Core idea: label unchanged, data looks new. One cat photo becomes flipped, rotated, brighter and zoomed cats, all still "cat". This teaches that a cat is a cat in any orientation or light.
 
-**Image transforms and what they imitate:**
+### Why needed
+A model learns from examples, but thousands of labeled photos are costly. With only 500 cats and 500 dogs it memorizes exact photos (overfitting). More varied examples help it understand; augmentation provides variety from existing data. (Dropout is another way to reduce overfitting.)
 
+### Core idea
+One cat photo gives flipped, rotated, brighter, zoomed versions, all labeled cat. Each imitates a real-world condition (different angle, lighting, position), teaching the model a cat is a cat however it appears.
+
+### Image transformations and what they imitate
 | Transformation | Real-world situation |
 |---|---|
-| Flipping | Cat facing other way |
-| Rotation | Tilted camera |
-| Cropping | Part of cat in frame |
-| Zooming | Closer or farther |
-| Brightness | Sun or dim light |
-| Noise | Low-quality camera or darkness |
-| Shifting | Cat off-centre |
+| Flipping (horizontal/vertical) | Cat facing the other way |
+| Rotation (e.g. 10-20 degrees) | Tilted camera |
+| Cropping | Only part of cat in frame |
+| Zooming | Cat closer or farther |
+| Brightness change | Bright sun or dim light |
+| Adding noise | Low-quality camera or dark |
+| Shifting | Cat not centered |
 
-**Code.** Keras `ImageDataGenerator` (legacy; modern way uses layers like `RandomFlip`, `RandomRotation`, `RandomZoom`, `RandomBrightness`) sits between stored images and the model, handing a fresh random variation each time.
+Augmentation also underpins self-supervised learning (Contrastive Learning uses two augmented versions of the same image).
+Caution: don't break meaning, e.g. never flip digit 6 upside down (looks like 9).
 
-**Text transforms** (example "The movie was very good and I really enjoyed it", label positive): synonym replacement, word shuffling, back translation, random insertion.
+### Code (Keras)
+```python
+data_generator = ImageDataGenerator(
+    rotation_range=20, horizontal_flip=True,
+    brightness_range=[0.8, 1.2], zoom_range=0.2, width_shift_range=0.1)
+```
+Each parameter sets a random range for that change. Generator sits between stored images and the model, producing a fresh variation each time, never saved, so almost no image is seen twice and storage is saved. `ImageDataGenerator` is legacy/deprecated; modern Keras uses layers like `RandomFlip("horizontal")`, `RandomRotation(0.1)`, `RandomZoom(0.2)`, `RandomBrightness(0.2)`.
 
-**Numeric walkthrough:** 1,000 images, add flip (2,000), rotate (4,000), brightness (8,000); doubling each step with no new photos.
+### Text augmentation
+Example: "The movie was very good and I really enjoyed it." (positive).
+- **Synonym replacement:** good to nice.
+- **Word shuffling:** slightly reorder words, keep meaning clear.
+- **Back translation:** translate to another language and back ("The film was really good and I enjoyed it a lot.").
+- **Random insertion:** add a harmless extra word.
+Care: one key word change can flip meaning (good to bad turns positive into negative).
 
-**Cautions:** the change must not break meaning (a flipped 6 looks like 9; "good" to "bad" flips sentiment). Augment training data only, not test data.
+### Numeric walkthrough
+1,000 images, then add flipped version: 2,000; add rotated version: 4,000; add brightness version: 8,000. Doubles each step, with no new photos collected.
 
-| Situation | Use it? |
-|---|---|
-| Little data | Yes, helps a lot |
-| Overfitting | Yes |
-| Real data varies | Yes |
-| Huge varied dataset | Smaller benefit |
-| Transformation changes meaning | No |
+## Diagram(s)
 
-## Diagram
+### One example, many variations
 ```mermaid
-flowchart LR
-    A["Original image with label"] --> B["Random transform: flip, rotate, zoom, brightness"]
-    B --> C["New image, same label"]
-    C --> D["Model training"]
-    A -.->|"Test data left unchanged"| E["Evaluation"]
+flowchart TD
+    O["One cat photo<br/>label: cat"] --> F["Flipped cat"]
+    O --> R["Rotated cat"]
+    O --> B["Brighter cat"]
+    O --> Z["Zoomed cat"]
+    F --> L["All keep label: cat"]
+    R --> L
+    B --> L
+    Z --> L
 ```
 
+### On-the-fly pipeline and growth
+```mermaid
+flowchart LR
+    I["Original images"] --> G["Generator<br/>random flip, rotate, zoom, brightness"]
+    G --> M["Model (training)"]
+    S1["1,000"] -->|"+ flip"| S2["2,000"]
+    S2 -->|"+ rotate"| S3["4,000"]
+    S3 -->|"+ brightness"| S4["8,000"]
+```
+
+## When to use
+| Situation | Use it? |
+|---|---|
+| Small training data | Yes, helps a lot |
+| Model overfitting | Yes |
+| Real-world data has many variations | Yes |
+| Already huge and varied dataset | Still helps, smaller benefit |
+| Transformation changes meaning | No, avoid |
+
+## Trade-offs & Pitfalls
+- Transformations must preserve meaning (digit 6 vs 9; good vs bad).
+- Apply augmentation only to training data, not test data - test on real unchanged examples.
+
+## FAQ
+- Label change? → No.
+- Augment test data? → No.
+- Save augmented images? → No, on the fly.
+- Can it hurt? → Yes if meaning changes.
+
 ## Key Takeaways
-- Augmentation adds variety, not new collected data, to reduce overfitting.
-- Labels must survive the transformation.
-- Pick transformations that mimic real-world variation for your use case.
-- Applied on the fly during training, to training data only.
+- Small meaning-preserving changes make new examples with the same label.
+- Combats overfitting from scarce data.
+- Choose transformations that mimic real-world variation for your use case.
+- Text needs extra care since one word can flip meaning.
+- Augment training only, on the fly.

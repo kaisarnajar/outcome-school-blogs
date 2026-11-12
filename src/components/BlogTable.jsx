@@ -1,5 +1,6 @@
 import React from 'react';
-import { Info, ExternalLink } from 'lucide-react';
+import { Info, ExternalLink, NotebookPen } from 'lucide-react';
+import { noteHref } from '../notes';
 
 export default function BlogTable({
   blogs,
@@ -17,7 +18,7 @@ export default function BlogTable({
             <th style={{ width: 120 }}>Words</th>
             <th style={{ width: 130 }}>Est. Time</th>
             <th style={{ width: 140 }}>Category</th>
-            <th style={{ width: 100, textAlign: 'center' }}>Actions</th>
+            <th style={{ width: 130, textAlign: 'center' }}>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -48,12 +49,7 @@ export default function BlogTable({
                   <span className="step-tag">{stepDisplay}</span>
                 </td>
                 <td className="table-title-cell">
-                  <a
-                    href={blog.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="table-title-link"
-                  >
+                  <a href={noteHref(blog)} className="table-title-link" title="Open my short notes">
                     {blog.title}
                   </a>
                 </td>
@@ -68,6 +64,9 @@ export default function BlogTable({
                 </td>
                 <td style={{ textAlign: 'center' }}>
                   <div style={{ display: 'inline-flex', gap: 6 }}>
+                    <a href={noteHref(blog)} className="action-icon-btn" title="My notes">
+                      <NotebookPen size={15} />
+                    </a>
                     <button
                       onClick={() => onOpenModal(blog)}
                       className="action-icon-btn"
@@ -80,7 +79,7 @@ export default function BlogTable({
                       target="_blank"
                       rel="noopener noreferrer"
                       className="action-icon-btn"
-                      title="Read Article"
+                      title="Read the original blog"
                     >
                       <ExternalLink size={15} />
                     </a>

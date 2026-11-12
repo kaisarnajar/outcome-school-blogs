@@ -3,64 +3,111 @@
 > **Step 8: Prompt Engineering and Context Engineering** · ⏱️ 21 min read · [Read original](https://outcomeschool.com/blog/context-engineering)
 
 ## TL;DR
-Context Engineering is designing, organizing, and managing everything that goes into an LLM's context window so it can do its task reliably. Since LLMs are stateless and their output depends entirely on the context, this has become the main lever for building dependable AI applications, with prompt wording only a small subset.
+Context Engineering is designing, organizing and managing everything that goes into an LLM's context window so it can do its task reliably: what to give, how to organize it, and when to include it. LLMs are stateless, so output is decided entirely by the context. Prompt Engineering is just a subset of it.
 
 ## Key Concepts
-- **Context Engineering** — deciding what information to give the model, how to organize it, and when to include it.
-- **Stateless LLM** — remembers nothing between calls; only what is in the context window counts.
-- **Prompt Engineering** — wording of a single instruction; a subset of Context Engineering.
-- **Context rot** — gradual drop in answer quality as context grows beyond what the task needs.
-- **Lost in the middle** — models under-attend to information buried deep in a long context.
-- **Context budget** — treating tokens as a limited resource split across system prompt, retrieval, history, and task.
+- **Context Engineering** — deciding what information goes to the model, in what shape, at what time.
+- **Stateless LLM** — remembers nothing between calls; the context window is all it knows.
+- **Prompt Engineering** — wording of a single instruction.
+- **Few-shot / in-context learning** — input-output examples in the context that show the pattern.
+- **RAG** — retrieve only the relevant chunks and inject them.
+- **Context rot / degradation** — answer quality decays as context grows beyond what the task needs.
+- **Lost in the middle** — models under-attend to info buried mid-context; they favour start and end.
+- **Structured output APIs / JSON schema** — enforce a format (the prompt only asks for it).
+- **Analogy** — LLM = brilliant colleague with no memory; context window = the one-page briefing.
 
 ## How It Works
-**Analogy.** The LLM is a brilliant colleague with no memory; the context window is the one-page briefing (role, task, background, examples, tools, output format). Context Engineering writes that briefing well.
 
-**Prompt vs Context Engineering**
+### Why it matters
+- Output is decided entirely by input context.
+- A weak model with great context can beat a strong model with poor context ("model is the engine, context is the fuel").
+- With RAG, agents and multi-step workflows, application complexity is mostly about context, not the model. The real bottleneck is feeding the right info at the right time.
 
+### Prompt vs Context Engineering
 | Aspect | Prompt Engineering | Context Engineering |
 |---|---|---|
 | Scope | One instruction | Full context window |
-| Concerns | Wording and structure | System prompt, RAG, tools, examples, memory, history |
+| Concerns | Wording, phrasing, structure of one prompt | System prompt, RAG, tools, examples, memory, history |
 | Matters most | Simple one-shot tasks | RAG, agents, multi-step, production |
-| Failure | Bad wording gives bad answer | Missing/wrong context gives hallucination or wrong tool use |
+| Failure mode | Bad wording, bad answer | Missing/wrong context: wrong answers, hallucination, wrong tool use |
+| Example fix | Rewrite a sentence | Add a retrieved doc, adjust memory, reorder system prompt |
 
-**Components of the context (all compete for the same window):**
-1. System prompt (role, rules, format)
-2. Few-shot examples (in-context learning)
-3. Retrieved documents (RAG)
-4. Tools and descriptions
-5. Memory (long-term facts, preferences)
-6. Conversation history
-7. Tool results
-8. Current user message
+### The 8 components of the context
+1. **System prompt** — role, rules, persona, output format, boundaries.
+2. **Examples (few-shot)** — even one good example helps a lot.
+3. **Retrieved documents (RAG)** — external knowledge chunks.
+4. **Tools and descriptions** — names, descriptions, parameter schemas; tells the agent what it can do.
+5. **Memory** — long-term facts, user preferences.
+6. **Conversation history** — previous turns; gives continuity.
+7. **Tool results** — outputs returned after the runtime executes a recommended tool.
+8. **Current user message**.
 
-**Rebuilt every turn.** Context is not stored; each turn it is assembled from scratch from these sources, then the next turn rebuilds it with new tool results.
+All compete for one finite window; the job is deciding what goes in, in what order, at what size.
 
-**Patterns:** RAG (retrieve only relevant chunks), few-shot examples (2-5 as a starting range), tool calling, memory injection (only relevant slices), history management (summaries, sliding windows), output formatting (schema/structured output APIs enforce what the prompt asks), context compression, and per-step context rebuilding for agents (keep only what is relevant now, do not endlessly append).
+### Common patterns
+The context is not stored; it is **rebuilt from scratch every turn** from these sources.
+1. **RAG** — inject only the most relevant pieces; pair with chunking, embedding search, re-ranking.
+2. **Few-shot** — 2-5 example pairs is a good start (varies by task); cheap quality lift.
+3. **Tool calling** — model recommends a tool, runtime executes; definitions and results live in context. Foundation of agents; overlaps Harness Engineering and Loop Engineering (turn budget, what carries forward, when to stop).
+4. **Memory injection** — only relevant slices, never the whole memory.
+5. **History management** — summarization, sliding windows, selective inclusion.
+6. **Output formatting** — JSON/schema/table in context; schema constraints enforce it.
+7. **Context compression** — summarization, key-fact extraction, structured rewriting.
+8. **Per-step rebuilding for agents** — each loop step is a fresh call; include only the current sub-task, latest tool result, relevant memory; don't append endlessly.
 
-**Common mistakes:** stuffing everything in; not including enough; bad ordering; stale context; no structure; conflicting instructions.
-
-**Best practices:** treat context as a budget; keep it focused on the current task; order from most stable to most fresh (also friendly to caching); use clear section markers; log and test the context when failures happen; version, diff, and eval it like software; compress carefully (it loses information); design for the worst case (long chats, big documents, repeated tool calls).
-
-## Diagram
+### Diagram: per-turn context assembly
 ```mermaid
 flowchart TD
-    A["System prompt"] --> G["Assembled context"]
-    B["Few-shot examples"] --> G
-    C["Retrieved documents - RAG"] --> G
-    D["Tools and descriptions"] --> G
-    E["Memory"] --> G
-    F["History and tool results"] --> G
-    H["Current user message"] --> G
-    G --> L["LLM produces output"]
-    L -->|"next turn rebuilds from scratch"| G
+    A1["System prompt"] --> M["Assembled context"]
+    A2["Memory slices"] --> M
+    A3["RAG retrieval"] --> M
+    A4["Few-shot examples"] --> M
+    A5["Tool list"] --> M
+    A6["Tool results"] --> M
+    A7["Conversation history"] --> M
+    A8["Latest user message"] --> M
+    M --> L["LLM"]
+    L --> O["Output"]
+    O -->|"next turn rebuilds from scratch"| M
 ```
 
+### Diagram: scope
+```mermaid
+flowchart TD
+    subgraph CE["Context window = Context Engineering scope"]
+        S1["System prompt"]
+        S2["Examples, RAG docs, tools"]
+        S3["Memory, history, tool results"]
+        subgraph PE["Prompt = Prompt Engineering scope"]
+            P1["Wording of one instruction"]
+        end
+    end
+```
+
+## Trade-offs & Pitfalls
+Most LLM app failures are context failures.
+1. **Stuffing everything** — distracts, slows, costs more, worse answers (context rot). Fix: include only what this turn needs.
+2. **Not enough** — model can't guess (e.g. refund policy). Ask "what would I need to know?" Knowledge often lives in heads/wikis; OKF (Open Knowledge Format) writes it as markdown files agents can read.
+3. **Bad ordering** — lost in the middle. Rules at start, current task at end.
+4. **Stale context** — old history/tool results/docs clutter; prune.
+5. **No structure** — wall of text; use headers, separators, labels.
+6. **Confusing/contradicting instructions** — design for one clear answer to "what should the model do now".
+
+### Best practices
+1. Treat context as a **budget** (split among system, retrieval, history, task).
+2. Keep it **focused** on the current task (Agent Skills: only a one-line description loaded, full steps read when matched).
+3. Order **most stable to most fresh**: system, examples, retrieved knowledge, memory, history, current message; stable parts can be cached.
+4. Use clear **section markers** (### SYSTEM, ### EXAMPLES, ### RETRIEVED DOCUMENTS, ### CONVERSATION, ### CURRENT TASK).
+5. **Test the context**; log full context on failures; the bug is usually there.
+6. **Iterate like software**: version, diff, A/B test, evals.
+7. **Compress carefully** — it loses information.
+8. **Build for the worst case** (long chats, big docs, repeated tool calls).
+
 ## Key Takeaways
-- LLMs are stateless, so the output is decided by what is in the context.
-- Prompt Engineering is a subset; Context Engineering covers the whole information environment.
-- More context is not better: context rot and lost-in-the-middle hurt quality.
-- Put rules at the start, the current task at the end; order stable to fresh.
-- When an AI app misbehaves, first ask whether the context was right, not whether the model is wrong.
-- A weak model with great context can beat a strong model with poor context.
+- Context Engineering = briefing the LLM with the right info, in the right shape, at the right time.
+- LLMs are stateless; context is rebuilt every turn.
+- Prompt Engineering is a subset of Context Engineering.
+- Eight components compete for a finite window; bigger is not better (context rot).
+- Put instructions first and the task last to avoid lost-in-the-middle.
+- Prompt asks for a format, schema enforces it.
+- When debugging, ask "is the context right?" before "is the model wrong?"

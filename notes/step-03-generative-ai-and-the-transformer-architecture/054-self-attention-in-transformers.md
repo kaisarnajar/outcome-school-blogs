@@ -3,59 +3,102 @@
 > **Step 3: Generative AI and the Transformer Architecture** · ⏱️ 14 min read · [Read original](https://outcomeschool.com/blog/self-attention-in-transformers)
 
 ## TL;DR
-Self attention lets every token in a sequence look at every other token (and itself) in the same sequence to build a context-aware representation. It is the core idea behind every modern LLM.
+Self Attention lets every token in a sequence look at every other token (including itself) to decide which matter for its meaning. Q, K and V are all derived from the same sequence; the output is a context-enriched vector per token. It is the core of BERT, GPT and all modern LLMs.
 
 ## Key Concepts
-- **Self attention** — attention where Q, K and V all come from the same sequence (in cross attention, Q comes from one sequence and K, V from another).
-- **Query (Q)** — what this token is looking for.
-- **Key (K)** — what this token offers.
-- **Value (V)** — the information it carries.
-- **Attention weights** — softmax probabilities; each row sums to 1.
-- **Multi-head self attention** — several self-attentions in parallel, each with its own $W_Q, W_K, W_V$.
-- **Masked self attention** — decoder variant that hides future tokens.
+- **Self Attention** = Self + Attention: each token decides how much to focus on the others in the same sequence.
+- **Query (Q)** — what this token is looking for. **Key (K)** — what it offers. **Value (V)** — the information it carries.
+- **W_Q, W_K, W_V** — weight matrices learned in training; $Q=XW_Q$, $K=XW_K$, $V=XW_V$.
+- **Self vs Cross Attention** — Self: Q, K, V from the same sequence. Cross: Q from one sequence, K and V from another.
+- **Masked Self Attention** — decoder variant hiding future tokens.
+- **Attention sink** — because each row must sum to 1, a token with nothing worth attending to still gives away attention; first tokens end up acting as sinks.
+- Library analogy: Query = topic searched, Key = label on each book, Value = content of the book.
 
 ## How It Works
-**Motivation.** "The animal did not cross the street because it was too tired" versus "...too wide". Changing one word flips what "it" refers to (animal vs street). Self attention lets the model weigh surrounding words to resolve this.
 
-**Steps**
-1. Start with input embeddings $X$.
-2. Project: $Q = XW_Q$, $K = XW_K$, $V = XW_V$ (weights learned in training).
-3. Scores: $QK^T$ (higher means stronger match).
-4. Scale by $\sqrt{d_k}$ to keep softmax stable and avoid tiny gradients.
-5. Softmax to get attention weights.
-6. Multiply by $V$ for the output.
+### Why needed
+"The animal did not cross the street because it was too **tired**" -> "it" = animal. Swap to "too **wide**" -> "it" = street. Context words steer what "it" refers to; the model does this by letting each word attend to others in the same sentence. Without it, "it" is a generic token.
 
-$$\text{Attention}(Q,K,V)=\text{softmax}\!\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+### Steps
+1. Embeddings for each token.
+2. $Q=XW_Q,\; K=XW_K,\; V=XW_V$.
+3. Scores $=QK^\top$ (transpose so shapes align); higher = stronger Query-Key match.
+4. Scale by $\sqrt{d_k}$ (key dimension) so softmax doesn't go extreme and gradients don't vanish.
+5. Softmax: each row sums to 1.
+6. Multiply by V -> context-enriched output.
 
-**Library analogy:** Query = topic searched, Key = book label, Value = book content.
+$$\text{Attention}(Q,K,V)=\text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V$$
 
-**Example ("I love AI").** For token "I", illustrative weights: itself 0.070, love 0.707, AI 0.223. Output for "I" = $0.070\,V_I + 0.707\,V_{love} + 0.223\,V_{AI}$, heavily influenced by "love". Because rows must sum to 1, early tokens can end up as attention sinks.
+### Example: "I love AI"
+Weights for token "I": I 0.070, love 0.707, AI 0.223 (7% self, 70.7% love, 22.3% AI). Full matrix (rows sum to 1):
 
-**Why it works:** parallelization (fast on GPUs), direct long-range dependencies with no decay (costly, so long-context models may use sliding window attention), contextual meaning per sentence, flexibility.
+| from \ to | I | love | AI |
+|---|---|---|---|
+| I | 0.070 | 0.707 | 0.223 |
+| love | 0.333 | 0.333 | 0.333 |
+| AI | 0.168 | 0.533 | 0.299 |
 
-**Multi-head:** heads may specialize (subject-object, verb tense, long-range links); outputs are concatenated and passed through a linear layer.
+Output for I = 0.070 V(I) + 0.707 V(love) + 0.223 V(AI): heavily influenced by "love". All tokens computed at once.
 
-**Where used:** encoder (full self attention) and decoder (masked self attention: tokens see themselves and the past only). BERT, GPT and others rely on it.
+### Why it works so well
+- **Parallelization** — all tokens at once (vs RNN/LSTM one by one); fast on GPUs.
+- **Long-range dependencies** — direct links, no decay with distance; cost is the price (long-context models use Sliding Window Attention, looking only at nearby tokens).
+- **Contextual understanding** — same word gets different representations in different sentences.
+- **Flexibility** — long sequences, complex relationships.
 
-## Diagram
+### Multi-Head Self Attention
+One Q/K/V set can't capture all relationship types. Run attention N times in parallel, each head with its own $W_Q,W_K,W_V$ (e.g. subject-object, verb tense, long-range dependencies); concatenate outputs, pass through a linear layer.
+
+### Where used
+- Encoder: every layer; every input token sees every other.
+- Decoder: Masked Self Attention; each token sees itself and earlier tokens only.
+
+## Diagrams
+
+### Self Attention flow
 ```mermaid
 flowchart TD
-    X["Input embeddings"] --> Q["Q"]
-    X --> K["K"]
-    X --> V["V"]
-    Q --> S["Q times K transpose"]
-    K --> S
-    S --> D["Divide by sqrt of d_k"]
-    D --> SM["Softmax"]
-    SM --> W["Attention weights"]
-    W --> M["Multiply with V"]
-    V --> M
-    M --> O["Output"]
+    X1["Input embeddings"] --> Q1["Q"]
+    X1 --> K1["K"]
+    X1 --> V1["V"]
+    Q1 --> S1["Q times K transpose"]
+    K1 --> S1
+    S1 --> S2["Divide by sqrt dk"]
+    S2 --> S3["Softmax = attention weights"]
+    S3 --> O1["Multiply by V"]
+    V1 --> O1
+    O1 --> O2["Output"]
 ```
 
+### Multi-head
+```mermaid
+flowchart TD
+    M0["Input"] --> M1["Head 1"]
+    M0 --> M2["Head 2"]
+    M0 --> M3["Head N"]
+    M1 --> M4["Concatenate"]
+    M2 --> M4
+    M3 --> M4
+    M4 --> M5["Linear layer"]
+    M5 --> M6["Final output"]
+```
+
+## Trade-offs & Pitfalls
+- All-pairs attention is costly on long sequences (hence sliding window).
+- Attention sinks: rows must sum to 1 even when nothing is relevant.
+- Weight matrices are learned, not fixed.
+
+## FAQ
+- Self vs Cross? Same sequence vs two sequences.
+- Like RNN, one by one? No, parallel.
+- Token attends to itself? Yes.
+- Why masked in decoder? Future tokens must not be visible.
+- Are W matrices fixed? No, learned.
+
 ## Key Takeaways
-- Self attention = Q, K, V from the same sequence.
-- Formula: softmax of scaled $QK^T$, times $V$.
-- Each token's output is a weighted mix of all tokens' Values.
-- It enables parallel training and direct long-range links.
-- Multi-head runs many in parallel; masked self attention is for decoders.
+- Self Attention: Q, K, V from the same sequence.
+- Formula: softmax(QK^T / sqrt(d_k)) V.
+- Rows of weights sum to 1; output is a weighted mix of Values.
+- Parallel, direct long-range links, contextual meaning.
+- Multi-head runs several in parallel, concatenates, applies a linear layer.
+- Encoder uses it bidirectionally; decoder uses masked version.

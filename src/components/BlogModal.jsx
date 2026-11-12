@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { X, ExternalLink, Calendar, User } from 'lucide-react';
+import { X, ExternalLink, Calendar, User, NotebookPen } from 'lucide-react';
+import { noteHref } from '../notes';
 
 export default function BlogModal({
   blog,
@@ -76,14 +77,13 @@ export default function BlogModal({
         </div>
 
         <div className="modal-actions" style={{ justifyContent: 'flex-end' }}>
-          <a
-            href={blog.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="modal-primary-btn"
-          >
-            <span>Read Original Article</span>
-            <ExternalLink size={16} />
+          <a href={blog.url} target="_blank" rel="noopener noreferrer" className="nav-link">
+            <span>Read original</span>
+            <ExternalLink size={15} />
+          </a>
+          <a href={noteHref(blog)} className="modal-primary-btn" onClick={onClose}>
+            <NotebookPen size={16} />
+            <span>Open my notes</span>
           </a>
         </div>
       </div>

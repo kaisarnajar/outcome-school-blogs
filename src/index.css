@@ -1618,3 +1618,120 @@ body {
   .brand-icon { width: 36px; height: 36px; }
   .nav-actions .nav-link { display: none; }
 }
+
+/* ===================== Whole card / row opens notes ===================== */
+.blog-card-title-link { color: inherit; text-decoration: none; }
+.blog-card-title-link::after { content: ''; position: absolute; inset: 0; border-radius: inherit; z-index: 0; }
+.blog-card .card-top-row, .blog-card .card-footer-actions { position: relative; z-index: 1; }
+.blog-card:hover .blog-card-title { color: var(--accent-primary); }
+.card-footer-actions { display: inline-flex; align-items: center; gap: 8px; }
+
+.pg-row { position: relative; transition: var(--transition); }
+.pg-row:hover { border-color: var(--border-strong); background: var(--bg-card-hover); }
+.pg-row-title::after { content: ''; position: absolute; inset: 0; border-radius: inherit; z-index: 0; }
+.pg-row-links { position: relative; z-index: 1; }
+.pg-row:hover .pg-row-title { color: var(--accent-primary-text); }
+
+/* ===================== Notes page ===================== */
+.note-page { max-width: 880px; margin: 0 auto; padding: 28px 0 56px; }
+.note-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); text-decoration: none;
+  margin-bottom: 18px;
+}
+.note-back:hover { color: var(--text-primary); }
+.note-header {
+  padding: 26px 28px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 28px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.note-meta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.note-step-name { font-size: 0.85rem; color: var(--text-secondary); }
+.note-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.4vw, 2.2rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+.note-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-secondary); }
+.note-revisit {
+  font-size: 0.86rem; line-height: 1.5; color: var(--text-primary);
+  padding: 10px 14px; border-radius: var(--radius-sm);
+  background: var(--pg-bg); border: 1px solid var(--pg-b);
+}
+.note-revisit strong { color: var(--pg-t); }
+.note-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.note-loading { padding: 48px 0; text-align: center; color: var(--text-secondary); }
+
+/* Prose */
+.note-body { color: var(--text-primary); font-size: 1rem; line-height: 1.72; overflow-wrap: break-word; }
+.note-body > * + * { margin-top: 0.9em; }
+.note-body h2 {
+  font-family: var(--font-display); font-size: 1.45rem; line-height: 1.3; letter-spacing: -0.01em;
+  margin-top: 2.1em; padding-bottom: 8px; border-bottom: 1px solid var(--border-subtle);
+}
+.note-body h2:first-child { margin-top: 0; }
+.note-body h3 { font-family: var(--font-display); font-size: 1.15rem; margin-top: 1.6em; }
+.note-body h4 { font-size: 1rem; margin-top: 1.3em; }
+.note-body p, .note-body li { color: var(--text-primary); }
+.note-body ul, .note-body ol { padding-left: 1.4em; }
+.note-body li + li { margin-top: 0.35em; }
+.note-body li > ul, .note-body li > ol { margin-top: 0.35em; }
+.note-body strong { font-weight: 650; }
+.note-body a { color: var(--accent-primary-text); }
+.note-body blockquote {
+  padding: 10px 16px; border-left: 3px solid var(--accent-primary);
+  background: var(--bg-box-subtle); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; color: var(--text-secondary);
+}
+.note-body code {
+  font-family: var(--font-mono); font-size: 0.86em;
+  padding: 1px 6px; border-radius: 5px; background: var(--bg-button); border: 1px solid var(--border-subtle);
+}
+.note-body pre {
+  padding: 14px 16px; border-radius: var(--radius-md); overflow-x: auto;
+  background: var(--bg-elevated); border: 1px solid var(--border-subtle); line-height: 1.55;
+}
+.note-body pre code { padding: 0; border: 0; background: none; font-size: 0.84rem; }
+.note-table-wrap { overflow-x: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); }
+.note-body table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.note-body th, .note-body td { padding: 9px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border-subtle); }
+.note-body th { background: var(--bg-box-subtle); font-weight: 600; white-space: nowrap; }
+.note-body tr:last-child td { border-bottom: 0; }
+.note-body .katex-display { overflow-x: auto; overflow-y: hidden; padding: 4px 0; }
+.note-body hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 2em 0; }
+
+.note-diagram {
+  margin: 1.2em 0; padding: 18px; overflow-x: auto;
+  border-radius: var(--radius-md); background: var(--bg-card); border: 1px solid var(--border-subtle);
+  display: flex; justify-content: center;
+}
+.note-diagram svg { max-width: 100%; height: auto; }
+.note-diagram-loading { color: var(--text-muted); font-size: 0.85rem; min-height: 80px; align-items: center; }
+.note-diagram-error { display: block; }
+.note-diagram-error-label { font-size: 0.78rem; color: var(--accent-amber-text); margin-bottom: 8px; }
+
+.note-pager {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border-subtle);
+}
+.note-pager-link {
+  display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; text-decoration: none;
+  border-radius: var(--radius-md); background: var(--bg-card); border: 1px solid var(--border-subtle); transition: var(--transition);
+}
+.note-pager-link:hover { border-color: var(--chip-active-border); }
+.note-pager-link.next { text-align: right; align-items: flex-end; }
+.note-pager-dir { display: inline-flex; align-items: center; gap: 4px; font-size: 0.75rem; color: var(--text-muted); }
+.note-pager-title { font-size: 0.9rem; font-weight: 500; color: var(--text-primary); }
+
+@media (max-width: 768px) {
+  .note-page { padding-top: 18px; }
+  .note-header { padding: 20px 18px; }
+  .note-body { font-size: 0.97rem; }
+  .note-pager { grid-template-columns: 1fr; }
+  .note-pager-link.next { text-align: left; align-items: flex-start; }
+}

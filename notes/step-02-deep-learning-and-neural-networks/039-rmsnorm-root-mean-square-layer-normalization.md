@@ -3,71 +3,93 @@
 > **Step 2: Deep Learning and Neural Networks** · ⏱️ 13 min read · [Read original](https://outcomeschool.com/blog/rmsnorm-root-mean-square-layer-normalization)
 
 ## TL;DR
-RMSNorm is a simplified LayerNorm that only re-scales by the root mean square of the vector and skips mean subtraction and the beta parameter. It is faster and simpler with broadly the same accuracy, so most modern LLMs (Llama, Mistral, Gemma, Qwen, PaLM, DeepSeek) use it.
+RMSNorm is LayerNorm with only the re-scaling step: divide by the root mean square, no mean subtraction, no beta. It is faster and simpler with broadly the same accuracy, so Llama, Mistral, Gemma, Qwen, PaLM and DeepSeek use it, applied pre-norm inside each Transformer block.
 
 ## Key Concepts
-- **Normalization** — keeps activations in a healthy range, avoiding exploding/vanishing values across many layers.
-- **LayerNorm** — re-centers (subtract mean), re-scales (divide by std), then applies gamma and beta: $\gamma\frac{x-\text{mean}}{\sqrt{\text{var}+\epsilon}}+\beta$.
-- **RMSNorm** — introduced 2019 by Biao Zhang and Rico Sennrich; keeps only re-scaling.
-- **RMS** — square each value, take the mean, take the square root.
-- **Pre-norm** — normalize before the attention or feed-forward layer.
+- **Normalization** — scaling numbers per layer to a healthy range; deep nets otherwise get huge (exploding gradients) or tiny (vanishing), making training slow/unstable.
+- **LayerNorm** — re-center (subtract mean) then re-scale (divide by std), then gamma and beta: $\gamma\frac{x-\text{mean}}{\sqrt{\text{var}+\epsilon}}+\beta$. Used in original Transformer, BERT, GPT-2.
+- **RMS** — square root of the mean of squares; the typical magnitude of the vector ([100,200,300] big, [0.01,0.02,0.03] tiny).
+- **gamma** — learned per-dimension scale; restores expressiveness since dividing by RMS fixes magnitude.
+- **eps** — tiny value inside the sqrt (default 1e-6 in code) against divide-by-zero.
+- **Pre-norm** — normalize before attention / FFN.
 
 ## How It Works
-### Core idea
-Most of LayerNorm's benefit comes from re-scaling, not re-centering. Transformers' residual connections and learned projections can absorb mean shifts, so only scale needs a dedicated fix.
 
-### Formulas
-$$RMS(x)=\sqrt{\tfrac{1}{n}\sum x_i^2},\qquad RMSNorm(x)=\gamma\cdot\frac{x}{\sqrt{\text{mean}(x^2)+\epsilon}}$$
-Gamma (one value per dimension) lets the network restore a useful scale. No beta, because nothing was subtracted.
+### Origin and insight
+Introduced 2019 by Biao Zhang and Rico Sennrich ("Root Mean Square Layer Normalization"). Insight: most of LayerNorm's benefit comes from re-scaling, not re-centering. Mean shifts are absorbed by residual connections and learned projections in Transformers, so only scale needs a dedicated fix. LayerNorm controls shift and scale; RMSNorm only scale.
 
-### Worked example
-x = [2, 4, 4, 8]: squares [4,16,16,64], mean 25, RMS 5, result [0.4, 0.8, 0.8, 1.6] (with gamma = 1).
+### Math
+$$RMS(x)=\sqrt{\tfrac1n\sum x_i^2},\qquad RMSNorm(x)=\gamma\odot\frac{x}{\sqrt{\text{mean}(x^2)+\epsilon}}$$
+Three steps: square, mean, sqrt. No beta (nothing was subtracted, so nothing to shift back).
+
+### Numeric example
+x=[2,4,4,8]: squares [4,16,16,64]; mean 100/4=25; RMS=5; x/RMS=[0.4,0.8,0.8,1.6]; with gamma=[1,1,1,1] output [0.4,0.8,0.8,1.6].
 
 ### LayerNorm vs RMSNorm
-| LayerNorm | RMSNorm |
-|---|---|
-| Re-centers and re-scales (std) | Only re-scales (RMS) |
-| Parameters: gamma and beta | Parameter: gamma only |
-| Slower (mean and variance) | Faster (RMS only) |
-| Original Transformer, BERT, GPT-2 | Llama, Mistral, Gemma, Qwen, PaLM, DeepSeek |
+
+| | LayerNorm | RMSNorm |
+|---|---|---|
+| Steps | Re-center and re-scale (std) | Re-scale only (RMS) |
+| Parameters | gamma and beta | gamma only |
+| Speed | Slower (mean and variance) | Faster (RMS only) |
+| Used in | Original Transformer, BERT, GPT-2 | Llama, Mistral, Gemma, Qwen, PaLM, DeepSeek |
 
 ### Why LLMs prefer it
-1. **Speed** — less math per call, and LLMs make many calls (two per block, many blocks).
-2. **Accuracy** — broadly the same as LayerNorm per the original paper.
-3. **Simplicity** — fewer parameters and statistics, easier to fuse efficiently on GPUs.
+1. **Speed** — less math; with billions of parameters, trillions of tokens and two norm calls per block across many blocks, savings add up. Paper reported 7% to 64% training time reduction depending on model/task; inference faster too.
+2. **Accuracy** — broadly the same as LayerNorm (sometimes slightly better or worse).
+3. **Simplicity** — one fewer parameter and statistic; cleaner kernels fuse well on GPUs at scale.
 
 ### Code
 ```python
 class RMSNorm(nn.Module):
     def __init__(self, dim, eps=1e-6):
-        super().__init__()
-        self.eps = eps
+        super().__init__(); self.eps = eps
         self.gamma = nn.Parameter(torch.ones(dim))
     def forward(self, x):
         ms = x.pow(2).mean(dim=-1, keepdim=True)
         return self.gamma * x / torch.sqrt(ms + self.eps)
 ```
 
-### Placement
-Pre-norm: one RMSNorm before attention and one before the feed-forward layer in every block, with residual paths skipping around. One more RMSNorm sits at the end before the output projection to logits.
+### In a Transformer
+RMSNorm before attention and before the feed-forward block (pre-norm, aids stability in very deep nets); residual path skips around each. One extra RMSNorm at the end, before the final output projection to logits.
 
-## Diagram
+### FAQ
+- Less accurate? No, broadly equal.
+- Mean shifts? Residuals and projections absorb them.
+- No beta? Never subtracted the mean.
+- eps? Avoid division by zero.
+- Who? Zhang and Sennrich, 2019.
+
+## Diagram(s)
+
+### LayerNorm vs RMSNorm pipelines
 ```mermaid
-flowchart TD
-    X["Input x"] --> N1["RMSNorm"]
-    N1 --> A["Attention"]
-    A --> P1(("+"))
-    X --> P1
-    P1 --> N2["RMSNorm"]
-    N2 --> F["Feed-forward network"]
-    F --> P2(("+"))
-    P1 --> P2
-    P2 --> O["Output"]
+flowchart LR
+    subgraph L1["LayerNorm"]
+        a1["x"] --> a2["Subtract mean"] --> a3["Divide by std"] --> a4["gamma * + beta"] --> a5["output"]
+    end
+    subgraph R1["RMSNorm"]
+        b1["x"] --> b2["Divide by RMS"] --> b3["gamma *"] --> b4["output"]
+    end
 ```
 
+### Pre-norm Transformer block
+```mermaid
+flowchart TD
+    X["input x"] --> N1["RMSNorm"] --> AT["Attention"] --> P1["add residual"]
+    X --> P1
+    P1 --> N2["RMSNorm"] --> FF["FFN"] --> P2["add residual"]
+    P1 --> P2
+    P2 --> OUT["output"]
+```
+
+## Trade-offs & Pitfalls
+- Drops mean-centering; relies on the rest of the Transformer to handle mean shifts.
+- Without gamma the fixed magnitude would be too restrictive.
+
 ## Key Takeaways
-- RMSNorm = LayerNorm minus mean subtraction and beta.
-- RMS is the square root of the mean of squares; dividing by it removes overall magnitude.
-- Same quality, less compute, simpler kernels.
-- Used in pre-norm position in modern LLM blocks.
-- Original paper: Zhang and Sennrich, 2019.
+- RMSNorm = divide by sqrt(mean(x^2)+eps), times gamma.
+- No mean subtraction, no beta; one parameter per dimension.
+- Faster (7-64% training time cut reported), simpler, same quality.
+- Pre-norm placement plus a final norm before the output projection.
+- Standard in modern LLMs.

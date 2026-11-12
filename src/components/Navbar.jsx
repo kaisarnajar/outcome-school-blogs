@@ -37,7 +37,7 @@ export default function Navbar({ theme, toggleTheme, page }) {
 
         <div className="nav-actions">
           <div className="nav-tabs" role="tablist" aria-label="Pages">
-            <a href="#/" role="tab" aria-selected={page !== 'progress'} className={`nav-tab${page !== 'progress' ? ' active' : ''}`}>
+            <a href="#/" role="tab" aria-selected={page === 'analysis'} className={`nav-tab${page === 'analysis' ? ' active' : ''}`}>
               Analysis
             </a>
             <a href="#/progress" role="tab" aria-selected={page === 'progress'} className={`nav-tab${page === 'progress' ? ' active' : ''}`}>

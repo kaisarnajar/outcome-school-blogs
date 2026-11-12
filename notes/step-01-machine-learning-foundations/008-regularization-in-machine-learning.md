@@ -3,29 +3,45 @@
 > **Step 1: Machine Learning Foundations** · ⏱️ 3 min read · [Read original](https://outcomeschool.com/blog/regularization-in-machine-learning)
 
 ## TL;DR
-Regularization reduces overfitting by adding a penalty on the weights to the error function. L1 (Lasso) penalizes absolute weights; L2 (Ridge) penalizes squared weights.
+Regularization reduces overfitting by adding a penalty on the weights to the error function. L1 (Lasso) penalizes the sum of absolute weights; L2 (Ridge) penalizes the sum of squared weights. A tuning parameter controls penalty strength.
 
 ## Key Concepts
-- **Overfitting** — the model learns detail and noise in training data so much that it hurts performance on new data.
-- **Regularization** — a technique that penalizes weights so they stay evenly distributed rather than favouring one feature.
-- **L1 / Lasso** — penalty is the sum of absolute values of weights.
-- **L2 / Ridge** — penalty is the sum of squared values of weights.
-- **Tuning parameter p** — controls how strongly the model is penalized (same role in both).
+- **Overfitting** — model learns detail and noise in training data so much that it hurts performance on new data.
+- **Regularization** — technique to solve overfitting; encourages evenly distributed weights (a good model does not give excess weight to a particular feature).
+- **L1 / Lasso** — penalty = sum of absolute values of weights.
+- **L2 / Ridge** — penalty = sum of squared values of weights.
+- **Tuning parameter p** — decides how much we penalize the model (same role in L1 and L2).
 
 ## How It Works
-A good model does not put too much weight on one particular feature. Regularization achieves this by adding a penalty term to the error:
+$$\text{Loss}_{reg} = \text{Loss} + p \sum_j |w_j| \quad (L1) \qquad \text{Loss}_{reg} = \text{Loss} + p \sum_j w_j^2 \quad (L2)$$
+$w_j$ = weights, $p$ = penalty strength (blog shows these as images; written here in the standard form).
 
-$$\text{Loss} = \text{Error} + p \sum_j |w_j| \quad (L1) \qquad \text{Loss} = \text{Error} + p \sum_j w_j^2 \quad (L2)$$
+1. Training minimizes the error function.
+2. Regularization adds a penalty on weights to it.
+3. Large weights become costly, so weights stay evenly distributed and the model generalizes better.
 
-Other techniques exist too, for example Dropout, which randomly switches off neurons in deep networks.
+Other regularization techniques exist, e.g. Dropout (randomly switching off neurons in deep neural networks).
 
-| | L1 (Lasso) | L2 (Ridge) |
-|---|---|---|
-| Penalty | Sum of absolute weights | Sum of squared weights |
-| Strength set by | p | p |
+## Diagram(s)
+```mermaid
+flowchart TD
+    OF["Overfitting<br/>learns noise in training data"] --> REG["Regularization<br/>add penalty to error function"]
+    REG --> L1["L1 / Lasso<br/>sum of absolute weights"]
+    REG --> L2["L2 / Ridge<br/>sum of squared weights"]
+    REG --> OT["Others, e.g. Dropout"]
+    P["Tuning parameter p<br/>penalty strength"] --> L1
+    P --> L2
+```
+
+## FAQ
+- L1 vs L2? → Same idea, different penalty: absolute vs squared weights.
+- Role of p? → Controls how strongly the model is penalized.
+- Why helps overfitting? → Keeps weights evenly distributed instead of over-weighting a feature.
+- Only L1 and L2? → No; Dropout is another.
 
 ## Key Takeaways
-- Regularization combats overfitting by penalizing weights.
-- L1 = Lasso = absolute values; L2 = Ridge = squares.
-- The tuning parameter p sets penalty strength.
-- Dropout is another regularization technique for neural networks.
+- Regularization = penalty added to the error function to fight overfitting.
+- L1 (Lasso) uses absolute weights; L2 (Ridge) uses squared weights.
+- Tuning parameter p sets penalty strength.
+- Good models spread weight evenly across features.
+- Dropout is a non-L1/L2 regularizer for neural networks.

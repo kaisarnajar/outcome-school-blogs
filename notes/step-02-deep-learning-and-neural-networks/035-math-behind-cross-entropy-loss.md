@@ -3,65 +3,94 @@
 > **Step 2: Deep Learning and Neural Networks** · ⏱️ 17 min read · [Read original](https://outcomeschool.com/blog/math-behind-cross-entropy-loss)
 
 ## TL;DR
-Cross-entropy loss measures how far a predicted probability distribution is from the true one. For a one-hot label it reduces to the negative log of the probability the model gave the correct class, so confident wrong answers are punished heavily. Paired with softmax it has a very clean gradient, $p - y$.
+Cross-entropy loss measures how wrong predicted probabilities are versus the truth. With one-hot labels it is simply the negative log of the probability given to the correct class: small when confident and right, huge when confidently wrong. It is the default classification loss (GPT, BERT, image classifiers) and pairs with softmax to give a clean gradient $p_i - y_i$.
 
 ## Key Concepts
 - **Entropy** — uncertainty of a distribution (fair coin high, always-heads zero).
-- **Cross-entropy** — uncertainty when using the predicted distribution to describe events following the true one; minimal when they match.
+- **Cross** — comparing true distribution with predicted one.
+- **Cross-entropy** — uncertainty when the predicted distribution describes events that follow the true one; minimal when they are identical (gap is KL Divergence).
+- **Logits** — raw scores from the final layer.
+- **Softmax** — turns logits into probabilities summing to 1: $p_i = e^{z_i}/\sum_j e^{z_j}$.
+- **Sigmoid** — single probability for two-class problems.
 - **One-hot vector** — zeros with a single 1 at the correct class.
-- **Forecaster analogy** — model = forecaster, softmax output = announced probabilities, true label = what happened. "90% sunshine" on a rainy day gets a huge penalty.
-- **Perplexity** — $\exp(\text{average cross-entropy})$.
+- **Perplexity** — $\exp$(average cross-entropy).
+- Analogy: the model is a weather forecaster, softmax output is her announced probabilities, true label is what happened. Confident and right: tiny penalty; confidently wrong: huge penalty; fully unsure: moderate.
 
 ## How It Works
+
 ### Formula
-$$CE = -\sum_i y_i \log(p_i) \;\Rightarrow\; CE = -\log(p_{correct})$$
-Pipeline: logits to softmax probabilities to negative log of the correct class.
+$$CE = -\sum_i y_i \log p_i \;\;\Rightarrow\;\; CE = -\log p_{correct}$$
+$y_i$ true label (1 or 0), $p_i$ predicted probability, natural log. Pipeline: logits then softmax then $-\log$ of correct class's probability (e.g. z=[2,3,1] gives p=[0.24,0.66,0.09], loss 0.4076). Training minimizes it via gradient descent.
 
 ### Why negative log
-- Log stretches small probabilities: $-\log(0.1)=2.303$, $-\log(0.01)=4.605$, $-\log(0.001)=6.908$. Each 10x drop adds about 2.303.
-- $1-p$ is linear and capped at 1 (p = 0.01 gives only 0.99); $-\log p$ is unbounded as p goes to 0.
-- Negative sign flips log of a probability (always negative) into a positive loss: p = 1 gives 0, p = 0.9 gives 0.105.
+- **Why log**: stretches small probabilities. log(0.9) = -0.105, log(0.1) = -2.303. Penalties: $-\log 0.1$=2.303, $-\log 0.01$=4.605, $-\log 0.001$=6.908 (each 10x drop adds about 2.303).
+- **Why not 1 - p**: linear, capped at 1 (p=0.01 gets only 0.99); $-\log p$ is unbounded as p goes to 0, strongly discouraging confident mistakes.
+- **Why negative**: log of a probability is negative; flip to get positive loss. p=0.9 gives 0.105; p=0.1 gives 2.303; p=1 gives 0; p near 0 gives near infinity.
 
-### Binary vs categorical
-| Type | Use | Formula |
-|---|---|---|
-| Binary CE | Two classes, sigmoid output | $-[y\log p + (1-y)\log(1-p)]$ |
-| Categorical CE | Many classes, softmax, one-hot label | $-\log(p_{correct})$ |
+### Binary cross-entropy (sigmoid, two classes)
+$$BCE = -[y\log p + (1-y)\log(1-p)]$$
+Only one term is active. y=1, p=0.8 gives 0.223; y=1, p=0.2 gives 1.609.
 
-Binary examples: y=1 with p=0.8 gives 0.223; with p=0.2 gives 1.609. Categorical: p = [0.2, 0.7, 0.05, 0.05], true class 2 gives $-\log 0.7 = 0.357$.
+### Categorical cross-entropy (softmax, multi-class)
+True y=[0,1,0,0], p=[0.2,0.7,0.05,0.05]: CE = -log 0.7 = 0.357. Only the correct-class term survives.
 
-### Worked example (cat, dog, rabbit; true = dog)
-| Logits | p_dog | Loss |
-|---|---|---|
-| [2, 3, 1] | 0.6652 | 0.4076 |
-| [1, 5, 0.5] (confident, right) | 0.9714 | 0.0290 |
-| [5, 1, 0.5] (confident, wrong) | 0.0178 | 4.029 |
+### Step-by-step example (cat, dog, rabbit; truth dog)
+
+| Scenario | Logits | Probabilities (cat, dog, rabbit) | Loss |
+|---|---|---|---|
+| Decent | [2,3,1] | 0.2447, 0.6652, 0.0900 | 0.4076 |
+| Confident and right | [1,5,0.5] | 0.0178, 0.9714, 0.0108 | 0.0290 |
+| Confident and wrong | [5,1,0.5] | 0.9714, 0.0178, 0.0108 | 4.029 |
+
+(Decent: exps 7.389, 20.086, 2.718, sum 30.193.)
+
+Practice: frameworks fuse softmax + CE (PyTorch `CrossEntropyLoss`, TF `softmax_cross_entropy_with_logits`) using the log-sum-exp trick to avoid exp overflow and log underflow. Pass raw logits, not softmax output.
 
 ### Language models
-Next-token prediction over 50,000+ tokens: loss per position is $-\log(p_{actual\ next\ token})$, averaged over the N positions. Perplexity is its exponential; lower is better.
+Predict next token over a 50,000+ vocabulary; true label is one-hot of the actual token. Sequence loss = average of $-\log p_{actual}$ over N positions (e.g. "The cat sat on the mat": average over cat, sat, on, the, mat). Perplexity = exp(avg CE); lower is better.
 
 ### Gradient
 $$\frac{\partial CE}{\partial z_i} = p_i - y_i$$
-For p = [0.2447, 0.6652, 0.0900], y = [0,1,0] gives [0.2447, -0.3348, 0.0900]: lower wrong-class scores, raise the correct one. This is the starting point of backpropagation.
+Example: p=[0.2447,0.6652,0.0900], y=[0,1,0] gives [0.2447, -0.3348, 0.0900]: positive lowers cat/rabbit scores, negative raises dog. Clean, no chain-rule blow-up or vanishing from the loss; it is the starting point of backpropagation. This is why softmax + CE is the default pairing.
 
-### In practice
-Frameworks fuse softmax and cross-entropy (PyTorch `CrossEntropyLoss`, TensorFlow `softmax_cross_entropy_with_logits`) using log-sum-exp to avoid overflow and underflow. Pass raw logits, not probabilities.
+### FAQ
+- Logits or softmax into the loss? Raw logits.
+- Why not 1 - p? Capped and linear.
+- BCE vs CCE? Two classes with sigmoid vs multi-class with softmax and one-hot.
+- Can loss be zero? Yes, p_correct = 1.0.
+- Perplexity? exp of average CE.
 
-## Diagram
+## Diagram(s)
+
+### Loss computation pipeline
 ```mermaid
 flowchart LR
-    A["Logits z"] --> B["Softmax"]
-    B --> C["Probabilities p"]
-    C --> D["Pick p of correct class"]
-    D --> E["Loss = -log(p_correct)"]
-    E --> F["Gradient p - y"]
-    F --> G["Backpropagation"]
+    A["Model final layer"] --> B["Logits z"]
+    B --> C["Softmax"]
+    C --> D["Probabilities p"]
+    D --> E["Pick p of correct class"]
+    E --> F["Loss = -log p_correct"]
+    F --> G["Gradient p - y"]
+    G --> H["Backpropagation"]
 ```
 
+### Which variant to use
+```mermaid
+flowchart TD
+    Q{"How many classes?"}
+    Q -->|"two"| B1["Sigmoid + Binary CE"]
+    Q -->|"many"| C1["Softmax + Categorical CE<br/>one-hot labels"]
+    Q -->|"next token in LLM"| L1["Categorical CE per position<br/>averaged, perplexity = exp"]
+```
+
+## Trade-offs & Pitfalls
+- Passing softmax output to a fused loss double-applies softmax and risks numeric instability.
+- Probability exactly 0 on the true class gives infinite loss.
+
 ## Key Takeaways
-- For one-hot labels, cross-entropy = $-\log(p_{correct})$.
-- Log makes confident wrong predictions cost far more than mildly wrong ones; the loss is unbounded as p goes to 0.
-- Binary CE pairs with sigmoid, categorical CE with softmax.
-- Gradient w.r.t. logits is simply $p - y$, which is why softmax plus cross-entropy is the default for classification.
-- Feed raw logits to framework loss functions.
-- Perplexity = exp(average cross-entropy).
+- CE = -log of the probability assigned to the correct class (one-hot labels).
+- Log punishes confident wrong answers without bound; 1 - p cannot.
+- BCE uses sigmoid, categorical CE uses softmax.
+- LLM loss = mean token CE; perplexity = exp(CE).
+- Gradient w.r.t. logits is p - y.
+- Use fused, log-sum-exp-stable ops on raw logits.

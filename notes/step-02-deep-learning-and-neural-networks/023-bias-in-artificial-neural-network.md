@@ -3,23 +3,44 @@
 > **Step 2: Deep Learning and Neural Networks** · ⏱️ 3 min read · [Read original](https://outcomeschool.com/blog/bias-in-artificial-neural-network)
 
 ## TL;DR
-Bias is the constant c in $y = mx + c$. Without it the model's line must pass through the origin; with it the model can shift the line to fit the data.
+Bias is the constant $c$ in the model $y=mx+c$. Without it the fitted line is forced through the origin; with it the model can shift the line and fit data better. The model learns both $m$ and $c$ during training.
 
 ## Key Concepts
-- **Bias (c)** — a constant added to the model so it is not forced through the origin.
-- **m and c** — both learned by the model during training.
+- **Model $mx+c$** — takes input $x$, predicts output $y$.
+- **$m$** — the weight (slope); **$c$** — the bias (intercept).
+- **Bias** — constant that gives the model freedom to fit the data best.
 
 ## How It Works
-- With $y = mx$, the model can only find lines through the origin, which often cannot fit the given data.
-- Changing the model to $y = mx + c$ gives it freedom to shift the line and fit the best line.
-- The model finds suitable values of m and c itself while training.
+1. In a neural network we have input $x$ and need output $y$; we create a model $mx+c$.
+2. While training, the model itself finds suitable values of $m$ and $c$.
+3. If the model were $y=mx$ (no bias), it is constrained to lines passing through the origin.
+4. For much real data, no line through the origin can fit.
+5. Using $mx+c$ removes the constraint; the model has full freedom to find the line that fits best. That constant $c$ is the bias.
 
-| Model | Constraint | Fit |
+| Model | Line constraint | Fit |
 |---|---|---|
-| y = mx | Line passes through origin | Often poor |
-| y = mx + c | None; c shifts the line | Can fit best |
+| $y=mx$ | must pass through origin | often impossible to fit |
+| $y=mx+c$ | any intercept | can fit the data best |
+
+### FAQ
+- No bias? Line only through origin; often cannot fit.
+- Who decides bias? The model, during training.
+- Why "freedom"? It removes the through-the-origin constraint.
+
+## Diagram
+```mermaid
+flowchart LR
+    A["Model y = mx"] --> B["Line forced through origin"]
+    B --> C["Often cannot fit data"]
+    D["Model y = mx + c"] --> E["Bias c shifts the line"]
+    E --> F["Fits data best"]
+```
+
+## Trade-offs & Pitfalls
+- Omitting bias limits the model to origin-passing lines and can make fitting impossible.
 
 ## Key Takeaways
-- Bias is a constant that gives the model freedom to perform best.
-- Without bias, the line is pinned to the origin.
-- The model learns the bias value during training.
+- Bias = constant $c$ in $y=mx+c$.
+- Without it the line must pass through the origin.
+- The model learns $m$ and $c$ itself during training.
+- Bias gives the model freedom to fit the data best.

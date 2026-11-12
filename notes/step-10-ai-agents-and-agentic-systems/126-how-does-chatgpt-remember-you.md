@@ -3,61 +3,103 @@
 > **Step 10: AI Agents and Agentic Systems** · ⏱️ 15 min read · [Read original](https://outcomeschool.com/blog/how-does-chatgpt-remember-you)
 
 ## TL;DR
-ChatGPT does not remember you; the model is frozen and stateless. A separate system saves notes about you and adds the relevant ones to the prompt before each reply, so the model just reads them.
+ChatGPT does not remember you; the model is frozen after training. A separate system keeps notes about you outside the model and puts the useful ones into the prompt before every reply. The model just reads them. Sources are saved memories, reference chat history and Custom Instructions.
 
 ## Key Concepts
-- **LLM** — frozen after training; each reply depends only on the text sent in that call.
-- **Context window** — all text the LLM can read at once (the "desk"); limited, so ChatGPT must choose what goes on it.
-- **Saved memories** — short fact notes, saved on request or when ChatGPT decides they will be useful; shown by a "Memory updated" message.
-- **Reference chat history** — useful details picked from past chats, with no fixed list.
-- **Custom Instructions** — text we write ourselves in settings; ChatGPT never changes it.
-- **Temporary Chat** — uses no memories, creates none, and is not saved in history.
+- **LLM** — learned from huge text to predict the next word; training happens once, then the model is frozen. It does not learn your name or store chats. Every reply depends only on the text sent at that moment.
+- **Context window** — all text the LLM can read at once (the "desk"); limited, so ChatGPT must choose what goes on it. Context Engineering is choosing well.
+- **Within one chat** — memory is just the whole conversation re-sent with each new message. A new chat means an empty desk.
+- **ChatGPT Memory** — a notebook about you kept outside the model; before each reply the useful pages are put on the desk.
+- **Saved memories** — short fact notes kept until you delete them. Created when you ask ("Remember that I am a vegetarian") or when ChatGPT decides a fact is useful (e.g. "I teach maths to class 8"); shows "Memory updated". Short notes use little desk space.
+- **Reference chat history** — ChatGPT mines past chats for useful parts (e.g. earlier Goa trip plan helps "what should I pack?"). Only small relevant parts are selected.
+- **Custom Instructions** — text you write by hand in settings (about you, how to reply); ChatGPT never changes them.
+- **Prompt** — the full text sent to the LLM.
+- **Temporary Chat** — uses no saved memories, creates none, not in history ("closed notebook").
 
 ## How It Works
-### Within one chat
-Memory is just the whole conversation re-sent with every message. A new chat starts with an empty desk.
-
-### Across chats
-A notebook kept outside the model is consulted before each reply. The prompt is built roughly as: company rules, Custom Instructions, saved memories, useful details from past chats, then the current chat. Only relevant items are included (the Goa trip is left out of a dinner-recipe request). The real prompt is not public; this is a simplified picture.
-
-### Example
-Riya says "Remember that I am a vegetarian." A note is saved. Days later, in a new chat, she asks for a dinner recipe; the note is added to the prompt and the model suggests vegetable upma. The model never changed; only the prompt did.
-
-### Code idea
-```python
-memory_store = []
-def build_prompt(msg):
-    notes = "\n".join("- " + n for n in memory_store)
-    return "You are a helpful assistant.\n" + notes + "\nUser: " + msg
-```
-In real systems notes live in a database and only relevant ones are picked.
-
 ### Saved memories vs reference chat history
 | | Saved memories | Reference chat history |
 |---|---|---|
 | What | Clear facts as short notes | Useful details from past chats |
-| Created | We ask, or ChatGPT decides | Picked when needed |
+| Created | You ask, or ChatGPT decides | Picked from old chats when needed |
 | List visible? | Yes, in settings | No fixed list |
-| Lifetime | Until deleted | Changes with chats |
+| Lifetime | Until you delete | Changes as chats change |
 
-### Control
-Ask "What do you remember about me?", view and delete under Personalization, say "Forget that...", update facts, or turn memory off. Deleting a chat does not delete memories created in it.
+### Prompt assembly
+Simplified (real format not public): company rules/system prompt, Custom Instructions, saved memories, useful details from past chats, then the current chat. Riya types one line but the LLM receives many; extras are the memory. The Goa trip is left out as irrelevant to a dinner recipe. The model is not remembering, it is reading.
 
-### Where it helps and fails
-Helps: no repetition, tailored answers, continuity. Fails: stale notes (Bengaluru vs Pune), missed details, unwanted saved notes, no real understanding.
+### End-to-end example
+1. Monday chat A: "Remember that I am a vegetarian."
+2. Note "Riya is a vegetarian." written; "Memory updated" shown.
+3. Chat ends; model forgets, notebook (outside the model) keeps the note.
+4. Saturday chat B: "Suggest a quick dinner recipe."
+5. Before sending, ChatGPT adds the note to the prompt.
+6. Model suggests vegetable upma not chicken curry. Model unchanged; only the prompt changed.
 
-## Diagram
+### Code idea
+```python
+memory_store = []                      # notebook outside the model
+def save_memory(note): memory_store.append(note)
+def build_prompt(msg):
+    notes = "\n".join("- " + n for n in memory_store)
+    return "You are a helpful assistant.\nWhat you know about the user:\n" + notes + "\n\nUser: " + msg
+save_memory("Riya is a vegetarian.")   # chat A
+reply = call_llm(build_prompt("Suggest a quick dinner recipe."))  # chat B
+```
+Real systems store notes in a database (survive app close) and pick only useful notes per chat.
+
+### Controlling memory
+- Ask "What do you remember about me?"
+- Settings, Personalization: list and delete saved memories.
+- Say "Forget that I live in Bengaluru" or update ("I have moved to Pune").
+- Turn off saved memories or reference chat history.
+- Deleting a chat does NOT delete memories created in it; delete the memory itself.
+
+## Diagram(s)
+### Memory flow across chats
 ```mermaid
-flowchart TD
-    M["New user message"] --> N["Open notebook outside the model"]
-    N --> P["Build prompt: rules, Custom Instructions, saved memories, chat details, current chat"]
-    P --> L["Frozen LLM reads prompt"]
-    L --> R["Reply"]
+sequenceDiagram
+    participant R as Riya
+    participant C as ChatGPT system
+    participant N as Notebook
+    participant M as Frozen LLM
+    R->>C: Chat A - Remember I am a vegetarian
+    C->>N: Save note Riya is a vegetarian
+    C->>R: Memory updated
+    R->>C: Chat B - Suggest a quick dinner recipe
+    C->>N: Fetch useful notes
+    N->>C: Riya is a vegetarian
+    C->>M: Prompt = rules + notes + message
+    M->>R: Vegetable upma
 ```
 
+### Sources of prompt context
+```mermaid
+flowchart TD
+    A["Company rules / system prompt"] --> P["Final prompt"]
+    B["Custom Instructions - written by user"] --> P
+    C["Saved memories - short fact notes"] --> P
+    D["Reference chat history - relevant parts"] --> P
+    E["Current chat messages"] --> P
+    P --> L["Frozen LLM reads and replies"]
+```
+
+## Trade-offs & Pitfalls
+- Helps: no repeating yourself; personalized answers (diet, job, style); long work continues across chats.
+- Fails: old/wrong notes (note says Bengaluru after move to Pune); missed details because desk is limited; unwanted notes saved automatically (review periodically); no real understanding, only reading notes.
+- Use Temporary Chat for things you do not want remembered (e.g. surprise gift planning).
+
+## FAQ
+- Does memory change the model? → No; model frozen, only prompt changes.
+- Deleting chat deletes memories? → No.
+- Saves without asking? → Yes, with a "Memory updated" notice.
+- Sends all past chats? → No, only small relevant parts.
+- Changes Custom Instructions itself? → No; saved memories and history are auto-collected, instructions are not.
+
 ## Key Takeaways
-- The model is frozen; memory lives outside it and is injected into the prompt.
-- Context window is limited, so only relevant notes are selected.
-- Saved memories, reference chat history, and Custom Instructions are distinct mechanisms.
+- LLMs are stateless and frozen; memory lives outside the model.
+- In-chat memory is the conversation re-sent; cross-chat memory is notes injected into the prompt.
+- Three sources: saved memories, reference chat history, Custom Instructions (only the last is manual).
+- The context window is limited, so only relevant notes are selected.
 - Deleting a chat does not remove its saved memories.
-- Review saved memories periodically; Temporary Chat avoids memory entirely.
+- Review memories regularly; stale or wrong notes mislead answers.

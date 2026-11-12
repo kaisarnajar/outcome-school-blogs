@@ -3,54 +3,99 @@
 > **Step 1: Machine Learning Foundations** · ⏱️ 7 min read · [Read original](https://outcomeschool.com/blog/supervised-vs-unsupervised-learning)
 
 ## TL;DR
-Supervised learning learns from labeled data (like learning with a teacher), while unsupervised learning finds structure in unlabeled data (like exploring without a map). Supervised helps you predict; unsupervised helps you discover.
+Supervised learning learns from labeled data (like learning with a teacher / answer key) to predict outputs for new inputs. Unsupervised learning gets only raw inputs (no teacher) and discovers groupings, structure, or compressed representations. Supervised helps you predict; unsupervised helps you discover.
 
 ## Key Concepts
-- **Supervised learning** — model gets inputs plus correct output labels and learns the mapping to predict on unseen data.
-- **Unsupervised learning** — only inputs, no labels; the goal is to uncover hidden patterns, structures, or groupings.
-- **Classification** — predicting predefined classes (spam detection, image recognition).
-- **Regression** — predicting continuous values (house or stock prices, temperature).
-- **Clustering** — grouping similar points (K-Means).
-- **Dimensionality reduction** — compressing data while keeping important information (PCA).
-- **Generative modeling** — learning data structure to generate new samples (Variational Autoencoders).
+- **Label** — the correct answer/output attached to an input.
+- **Supervised learning** — input data + correct output labels; learn the input-to-output mapping to predict on unseen data.
+- **Unsupervised learning** — only inputs, no labels or predefined outputs; uncover hidden patterns, structures, groupings.
+- **Classification** — categorize into predefined classes (spam detection, image recognition).
+- **Regression** — predict continuous numerical values (house prices, stock prices, temperature).
+- **Clustering** — group similar points (K-Means).
+- **Dimensionality reduction** — compress data while keeping important information (PCA).
+- **Generative modeling** — learn data structure to generate brand-new samples (Variational Autoencoders).
 
 ## How It Works
-**Supervised:**
-1. Feed data plus correct labels.
+
+### Supervised learning
+Analogy: solving math problems with the answer key beside you.
+1. Feed data + correct labels.
 2. Model makes predictions.
 3. Compare predictions with labels.
-4. Adjust weights with an optimization algorithm.
+4. Adjust weights using an optimization algorithm.
 5. Repeat until error is minimized.
 
-Example: house prices. Features are Area, Bedrooms, Location Score; the label is Price. Given new area, bedrooms and location score, the model predicts the price.
+Examples: house prices, spam vs not spam, digit recognition, customer churn.
+(Predictions are checked on unseen data via train/validation/test split.)
 
-**Unsupervised:** feed only raw data; the model analyzes structure and groups, compresses, or relates points without guidance. Example: a fitness app with unlabeled user data (steps, active minutes, workouts, heart rate, sleep, water, engagement). K-Means finds segments such as Active Lifestyle Enthusiasts, Moderate Fitness Users, and Low Activity Busy Users, with no labels given.
+Example dataset: features Area, Bedrooms, Location Score; label Price (INR Lakhs).
+| Area (sq ft) | Bedrooms | Location Score | Price (Lakhs) |
+|---|---|---|---|
+| 1200 | 2 | 7.5 | 85 |
+| 1500 | 3 | 8.0 | 110 |
+| 900 | 2 | 6.8 | 70 |
+| 1800 | 3 | 8.5 | 130 |
+| 1100 | 2 | 7.0 | 78 |
 
-### Comparison
+Price is the label; for new (area, bedrooms, location score) the model predicts price.
 
-| Aspect | Supervised | Unsupervised |
+### Unsupervised learning
+Analogy: exploring a new city without a map, noticing busy vs quiet areas nobody labeled.
+1. Feed only raw data.
+2. Model analyzes the structure.
+3. Groups, compresses, or finds relationships without external guidance.
+
+Examples: customer segments, website user behavior patterns, anomaly detection (fraud), dimensionality reduction (PCA).
+
+Example: fitness app with 8 unlabeled users (daily steps, active minutes, weekly workouts, avg heart rate, sleep hours, water intake, engagement score). K-Means finds three natural personas:
+| Segment | Users | Traits |
 |---|---|---|
-| Data | Labeled | Unlabeled |
-| Goal | Predict output label | Discover patterns, group, reduce dimensions |
-| Types | Classification, Regression | Clustering, Dimensionality Reduction |
-| Examples | Spam detection, price prediction | Customer segmentation, anomaly detection |
-| Algorithms | Linear/Logistic Regression, Decision Trees, Random Forests | K-Means, Hierarchical Clustering, PCA |
-| Use when | You know the target and have labels | You want to explore and labels are unavailable |
+| Active Lifestyle Enthusiasts | 1, 4, 6 | 12.5k-15k steps, 75-92 active min, 4-6 workouts, HR 68-74 |
+| Moderate Fitness Users | 2, 5, 8 | 8k-10.5k steps, 40-60 min, 2-3 workouts |
+| Low Activity Busy Users | 3, 7 | 4.8k-5.6k steps, 18-25 min, 1 workout, HR 82-85 |
 
-## Diagram
+No labels existed, yet meaningful clusters emerged.
+
+## Diagram(s)
+
+### Supervised vs unsupervised taxonomy
 ```mermaid
 flowchart TD
-    ML["Machine Learning"] --> S["Supervised: labeled data"]
-    ML --> U["Unsupervised: unlabeled data"]
-    S --> C["Classification"]
-    S --> R["Regression"]
-    U --> CL["Clustering"]
-    U --> DR["Dimensionality Reduction"]
-    U --> G["Generative Modeling"]
+    ML["Machine Learning"] --> S["Supervised<br/>labeled data"]
+    ML --> U["Unsupervised<br/>unlabeled data"]
+    S --> S1["Classification<br/>spam, image recognition"]
+    S --> S2["Regression<br/>house price, temperature"]
+    U --> U1["Clustering<br/>K-Means"]
+    U --> U2["Dimensionality Reduction<br/>PCA"]
+    U --> U3["Generative Modeling<br/>VAE"]
 ```
 
+### Choosing between them
+```mermaid
+flowchart TD
+    Q{"Do you have labels / known target variable?"} -->|"yes, want predictions"| SUP["Supervised Learning"]
+    Q -->|"no, want to explore structure"| UNS["Unsupervised Learning"]
+```
+
+## Comparison
+| Supervised | Unsupervised |
+|---|---|
+| Labeled data | Unlabeled data |
+| Predicts output label | Discovers hidden patterns, groups similar data, reduces dimensionality |
+| Types: Classification, Regression | Types: Clustering, Dimensionality Reduction |
+| Examples: spam detection, price prediction | Examples: customer segmentation, anomaly detection |
+| Algorithms: Linear Regression, Logistic Regression, Decision Trees, Random Forests | Algorithms: K-Means, Hierarchical Clustering, PCA |
+| Use when target is known, predictions wanted, labels available or can be generated | Use when exploring, labels unavailable, need natural groupings/structure |
+
+## FAQ
+- K-Means supervised or unsupervised? → Unsupervised; clustering without labels.
+- Classification vs regression? → Both supervised; classes vs continuous values.
+- Is generative modeling unsupervised? → Yes, alongside clustering and dimensionality reduction.
+- When pick unsupervised? → Exploring data, no labels, need natural structure; otherwise supervised.
+
 ## Key Takeaways
-- Labels are the dividing line: with answers it is supervised, without it is unsupervised.
-- Classification predicts categories; regression predicts continuous numbers.
-- K-Means is unsupervised; generative modeling also counts as unsupervised.
-- Choose supervised when you know the target and have labels; choose unsupervised to explore structure.
+- Supervised = inputs + labels; unsupervised = inputs only.
+- Supervised splits into classification (categories) and regression (continuous values).
+- Unsupervised covers clustering, dimensionality reduction, generative modeling.
+- K-Means and PCA are unsupervised; Linear/Logistic Regression, Decision Trees, Random Forests are supervised.
+- Supervised predicts; unsupervised discovers.

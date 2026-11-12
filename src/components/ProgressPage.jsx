@@ -2,9 +2,10 @@ import React, { useMemo, useState } from 'react';
 import { CheckCircle2, RotateCcw, Circle, Sparkles, Gauge, Search, X, ExternalLink, NotebookPen } from 'lucide-react';
 import blogsData from '../data/blogsData.json';
 import progressData from '../data/progressData.json';
-import notesPaths from '../data/notesPaths.json';
+import { noteHref } from '../notes';
 
-const NOTES_BASE = 'https://github.com/kaisarnajar/outcome-school-blogs/blob/main/';
+// Filters survive leaving the page (e.g. opening a note and coming back).
+const saved = { filter: 'all', step: 'all', search: '' };
 
 const STATUS_META = {
   mastered: { label: 'Mastered', cls: 'pg-mastered', Icon: CheckCircle2 },
@@ -25,9 +26,12 @@ function shortStep(step) {
 }
 
 export default function ProgressPage() {
-  const [filter, setFilter] = useState('all');
-  const [step, setStep] = useState('all');
-  const [search, setSearch] = useState('');
+  const [filter, setFilterState] = useState(saved.filter);
+  const [step, setStepState] = useState(saved.step);
+  const [search, setSearchState] = useState(saved.search);
+  const setFilter = (v) => setFilterState((saved.filter = v));
+  const setStep = (v) => setStepState((saved.step = v));
+  const setSearch = (v) => setSearchState((saved.search = v));
 
   const items = useMemo(() => {
     const byUrl = new Map(progressData.entries.map((e) => [e.url, e]));
@@ -37,7 +41,7 @@ export default function ProgressPage() {
         ...b,
         progress: entry || null,
         kind: classify(entry),
-        notesUrl: notesPaths[b.url] ? NOTES_BASE + notesPaths[b.url] : null,
+        notesUrl: noteHref(b),
       };
     });
   }, []);
@@ -252,7 +256,7 @@ export default function ProgressPage() {
                 <li key={i.id} className={`pg-row ${meta.cls}`}>
                   <span className="pg-row-id">{i.id}</span>
                   <div className="pg-row-main">
-                    <a className="pg-row-title" href={i.url} target="_blank" rel="noopener noreferrer">
+                    <a className="pg-row-title" href={i.notesUrl} title="Open my short notes">
                       {i.title}
                     </a>
                     {i.progress?.gap && <div className="pg-row-gap">{i.progress.gap}</div>}
@@ -270,7 +274,7 @@ export default function ProgressPage() {
                     <span className="pg-row-links">
                       <span className="pg-row-time">{i.reading_time_mins} min</span>
                       {i.notesUrl && (
-                        <a href={i.notesUrl} target="_blank" rel="noopener noreferrer" title="My notes" className="pg-icon-link">
+                        <a href={i.notesUrl} title="My notes" className="pg-icon-link">
                           <NotebookPen size={15} />
                         </a>
                       )}

@@ -3,48 +3,85 @@
 > **Step 2: Deep Learning and Neural Networks** · ⏱️ 9 min read · [Read original](https://outcomeschool.com/blog/how-does-the-machine-learning-library-tensorflow-work)
 
 ## TL;DR
-TensorFlow is an open-source ML framework (mainly for deep neural networks) that lets you build a data flow graph, where each node is an operation, and then execute that graph on CPUs, GPUs or TPUs. The blog explains the idea by building a tiny "mini TensorFlow" from scratch.
+TensorFlow is an open-source ML framework (mainly for deep neural networks) in which you first build a data flow graph of constants, variables/placeholders and operations, then execute it in a session on CPUs, GPUs or TPUs. A tiny "mini TensorFlow" (Graph, Session, postorder traversal) shows exactly how this works.
 
 ## Key Concepts
-- **Data flow graph** — a data structure holding all the constants, variables and operations you want to run.
-- **Node** — represents an operation.
-- **Edge** — carries tensors; the output of one node becomes the input of another.
-- **Constant** — a fixed value given at creation time.
-- **Placeholder** — a variable input whose value is supplied only when the session runs (via `feed_dict`).
-- **Session** — executes the graph and returns results.
-- **TensorBoard** — built-in tool to visualize, inspect and debug the graph.
+- **Graph** — data structure holding all constants, variables and operations to run.
+- **Node** — an operation.
+- **Edge** — carries tensors; one node's output becomes another's input.
+- **Constant** — fixed value given at creation.
+- **Placeholder** — variable input, value supplied at run time via `feed_dict`.
+- **Session** — executes the graph (`sess.run`).
+- **TPU** — tensor processing unit, specialized hardware for tensor math.
+- **TensorBoard** — built-in graph visualization/debugging.
 
 ## How It Works
-TensorFlow separates *defining* a computation from *running* it. You first build a graph, then run it inside a session.
 
-**What the architecture enables**
-- Deploy computation to one or more CPUs/GPUs on desktop, server or mobile.
-- Express computation as a graph and visualize it with TensorBoard.
+### What TensorFlow supports
+- Deploy computation to one or more CPUs/GPUs on desktop, server or mobile, simply and fast.
+- Express computation as a data flow graph; visualize and debug with TensorBoard.
 - Fast iteration, faster training, more experiments.
-- Runs on almost everything: GPUs, CPUs, mobile/embedded (TensorFlow Lite) and TPUs.
+- Runs on nearly everything: GPUs, CPUs, mobile/embedded (TensorFlow Lite on Android), TPUs.
+- Used by Google, Uber, Airbnb, Nvidia, Dropbox, etc. Knowing internals helps use it well. (PyTorch is a comparable alternative.)
 
-**Mini TensorFlow (the blog's build)**
-1. `TFOperation` — base class; records input nodes and output nodes and registers itself in the default graph. Subclasses `add` and `multiply` implement `compute`.
-2. `Placeholder` and `Constant` — leaf nodes of the graph.
-3. `Graph` — holds lists of operations, placeholders and variables; can be set as the default graph.
-4. `traverse_postorder` — visits all input nodes before the operation itself, so execution order is correct.
-5. `Session.run` — walks the nodes in postorder: placeholders take values from `feed_dict`, constants use their stored value, operations compute from their inputs' outputs.
+### Build then run
+Define graph (constants, variables, ops) first, then execute. Example (TF1 style): `a=tf.constant(2)`, `b=tf.constant(3)` run in `tf.Session()`: add 5, multiply 6. With `tf.placeholder` and `tf.add/tf.multiply`, feed `feed_dict={a:2, b:3}`: 5 and 6.
 
-**Example:** $y = mx + c$ with $m=10$, $c=1$, fed $x=10$ gives $y = 101$ by building `add(multiply(m, x), c)` and running it.
+### Mini TensorFlow
+- `TFOperation(input_nodes)` base: stores input nodes, registers itself as an output of each input, appends to default graph's operations; `compute()` overridden.
+- `add`, `multiply` extend it (`compute` returns x+y / x*y).
+- `Placeholder` (output_nodes, registered in graph placeholders) and `Constant(initial_value)`.
+- `Graph` holds operations, placeholders, variables; `set_as_default()` sets the global default graph.
+- `traverse_postorder(operation)`: recurse into input nodes first, then append the node, so inputs are computed before the operation.
+- `Session.run(operation, feed_dict)`: traverse postorder; Placeholder output = feed_dict value; Constant output = its value; operation output = `compute(*input outputs)`; lists become numpy arrays; return operation's output.
 
-## Diagram
+Usage for y = 10x + 1 (m=10, c=1):
+```python
+g = Graph(); g.set_as_default()
+m = Constant(10); c = Constant(1); x = Placeholder()
+y = add(multiply(m, x), c)
+print(Session().run(y, feed_dict={x: 10}))   # 101
+```
+
+### FAQ
+- Graph? Data structure of constants, variables, ops; nodes ops, edges tensors.
+- Mobile? Yes (TF Lite, TPUs too).
+- Placeholder vs Constant? Run-time input vs fixed value.
+- Why postorder? Visits inputs before the op, so their outputs are ready.
+
+## Diagram(s)
+
+### Graph for y = m*x + c
 ```mermaid
 flowchart LR
     M["Constant m = 10"] --> MUL["multiply"]
-    X["Placeholder x"] --> MUL
-    MUL --> ADD["add"]
+    X["Placeholder x<br/>fed 10"] --> MUL
+    MUL -->|"100"| ADD["add"]
     C["Constant c = 1"] --> ADD
-    ADD --> Y["y = mx + c"]
+    ADD --> Y["y = 101"]
 ```
 
+### Session run
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant S as Session
+    participant G as Graph nodes
+    U->>S: run(y, feed_dict)
+    S->>G: traverse postorder
+    G-->>S: ordered nodes
+    S->>G: placeholders get fed values, constants get values
+    S->>G: operations compute from input outputs
+    S-->>U: y.output
+```
+
+## Trade-offs & Pitfalls
+- Two-phase style: nothing computes until the session runs the graph.
+- Placeholders must be fed in `feed_dict` or run fails.
+
 ## Key Takeaways
-- TensorFlow = build a graph of operations, then execute it in a session.
-- Nodes are operations; edges carry tensors between them.
-- Placeholders get values at run time through `feed_dict`; constants are fixed.
-- Postorder traversal guarantees inputs are computed before the operations that use them.
-- The same graph can be deployed across CPUs, GPUs, TPUs and mobile devices.
+- TensorFlow = build a graph, then execute it in a session.
+- Nodes are ops, edges are tensors.
+- Placeholders take run-time input, constants are fixed.
+- Postorder traversal guarantees correct execution order.
+- Runs on CPU, GPU, mobile and TPU; TensorBoard visualizes the graph.

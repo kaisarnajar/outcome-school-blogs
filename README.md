@@ -7,7 +7,7 @@
 
 📈 **My Study Progress:** **[kaisarnajar.github.io/outcome-school-blogs/#/progress](https://kaisarnajar.github.io/outcome-school-blogs/#/progress)** (data in `src/data/progressData.json`)
 
-📝 **Study Notes:** Short notes with diagrams for every blog → **[notes/README.md](notes/README.md)**
+📝 **Study Notes:** Click any blog on the site to open its notes (with diagrams), e.g. **[#/notes/machine-learning](https://kaisarnajar.github.io/outcome-school-blogs/#/notes/machine-learning)** · source Markdown in **[notes/](notes/README.md)**
 
 ---
 

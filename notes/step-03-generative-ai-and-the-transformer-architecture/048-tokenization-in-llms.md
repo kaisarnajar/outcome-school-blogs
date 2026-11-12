@@ -3,65 +3,108 @@
 > **Step 3: Generative AI and the Transformer Architecture** · ⏱️ 18 min read · [Read original](https://outcomeschool.com/blog/tokenization-in-llms)
 
 ## TL;DR
-Tokenization breaks text into small pieces (tokens) and converts each to a number (token ID), because LLMs only work with numbers. Modern LLMs use subword tokenization, with vocabularies built by Byte Pair Encoding (BPE).
+Tokenization breaks text into small pieces (tokens) and maps each to an integer Token ID, because an LLM only does math on numbers. Modern LLMs use subword tokenization, with Byte Pair Encoding (BPE) building the vocabulary by repeatedly merging the most frequent adjacent pair. It decides what fits in the context window and what it costs, and it explains many LLM quirks (letter counting, digit math, non-English cost).
 
 ## Key Concepts
-- **Tokenizer** — program converting text to tokens/IDs and back; each LLM has its own.
-- **Token** — smallest unit the model works with: word, subword, character, punctuation, or a word with its leading space (" love"). Rule of thumb for English: about 4 characters, or 0.75 word.
-- **Vocabulary** — complete list of known tokens, each with a unique **token ID**.
-- **BPE** — builds the vocabulary by repeatedly merging the most frequent adjacent pair.
-- **Byte-level BPE** — starts from the 256 byte values so nothing is ever unknown.
-- **Special tokens** — signals, not words: end of text, beginning of text, padding, chat markers.
-- **Decoding** — token IDs back to text.
+- **Tokenizer** — program converting text to tokens/IDs and back; every LLM has its own.
+- **Token** — smallest unit the model works with: a word, part of a word, a character, punctuation, or a word plus its leading space (e.g. " love"). Rule of thumb for English: 1 token is about 4 characters, about 0.75 word (100 tokens is about 75 words).
+- **Vocabulary** — complete list of tokens the tokenizer knows; the model picks one token from it at every generation step.
+- **Token ID** — unique serial number of a token in the vocabulary.
+- **`<UNK>`** — unknown token used by word-level tokenizers for out-of-list words.
+- **BPE** — algorithm that starts from single characters and repeatedly merges the most frequent adjacent pair.
+- **Byte-level BPE** — starting list is all 256 byte values (GPT-style), so nothing is ever unknown (any language, emoji, symbol).
+- **Special tokens** — signals, not words: `<|endoftext|>`/`<eos>` (stop generating), `<bos>` (start), padding (equalise input lengths in a batch), chat markers (who said what). Added on purpose, never from splitting normal text.
+- **Context window** — max tokens the model reads at once.
 
 ## How It Works
-**Three approaches**
 
-| | Character | Word | Subword |
+### Why tokenize
+- Model = multiplications, additions, comparisons: needs numbers, we have text.
+- Model also needs a fixed list of pieces it can output. Too big a list: slow, heavy model. Too small: sentences become long chains of tiny pieces. So: what is the right piece size?
+
+### Three approaches
+| | Character-level | Word-level | Subword-level |
 |---|---|---|---|
-| Vocabulary size | Very small | Very large | Medium (50k to 200k) |
+| Known-list size | Very small | Very large | Medium (50k-200k) |
 | Tokens per sentence | Very many | Few | Few |
-| Unknown word problem | Never | Often (`<UNK>`) | Never |
+| Unknown word problem | Never | Often | Never |
 | Meaning per token | Very little | Full | Good |
 | Used in modern LLMs | No | No | Yes |
 
-Subword keeps common words whole ("learning") and splits rare ones ("tokenization" into "token" + "ization"), so related words share pieces.
+- **Character**: "learning" is 8 tokens; 100 words is about 500 tokens; "l" alone carries no meaning, so the model must work hard to learn that l-e-a-r-n means learn.
+- **Word**: split on spaces; "tokenization" missing from list becomes `<UNK>`; "learn/learning/learned/learner" are unrelated tokens learned from scratch; list never ends (names, languages, code, new words).
+- **Subword**: common words stay whole ("the", "learning"); rare ones split into common pieces ("tokenization" -> "token"+"ization"; "unbelievable" -> "un"+"believ"+"able"). Pieces like "ization" reuse learning across "organization", "civilization". Downside: splits can look unnatural.
 
-**BPE example.** Counts: hug x10, pug x5, hugs x5. Start with characters h, u, g, p, s.
-1. Most frequent pair u+g (20), merge into `ug`.
-2. Then h+ug (15), merge into `hug`.
-3. Then tie p+ug and hug+s (5 each); a fixed rule picks p+ug into `pug`.
+### BPE building the vocabulary (worked example)
+Training counts: hug x10, pug x5, hugs x5.
+0. Characters: start vocab h,u,g,p,s (5).
+1. Pair counts: h+u=15, u+g=20, p+u=5, g+s=5. Merge u+g -> `ug` (6 tokens). Words: h ug (10), p ug (5), h ug s (5).
+2. h+ug=15, p+ug=5, ug+s=5. Merge -> `hug` (7).
+3. p+ug=5, hug+s=5 tie, fixed rule breaks it; merge p+ug -> `pug` (8).
+- Continue until target vocab size (e.g. 100,000). Each merge saved as ordered rule: 1. u+g->ug, 2. h+ug->hug, 3. p+ug->pug.
+- **Encoding new text** = no counting; split into characters and apply rules in order. "pugs": p,u,g,s -> p,ug,s -> (rule 2 no match) -> pug,s. "pugs" was never in training yet gets meaningful tokens.
+- Tokenizer is trained separately, before the LLM, then frozen; the LLM never changes it.
 
-Merges are saved as ordered rules. New text is split to characters and rules are applied in order: "pugs" becomes `pug`, `s`, IDs [7, 4], even though "pugs" was never in training. The tokenizer is trained separately and frozen before the LLM is trained.
+### Vocabulary, IDs, decoding
+- Example vocab: h0, u1, g2, p3, s4, ug5, hug6, pug7. "pugs" -> ["pug","s"] -> [7,4] goes into the LLM.
+- Vocab size tradeoff: bigger = fewer tokens per sentence but heavier model (bigger output choice each step); smaller = lighter model but longer sequences.
+- Each Token ID later looks up an embedding (next topic).
+- **Decoding**: LLM outputs Token IDs one at a time; reverse lookup and join: [6,4] -> ["hug","s"] -> "hugs". This is why streamed answers sometimes show half a word (token boundary).
 
-**Vocabulary size trade-off.** Bigger vocabulary means fewer tokens per sentence but a heavier model; smaller means lighter model but longer sequences.
+### Code (tiktoken, `cl100k_base`, about 100k vocab)
+```python
+enc = tiktoken.get_encoding("cl100k_base")
+ids = enc.encode("I love learning")   # [40, 3021, 6975]
+enc.decode(ids)                        # "I love learning"
+```
+Per-ID decode shows `[I]`, `[ love]`, `[ learning]`: the space is attached to the next word. IDs differ across tokenizers.
 
-**Decoding.** The model outputs token IDs; the tokenizer looks them up in reverse and joins them. This is why half-words can appear while streaming.
+### Effects in practice
+- **Counting letters** ("r" in "strawberry"): tokens like "str","aw","berry"; model never sees letters, guesses from memory.
+- **Math**: "12345" -> "123"+"45", harder than digit-by-digit.
+- **Cost and limits**: context window and per-token pricing both depend on token count.
+- **Other languages**: tokenizers are mostly trained on English; Hindi/Tamil/Japanese take several times more tokens, so more cost and a faster-filled window.
+- **Code**: spaces/indentation are tokens (4 spaces may be 1 or 4 tokens) affecting code reading/writing.
 
-**Code (tiktoken):** `encoding.encode("I love learning")` gives IDs; `encoding.decode(ids)` returns the text.
+## Diagrams
 
-**Practical effects**
-- Counting letters ("strawberry"): the model sees pieces, not letters.
-- Math: "12345" split as "123" + "45".
-- Cost and limits: context window and pricing are per token.
-- Other languages: mostly-English tokenizers use many more tokens for Hindi, Tamil, Japanese.
-- Code: indentation spaces are tokens too.
-
-## Diagram
+### Text to model and back
 ```mermaid
 flowchart LR
-    A["Text"] --> B["Tokenizer"]
-    B --> C["Tokens"]
-    C --> D["Token IDs"]
-    D --> E["LLM"]
-    E --> F["Output token IDs"]
-    F --> G["Decode via vocabulary"]
-    G --> H["Text"]
+    A1["Text<br/>'pugs'"] --> A2["Tokens<br/>pug, s"]
+    A2 --> A3["Token IDs<br/>7, 4"]
+    A3 --> A4["LLM<br/>embedding lookup"]
+    A4 --> A5["Output Token IDs<br/>6, 4"]
+    A5 --> A6["Tokens<br/>hug, s"]
+    A6 --> A7["Text<br/>'hugs'"]
 ```
 
+### BPE training loop
+```mermaid
+flowchart TD
+    B1["Split words into characters"] --> B2["Count adjacent pairs"]
+    B2 --> B3["Merge most frequent pair into new token"]
+    B3 --> B4["Save merge rule in order"]
+    B4 --> B5{"Vocab size reached?"}
+    B5 -->|"no"| B2
+    B5 -->|"yes"| B6["Freeze tokenizer"]
+```
+
+## Trade-offs & Pitfalls
+Works well:
+- No unknown-word problem; short sequences for common text; related words share pieces so learning is faster; one vocabulary for text, code, many languages.
+
+Fails:
+- Tasks needing individual letters (counting, reversing words).
+- Math on long numbers (digits grouped unnaturally).
+- Underrepresented languages: more tokens, higher cost, less context room.
+- Odd split points can confuse the model.
+
 ## Key Takeaways
-- Models need numbers; the tokenizer bridges text and numbers.
-- Subword tokenization balances vocabulary size, sequence length and unknown words.
-- BPE merges the most frequent pair repeatedly and stores the merge rules in order.
-- The model never sees inside a token, which explains letter-counting and digit-math failures.
-- Token count drives cost, context limits, and unequal treatment of non-English text.
+- The model sees Token IDs, never text; the model cannot look inside a token.
+- Subword tokenization is the middle path between huge word vocabularies and long character sequences.
+- BPE: merge the most frequent adjacent pair repeatedly, save rules in order, replay them to encode new text.
+- Tokenizer is trained first and frozen; each LLM has its own, so IDs differ across models.
+- Vocab size trades sequence length against model weight; byte-level BPE guarantees no unknowns.
+- Token count drives context limits and price; about 4 characters or 0.75 word per English token.
+- Letter counting, digit math and non-English cost problems all stem from tokenization.

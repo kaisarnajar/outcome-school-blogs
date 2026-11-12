@@ -3,61 +3,113 @@
 > **Step 4: How LLMs Generate Text** · ⏱️ 20 min read · [Read original](https://outcomeschool.com/blog/how-does-token-streaming-work)
 
 ## TL;DR
-Token streaming sends an LLM's reply to the user piece by piece as each token is generated, instead of waiting for the full reply. It is carried over Server-Sent Events (SSE) on a single open HTTP connection, which makes the app feel fast because the time to first token is tiny.
+Token streaming sends the reply piece by piece as each token is generated, instead of waiting for the full reply. The server keeps one HTTP connection open (Server-Sent Events, `Content-Type: text/event-stream`), pushes each token as a `data:` line followed by a blank line, and ends with `[DONE]`. It makes time to first token tiny and the app feel alive.
 
 ## Key Concepts
-- **Token streaming** — server sends tokens as they are produced; gives the live-typing effect.
-- **Autoregressive decoding** — the model writes one token at a time, each based on all previous ones; this is what makes streaming possible.
-- **Time to first token (TTFT)** — how long the user waits before seeing anything. Without streaming it equals the whole generation time; with streaming it is just the prefill plus the first token.
-- **SSE (Server-Sent Events)** — one-way channel where the server keeps pushing events over one open connection after one browser request.
-- **`Content-Type: text/event-stream`** — response label telling the browser to keep the connection open and read pieces as they arrive.
-- **`data:` line + blank line** — the event format; the blank line marks the end of each event.
-- **`[DONE]` marker** — final event signalling the stream is finished.
+- **Token** — small chunk of text (cat = 1 token, running often 2); tokenization e.g. BPE.
+- **Autoregressive decoding** — each new token is produced from all previous tokens (auto = step by step on its own, regressive = looks back). Not all models do this (diffusion language models generate in parallel).
+- **Time to first token (TTFT)** — how long the user waits before the first piece appears; set mainly by the **prefill** phase (model reads whole prompt).
+- **Request-response model** — browser asks once, server replies once, connection closes.
+- **SSE (Server-Sent Events)** — one-way server-to-browser events over a single open HTTP connection.
+- **HTTP** — rules browsers and servers use to talk.
+- **Content-Type** — label on a response saying what data it is (`text/html`, `application/json`, `text/event-stream`).
+- **`[DONE]` marker** — final event signalling end of stream.
+- **WebSocket** — two-way connection, both sides can send anytime.
 
 ## How It Works
-1. Browser opens one HTTP connection and sends the question; it stays open for the whole reply.
-2. Server starts the response with `Content-Type: text/event-stream`.
-3. Model produces token 1; the server immediately wraps it as `data: The` plus a blank line and pushes it.
-4. Browser appends it to the screen; the user sees the first word almost instantly.
-5. Repeat for each token (`cat`, `sat`, ...); the browser keeps appending.
-6. Server sends `data: [DONE]`; the browser stops listening and the connection closes.
+### Why stream
+- Without streaming, a 500-token answer means a blank screen until all 500 are produced; the first word seen is effectively the last produced. User thinks the app is stuck.
+- With streaming, the first token is sent the moment it is ready; user reads while the rest is written. Two wins: words appear live, and the wait before the first word is short.
+- Streaming does **not** change how the model generates; only when tokens are sent.
 
-In real systems the content after `data:` is usually JSON holding the token plus extra info.
+### SSE and the open connection
+- Normal HTTP: open connection, request, full response, close (one phone call, one answer, hang up).
+- SSE: browser asks once; server keeps the line open and pushes piece after piece until done.
+- Server sets `Content-Type: text/event-stream`; "stream" tells the browser to stay open and read pieces as they arrive.
+
+### Message format
+Each event is a line starting `data: ` plus content, separated by a blank line (the blank line marks the end of an event):
+```
+data: The
+
+data: cat
+
+data: sat
+
+data: [DONE]
+
+```
+In real systems the content is usually a small JSON holding the token plus extra info; same wrapping rule.
+
+### Full walkthrough ("The cat sat")
+1. Browser opens one HTTP connection and sends the question; it stays open.
+2. Server starts response with `text/event-stream`.
+3. Model produces "The"; server wraps it in `data:` and pushes immediately.
+4. Browser extracts and appends it (small TTFT).
+5. Next tokens "cat", "sat" follow the same path; the browser keeps appending, giving the live typing effect.
+6. Server sends `data: [DONE]`; browser stops listening and the connection closes. Without it the browser could not tell finished from still-coming.
 
 ### SSE vs WebSockets
-| | SSE | WebSockets |
+| Point | SSE | WebSockets |
 |---|---|---|
 | Direction | One-way, server to browser | Two-way |
 | Built on | Plain HTTP | Separate protocol layered on HTTP |
 | Setup | Simple | More complex |
-| Best for | Streaming a reply, live updates | Chat rooms, games, collaboration |
-| Reconnect | Automatic | Handled by us |
+| Best for | Streaming a reply, live updates | Chat rooms, games, live collaboration |
+| Reconnect | Automatic | You handle it |
 
-Token streaming only needs the server to push after one initial request, so SSE fits naturally.
+Token streaming needs only server-to-browser after the initial question, so SSE fits.
 
 ### Real world
-ChatGPT and Claude word-by-word replies, coding assistants, writing tools, and support bots all use this pattern. A serving engine like vLLM sits behind them producing tokens fast.
+ChatGPT and Claude word-by-word replies are token streaming over SSE. Behind them sits a serving engine (e.g. vLLM) producing tokens fast for many users. The same pattern powers coding assistants, writing tools, support bots.
 
-## Diagram
+## Diagram(s)
+### Server to screen
 ```mermaid
 sequenceDiagram
     participant B as Browser
     participant S as Server
     participant M as Model
-    B->>S: Ask once, connection stays open
-    S-->>B: Content-Type text/event-stream
+    B->>S: Ask once (HTTP request)
+    S-->>B: Content-Type text/event-stream, connection stays open
     M->>S: token The
-    S-->>B: data The
+    S-->>B: data: The
     M->>S: token cat
-    S-->>B: data cat
+    S-->>B: data: cat
     M->>S: token sat
-    S-->>B: data sat
-    S-->>B: data DONE
+    S-->>B: data: sat
+    S-->>B: data: [DONE]
+    Note over B,S: Browser stops listening, connection closes
 ```
 
+### With vs without streaming
+```mermaid
+flowchart LR
+    subgraph N1["Without streaming"]
+        A1["Ask"] --> A2["Model writes all 500 tokens<br/>blank screen"] --> A3["Full reply at once"]
+    end
+    subgraph Y1["With streaming"]
+        B1["Ask"] --> B2["Token 1 shown fast"] --> B3["Token 2, 3, ..."] --> B4["Done"]
+    end
+```
+
+## Trade-offs & Pitfalls
+- SSE cannot receive messages from the browser on the same stream (one-way); use WebSockets only when truly two-way.
+- Skipping `[DONE]` leaves the client unsure whether the reply ended.
+- Streaming improves perceived latency, not generation speed.
+
+## FAQ
+- Does streaming change generation? → No, only when tokens are sent.
+- Streamed piece a plain word? → Usually JSON with extra info.
+- No `[DONE]`? → Browser cannot know the reply finished.
+- SSE reconnects automatically? → Yes (WebSockets: you handle it).
+- Only chat apps? → No, any LLM app.
+
 ## Key Takeaways
-- Streaming works because LLMs already generate one token at a time.
-- Its main benefit is a very short time to first token, not faster total generation.
-- SSE = one request, one long-lived HTTP connection, many `data:` events separated by blank lines.
-- `text/event-stream` tells the browser to stay in streaming mode; `[DONE]` ends it.
-- SSE is simpler than WebSockets and sufficient when traffic is server-to-browser only.
+- LLMs already generate token by token, so streaming just forwards each token immediately.
+- Main benefit: tiny time to first token and a responsive feel.
+- SSE = one HTTP connection kept open, `text/event-stream`.
+- Format: `data: ...` plus blank line per event; `data: [DONE]` ends.
+- SSE is one-way, simpler, auto-reconnecting; WebSockets for two-way needs.
+- TTFT is dominated by prefill.
+- Streaming doesn't change model output, only delivery timing.

@@ -3,56 +3,61 @@
 > **Step 12: LLM Inference Engineering** · ⏱️ 9 min read · [Read original](https://outcomeschool.com/blog/decoding-eagle)
 
 ## TL;DR
-EAGLE is a lossless speculative decoding method that drafts at the level of the model's internal features instead of tokens. Features are smoother and more predictable than sampled tokens, so more drafts are accepted per pass and the speedup is larger, often around 3x to 4x.
+EAGLE ("EAGLE: Speculative Sampling Requires Rethinking Feature Uncertainty" and EAGLE-2, Yuhui Li et al., 2024) is lossless speculative decoding that drafts at the feature level (the model's smooth hidden state) instead of the noisy token level. More accurate drafts mean more accepted tokens per pass and typically 3-4x faster generation.
 
 ## Key Concepts
-- **Token-level drafting** — guessing the exact next token (Medusa style); noisy because tokens are sampled from a distribution.
-- **Feature** — the hidden-state vector from the second-to-last layer, just before it becomes a token.
-- **Feature uncertainty** — the next feature depends on which token was sampled; unknown without that token.
-- **EAGLE-2 dynamic draft tree** — context-aware tree with more guesses where the draft is confident.
-- **Speedup** — average accepted tokens per verification pass.
+- **Speculative decoding** — cheap draft, big model verifies in one pass; better guesses mean bigger speedup.
+- **Token-level drafting** (e.g. Medusa) — predicts the exact sampled token; noisy because the model outputs a distribution and the token is sampled randomly, so many guesses are rejected.
+- **Feature** — the model's internal hidden vector from the second-to-last layer, just before mapping to a token. The feature sequence is much more regular than the token sequence (randomness enters only at token selection).
+- **Feature uncertainty** — the next feature depends on which token was sampled previously.
+- **Dynamic draft tree** (EAGLE-2) — context-aware tree of candidate continuations.
 
 ## How It Works
-### Problem
-Speculative decoding speed depends on accurate cheap guesses. Token guesses are inherently noisy due to sampling randomness, so many are rejected, capping speedup.
+1. Train a small lightweight draft network that autoregresses at the feature level: predicts the next feature from previous features, then maps features to tokens.
+2. Resolve feature uncertainty by feeding the previously sampled token back into the draft network along with the features, so it sees both the smooth feature stream and the actual chosen token.
+3. Big model verifies drafted tokens in one pass; output identical to normal generation.
 
-### Key idea
-Randomness enters at the final token selection step; features beneath are regular. A small lightweight draft network autoregresses on features (predicts next feature from previous ones), then maps features to tokens. Verification by the big model keeps the output identical.
-
-### Resolving uncertainty
-Feed the previously sampled token back into the draft network along with the features, which removes feature uncertainty (this gives the first paper its name).
-
-### Math (illustrative)
-- Token-level: about 2.5 accepted per pass gives about 2.5x.
-- Feature-level: about 3.5 accepted per pass gives about 3.5x.
-The gain comes entirely from higher acceptance. Real numbers depend on model and task.
-
-### EAGLE-2
-Builds a dynamic, context-aware draft tree, shaped per input, for more accepted tokens per pass while still lossless.
-
-### Today
-Supported in vLLM, SGLang and TensorRT-LLM; extended in EAGLE-3.
-
-| | Medusa | EAGLE |
-|---|---|---|
-| Guesses | Next tokens directly | Next features, then tokens |
-| Noise | High (sampling) | Lower (smooth features) |
-| Accepted tokens | Fewer | More |
-
-## Diagram
-```mermaid
-flowchart LR
-    F["Previous features"] --> D["Lightweight draft network"]
-    T["Previously sampled token"] --> D
-    D --> NF["Predicted next features"]
-    NF --> DT["Draft tokens (tree in EAGLE-2)"]
-    DT --> V["Big model verifies in one pass"]
-    V --> A["Accepted tokens, lossless output"]
+```
+Medusa: guess next TOKEN directly (noisy, often rejected)
+EAGLE:  guess next FEATURE, then the token (smooth, often accepted)
 ```
 
+```mermaid
+flowchart LR
+    F1["Previous features"] --> DN["Small draft network"]
+    T1["Previously sampled token"] --> DN
+    DN --> F2["Predicted next feature"]
+    F2 --> TK["Map to draft token"]
+    TK --> VR["Big model verifies<br/>in one pass"]
+    VR --> OUT["Accepted tokens<br/>identical to normal output"]
+```
+
+### Speedup math
+Speedup = average accepted tokens per verification pass. Token-level: 2.5 accepted per pass gives about 2.5x. Feature-level: 3.5 accepted gives about 3.5x. Entire gain comes from higher acceptance rate. Numbers illustrative; real values depend on model and task.
+
+### EAGLE-2
+Builds a dynamic, context-aware draft tree: spends more guesses where the draft network is confident, fewer where unsure, shaped per input. More accepted tokens per pass, still lossless.
+
+## Today
+- Often about 3-4x faster; among the highest lossless speedups.
+- Supported in vLLM, SGLang, TensorRT-LLM.
+- Core lesson (draft smooth features, not noisy tokens) influenced later research; extended in EAGLE-3.
+
+## Trade-offs & Pitfalls
+- Requires training a draft network (small, lightweight).
+- Real speedup depends on model and task via acceptance rate.
+
+## FAQ
+- Changes output? → No, every token verified.
+- Better than Medusa? → Usually bigger speedup, since features are more predictable.
+- Speedup? → About 3-4x.
+- In production? → Yes, via vLLM, SGLang, TensorRT-LLM.
+
 ## Key Takeaways
-- Draft at the feature level, not the token level: features are smoother than sampled tokens.
-- Feeding back the sampled token resolves feature uncertainty.
-- More accurate drafts mean more accepted tokens per pass, so higher speedup.
-- Output is exactly the big model's; the speedup is free in quality.
-- EAGLE-2 adds dynamic draft trees; typical speedup around 3x to 4x.
+- Speculative decoding speed depends on guess accuracy.
+- Token guesses are noisy due to sampling randomness.
+- EAGLE drafts the smooth feature (second-to-last layer hidden state) then maps to tokens.
+- Feeding back the sampled token removes feature uncertainty.
+- Speedup equals average accepted tokens per pass; higher acceptance means more speed.
+- EAGLE-2 adds dynamic context-aware draft trees; EAGLE-3 extends further.
+- Output stays identical (lossless).

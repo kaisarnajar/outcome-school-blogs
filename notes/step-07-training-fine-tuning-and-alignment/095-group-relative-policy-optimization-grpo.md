@@ -3,63 +3,123 @@
 > **Step 7: Training, Fine-Tuning, and Alignment** · ⏱️ 17 min read · [Read original](https://outcomeschool.com/blog/group-relative-policy-optimization-grpo)
 
 ## TL;DR
-GRPO, introduced by DeepSeek, is an RL algorithm for LLMs that samples a group of answers per question, scores them, and uses the group average as the baseline. This removes PPO's expensive value model while keeping the reward model, making training cheaper and simpler, especially for reasoning tasks with verifiable rewards.
+GRPO (introduced by DeepSeek, used for their reasoning models) is an RL algorithm that samples a group of answers per question, scores each, and uses the group average as the baseline. Answers above average are pushed up, below average pushed down. It removes PPO's expensive value model while keeping the reward model, making training cheaper, simpler and faster.
 
 ## Key Concepts
-- **Group** — several answers generated for the same question (typically 8 to 64).
-- **Relative advantage** — an answer's reward minus the group mean (usually divided by the group std).
-- **Reward model vs value model** — the reward model scores a complete answer (the ground truth signal); the value model predicts expected future reward at each step to assign credit. GRPO drops only the value model.
-- **Reference model + KL penalty** — usually the post-SFT model; prevents drift and reward hacking.
-- **Verifiable reward** — rule-based or code-execution check (math correct, tests pass).
+- **GRPO = Group + Relative + Policy + Optimization** — group of answers per question, compared relative to each other; policy = the LLM choosing tokens (see MDP); update to get better answers. Analogy: teacher compares each of 8 students to the class average.
+- **PPO** — popular RL algorithm (e.g. InstructGPT) using multiple large models.
+- **Policy model** — LLM being trained. **Value model (critic)** — separate, near-policy-size model predicting expected future reward at every step.
+- **Reward model** — final score for a complete answer. PPO uses reward + value; GRPO keeps reward, drops value.
+- **Advantage** — how much better/worse than expected.
+- **Reference model** — usually the model right after SFT, for the KL penalty.
+- **Verifiable reward** — rule or code-execution check.
 
 ## How It Works
-### Why PPO is costly
-PPO trains a policy plus a value model of almost the same size: more memory, more compute, slower, and the value model is hard to train accurately. PPO uses the value model for per-step credit assignment.
 
-### GRPO idea
-Skip per-step credit. Compare full answers to the group average; every token in a good answer is nudged up, in a bad one nudged down. Analogy: a teacher tells each of 8 students whether they beat the class average.
+### Why PPO needs a value model, and its cost
+- Reward model gives one score for the full answer, but the LLM writes word by word. Value model supplies per-step credit assignment (advantage). Without it, every word gets the same credit/blame, making training unstable.
+- Value model learns to predict what the reward model would say; reward model is the source of truth. Not duplicates.
+- Cost: value model about policy size, so two huge models at once: lots of memory and compute, slow, and the critic is hard to train accurately.
+
+### GRPO's core idea
+- Baseline = group average, not a learned critic. Credit goes to the full answer, not each step: every word in a good answer gets a small push up, every word in a bad one a push down. Fits math, code, reasoning where the final answer matters.
 
 ### Steps
 1. Take a question.
-2. Generate G answers with the current policy.
-3. Score each (reward model, rule check, or code execution).
-4. Compute the group mean (baseline).
-5. Advantage per answer = (reward - mean) / (std + small constant).
-6. Update the policy to raise probability of positive-advantage answers and lower negative ones.
+2. Generate a group (e.g. 8) of answers with the current policy.
+3. Score each (reward model, rule-based check such as correct math answer, or code tests).
+4. Compute the group mean as baseline.
+5. Relative advantage per answer: positive if above mean, negative if below.
+6. Update policy: more likely for positive, less for negative.
 
-### Example
-"What is 12 + 7?" with 4 answers and rewards 1, 0, 1, 0: mean 0.5, advantages +0.5, -0.5, +0.5, -0.5.
+### Worked example: "What is 12 + 7?" (answer 19), 4 answers, reward 1 if correct
+
+| Answer | Reward | Advantage (r - 0.5) |
+|---|---|---|
+| "The answer is 19." | 1 | +0.5 |
+| "It is 18." | 0 | -0.5 |
+| "19." | 1 | +0.5 |
+| "I think it is 20." | 0 | -0.5 |
+
+Mean = (1+0+1+0)/4 = 0.5. In practice advantages are also divided by the group's standard deviation (normalization):
+
+$$A_i = \frac{r_i - \text{mean}(r)}{\text{std}(r)+\varepsilon}$$
 
 ### Objective (three parts)
-Policy ratio (new vs old) × group advantage, clipped to about 0.8 to 1.2 as in PPO, minus a KL penalty to the reference model; averaged over the group and batch.
+1. **Policy ratio** — new vs old policy probability of each answer.
+2. **Clipping** — keep the ratio in e.g. [0.8, 1.2] (as in PPO).
+3. **KL penalty** — stay close to the reference model (prevents drift/forgetting).
+
+Multiply clipped ratio by group-based advantage, subtract KL, average over answers in the group and questions in the batch. Key change from PPO: advantage comes from the group.
+
+```python
+answers = [policy.generate(q) for _ in range(G)]
+rewards = [reward_fn(q, a) for a in answers]
+adv = [(r - mean_r) / (std_r + 1e-8) for r in rewards]
+loss = grpo_loss(policy, old_policy, ref_policy, answers, adv)
+```
 
 ### PPO vs GRPO
+
 | Aspect | PPO | GRPO |
 |---|---|---|
 | Value model | Yes | No |
 | Reward model | Yes | Yes |
-| Memory and compute | High | Lower |
+| Memory | High | Lower |
+| Compute | High | Lower |
+| Speed | Slower | Faster |
 | Baseline | Learned by value model | Group average reward |
 | Implementation | Complex | Simpler |
 | Best fit | Open-ended tasks | Reasoning with verifiable rewards |
 
-### Practical notes
-Group size trades baseline stability against compute. If all answers get the same reward, advantage is zero and there is no learning signal (balance question difficulty). The reward function must be good, and the KL penalty guards against reward hacking.
+Also trains Sakana's Fugu-Ultra to write effective multi-model workflows.
 
-## Diagram
+## Diagram(s)
+
+### GRPO step
 ```mermaid
 flowchart TD
-    Q["Question"] --> G["Generate group of G answers"]
-    G --> R["Score each answer"]
-    R --> M["Group mean as baseline"]
-    M --> A["Advantage = reward minus mean, normalized"]
-    A --> U["Update policy with clipping and KL penalty"]
-    U --> Q
+    q["Question"] --> g["Policy generates group of G answers"]
+    g --> sc["Reward function scores each answer"]
+    sc --> mu["Group mean = baseline"]
+    mu --> ad["Advantage = reward minus mean, normalized by std"]
+    ad --> up["Clipped update with KL penalty to reference"]
+    up --> g
 ```
 
+### PPO vs GRPO credit assignment
+```mermaid
+flowchart LR
+    subgraph P1["PPO"]
+        p1["Reward model: full answer score"] --> p3["Advantage per step"]
+        p2["Value model: per-step expectation"] --> p3
+    end
+    subgraph G1["GRPO"]
+        g1["Reward per full answer"] --> g3["Advantage vs group average"]
+    end
+```
+
+## Trade-offs & Pitfalls
+- **Group size**: typically 8 to 64. Larger gives a stabler baseline but costs more; smaller is cheaper but noisy.
+- **Identical rewards in a group** (all right or all wrong): advantage zero, no learning signal. Fine occasionally; if frequent, rebalance question difficulty.
+- **Reward function quality**: wrong reward means wrong behavior. Easy for math/code; open-ended tasks need a strong reward model.
+- **KL penalty is essential**: otherwise drift and reward hacking.
+- Less suited to open-ended tasks (PPO better there).
+
+## When to use
+Training LLMs with RL; having a rule-based/verifiable reward; wanting to save memory/compute by dropping the value model; training step-by-step reasoning models.
+
+## FAQ
+- Still uses a reward model? → Yes (RM, rules, or code execution), no value model.
+- All same reward? → Zero advantage, no signal.
+- Group size? → 8-64.
+- Open-ended tasks? → PPO fits better; GRPO needs a strong reward model.
+- Why KL? → Prevent drift/reward hacking.
+
 ## Key Takeaways
-- GRPO replaces the learned value baseline with the group's mean reward.
-- It still needs a reward signal, but not a critic.
-- Credit goes to whole answers, not individual steps; ideal when only the final answer matters (math, code).
-- Cheaper and simpler than PPO; used to train DeepSeek's reasoning models.
-- Watch group size, zero-variance groups, reward quality, and KL anchoring.
+- GRPO replaces PPO's learned critic with the group mean reward as baseline.
+- Advantage = (reward - group mean) / std.
+- Credit is per full answer, ideal for verifiable tasks (math, code).
+- Keeps PPO-style clipping and a KL penalty to a reference model.
+- Cheaper, simpler, faster than PPO; powered DeepSeek's reasoning models.
+- Watch group size, zero-variance groups, and reward quality.

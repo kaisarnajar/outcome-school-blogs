@@ -3,60 +3,87 @@
 > **Step 2: Deep Learning and Neural Networks** · ⏱️ 16 min read · [Read original](https://outcomeschool.com/blog/kl-divergence)
 
 ## TL;DR
-KL Divergence is a single number telling how far a guessed distribution Q is from a true distribution P. It equals cross-entropy minus entropy, which is why minimizing cross-entropy loss pulls the model toward the truth. It also appears as the KL penalty in RLHF, in distillation, and in VAEs.
+KL Divergence is one number saying how different a guess distribution Q is from the truth P: the P-weighted average of log(P/Q). It is always >= 0, zero only when identical, and not symmetric. KL = cross-entropy - entropy, which is why minimizing cross-entropy pulls Q toward P. Used in RLHF/PPO penalties, distillation and VAEs.
 
 ## Key Concepts
-- **Probability distribution** — chances over outcomes that sum to 1. Example: truth P = Sunny 0.6, Cloudy 0.3, Rainy 0.1; app's guess Q = 0.3, 0.3, 0.4.
-- **KL(P || Q)** — "divergence of P from Q"; P is truth, Q is guess, order matters.
-- **Surprise** — $-\log(\text{chance})$; rare outcomes surprise more.
-- **Entropy $H(P)$** — average surprise measured with P itself.
-- **Cross-entropy $H(P,Q)$** — average surprise for outcomes from P measured with Q.
-- **Nats / bits** — units for natural log / log base 2.
+- **Probability distribution** — all outcomes with chances summing to 1. Example truth P: Sunny 0.6, Cloudy 0.3, Rainy 0.1. Weather app guess Q: 0.3, 0.3, 0.4. LLM next-token chances are also one.
+- **KL (Kullback-Leibler)** — "how far Q is from P"; written $KL(P\|Q)$, P = truth, Q = guess. Order matters.
+- **Nats / bits** — units with natural log / log base 2.
+- **Surprise** — $-\log$(chance); rare outcome, big surprise (Rainy 0.1: 2.3026; Sunny 0.6: 0.5108).
+- **Entropy** $H(P)=-\sum P\log P$ — average surprise measuring with P itself.
+- **Cross-entropy** $H(P,Q)=-\sum P\log Q$ — outcomes from P, surprise measured with Q.
 
 ## How It Works
+
 ### Building the formula
-1. Compare chances by ratio $P(x)/Q(x)$ (a ratio catches 0.02 vs 0.01 being 2x off; a difference does not).
-2. Take the log: agreement gives 0; "2x more" and "2x less" become equal and opposite.
-3. Weight by $P(x)$ since common outcomes matter more.
-4. Sum over outcomes.
+1. **Ratio** $P(x)/Q(x)$ per outcome (Sunny 0.6/0.3 = 2). 1 = agree; >1 = guess too low; <1 = guess too high. Ratio beats difference: 0.02 vs 0.01 differ by 0.01 but are 2x off.
+2. **Log of ratio** — log 1 = 0 so agreement adds nothing; positive if >1, negative if <1; 2x more and 2x less are equal and opposite (0.6931 vs -0.6931).
+3. **Weight by P(x)** — mistakes on common outcomes matter more.
+4. **Sum**.
+
 $$KL(P\|Q)=\sum_x P(x)\log\frac{P(x)}{Q(x)}$$
-If Q(x) = 0 where P(x) > 0, KL is infinite.
+Weighted average of log ratio, weights = true chances. If P(x)=0 the term is 0; if Q(x)=0 where P says possible, it is infinite.
 
 ### Worked example
-| Outcome | P | Q | Term |
-|---|---|---|---|
-| Sunny | 0.6 | 0.3 | 0.4159 |
-| Cloudy | 0.3 | 0.3 | 0 |
-| Rainy | 0.1 | 0.4 | -0.1386 |
 
-KL(P||Q) = 0.2773 nats.
+| Outcome | P | Q | P/Q | log | P*log |
+|---|---|---|---|---|---|
+| Sunny | 0.6 | 0.3 | 2 | 0.6931 | 0.4159 |
+| Cloudy | 0.3 | 0.3 | 1 | 0 | 0 |
+| Rainy | 0.1 | 0.4 | 0.25 | -1.3863 | -0.1386 |
+
+$KL(P\|Q)=0.4159+0-0.1386=0.2773$ nats. Code `np.sum(p*np.log(p/q))` prints KL(P,Q)=0.2773, KL(Q,P)=0.3466, KL(P,P)=0.0.
 
 ### Properties
-- Always $\ge 0$ (Gibbs' inequality), even though individual terms can be negative.
-- Equals 0 only if P and Q are identical.
-- Not symmetric: KL(Q||P) = 0.3466 in the example. It is a divergence, not a distance.
+1. **>= 0** (Gibbs' inequality). Negative terms (Rainy) are small because weighted by small P(Rainy)=0.1; positive Sunny term is weighted by 0.6.
+2. **Zero only if P = Q** (all ratios 1, logs 0).
+3. **Not symmetric**: $KL(Q\|P)$ = -0.2079 + 0 + 0.5545 = 0.3466 vs 0.2773. Weights come from Q now (Q gives Rainy 0.4 vs P's 0.1), so the big Rainy error weighs more. Hence "divergence", not "distance".
 
-### Link to cross-entropy
+### Relation to cross-entropy
 $$KL(P\|Q)=H(P,Q)-H(P)$$
-Numbers: $H(P)\approx0.898$, $H(P,Q)\approx1.175$, difference 0.277. KL is the extra surprise from using Q instead of P. Since $H(P)$ is fixed by the data, minimizing cross-entropy equals minimizing KL. With a one-hot label, $H(P)=0$ and cross-entropy equals KL exactly.
+From log(P/Q) = log P - log Q. KL = extra surprise from using Q instead of P. Check: H(P) = 0.3065+0.3612+0.2303 = about 0.898; H(P,Q) = 0.7224+0.3612+0.0916 = about 1.175; difference 0.277. In training P comes from data, so H(P) is fixed: minimizing cross-entropy = minimizing KL. For a one-hot label H(P)=0, so CE loss equals KL exactly.
 
-### Where it is used
-- **RLHF / PPO**: final reward = reward model score - beta x KL(new model || reference model). Prevents reward hacking by keeping the model near a frozen reference. Example: 8.0 - 0.1 x 2.0 = 7.8.
-- **Knowledge distillation**: student matches the teacher's full distribution (cat 0.7, tiger 0.2, dog 0.1), which carries more information than a hard label.
-- **VAEs**: a KL term keeps the latent distribution close to a standard normal so random sampling can generate new data.
+### Where used
+- **RLHF / PPO KL penalty** — reward model scores answers; LLM may reward-hack (high score, broken text). Keep a frozen **reference model**; compare token chances. Final reward = RM score - beta * KL(new || reference), beta e.g. 0.1. New model first because it writes the answers (its chances are the weights). Example: score 8.0, KL 2.0, final 8.0 - 0.1*2.0 = 7.8. PPO updates with that.
+- **Knowledge distillation** — teacher (e.g. cat 0.7, tiger 0.2, dog 0.1) gives richer signal than a hard label; loss KL(teacher || student).
+- **VAEs** — KL term keeps latent distribution near standard normal so random samples generate new images.
 
-## Diagram
+### FAQ
+- Unit? Nats (ln) or bits (log2).
+- Infinite? Yes if Q=0 where P>0.
+- Not a distance? Asymmetric (0.2773 vs 0.3466).
+- Min CE = min KL? Yes, when P is from data since H(P) is constant.
+
+## Diagram(s)
+
+### Building KL for one outcome
 ```mermaid
 flowchart TD
-    A["Reward model scores answer: 8.0"] --> D["Final reward = 8.0 - 0.1 x 2.0 = 7.8"]
-    B["Compare token chances: new model vs frozen reference"] --> C["KL penalty = 2.0"]
-    C --> D
-    D --> E["PPO updates the new model"]
+    A["Sunny: P=0.6, Q=0.3"] --> B["Ratio P/Q = 2"]
+    B --> C["log 2 = 0.6931"]
+    C --> D["Weight by P: 0.4159"]
+    D --> E["Sum all outcomes<br/>0.4159 + 0 - 0.1386 = 0.2773"]
 ```
 
+### RLHF KL penalty
+```mermaid
+flowchart TD
+    N["New model writes answer"] --> R["Reward model score 8.0"]
+    N --> K["KL vs frozen reference = 2.0"]
+    R --> F["Final reward = 8.0 - 0.1 x 2.0 = 7.8"]
+    K --> F
+    F --> P["PPO updates new model"]
+```
+
+## Trade-offs & Pitfalls
+- Asymmetric: always mind the order.
+- Infinite when Q assigns 0 to a possible event.
+- Individual terms can be negative; the total never is.
+
 ## Key Takeaways
-- KL(P||Q) = weighted average of log(P/Q), weights from the true P.
-- Never negative, zero only when P = Q, and not symmetric.
-- KL = cross-entropy - entropy, so training with cross-entropy minimizes KL to the data.
-- Infinite if the guess assigns 0 to something that can happen.
-- Used as a leash in RLHF, a matching loss in distillation, and a regularizer in VAEs.
+- KL(P||Q) = sum P log(P/Q): P-weighted log ratio.
+- >= 0, zero iff identical, not symmetric.
+- KL = cross-entropy - entropy.
+- Minimizing CE loss on data = minimizing KL.
+- Q=0 where P>0 means infinite KL.
+- Used as RLHF leash, distillation loss and VAE regularizer.

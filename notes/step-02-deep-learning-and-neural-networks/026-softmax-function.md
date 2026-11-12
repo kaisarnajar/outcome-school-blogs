@@ -3,63 +3,104 @@
 > **Step 2: Deep Learning and Neural Networks** · ⏱️ 15 min read · [Read original](https://outcomeschool.com/blog/softmax-function)
 
 ## TL;DR
-Softmax converts a list of raw scores (logits) into probabilities that are all between 0 and 1 and add up to 1. It does this by exponentiating each score and dividing by the total. It is used for classification outputs, LLM next-token prediction, and attention weights.
+Softmax turns a list of raw scores (logits) into probabilities in (0,1) that sum to 1: exponentiate each score, then divide by the total. Temperature controls sharpness, and subtracting the max score keeps it numerically stable. It is used in classifiers, LLM next-token prediction, and Transformer attention.
 
 ## Key Concepts
-- **Logits** — raw model scores, any number, not probabilities.
-- **Softmax** — `exp(x_i) / (exp(x_1) + ... + exp(x_n))`.
-- **Temperature (T)** — divide scores by T before softmax: `softmax(x_i / T)`.
-- **Numerical stability trick** — subtract the max score before `exp`.
+- **Logits** — raw scores per option; higher = more belief; can be any number (7.5, -3.2), sum to anything.
+- **Probability rules** — each in [0,1], all sum to 1.
+- **exp** — $e^x$ with $e\approx2.718$; always positive, monotonic (keeps order).
+- **Softmax** — "soft" version of max: most share to the top, some for others.
+- **Temperature $T$** — divides scores before softmax.
+- **nan** — "not a number" from inf/inf.
 
 ## How It Works
+
 ### Why not divide by the sum?
-Dividing scores by their total breaks with negatives. For scores 3, 1, -2 (total 2) you get 1.5 and -1.0; for 2 and -2 the total is 0. Exponentiating first fixes this: `exp` is always positive and preserves order.
+Scores 2.0, 1.0, 0.1 (sum 3.1) give 0.65, 0.32, 0.03 and seem fine. But for 3, 1, -2 (sum 2): 1.5, 0.5, -1.0 — above 1 and negative. For 2 and -2 the sum is 0 (division impossible). Negatives are the problem; first make all scores positive while preserving order.
 
-### Worked example
-Scores Cat 2.0, Dog 1.0, Bird 0.1 give exps 7.389, 2.718, 1.105 (total 11.212), so probabilities 0.659, 0.242, 0.099. Scores 3, 1, -2 give 0.876, 0.118, 0.006.
+### Formula
+$$\text{softmax}(x_i)=\frac{e^{x_i}}{\sum_{j=1}^{n}e^{x_j}}$$
+Exponent makes all positive (exp(-2)=0.135, exp(-100) tiny positive) and monotonic; division makes them sum to 1.
 
-### Properties
-1. Outputs sum to 1.
-2. Order is preserved (highest score gets highest probability).
-3. Gaps are amplified: a lead of 1 gives about 2.718x probability, a lead of 5 about 148x. It is a "soft" version of max.
-4. Only differences matter; adding the same number to all scores changes nothing.
-
-### Temperature
-| T | Cat | Dog | Bird | Effect |
-|---|---|---|---|---|
-| 0.5 | 0.86 | 0.12 | 0.02 | Sharper |
-| 1.0 | 0.66 | 0.24 | 0.10 | Normal |
-| 2.0 | 0.50 | 0.30 | 0.19 | Flatter |
-
-Low T makes an LLM focused and predictable; high T makes it more varied.
-
-### Numerical stability
-`exp(1000)` overflows to infinity, giving `nan`. Because only differences matter, subtract the max score first (1002, 1001, 1000.1 becomes 0, -1.0, -1.9), so the largest exponent is `exp(0) = 1`. Libraries like PyTorch do this internally.
+### Worked example (Cat 2.0, Dog 1.0, Bird 0.1)
+1. exps: 7.389, 2.718, 1.105.
+2. Total = 11.212.
+3. Divide: 0.659, 0.242, 0.099 (sum 1.000): about 66%, 24%, 10%.
+4. Scores 3, 1, -2: exps 20.086, 2.718, 0.135; total 22.939; probs 0.876, 0.118, 0.006 — valid.
 
 ```python
-def softmax(scores, temperature=1.0):
-    scores = scores / temperature
-    scores = scores - scores.max()
+def softmax(scores):
     exps = np.exp(scores)
     return exps / exps.sum()
 ```
+Prints [0.66 0.24 0.1] and sum 1.0.
 
-### Where it is used
-Classification outputs (paired with cross-entropy loss), LLM next-token probabilities over a vocabulary of 100,000+ tokens, and attention in Transformers (scores become weights summing to 1).
+### Properties
+1. Outputs sum to 1 (each is a share of the total).
+2. Keeps order (highest score = highest probability).
+3. Amplifies gaps: score lead of 1 means probability about 2.718x bigger (0.659/0.242 about 2.72); lead of 5 means about 148x.
+4. Only differences matter: adding the same number to all scores changes nothing (2.0,1.0,0.1 same as 102.0,101.0,100.1).
 
-## Diagram
-```mermaid
-flowchart TD
-    A["Raw scores: 2.0, 1.0, 0.1"] --> B["Subtract max for stability"]
-    B --> C["Take exp of each: 7.389, 2.718, 1.105"]
-    C --> D["Add them up: 11.212"]
-    D --> E["Divide each by total"]
-    E --> F["Probabilities: 0.66, 0.24, 0.10"]
+Never gives exactly 0: exp is always positive.
+
+### Temperature
+$\text{softmax}(x_i/T)$.
+| T | Cat | Dog | Bird | Effect |
+|---|---|---|---|---|
+| 0.5 | 0.86 | 0.12 | 0.02 | sharper |
+| 1.0 | 0.66 | 0.24 | 0.10 | normal |
+| 2.0 | 0.50 | 0.30 | 0.19 | flatter |
+
+(Rounded; rows may sum to 0.99.) T=0.5 doubles gaps (4.0, 2.0, 0.2), so Cat goes 0.66 to 0.86; T=2 halves gaps. In LLMs: low T = focused/predictable, high T = varied/creative.
+
+### Numerical stability
+exp(10)≈22,026; exp(100) has 44 digits; exp(1000) overflows to infinity. Scores 1002.0, 1001.0, 1000.1 give [nan nan nan]. Fix via property 4: subtract the max score: 0, -1.0, -1.9; exps 1.000, 0.368, 0.150; total 1.518; probs 0.66, 0.24, 0.10. Biggest exponent is exp(0)=1. PyTorch does this internally.
+```python
+scores = scores / temperature
+scores = scores - scores.max()
+exps = np.exp(scores); return exps / exps.sum()
 ```
 
+### Where used
+- **Classifier output** — cat/dog/bird; sentiment pos/neg/neutral; pick the highest; probabilities feed Cross-Entropy Loss.
+- **LLM next-token** — a score for every vocabulary token (100,000+), softmax gives probabilities, next token sampled; temperature applies here.
+- **Attention in Transformers** — pairwise token scores become weights summing to 1; each token splits 100% focus over visible tokens.
+
+### FAQ
+- Why "softmax"? Soft version of hard max.
+- Logits? Raw scores.
+- Exactly 0 probability? No.
+- Adding constant to all scores? No change, enabling the stability trick.
+
+## Diagrams
+
+### Softmax pipeline
+```mermaid
+flowchart TD
+    A["Logits: 2.0, 1.0, 0.1"] --> B["Step 1: exp<br/>7.389, 2.718, 1.105"]
+    B --> C["Step 2: sum = 11.212"]
+    C --> D["Step 3: divide each by sum"]
+    D --> E["Probabilities 0.66, 0.24, 0.10"]
+```
+
+### Stable softmax with temperature
+```mermaid
+flowchart TD
+    S1["Scores 1002, 1001, 1000.1"] --> S2["Divide by temperature T"]
+    S2 --> S3["Subtract max"]
+    S3 --> S4["exp: 1.000, 0.368, 0.150"]
+    S4 --> S5["Divide by total 1.518"]
+    S5 --> S6["0.66, 0.24, 0.10"]
+```
+
+## Trade-offs & Pitfalls
+- Dividing by the sum fails with negatives or zero sum.
+- Overflow of exp on large scores gives nan; always subtract max.
+- Low temperature can make output too deterministic; high gives flat probabilities.
+
 ## Key Takeaways
-- Softmax = exponentiate, then normalize; output is a valid probability distribution.
-- `exp` makes everything positive while keeping order.
-- Adding a constant to all logits does not change the result, which enables the subtract-max trick.
-- Temperature below 1 sharpens, above 1 flattens the distribution.
-- Softmax never outputs exactly 0 and never changes the ranking.
+- Softmax = exp then normalize; output is a valid probability distribution.
+- It preserves ranking and amplifies gaps (soft max).
+- Shift invariant: only differences matter, enabling the max-subtraction stability trick.
+- Temperature $T<1$ sharpens, $T>1$ flattens.
+- Used for classifier outputs, LLM token distributions, and attention weights.

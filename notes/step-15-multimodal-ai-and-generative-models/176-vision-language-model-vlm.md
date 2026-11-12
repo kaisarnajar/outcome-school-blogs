@@ -3,64 +3,110 @@
 > **Step 15: Multimodal AI and Generative Models** · ⏱️ 16 min read · [Read original](https://outcomeschool.com/blog/vision-language-model-vlm)
 
 ## TL;DR
-A VLM takes an image plus text and replies in text. It works by turning the image into visual tokens that look like word tokens, so an ordinary LLM can read them. Three parts do this: a vision encoder, a projector and a language model. Analogy: a painting expert (encoder) makes notes, a translator (projector) converts them to English, and a writer (LLM) answers.
+A VLM takes an image plus text and answers in text. A vision encoder (usually a ViT, often from CLIP) turns image patches into vectors, a projector converts them into visual tokens shaped like LLM word embeddings, and the LLM reads visual + text tokens as one sequence. Training reuses pretrained parts, so it is cheap; weaknesses are hallucination, counting, tiny details and token cost.
 
 ## Key Concepts
-- **Pixels** — an image is a grid of RGB numbers (0 to 255); 336x336x3 is 338,688 numbers with no direct meaning.
-- **Vision encoder** — usually a ViT; turns image patches into meaningful vectors.
-- **CLIP** — OpenAI (2021), trained on about 400M image-caption pairs with contrastive learning; its image encoder is a common choice.
-- **Projector** — small network (a linear layer in LLaVA, a two-layer MLP in LLaVA-1.5) mapping vision vectors into the LLM's embedding space.
-- **Visual token** — a projected patch vector that looks like a word token to the LLM.
-- **Frozen** — parameters not updated during training.
+- **VLM** — image + text in, text out (ChatGPT, Claude, Gemini with images). One kind of multimodal model.
+- **Pixel** — RGB, each 0 to 255 (red = [255,0,0], white = [255,255,255]). A 336x336 photo = 112,896 pixels = 338,688 numbers.
+- **Token / embedding** — LLM text piece and its vector; LLM only understands sequences of embeddings.
+- **Vision encoder** — usually ViT; makes one meaningful vector per patch.
+- **Patch** — small square of the image (14x14 pixels).
+- **CLIP** — OpenAI 2021, Contrastive Language-Image Pre-training; ~400M image-caption pairs; image encoder + text encoder.
+- **Contrastive learning** — pull each image close to its own caption, push away from other captions in the batch.
+- **Projector** — small network mapping vision vectors to LLM embedding size/space.
+- **Visual token** — projected patch vector that looks like a word token to the LLM.
+- **Frozen** — parameters not updated.
 
 ## How It Works
-**Core problem:** LLMs read token embeddings; images are pixel grids.
 
-1. **Vision encoder:** cut the image into patches (336x336 with 14x14 patches gives 24 x 24 = 576), embed each patch (588 numbers each), add position embeddings, and pass through Transformer layers where patches attend to each other. Output: one meaningful vector per patch.
-2. **CLIP training:** make each image's vector close to its own caption's vector and far from others in the batch (contrastive learning).
-3. **Projector:** convert e.g. 1,024-dim vision vectors to the LLM's 4,096-dim space, producing visual tokens.
-4. **LLM:** reads `[576 visual tokens] + [question tokens]` as one sequence, text tokens attend to visual tokens, then it generates the answer token by token. It never sees pixels.
+### The problem and analogy
+Images are pixel grids; LLMs read token embeddings. Analogy: an English-only writer (LLM) needs a painting expert (vision encoder) to note details and a translator (projector) to turn notes into English; the writer then answers the question.
 
-Shape example from the blog's NumPy code: 576 visual tokens + 8 text tokens = 584 tokens into the LLM. Images are expensive: hundreds or thousands of tokens each.
+### Part 1: Vision encoder (ViT)
+1. Cut image into patches: 336x336 with 14x14 patches = 24 per side = 576 patches, read row by row like words.
+2. Each patch has 14x14x3 = 588 numbers; flattened and passed through a learned layer to a vector.
+3. Add position embeddings (so it knows top vs bottom).
+4. Pass through Transformer layers; attention lets every patch see every other (ear + eye + fur = cat face).
+Output: one meaningful vector per patch.
 
-### Training (LLaVA style)
-| Part | Step 1: caption alignment | Step 2: instruction tuning |
+### CLIP teaches images and text a common language
+Batch of images and captions -> encode both -> make each image vector close to its own caption vector and far from all others. Result: encoder vectors carry meaning already tied to language, so it is a good vision encoder for VLMs.
+
+### Part 2: Projector
+Vision vectors are in the encoder's private space (e.g. size 1,024) while the LLM expects e.g. 4,096. The projector (small network) converts them. LLaVA v1: a single linear layer; LLaVA-1.5: a two-layer MLP. Output: visual tokens.
+
+### Part 3: Language model
+Sequence: `[visual token 1..576] [What] [is] [in] [this] [image] [?]`. Text tokens attend to visual tokens ("this" finds the cat patches). LLM then generates the answer token by token ("This is an orange cat sleeping on a blue sofa."). It never sees pixels.
+
+### Shape walkthrough (code)
+```python
+patches = (336 // 14) ** 2                    # 576
+patch_vectors = rand(576, 1024)               # encoder output
+visual_tokens = patch_vectors @ rand(1024, 4096)   # projector -> (576, 4096)
+llm_input = concat([visual_tokens, text_tokens(8, 4096)])  # (584, 4096)
+```
+LLM gets 584 tokens (576 image + 8 text), all the same size. Images dominate token count, so VLMs are slower and costlier.
+
+### Training (LLaVA recipe)
+Start from pretrained CLIP encoder and pretrained LLM; only the projector is new.
+1. Align: train projector on image-caption pairs (produce the caption).
+2. Instruction tuning: images with questions and good answers (e.g. street photo, "Is it safe to cross?").
+
+| Part | Step 1 | Step 2 |
 |---|---|---|
 | Vision encoder | Frozen | Frozen |
 | Projector | Trained | Trained |
 | LLM | Frozen | Trained |
 
-Reusing pretrained parts keeps it cheap.
-
-### Other ways to connect vision and language
+### Other connection designs
 | Design | How | Example |
 |---|---|---|
-| Projector | Every patch becomes a token placed before text | LLaVA |
-| Query-based connector | Learned queries extract key info, fewer tokens | BLIP-2 (Q-Former) |
-| Cross-attention | LLM layers look at the image directly | Flamingo |
-| Native multimodal | Trained on image and text tokens from the start | Chameleon |
+| Projector | Every patch becomes a visual token placed before text | LLaVA |
+| Query-based connector | Few learned queries pull key info, fewer tokens | BLIP-2 (Q-Former) |
+| Cross-attention | Image not tokens; extra LLM layers attend to image while reading text | Flamingo |
+| Native multimodal | Trained on image and text tokens together from the start | Chameleon |
+Trade-off: projector keeps all detail but uses many tokens; query-based uses fewer but may lose small details.
 
-Projector keeps detail but uses many tokens; query-based uses fewer but may lose detail.
+## Diagram(s)
 
-### Strengths and failures
-Good at: describing photos, reading screenshots and receipts, charts and diagrams, assisting low-vision users. Weak at: hallucination (text habits fill gaps), counting and exact positions, tiny details after downscaling (tiling helps but costs more tokens), and cost.
-
-## Diagram
+### VLM architecture
 ```mermaid
 flowchart TD
-    I["Image"] --> V["Vision encoder (ViT / CLIP)"]
-    V --> PV["Patch vectors"]
-    PV --> P["Projector"]
-    P --> VT["Visual tokens"]
-    Q["Text question"] --> TT["Text tokens"]
-    VT --> L["Language model"]
-    TT --> L
-    L --> A["Text answer"]
+    IM["Image"] --> VE["Vision encoder<br/>ViT, painting expert"]
+    VE --> PV["Patch vectors"]
+    PV --> PR["Projector<br/>translator"]
+    PR --> VT["Visual tokens"]
+    TQ["Text question"] --> TT["Text tokens"]
+    VT --> LM["Language model<br/>writer"]
+    TT --> LM
+    LM --> AN["Text answer"]
 ```
 
+### Two-stage training
+```mermaid
+flowchart LR
+    S0["Pretrained CLIP encoder<br/>+ pretrained LLM"] --> S1["Stage 1: train projector only<br/>image-caption pairs"]
+    S1 --> S2["Stage 2: train projector + LLM<br/>image Q and A data"]
+    S2 --> S3["Instruction-following VLM"]
+```
+
+## Trade-offs & Pitfalls
+- **Works well**: photo description and Q&A, reading text in screenshots/receipts/documents, charts/tables/diagrams, helping low-vision users.
+- **Hallucination**: describes absent things (a cup on the table) because the LLM's text habits fill gaps.
+- **Counting and exact positions** ("how many birds", "key left of phone") often wrong.
+- **Tiny details**: large images shrunk for the encoder blur small text; newer VLMs tile the image, using even more tokens.
+- **Cost**: each image adds hundreds or thousands of tokens.
+
+## FAQ
+- Does the LLM see pixels? -> No, only tokens.
+- Why images cost more? -> 576 visual tokens vs 8 text tokens in the example.
+- Why small text fails? -> downscaling blur; tiling helps but costs tokens.
+- Is the vision encoder retrained? -> Usually frozen; reuse keeps training cheap.
+
 ## Key Takeaways
-- VLM = vision encoder + projector + LLM; the projector is the bridge that makes image patches look like word tokens.
-- The LLM sees only tokens, never pixels.
-- CLIP-style contrastive training links image meaning to language.
-- Training reuses frozen pretrained parts and trains the projector first, then the projector with the LLM.
-- VLMs hallucinate, miscount, miss tiny details, and cost many tokens per image.
+- VLM = vision encoder + projector + LLM.
+- Projector makes image patches look like word embeddings (e.g. 1,024 -> 4,096).
+- CLIP's contrastive training gives an encoder already aligned with language.
+- LLaVA trains projector first, then projector + LLM; encoder stays frozen.
+- Alternatives: Q-Former (fewer tokens), cross-attention (Flamingo), native multimodal (Chameleon).
+- Main failure modes: hallucination, counting/position, tiny details, token cost.

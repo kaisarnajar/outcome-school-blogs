@@ -3,54 +3,70 @@
 > **Step 10: AI Agents and Agentic Systems** · ⏱️ 19 min read · [Read original](https://outcomeschool.com/blog/react-agent)
 
 ## TL;DR
-A ReAct Agent is an AI Agent built with the ReAct (Reasoning + Acting) pattern, the most common agent pattern. The LLM loops through Thought, Action, Observation until it can give a final answer, with its reasoning visible at every step.
+A ReAct Agent is an AI Agent built with the ReAct (Reasoning + Acting) pattern: an LLM in a loop with tools and memory that repeats Thought -> Action -> Observation until it gives a Final Answer. It is the most common agent pattern; a system prompt teaches the LLM the pattern, and a loop controller executes tools and manages stopping.
 
 ## Key Concepts
-- **ReAct** — a pattern for building AI Agents; AI Agent is the category, ReAct is one way to shape the loop.
-- **Thought / Action / Observation** — reason about the next step; pick a tool; read the result.
-- **System prompt** — explains the pattern, lists tools, sets rules.
-- **Loop Controller** — code that sends memory to the LLM, runs tools, appends results, enforces stop conditions.
-- **CoT link** — the explicit Thought is Chain-of-Thought prompting surfaced inside the agent loop.
+- **ReAct Agent** = Reasoning + Acting + Agent. Reasoning: LLM decides next step. Acting: LLM picks a tool, the loop calls it. Agent: wrapper that runs the loop. (Intern analogy.)
+- **AI Agent vs ReAct** — AI Agent is the category (any LLM in a loop with tools and memory); ReAct is a pattern for the loop with explicit visible reasoning (Chain-of-Thought surfaced inside the loop). Other patterns: Plan-and-Execute, Reflection, Agentic RAG.
+- **Thought / Action / Observation / Final Answer** — reasoning text / tool pick / tool result / ends loop.
+- **Memory** — running history of question, thoughts, actions, observations.
+- **Loop Controller** — code that sends memory to LLM, executes tools, appends results, checks stop (e.g. max steps). Designing it = Loop Engineering.
+
+| Property | AI Agent | ReAct Agent |
+|---|---|---|
+| Definition | Any LLM in loop with tools | Loops Thought, Action, Observation |
+| Reasoning | May or may not be visible | Explicit Thought step (classic) |
+| Loop pattern | Unspecified | Thought -> Action -> Observation |
+| Examples | ReAct, Plan-and-Execute, Reflection, Agentic RAG | ReAct only |
+Computer-use agents run the same think-act loop but operate a screen.
 
 ## How It Works
-### Anatomy (five parts)
-LLM (brain), System Prompt, Tools (name, description, input schema), Memory (question, thoughts, actions, observations), Loop Controller. Remove any and it is no longer a ReAct Agent.
+### Five parts
+1. **LLM** (brain). 2. **System prompt** (explains pattern, lists tools, sets rules). 3. **Tools** (name, description, input schema). 4. **Memory**. 5. **Loop Controller**. Remove one and it is not a ReAct Agent.
 
-### Prompt template
-The prompt tells the LLM to respond either as `Thought` plus `Action: tool(input)` or `Thought` plus `Final Answer`, always start with a Thought, wait for the Observation, and stop once it has the answer. With Claude, GPT, or Gemini, do not copy the string format; use the API's native tool/function-calling schema, which validates and parses calls. Modern APIs can also return several independent tool calls from one Thought, run in parallel.
+### Prompt template (essence)
+Persona "solves problems by thinking step by step and recommending tools"; lists tools (e.g. search(query), calculator(expression)); two formats - Format 1: `Thought:` + `Action: tool(input)`; Format 2: `Thought:` + `Final Answer:`. Rules: always start with a Thought; one tool per turn unless parallel clearly helps; wait for Observation; stop once there is a final answer. The prompt explains the pattern, lists tools, sets rules.
+Note: the literal Action string is the classic format (original paper used `Action: search[Apple Remote]`). With Claude, GPT, Gemini use the API's tool/function-calling schema instead; the API validates inputs and parses the call.
 
-### Loop steps
-1. Add the question to Memory and send Memory to the LLM.
-2. LLM returns Thought plus Action, or Final Answer.
-3. Final Answer: return it. Otherwise execute the tool; the result is the Observation.
-4. Append Thought, Action, Observation to Memory; repeat, up to a max step limit.
+### Run steps
+1. User question added to Memory. 2. Memory (system prompt + question + history) sent to LLM. 3. LLM returns Thought + Action, or Final Answer. 4. Final Answer: return, done. 5. Else loop executes tool; result = Observation. 6. Append Thought, Action, Observation to Memory. 7. Back to step 2. Ends on Final Answer or max steps. Classic form: one tool per Thought; modern APIs may return multiple independent calls run in parallel.
 
-### Trace example
-"What is 15% of the population of Tokyo?" The agent searches for the population (about 14 million), uses the calculator on `14000000 * 0.15` (2,100,000), and returns about 2.1 million, chaining one tool's output into the next.
+### Trace: "What is 15% of the population of Tokyo?"
+- Thought 1: need Tokyo population -> Action: search("current population of Tokyo") -> Obs: about 14 million.
+- Thought 2: compute 15% -> Action: calculator("14000000 * 0.15") -> Obs: 2100000.
+- Thought 3: have answer -> Final Answer: about 2.1 million.
+It recognized missing data, chained search output into the calculator, and stopped promptly.
 
-### Failure modes
-| Failure | Fix |
-|---|---|
-| Infinite loops | max_steps; detect repeated actions |
-| Wrong tool | Clear tool descriptions |
-| Hallucinated tool calls | Native tool use, validate inputs, return error as Observation |
-| Context explosion | Summarize, drop stale observations, external memory (Context Engineering) |
-| Premature stopping | Critic step or checklist before Final Answer |
-| Stuck after tool error | Turn errors into natural-language Observations |
+### Implementation
+Same ~20-line skeleton: messages seeded with system prompt (first message) + user question; `while True`; `max_steps` check; `call_llm(messages, tools)` (Thought step); `if response.is_done: return final_answer`; for each tool call, run `call_tool` and append observation as a tool message. Real APIs differ in message shape (OpenAI uses tool_call_id, Anthropic wraps in tool_result block). Extras (tracing thoughts, retries, reflection, parallel calls) are polish.
 
-## Diagram
+## Diagram(s)
+### Thought-Action-Observation loop
 ```mermaid
 flowchart TD
-    Q["User question"] --> TH["Thought"]
-    TH -->|"Needs a tool"| AC["Action: tool call"]
-    AC --> OB["Observation"]
-    OB --> TH
-    TH -->|"Has the answer"| FA["Final Answer"]
+Q1["User question"] --> TH["Thought: LLM reasons"]
+TH -->|"Action"| AC["Action: pick tool"]
+AC --> TL["Loop runs tool"]
+TL --> OB["Observation"]
+OB --> TH
+TH -->|"enough info"| FA["Final Answer to user"]
 ```
 
+## Trade-offs & Pitfalls
+| Failure mode | Fix |
+|---|---|
+| Infinite loops (same tool/input) | Hard max_steps; detect repeated identical actions, stop or tell agent to try differently |
+| Wrong tool selection (search for math) | Very clear tool descriptions: what it does, when to use |
+| Hallucinated tool calls | Native tool-use schema; validate inputs; error message as Observation |
+| Context explosion | Summarize older steps, drop stale observations, separate memory store (Context Engineering; RLMs offload to sub-models) |
+| Premature stopping | Critic step or checklist (covered all parts? cited a source? verified math?) made explicit in prompt |
+| Stuck after tool error | Catch errors, convert to natural-language Observation ("search API timed out, retry or change query") |
+Handling these is the real work of production agents.
+
 ## Key Takeaways
-- ReAct = LLM + tools + a Thought, Action, Observation loop.
-- ReAct is a pattern, not a separate category from AI Agents.
-- The system prompt makes a plain LLM behave as a ReAct agent; native tool calling handles the action format.
-- Always set a step limit and validate tool inputs.
-- The whole agent is about 20 lines: while loop, LLM call, stop check, tool branch.
+- ReAct = Thought -> Action -> Observation loop until Final Answer.
+- ReAct is a pattern for building AI Agents, not a separate category.
+- Five parts: LLM, system prompt, tools, memory, loop controller.
+- With modern APIs use native tool-calling schemas, not hand-parsed Action strings.
+- Parallel tool calls are supported in modern APIs; loop shape is unchanged.
+- Always cap steps and plan for tool errors, wrong tools, context growth and early stopping.

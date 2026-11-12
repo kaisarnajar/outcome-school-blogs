@@ -3,61 +3,111 @@
 > **Step 4: How LLMs Generate Text** · ⏱️ 19 min read · [Read original](https://outcomeschool.com/blog/how-do-top-k-and-top-p-sampling-work)
 
 ## TL;DR
-Top-k keeps only the k most likely tokens and samples from them. Top-p (nucleus) keeps the smallest set of top tokens whose probabilities add up to at least p and samples from that. Both cut off the silly low-probability tail while keeping variety.
+Top-k keeps the k most likely tokens and samples among them; Top-p (nucleus) keeps the smallest set of top tokens whose probabilities sum to at least p and samples among them. Both cut the unreliable tail of the vocabulary while keeping variety; Top-p adapts its group size to the model's confidence, Top-k does not.
 
 ## Key Concepts
-- **Logits** — raw per-token scores from the LLM; softmax turns them into probabilities that sum to 100%.
-- **Sampling / decoding strategy** — the step and rule used to pick the next token from the probabilities.
-- **Greedy decoding** — always pick the top token; simple and fast but boring, repetitive, and can loop.
-- **Pure sampling** — pick from all tokens by probability; varied, but the long tail occasionally yields nonsense ("The cat sat on the democracy") that derails the rest of the reply.
-- **Top-k** — keep a fixed number k of top tokens (common: 10 to 50).
-- **Top-p / Nucleus sampling** — keep the smallest top group covering at least p (common: 0.9 to 0.95); introduced in 2019 in "The Curious Case of Neural Text Degeneration".
-- **Renormalization** — rescale kept probabilities so they sum to 100% again.
+- **Vocabulary** — all tokens the LLM knows (tens of thousands+).
+- **Logits / softmax** — raw scores to probabilities summing to 100%.
+- **Sampling / decoding strategy** — the step and rule used to pick the next token.
+- **Greedy decoding** — always pick the highest-probability token.
+- **Pure sampling** — pick randomly from the full distribution.
+- **Top-k** — keep k highest-probability tokens (common 10 to 50), a setting, not learned.
+- **Top-p / Nucleus sampling** — keep smallest top group covering at least p (common 0.9 to 0.95); introduced 2019 in "The Curious Case of Neural Text Degeneration".
+- **Renormalization** — rescale kept probabilities to sum to 100%.
 
 ## How It Works
-**Top-k (k = 3)** on "The cat sat on the": mat 40, floor 25, sofa 15, bed 10, roof 5, rest 5.
-1. Sort by probability.
-2. Keep the top 3 (mat, floor, sofa = 80%).
-3. Renormalize: 50%, 31.25%, 18.75%.
-4. Sample randomly.
+Running example, "The cat sat on the": mat 40%, floor 25%, sofa 15%, bed 10%, roof 5%, all others 5% total.
 
-**Problem with Top-k:** k is fixed. For "The capital of France is" (Paris 95%), k = 3 forces weak tokens like "the" and "a" in. For "My favourite colour is" (many ~10% options), k = 3 cuts off equally good colours.
+### Two extremes
+| Strategy | Pro | Con |
+|---|---|---|
+| Greedy | Simple, fast | Boring, repetitive, identical answers, loops ("I think that I think that..."); most likely token each step is not the most natural sentence |
+| Pure sampling | Variety | The long tail (5% spread over thousands of tokens) gets picked ~5% of the time: "banana", "democracy". One silly token derails the rest of a hundreds-of-token reply |
 
-**Top-p (p = 0.9)** on the same example:
+Need: keep variety, cut bad tokens.
+
+### Top-k (k = 3)
 1. Sort by probability.
-2. Add up from the top until the running total reaches p (mat 40, floor 65, sofa 80, bed 90 -> stop).
-3. Drop the rest (roof and the tail).
-4. Renormalize by 90: 44.4%, 27.8%, 16.7%, 11.1%.
+2. Keep top k: mat, floor, sofa (total 80%).
+3. Renormalize: mat 40/80 = 50%, floor 25/80 = 31.25%, sofa 15/80 = 18.75%.
+4. Sample.
+
+Code: `torch.topk` then `softmax` on the k values (gives renormalization for free, identical to softmax-all then rescale) then `torch.multinomial`.
+
+Analogy: waiter who only looks at the 3 most popular dishes.
+
+**Problem: fixed k ignores confidence.**
+- "The capital of France is": Paris 95%, the 2%, a 1%, located 1%. k=3 forces weak "the", "a" in, so sometimes "...France is the".
+- "My favourite colour is": blue 12, red 11, green 11, black 10, purple 10, yellow 9, white 9, pink 8, others 20. k=3 cuts equally good black/purple/yellow, so answers feel limited.
+
+### Top-p (p = 0.9)
+1. Sort descending.
+2. Add running total from top until it reaches p: mat 40, floor 65, sofa 80, bed 90, stop.
+3. Keep mat, floor, sofa, bed; drop roof and rest.
+4. Renormalize by 90%: 44.4%, 27.8%, 16.7%, 11.1%.
 5. Sample.
 
-The group size adapts: one token for "Paris", many for the colour question. In code, a token is dropped when the cumulative sum before it already reached p.
+Same p=0.9 on the two situations: France: Paris alone (95%) crosses 90%, so a group of 1. Colours: eight tokens reach only 80%, so keep going lower until 90%, a big group. Group size adapts.
+
+Code: softmax, sort descending, `cumsum`; `before = cumulative - sorted_probs`; zero out tokens where `before >= p` (keeps the token that crosses p); divide by sum; `multinomial`.
+
+Analogy: waiter who covers dishes making up 90% of orders.
 
 ### Top-k vs Top-p
 | | Top-k | Top-p |
 |---|---|---|
-| What is fixed | Number of tokens | Total probability covered |
-| Kept group size | Always k | Changes per token |
-| Model very sure | Still keeps k, some weak | Keeps very few, maybe one |
-| Model unsure | May cut good tokens | Keeps many |
-| Cost | Cheaper (find top k) | Sort plus running total |
+| Fixed | Number of tokens | Total probability |
+| Group size | Always k | Varies per token |
+| Model very sure | Still keeps k, some weak | Very few, sometimes one |
+| Model unsure | Cuts off good ones | Keeps many |
+| Other name | none | Nucleus sampling |
+| Common values | 10 to 50 | 0.9 to 0.95 |
+| Work | Less (find top k) | More (sort + running total) |
 
 ### With Temperature
-Temperature divides scores before softmax (low = sharp, high = flat). Top-k and Top-p do not reshape probabilities, they only cut the list. Typical order: scores -> temperature -> top-k -> top-p -> probabilities -> pick. Common defaults: k = 50, p = 0.95.
+- Temperature reshapes probabilities (low = sharp, high = flat); Top-k/Top-p do not reshape, they only cut the list.
+- Typical order: scores, Temperature, Top-k, Top-p, probabilities, pick. Common defaults k=50, p=0.95.
+- APIs expose `top_k`, `top_p`, `temperature`; no need to write sampling code.
+- Spectrum: k very large or p=1.0 gives pure sampling; k=1 or p near 0 gives greedy.
 
-## Diagram
+### When to use
+- Factual, code, summaries: small k (~10) or p ~0.9 plus low temperature.
+- Creative: larger k (~50) or p ~0.95 plus slightly higher temperature.
+- Unsure: Top-p is the safer default (adapts per token); that is why nearly every API exposes Top-p while Top-k is not always available.
+
+## Diagram(s)
+### Decoding pipeline
 ```mermaid
 flowchart LR
-    A["Logits"] --> B["Temperature"]
-    B --> C["Top-k cut"]
-    C --> D["Top-p cut"]
-    D --> E["Softmax and renormalize"]
-    E --> F["Random pick of next token"]
+    S1["Logits"] --> S2["Temperature<br/>(sharpen or flatten)"]
+    S2 --> S3["Top-k<br/>(keep k tokens)"]
+    S3 --> S4["Top-p<br/>(keep cumulative p)"]
+    S4 --> S5["Softmax and<br/>renormalize"]
+    S5 --> S6["Sample one token"]
 ```
 
+### Greedy to pure sampling spectrum
+```mermaid
+flowchart LR
+    G1["Greedy<br/>k=1 or p near 0"] --> G2["Top-k / Top-p<br/>tunable middle"] --> G3["Pure sampling<br/>k huge or p=1.0"]
+```
+
+## Trade-offs & Pitfalls
+- Greedy: repetitive loops. Pure sampling: nonsense tail tokens compound.
+- Top-k: fixed size too big when confident, too small when uncertain.
+- Top-p: costs more compute (sort + cumulative sum).
+
+## FAQ
+- Together? → Yes, order Temperature, Top-k, Top-p, pick.
+- top_p = 1.0? → Filter does nothing (pure sampling).
+- Top-p better? → Safer default since adaptive; Top-k cheaper.
+- Same as temperature? → No; temperature changes shape, top-k/p change list size.
+
 ## Key Takeaways
-- Greedy is boring; pure sampling is risky; Top-k and Top-p sit between them.
-- k = 1 or p near 0 gives greedy; huge k or p = 1.0 gives pure sampling.
-- Top-k uses a fixed count; Top-p adapts to the model's confidence at every token.
-- Temperature shapes probabilities; Top-k/Top-p shrink the candidate list.
-- Factual or code tasks: small k or p 0.9 with low temperature. Creative tasks: larger k or p 0.95 with higher temperature.
-- When unsure, Top-p is the safer default.
+- Sampling picks from probabilities; strategy decides which tokens are eligible.
+- Top-k keeps a fixed count; Top-p keeps a fixed probability mass.
+- Always renormalize after cutting.
+- Top-p adapts to model confidence; Top-k cannot.
+- Temperature shapes, Top-k/Top-p truncate; they compose.
+- Greedy and pure sampling are the endpoints of the same dial.
+- Default to Top-p (0.9 to 0.95) when unsure.

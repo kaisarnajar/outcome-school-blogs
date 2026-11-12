@@ -3,55 +3,65 @@
 > **Step 12: LLM Inference Engineering** · ⏱️ 11 min read · [Read original](https://outcomeschool.com/blog/decoding-medusa)
 
 ## TL;DR
-Medusa speeds up generation about 2x to 3x by adding a few small extra prediction heads to one model, each guessing a token further ahead. It removes the need for a separate draft model, and tree attention verifies many candidate continuations in a single pass, leaving the output unchanged.
+Medusa (2024, "Medusa: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads", Cai, Li, Dao et al.) adds a few small extra heads to a frozen LLM; each head guesses a token further ahead, and tree attention verifies all candidates in one pass. It gives about 2-3x faster generation, no draft model, and unchanged outputs.
 
 ## Key Concepts
-- **Medusa heads** — small extra layers on the model's internal state; head k predicts the token at position k+1.
-- **Frozen base model** — only the heads are trained, which is cheap.
-- **Candidate tree** — each head gives its top few candidates, combined into a tree of continuations.
-- **Tree attention** — special mask allowing all candidate paths to be verified in one pass without interfering.
-- **Speedup** — average number of tokens accepted per pass.
+- **Decode bottleneck** — one token per full forward pass; GPU mostly idle.
+- **Speculative decoding** — small draft model guesses, big model verifies in one pass; needs a second model to find/train, load and run.
+- **Medusa heads** — tiny extra layers on the model's internal state. Original head predicts position 1, Medusa head 1 position 2, head 2 position 3, head 3 position 4.
+- **Tree attention** — special attention mask that verifies many candidate paths at once without interference.
+- Name: mythical Medusa with many heads.
 
 ## How It Works
-### Motivation
-Normal decoding does one full forward pass per token, leaving the GPU mostly idle. Speculative decoding fixes that but needs a second draft model: find or train a matching small model, and load and run two models. Medusa lets the big model guess for itself.
+1. Base model is frozen; only small heads are trained (cheap, little time and data).
+2. In one forward pass, original head + 3 Medusa heads give guesses for 4 positions.
+3. Each head gives its top few candidates; combining gives several possible continuations, arranged as a tree.
+4. One verification pass checks the whole tree with tree attention.
+5. Keep the longest path the model agrees with; discard the rest. Output equals normal generation.
+Analogy: finishing a friend's sentence; keep only if right.
 
-### Mechanism
-1. The original head predicts position 1; Medusa heads 1, 2, 3 predict positions 2, 3, 4, all in one pass.
-2. Each head proposes several candidates; combine them into a tree.
-3. Verify the whole tree in one forward pass with tree attention.
-4. Keep the longest path the model agrees with; discard the rest.
-
-Every kept token is one the model itself would produce, so the text equals normal generation.
-
-### Math with small numbers
-Normal: 6 tokens need 6 passes. Medusa with original plus 3 heads (4 guesses) and about 3 accepted per round: 2 passes give 6 tokens, a 3x speedup.
-$$\text{speedup} \approx \text{average accepted tokens per pass}$$
-(Head count and accepted count are illustrative; real setups tune heads and tree shape.)
-
-### Legacy
-- Inspired EAGLE (feature-level drafting).
-- Multi-Token Prediction (e.g. DeepSeek-V3) trains with extra heads from the start.
-- Tree-based verification is common in systems like TensorRT-LLM.
-
-## Diagram
 ```mermaid
 flowchart TD
-    S["Model internal state"] --> O["Original head: token 1"]
-    S --> H1["Medusa head 1: token 2 candidates"]
-    S --> H2["Medusa head 2: token 3 candidates"]
-    S --> H3["Medusa head 3: token 4 candidates"]
-    O --> T["Candidate tree"]
-    H1 --> T
-    H2 --> T
-    H3 --> T
-    T --> V["Tree attention: verify in ONE pass"]
-    V --> K["Keep longest agreed path"]
+    S1["Model internal state"] --> H0["Original head<br/>token at pos 1"]
+    S1 --> H1["Medusa head 1<br/>pos 2"]
+    S1 --> H2["Medusa head 2<br/>pos 3"]
+    S1 --> H3["Medusa head 3<br/>pos 4"]
+    H0 --> T1["Candidate tree"]
+    H1 --> T1
+    H2 --> T1
+    H3 --> T1
+    T1 --> V1["Tree attention verification<br/>one pass"]
+    V1 --> K1["Keep longest agreed path"]
 ```
 
+### Speedup math
+Normal: 1 token per pass, 6 tokens = 6 passes. Medusa: each round guesses 4 tokens; if on average 3 are accepted, 2 rounds give 6 tokens = 2 passes, 3x faster.
+$$\text{speedup} = \text{average accepted tokens per pass}$$
+2.5 accepted per pass means about 2.5x. Numbers (3 heads, 3 accepted) are illustrative; real setups tune number of heads and tree shape.
+
+### Results
+About 2-3x on popular models, no quality change (every accepted token verified). Easy to add, no separate draft model.
+
+## Legacy
+- Inspired EAGLE (feature-level drafting, higher speedups).
+- Multi-Token Prediction (e.g. DeepSeek-V3) trains extra heads from the start, improving the model and giving built-in speedup.
+- Tree-based verification is now common in fast systems like TensorRT-LLM.
+
+## Trade-offs & Pitfalls
+- Medusa avoids the draft-model burden (finding a matching small model, two models in memory) but still needs head training.
+- Speed depends on acceptance rate; heads further ahead are less accurate.
+
+## FAQ
+- Changes answers? → No.
+- Retrain whole model? → No, only the heads.
+- Better than draft-model speculative decoding? → Simpler, less memory and complexity.
+- Vs EAGLE? → Medusa guesses tokens directly; EAGLE guesses internal features, more accurate and faster.
+- Speedup? → About 2-3x.
+
 ## Key Takeaways
-- Medusa = many heads on one model; no draft model needed.
-- Base model frozen, only small heads trained, so it is simple to adopt.
-- Tree attention verifies many guesses at once; output stays identical.
-- Speedup is about 2x to 3x, equal to average accepted tokens per pass.
-- It paved the way for EAGLE and Multi-Token Prediction.
+- Normal decoding is one token per pass and leaves the GPU idle.
+- Medusa adds extra heads to one model so one pass guesses several future tokens.
+- Base model frozen; only cheap heads trained.
+- Tree attention verifies many candidate continuations in one pass.
+- Speedup equals average accepted tokens per pass (about 2-3x), lossless.
+- Paved the way for EAGLE and Multi-Token Prediction.

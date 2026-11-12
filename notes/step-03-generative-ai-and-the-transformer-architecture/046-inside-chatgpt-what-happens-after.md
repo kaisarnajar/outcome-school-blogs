@@ -3,41 +3,45 @@
 > **Step 3: Generative AI and the Transformer Architecture** · ⏱️ 3 min read · [Read original](https://outcomeschool.substack.com/p/inside-chatgpt-what-happens-after)
 
 ## TL;DR
-ChatGPT is an interface to a large language model that does not "think" through your question; it plays a probability game, predicting one token at a time in a loop. This note walks through the pipeline from text to tokens to the final response.
+ChatGPT (an interface to an LLM) does not think through your question; it plays a one-token-at-a-time probability game: tokenize, convert to IDs and embeddings, run Transformer attention, predict next-token probabilities, pick one, append, repeat until stop.
 
 ## Key Concepts
-- **Token** — smallest unit the model processes: a word, a word piece or punctuation.
-- **Token ID** — the number assigned to each token.
-- **Embedding** — high-dimensional vector capturing the meaning of a token; similar words cluster together.
-- **Transformer** — the neural network architecture that processes the tokens.
-- **Attention** — lets each token look at every other token to understand context.
-- **Temperature** — controls the randomness when choosing among likely tokens.
+- **Token** — smallest unit processed: full word, subword piece or punctuation. Used because language is messy: common words fast, rare words as subwords, plus typos, slang, code, emojis.
+- **Token ID** — number per token.
+- **Embedding** — high-dimensional vector (hundreds of numbers) capturing meaning; similar words cluster, relationships preserved, "math with meaning".
+- **Transformer / Attention** — each word looks at every other word for context.
+- **Temperature** — controls randomness in token choice.
 
 ## How It Works
-1. **Tokenize** — "What is machine learning?" becomes `["What", "is", "machine", "learning", "?"]`. Tokens handle common words, rare words (as subwords), typos, slang, code and emojis consistently.
-2. **Token IDs and embeddings** — each token maps to a number, then to an embedding vector so the model can "do math with meaning".
-3. **Transformer reads the prompt** — attention resolves context. In "The animal didn't cross the road because it was too tired", "it" attends back to "animal", not "road".
-4. **Predict next token** — the model outputs a probability distribution over its whole vocabulary (50,000+ tokens). E.g. after "Machine learning is": "a" 32%, "the" 18%, "an" 11%. One token is picked, with some randomness from temperature.
-5. **Repeat** — append the chosen token and run again, until a stop token or the maximum length is hit.
+1. **Tokens**: "What is machine learning?" becomes ["What","is","machine","learning","?"].
+2. **Numbers**: IDs e.g. [102, 2, 834, 919, 43]; then embeddings supply context (king/queen, Paris/France).
+3. **Transformer**: attention on "The animal didn't cross the road because it was too tired": for "it" it looks at "animal" and "road" and decides "animal". Prompt becomes a context-aware representation.
+4. **Predict next token**: probability distribution over the 50,000+ token vocabulary. For "Machine learning is": "a" 32%, "the" 18%, "an" 11%, "used" 8%, "powerful" 6%. One is selected using the probabilities plus temperature randomness (picks "a").
+5. **Repeat**: append token ("Machine learning is a" gives "field" 28%, "branch" 15%, "subset" 12%, "type" 10%; picks "field"). Stops on stop token or max response length.
 
-The loop: read everything so far, predict the likely next token, add it, repeat.
+Loop: read everything so far, predict likely next token, add it, repeat. Feels like intelligence but is sophisticated pattern matching.
 
-## Diagram
+## Diagram(s)
+
+### From prompt to answer
 ```mermaid
 flowchart TD
-    A["Prompt text"] --> B["Tokens"]
-    B --> C["Token IDs"]
-    C --> D["Embeddings"]
+    A["Your text"] --> B["Tokens"] --> C["Token IDs"] --> D["Embeddings"]
     D --> E["Transformer with attention"]
-    E --> F["Probability over next token"]
-    F --> G["Pick one token"]
-    G -->|"append and repeat"| E
-    G -->|"stop token or max length"| H["Final response"]
+    E --> F["Next-token probabilities"]
+    F --> G["Select one token<br/>temperature randomness"]
+    G --> H{"Stop token or max length?"}
+    H -->|"no"| A2["Append token to prompt"]
+    A2 --> E
+    H -->|"yes"| I["Response done"]
 ```
 
+## Trade-offs & Pitfalls
+- Not reading or reasoning in a human way; output is probabilistic pattern matching.
+
 ## Key Takeaways
-- The model sees tokens, not words.
-- Output is generated one token at a time, each prediction conditioned on everything so far.
-- Attention is how context is understood.
-- Temperature adds controlled randomness to token selection.
-- It feels like intelligence but is sophisticated pattern matching: one token, one prediction, one loop.
+- ChatGPT is an interface; the LLM does the work.
+- Text, tokens, IDs, embeddings, Transformer layers, next-token probabilities.
+- Attention resolves references like "it".
+- One token selected per loop, influenced by temperature.
+- Ends at stop token or max length.

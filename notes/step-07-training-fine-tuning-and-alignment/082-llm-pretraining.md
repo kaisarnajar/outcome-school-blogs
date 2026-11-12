@@ -3,69 +3,88 @@
 > **Step 7: Training, Fine-Tuning, and Alignment** · ⏱️ 16 min read · [Read original](https://outcomeschool.com/blog/llm-pretraining)
 
 ## TL;DR
-Pretraining is the first and biggest stage of building an LLM: starting from random weights, the model reads trillions of tokens of text and repeatedly predicts the next token. This self-supervised game teaches it language, facts, and reasoning patterns, producing a base model that later stages turn into an assistant.
+Pretraining is the first and biggest stage of building an LLM: starting from random weights, the model reads trillions of tokens of cleaned text and repeatedly predicts the next token, adjusting its weights from its mistakes. It needs no human labels (self-supervised) and yields a knowledgeable but unhelpful base model.
 
 ## Key Concepts
-- **Weights** — billions of numbers that store the model's knowledge; random at the start.
-- **Next-token prediction** — the one simple game played at huge scale.
-- **Self-supervised learning** — the text itself supplies the correct answers, so no human labels are needed.
-- **Token / vocabulary** — a small piece of text with an ID from the model's fixed list.
-- **Loss** — a score of how wrong the guess was; lower is better.
-- **Backpropagation / gradient descent** — find which weights to change, then nudge them to reduce loss.
-- **Base model** — the result of pretraining: knowledgeable text completer, not a helpful assistant.
+- **Weights** — billions of numbers storing the model's knowledge; random at start.
+- **Pretraining** — "school education": learn next-token prediction on general text; "pre" = before later stages.
+- **Base model** — result of pretraining; a text completer, not an assistant.
+- **Self-supervised learning** — the text itself provides the correct answers.
+- **Token / vocabulary / ID** — text pieces, a fixed token list, and each token's number.
+- **Loss** — "how wrong" score; lower is better.
+- **Backpropagation** — finds which weights to change and by how much; **gradient descent** — makes the small changes.
+- **Batch** — group of text chunks learned at once.
 
 ## How It Works
-### Practice questions from raw text
-Every prefix of a sentence is an input and the next token is its answer: "The cat sat on the" gives "mat". One sentence yields many examples for free.
+
+### The game: predict the next token
+"The cat sat on the ___" → "mat" good, "banana" bad. Doing this over all text forces learning of facts (capital of France), cause and effect, math (2+3), programming, other languages (Hindi), grammar and reasoning patterns.
+
+### No labels needed
+One sentence yields many practice pairs: "The" → "cat", "The cat" → "sat", ... "The cat sat on the" → "mat". Code: for i in 1..len, context = tokens[:i], target = tokens[i]. Any text works, so trillions of tokens are possible.
 
 ### Pipeline
-1. **Collect text** — web (e.g. Common Crawl), books, Wikipedia, code, papers, many languages. Llama 3 was pretrained on over 15 trillion tokens.
-2. **Clean text** — remove duplicates (prevents memorizing), low-quality, harmful, and private data; balance the mix. Quality matters as much as quantity.
-3. **Tokenize** — split into tokens and map to IDs (see BPE).
-4. **Training loop** — repeated over batches of text:
-   - take a chunk of text
-   - model outputs a probability for every vocabulary token
-   - compute loss from the probability given to the true next token
-   - adjust weights (backprop plus gradient descent)
-   - repeat
+1. **Collect text**: web (Common Crawl), books, Wikipedia, code, papers, multilingual text. Llama 3 used >15T tokens.
+2. **Clean text**: dedupe (repeats cause memorization), remove low-quality (spam, broken pages), harmful content, private info (phones, emails), then balance the mix (web, books, code, math, languages). Quality matters as much as quantity.
+3. **Tokenize**: "Pretraining is powerful" → ["Pre","training"," is"," powerful"] → IDs. Rare words split into pieces so any word is handled (see BPE).
+4. **Training loop** (repeats millions of times):
+   - A: take a text chunk ("The cat sat on the").
+   - B: model outputs probability over the whole vocabulary (sum 1).
+   - C: compute loss from probability given to the true token ("mat").
+   - D: backprop + gradient descent nudge weights so "mat" gets more probability.
+   - E: repeat across trillions of tokens, in batches.
 
 ### Learning from a mistake
-P("mat") rises over rounds (0.01, 0.05, 0.20, ... 0.60) while loss and adjustments shrink. It never reaches 1.0, which is right since "floor" or "sofa" are valid. Shared weights mean each update also helps millions of other sentences, so it generalizes rather than memorizes.
+P("mat"): 0.01 (big adjustment) → 0.05 → 0.20 → ... 0.60 (tiny adjustment). Loss falls. Weights are shared, so updates also teach dogs on mats, "on the" followed by a place, etc. It never reaches 1.0, correctly, because floor/sofa/bed are valid; the model learns a sensible spread.
 
-### Why so much compute
-Language is huge, the model is huge, and every token costs computation for guessing and weight updates. Thousands of GPUs run for weeks or months, so only a few labs do it.
+### Why so much data and compute
+Language is huge (facts, languages, code, math); model is huge (billions of weights need many examples); every token costs computation for guessing and weight updates. Runs on thousands of GPUs for weeks or months; huge cost and electricity, so only a few labs do it.
 
-### Base model behavior
-Asked "What is the capital of France?", a base model may continue with more quiz questions, because that is how such text appears online. It has knowledge but not assistant behavior.
+### After pretraining
+Base model given "What is the capital of France?" may reply "What is the capital of Germany? What is the capital of Italy?" because that looks like a quiz list. Later, smaller stages: instruction tuning (instruction/answer examples) then preference training (humans pick better answers; RLHF).
 
-### Pretraining vs Fine-tuning
+### Pretraining vs fine-tuning
 | Point | Pretraining | Fine-tuning |
 |---|---|---|
 | Start | Random weights | Already trained model |
 | Data | Trillions of general tokens | Thousands to millions of focused examples |
-| Labels | None needed | Usually prepared examples |
-| Goal | Language and world knowledge | A behavior or special skill |
-| Cost | Weeks/months on thousands of GPUs | Hours to days |
-| Who | A few large labs | Many companies and developers |
+| Labels | None | Usually prepared examples |
+| Goal | Language and world knowledge | A behavior or skill |
+| Cost | Weeks/months, thousands of GPUs | Hours to days |
+| Who | Few large labs | Many companies/developers |
+Almost nobody pretrains from scratch; they fine-tune or prompt.
 
-## Diagram
+## Diagrams
+
+### Stages of building an assistant
 ```mermaid
 flowchart TD
-    A["Collect text"] --> B["Clean text"]
-    B --> C["Tokenize"]
-    C --> D["Predict next token"]
-    D --> E["Measure loss"]
-    E --> F["Adjust weights"]
-    F -->|"next batch"| D
-    F --> G["Base model"]
-    G --> H["Instruction tuning"]
-    H --> I["Preference training (RLHF)"]
-    I --> J["Assistant"]
+A1["Random model<br/>knows nothing"] --> B1["Pretraining<br/>trillions of tokens"]
+B1 --> C1["Base model<br/>knows language"]
+C1 --> D1["Instruction tuning"]
+D1 --> E1["Preference training / RLHF"]
+E1 --> F1["Assistant"]
 ```
 
+### Training loop
+```mermaid
+flowchart TD
+A1["Take text chunk"] --> B1["Guess next token<br/>probabilities over vocabulary"]
+B1 --> C1["Measure loss vs true token"]
+C1 --> D1["Backprop + gradient descent<br/>adjust weights"]
+D1 --> A1
+```
+
+## Trade-offs & Pitfalls
+- Data quality over quantity; duplicates cause memorization.
+- Enormous cost (GPUs, weeks, electricity).
+- Base model is not a helpful assistant; needs later stages.
+
 ## Key Takeaways
-- Pretraining = self-supervised next-token prediction on trillions of tokens.
-- The data provides its own labels, so scale is limited only by text and compute.
-- Data quality and deduplication matter as much as volume.
-- The output is a base model that completes text; later stages shape behavior.
-- Almost nobody pretrains from scratch; most fine-tune or prompt an existing model.
+- Pretraining = next-token prediction on trillions of tokens, from random weights.
+- Self-supervised: text supplies its own labels.
+- Steps: collect, clean, tokenize, loop (guess, loss, backprop, update).
+- Weights are shared, so the model generalizes rather than memorizes; cleaned, deduped data helps.
+- Output is a base model (knowledgeable text completer).
+- Instruction tuning and RLHF follow with far smaller data.
+- Most practitioners fine-tune or prompt instead of pretraining.

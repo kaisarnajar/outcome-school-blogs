@@ -3,69 +3,103 @@
 > **Step 2: Deep Learning and Neural Networks** · ⏱️ 18 min read · [Read original](https://outcomeschool.com/blog/how-does-pytorch-work)
 
 ## TL;DR
-PyTorch is a Python toolbox (created at Meta) for building AI. It stores data in Tensors, records every math step in a computation graph as code runs, and uses Autograd to compute gradients automatically, with easy GPU acceleration. This lets us write only the forward calculation and have the backward math handled for us.
+PyTorch stores data in tensors, records every math step in a computation graph built on the fly as normal Python runs, and uses autograd to compute gradients by walking that graph backward. Wrapped in a predict-error-backward-update loop, models learn rules from examples, and moving to a GPU needs one small change.
 
 ## Key Concepts
-- **Tensor** — container of numbers: a single value, a row, a grid, or bigger. Photos and text are turned into numbers and held in Tensors.
-- **Computation graph** — ordered record of each math step, built line by line while the program runs.
-- **Autograd** — "auto + gradient": automatically computes the direction and amount to change each number to reduce error.
-- **requires_grad=True** — tells PyTorch to track a Tensor for gradients.
-- **GPU** — chip doing huge numbers of simple operations in parallel (CPU is one fast courier, GPU a thousand couriers).
+- **PyTorch** — free, open-source library for building/training ML models, created at Meta, used from Python; a toolbox so we don't hand-write math.
+- **Tensor** — container of numbers: single number, row, grid or bigger. Photos (grids of brightness) and text are turned into numbers and held in tensors.
+- **Computation graph** — ordered record of every math step (the forward path/recipe).
+- **Autograd** — Auto + Gradient: automatically computes direction and amount of change for each number. Gradient = slope, "downhill" = less error (foggy hill analogy).
+- **`requires_grad=True`** — track a tensor for gradients.
+- **GPU** — chip doing many simple operations at once. CPU = one fast courier; GPU = a thousand couriers each delivering one letter.
+- **cuda** — PyTorch's name for (NVIDIA) GPUs.
 
 ## How It Works
-### Problem solved
-ML is a loop: guess, measure how wrong, adjust a little, repeat. Knowing how to adjust millions of numbers needs calculus, which is impossible by hand; PyTorch automates it.
 
-### Graph and Autograd
-`result = a*b + c` with 2, 3, 4 gives 10 and records multiply then add, so it can walk backward later.
+### The problem
+ML: computer learns a pattern from data without hand-written rules. Loop: random guess, check how wrong, fix slightly, repeat. Fixing needs direction and amount per number (calculus), impossible by hand for millions of numbers, so PyTorch does it via graph + autograd.
+
+### Tensor
+```python
+x = torch.tensor([1.0, 2.0, 3.0])   # tensor([1., 2., 3.])
+```
+
+### Computation graph
+`result = a*b + c` with a=2, b=3, c=4 gives 10; PyTorch notes multiply (6) then add. Built line by line while the program runs; needed so it can walk backward later.
+
+### Autograd
 ```python
 x = torch.tensor(3.0, requires_grad=True)
 y = x * x
 y.backward()
 print(x.grad)   # tensor(6.)
 ```
-`backward()` walks the graph backward (this is backpropagation); slope of $x^2$ at 3 is 6.
+Slope of x*x at 3 is 6, found automatically. We write the forward pass; PyTorch does backward math (this is backpropagation).
 
-### Training example: Celsius to Fahrenheit
-Learn weight (about 1.8) and bias (about 32) from examples (0 to 32, 100 to 212):
-1. Predict `weight * celsius + bias`.
-2. Error = mean squared difference.
-3. `error.backward()` gives gradients.
-4. Under `torch.no_grad()`, step `weight -= lr * weight.grad` (and bias), then `zero_()` the gradients.
+### Complete training example (Celsius to Fahrenheit)
+True rule: multiply by 1.8, add 32. Data: 0 to 32, 100 to 212. `weight` and `bias` start at 0 with `requires_grad=True`, lr=0.0001, loop 100000 times:
+1. `prediction = weight*celsius + bias`
+2. `error = ((prediction - fahrenheit)**2).mean()`
+3. `error.backward()` for gradients
+4. Under `torch.no_grad()`: `weight -= lr*weight.grad`, same for bias
+5. `.grad.zero_()` to reset for next round
 
-It needs about 100,000 steps at lr 0.0001 because inputs are unscaled; real projects scale inputs first.
+Result: weight about 1.8, bias about 32. Many rounds are needed because inputs are unscaled (0 vs 100), so bias converges slowly; real projects scale inputs first. Same loop trains huge models.
 
 ### GPU
 ```python
 device = "cuda" if torch.cuda.is_available() else "cpu"
 x = torch.tensor([1.0, 2.0, 3.0]).to(device)
 ```
-The rest of the code is unchanged.
-
-### Roles
-| Piece | Role |
-|---|---|
-| Tensor | Holds the numbers |
-| Computation graph | Records every step |
-| Autograd | Finds the downhill direction |
-| GPU | Does the math fast |
+Rest of code unchanged. (CUDA kernels run behind the scenes.)
 
 ### Why popular
-Graph built dynamically (easy to read, test, debug), automatic calculus, Pythonic, one-line GPU use, free open-source with a large community.
+Graph built as code runs (readable, testable, debuggable); autograd handles calculus; works with Python; GPU with one small change; free, open source, large community.
 
-## Diagram
+| Piece | Role |
+|---|---|
+| Tensor | Box holding numbers |
+| Computation graph | Recipe of every math step |
+| Autograd | Finds downhill direction |
+| GPU | Crowd doing math fast |
+
+### FAQ
+- Build graph ourselves? No.
+- Need GPU? No, CPU works; GPU just faster.
+- `requires_grad`? Tracks tensor so `backward()` gives its gradient in `.grad`.
+- Why reset gradients? Each round starts fresh (otherwise they accumulate).
+- Why so many rounds? Unscaled inputs slow learning.
+
+## Diagram(s)
+
+### Computation graph for a*b + c
 ```mermaid
-flowchart TD
-    A["Predict with current weight and bias"] --> B["Measure error"]
-    B --> C["error.backward(): gradients via Autograd"]
-    C --> D["Nudge weight and bias downhill"]
-    D --> E["Zero the gradients"]
-    E --> A
+flowchart LR
+    A["a = 2"] --> M["multiply"]
+    B["b = 3"] --> M
+    M -->|"6"| P["add"]
+    C["c = 4"] --> P
+    P --> R["result = 10"]
 ```
 
+### Training loop
+```mermaid
+flowchart TD
+    S1["Predict with weight and bias"] --> S2["Compute error"]
+    S2 --> S3["error.backward()<br/>gradients via autograd"]
+    S3 --> S4["Nudge weight and bias downhill"]
+    S4 --> S5["Zero gradients"]
+    S5 --> S1
+```
+
+## Trade-offs & Pitfalls
+- Forgetting to zero gradients; unscaled inputs make training slow.
+- Learning rate must be small enough for steady learning.
+
 ## Key Takeaways
-- Everything in PyTorch is a Tensor.
-- The computation graph is built automatically as code executes.
-- `requires_grad=True` plus `backward()` gives gradients with no hand-written calculus.
-- Reset gradients with `zero_()` each round so each step uses fresh gradients.
-- Moving to a GPU is a single `.to(device)` call.
+- Tensors hold all data as numbers.
+- Computation graph is built dynamically as code runs.
+- `backward()` walks the graph to give gradients (backprop).
+- Training = predict, error, backward, step, zero_grad, repeat.
+- GPU use is `.to(device)`.
+- Scale inputs for faster learning.

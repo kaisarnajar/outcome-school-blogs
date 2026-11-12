@@ -3,70 +3,107 @@
 > **Step 2: Deep Learning and Neural Networks** · ⏱️ 19 min read · [Read original](https://outcomeschool.com/blog/convolutional-neural-network-cnn)
 
 ## TL;DR
-A CNN looks at an image through small windows and reuses the same learned pattern detectors (filters) everywhere. This slashes the number of weights compared with a fully connected network (1,792 versus billions in the first layer for a 1000 x 1000 color photo) and respects pixel neighborhoods. Stacked layers build from edges to shapes to objects.
+CNNs slide small learned filters over an image, reusing the same pattern detector everywhere, to find edges, then shapes, then objects. Local connections plus weight sharing slash parameters (1,792 vs 3 billion for a layer), and stacked conv + ReLU + pooling layers feed a final fully connected classifier.
 
 ## Key Concepts
-- **Pixel / channel** — grayscale pixel is 0 to 255; color has 3 channels (RGB), so a 1000 x 1000 photo is 3,000,000 numbers.
-- **Filter (kernel)** — small grid (e.g. 3 x 3) acting as a pattern detector; its numbers are learned.
-- **Convolution** — slide the filter, multiply and add at each position.
-- **Feature map** — output grid showing where the filter's pattern appeared.
-- **Stride / padding** — step size of the filter / zero border added around the image.
-- **ReLU** — negatives become 0; adds the non-linearity needed for complex patterns.
-- **Max pooling** — keep the largest value in each small window (e.g. 2 x 2); shrinks data and tolerates small shifts.
-- **Weight sharing / local connections** — the reasons for CNN efficiency.
+- **Pixel / channels** — grayscale pixel 0-255; color pixel has 3 numbers (R, G, B channels). 1000x1000 color photo = 3,000,000 numbers.
+- **Edge** — boundary where values change (e.g. black meets white).
+- **Fully connected layer** — every neuron connects to every input; each connection has a weight.
+- **Filter / kernel** — small grid (commonly 3x3) acting as pattern detector; same thing, two names.
+- **Convolution** — slide filter, multiply elementwise and sum at each position.
+- **Feature map** — output grid showing where the filter found its pattern.
+- **Stride** — pixels moved per step. **Padding** — border of zeros.
+- **ReLU** — negative becomes 0, positive kept.
+- **Max pooling** — keep the largest value per small window.
+- **Flatten** — grid to one long list. **Softmax** — scores to percentages.
 
 ## How It Works
-### Why not fully connected?
-A 3,000,000-number input into 1000 neurons needs 3 billion weights, ignores neighboring pixels, and cannot reuse a learned pattern in a new position.
+
+### Why plain networks fail on images
+1000x1000x3 input = 3M numbers; 1000 first-layer neurons = 3,000,000,000 weights: slow, memory-hungry, data-hungry. It also ignores neighbors (flat list) and does not reuse learning (a cat's eye in top-left must be re-learned for bottom-right). Analogy: finding a friend in a crowd photo by scanning small areas with the same face template.
 
 ### Convolution example
-Vertical-edge filter [[-1,0,1]] x 3 rows on a 5 x 5 image (left 0s, right 9s): top-left window gives 0; shifted windows give 27 each. Feature map = [[0,27,27]] x 3 rows: big values mark the edge. Real layers use many filters (e.g. 32 or 64), one feature map each; on color images filters are 3 x 3 x 3.
+Vertical-edge filter: rows `[-1 0 1]` x3 (right brighter than left gives big value). Image 5x5, left three columns 0, right two 9 (255 simplified).
+- Position 1 (cols 1-3): all 0 gives 0 (no edge).
+- Position 2 (cols 2-4): each row 0*-1 + 0*0 + 9*1 = 9, total 27 (edge).
+- Position 3 (cols 3-5): each row 0 + 0 + 9 = 9, total 27.
+- Move down a row and repeat.
+Feature map: `[0 27 27]` per row, 3x3. Smaller since a 3x3 filter fits in only 3 positions across 5 pixels.
+Real layers use many filters (32 or 64), each giving a feature map; color filters are 3x3x3.
 
-### Output size
-$$\text{output} = \frac{\text{input} + 2\cdot\text{padding} - \text{filter}}{\text{stride}} + 1$$
-(5 + 0 - 3)/1 + 1 = 3; with padding 1, (5 + 2 - 3)/1 + 1 = 5.
+### Stride, padding, size
+Stride 2 roughly halves the map. Padding of 1 turns 5x5 into 7x7 so the output stays 5x5 and edges are examined properly.
+$$\text{out}=\frac{\text{in}+2p-f}{s}+1$$
+Unpadded: (5+0-3)/1+1=3. Padded: (5+2-3)/1+1=5.
 
-### Pooling example
-4 x 4 map [[1,3,2,0],[4,6,1,2],[0,2,9,5],[1,1,3,7]] becomes [[6,2],[2,9]].
+### ReLU
+-5 3 0 -2 8 becomes 0 3 0 0 8. Keeps found patterns; adds nonlinearity (without it, stacked layers collapse to straight-line relationships).
 
-### Learning
-Filters are learned: show a labeled photo, guess, compute loss, backpropagate, adjust filter numbers, repeat over many images. First-layer filters end up as edge and color detectors on their own.
+### Pooling
+2x2 max pooling on 4x4 map [[1,3,2,0],[4,6,1,2],[0,2,9,5],[1,1,3,7]] gives [[6,2],[2,9]] (16 to 4 numbers). Benefits: smaller data; tolerance to small shifts.
+
+### Putting it together
+Conv+ReLU (edges) then pool; conv+ReLU (corners, curves) then pool; conv+ReLU (eyes, ears, wheels) then pool; flatten; fully connected (cheap now); softmax e.g. "cat 92%, dog 7%, car 1%".
+
+### Learning filters
+Filter numbers are the weights; learned, not hand-written: show labeled photo, guess, loss, backpropagation, tiny adjustment, repeat over thousands or millions of photos. First-layer filters end up as edge/color detectors on their own.
 
 ### Efficiency
-A 3 x 3 filter on a color image has 27 weights + 1 bias = 28; 64 filters give 1,792 parameters versus 3,000,000,000.
+3x3 filter on color = 27 weights + 1 bias = 28; 64 filters = 1,792 vs 3,000,000,000. Due to **local connections** and **weight sharing**.
 
 | Point | Fully connected | CNN |
 |---|---|---|
-| View | Flat list | Small windows |
+| View | Whole image as flat list | Small windows |
 | Neighbors respected | No | Yes |
-| Same pattern elsewhere | Relearn | Same filter |
-| Best for | Tabular data | Images and grids |
+| Same pattern elsewhere | Relearn | Same filter finds it |
+| First-layer weights | Billions | A few thousand |
+| Training data | Very large | Much less |
+| Best for | Tabular | Images, grid data |
 
-### Code sketch (28 x 28 digits)
-Two `Conv2d` layers (1 to 16, 16 to 32 filters, kernel 3, padding 1), ReLU, `MaxPool2d(2)` each time (28 to 14 to 7), flatten to 32 x 7 x 7 = 1,568, `Linear` to 10 digit scores.
+### Code (PyTorch, 28x28 digits)
+`Conv2d(1,16,3,padding=1)` then ReLU then MaxPool2d(2) (28 to 14); `Conv2d(16,32,3,padding=1)`, ReLU, pool (14 to 7); flatten gives 32*7*7=1,568; `Linear(1568,10)` scores for digits 0-9; highest wins.
 
 ### Famous CNNs
-LeNet (1998, handwritten digits), AlexNet (2012, ImageNet win, GPU training), VGG (2014, stacked 3 x 3 filters), ResNet (2015, shortcut connections, 100+ layers).
+- LeNet (1998, Yann LeCun): handwritten digits, bank checks.
+- AlexNet (2012): won ImageNet by a large margin using GPUs; start of the modern deep learning era.
+- VGG (2014): stacks of small 3x3 filters.
+- ResNet (2015): shortcut connections, 100+ layers.
 
-### Strengths and weaknesses
-Good at image classification, object detection, face recognition, medical imaging, spectrograms. Struggles with long-range relationships, rotations and scale changes, needs lots of labeled data, can be fooled by tiny pixel changes. Vision Transformers are strong with huge data; CNNs remain efficient with less data.
+### Strengths and failures
+Good: image classification, object detection (self-driving), face recognition, medical imaging, other grid data (spectrograms, some text).
+Struggles: long-range relationships (need many layers); rotations and big scale changes; data hungry; adversarial pixel tweaks fool them.
+Vision Transformers also work well, especially with huge data; CNNs remain popular for efficiency, simplicity, less data.
 
-## Diagram
+### FAQ
+- CNN vs ViT? Depends on data amount.
+- Non-image data? Yes, any grid.
+- Filter vs kernel? Same.
+- Why FC at end? Final decision, cheap after shrinking.
+
+## Diagram(s)
+
+### CNN pipeline
 ```mermaid
 flowchart TD
-    A["Image"] --> B["Conv + ReLU: edges"]
-    B --> C["Pooling"]
-    C --> D["Conv + ReLU: corners and shapes"]
-    D --> E["Pooling"]
-    E --> F["Conv + ReLU: eyes, ears, wheels"]
-    F --> G["Flatten"]
-    G --> H["Fully connected layer"]
-    H --> I["Softmax: cat 92%, dog 7%, car 1%"]
+    I["Image"] --> C1["Conv + ReLU<br/>edges"] --> P1["Pool"]
+    P1 --> C2["Conv + ReLU<br/>corners, curves"] --> P2["Pool"]
+    P2 --> C3["Conv + ReLU<br/>eyes, wheels, faces"] --> P3["Pool"]
+    P3 --> F["Flatten"] --> FC["Fully connected"] --> S["Softmax<br/>cat 92%"]
 ```
 
+### Training loop
+```mermaid
+flowchart LR
+    T1["Labeled photo"] --> T2["Guess"] --> T3["Loss"] --> T4["Backpropagation"] --> T5["Adjust filter weights"] --> T1
+```
+
+## Trade-offs & Pitfalls
+- Local view struggles with global context; sensitive to rotation/scale; data hungry; adversarially fragile.
+
 ## Key Takeaways
-- CNN = sliding learned filters + ReLU + pooling, then a fully connected head.
-- Local connections and weight sharing cut parameters from billions to thousands.
-- Early layers detect edges; deeper layers detect parts and objects.
-- Filters are learned through backpropagation, not hand-designed.
-- Pooling shrinks data and adds tolerance to small shifts.
+- CNN = shared small filters sliding over the image.
+- Local connectivity + weight sharing cut parameters massively.
+- Output size = (in + 2p - f)/s + 1.
+- Conv, ReLU, pool repeat, then flatten and FC.
+- Filters are learned by backprop; early ones become edge detectors.
+- Landmarks: LeNet, AlexNet, VGG, ResNet.

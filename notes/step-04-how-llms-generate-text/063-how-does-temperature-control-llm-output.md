@@ -3,25 +3,34 @@
 > **Step 4: How LLMs Generate Text** · ⏱️ 17 min read · [Read original](https://outcomeschool.com/blog/how-does-temperature-control-llm-output)
 
 ## TL;DR
-Temperature is a knob that controls how random or predictable an LLM's output is. It divides the model's raw scores (logits) before softmax: low values sharpen the distribution toward the top token, high values flatten it so weaker tokens get a real chance.
+Temperature is one number that divides the model's raw scores (logits) before softmax. Low values sharpen the distribution (safe, predictable output); high values flatten it (creative, risky output). It never changes token ranking, adds knowledge, or makes the model smarter.
 
 ## Key Concepts
-- **Logits** — raw scores the model gives every possible next token.
-- **Softmax** — converts scores to probabilities that sum to 1; sensitive to gaps between scores.
-- **Sampling** — the "lucky draw" picking a token according to probabilities.
-- **Temperature** — usually 0 to 2, default often 1.
-- **Greedy decoding** — always picking the top token (Temperature 0).
-- **Top-p** — another randomness control that removes weak tokens from the draw.
+- **Token** — a word or part of a word; the LLM writes one at a time.
+- **Logits** — raw scores the model gives every possible next token (higher = better fit).
+- **Softmax** — converts scores to positive probabilities that sum to 1; cares about the *gaps* between scores.
+- **Sampling** — picking a token randomly according to the probabilities ("lucky draw" from a box of slips).
+- **Autoregressive generation** — pick a token, append it, repeat while looking at everything so far.
+- **Temperature** — knob (usually 0 to 2, default often 1) controlling randomness.
+- **Greedy decoding** — Temperature 0: always pick the top-scoring token.
 
 ## How It Works
-**Picking the next token:** scores to probabilities to sampling. For "The sky is": blue 4.0, clear 3.0, falling 1.0, banana 0.0 become 0.70 / 0.26 / 0.03 / 0.01. The pick is appended and the process repeats (autoregressive).
+### Score, probability, draw
+1. Model scores every token (real vocab > 100,000 tokens). Example for "The sky is": blue 4.0, clear 3.0, falling 1.0, banana 0.0.
+2. Softmax gives probabilities: 0.70, 0.26, 0.03, 0.01.
+3. Sample one token (not always the top one), append, repeat.
 
-**Where Temperature acts.** Before softmax:
+### Where Temperature enters
+Applied to scores just before softmax:
 
-$$p_i=\frac{e^{z_i/T}}{\sum_j e^{z_j/T}}$$
+$$\text{New Score} = \frac{\text{Score}}{T}$$
 
-$T<1$ widens the gaps (scores amplified); $T>1$ narrows them. Temperature never changes the ranking, only how far ahead the top token is.
+- $T=1$: no change (model's natural, as-trained behavior).
+- $T<1$ (e.g. 0.5): scores multiplied, gaps grow, top token dominates.
+- $T>1$ (e.g. 2): scores shrunk, gaps shrink, probability spreads out.
+- Temperature changes the number of "slips" per token; it does **not** change the order (blue is always top).
 
+### Worked example
 | Temperature | blue | clear | falling | banana |
 |---|---|---|---|---|
 | 0.1 | 1.00 | 0.00 | 0.00 | 0.00 |
@@ -29,47 +38,72 @@ $T<1$ widens the gaps (scores amplified); $T>1$ narrows them. Temperature never 
 | 1 | 0.70 | 0.26 | 0.03 | 0.01 |
 | 2 | 0.51 | 0.31 | 0.11 | 0.07 |
 
-**Low vs high**
-- Low: focused, predictable, reliable but can be repetitive.
-- High: creative and varied but can derail; one odd token (e.g. "banana") conditions everything after it, so very high values produce nonsense.
+Code essence: `scaled = [s/T for s in scores]`, then `exp`, then divide by the sum (softmax), round to 2 decimals.
 
-**Special values.** $T=1$: original probabilities. $T=0$: greedy decoding (implementations skip division and pick the top token). Even at 0 output can differ slightly due to hardware rounding.
+### Low vs high vs special values
+| Setting | Output | Pro | Con |
+|---|---|---|---|
+| Low (0.1 to 0.2) | Focused, nearly identical each run | Reliable | Boring, repetitive (ten similar story ideas) |
+| High (above 1, e.g. 1.5 to 2) | Creative, varied, sometimes wrong | Good for brainstorming, stories | One bad token ("banana") derails the rest since later tokens build on it; very high gives nonsense |
+| T = 1 | Original probabilities | Natural behavior | - |
+| T = 0 | Greedy decoding | Always top token | Cannot divide by 0, so software skips the draw; output may still differ slightly between runs (chip rounding differences) |
 
-**Name:** from physics: cold means particles fixed (ice), hot means jumping around (steam).
+### Why "Temperature"
+Physics analogy: cold water = particles fixed (ice) = model stuck on top choice; hot = particles jump (steam) = model jumps among choices. Borrowed from a physics formula.
 
-**Choosing a value**
+### Which value to use
+| Use case | Temperature | Why |
+|---|---|---|
+| Code | 0 to 0.2 | Correct, not creative |
+| Maths and facts | 0 to 0.2 | One right answer |
+| Summarizing | 0.2 to 0.5 | Stay close to original |
+| Customer support | 0.3 to 0.7 | Friendly but accurate |
+| General chat | 0.7 to 1 | Natural |
+| Stories, poems | 0.8 to 1.2 | Creative |
+| Brainstorming | 1 to 1.5 | Many different ideas |
 
-| Use case | Temperature |
-|---|---|
-| Code, maths, facts | 0 to 0.2 |
-| Summarizing | 0.2 to 0.5 |
-| Customer support | 0.3 to 0.7 |
-| General chat | 0.7 to 1 |
-| Stories, poems | 0.8 to 1.2 |
-| Brainstorming | 1 to 1.5 |
+Rule: one correct answer = low; many good answers = high. Ranges are starting points; try values. In an API it is just `temperature=0.2` in the generate call.
 
-Rule: one correct answer means low; many good answers means high. Ranges are starting points.
-
-**Common mistakes**
-1. Thinking it makes the model smarter; it only changes how it picks from what it knows.
-2. Going very high (above about 1.5) for creativity.
-3. Expecting identical output at $T=0$; save outputs if exact reuse is needed.
-4. Changing Temperature and Top-p together.
-
-## Diagram
+## Diagram(s)
+### Where Temperature sits in the pipeline
 ```mermaid
 flowchart LR
-    A["Prompt"] --> B["Model logits"]
-    B --> C["Divide by Temperature"]
-    C --> D["Softmax"]
-    D --> E["Probabilities"]
-    E --> F["Sample one token"]
-    F -->|"append and repeat"| A
+    A1["Prompt text"] --> A2["Model gives logits<br/>to every token"]
+    A2 --> A3["Divide by Temperature"]
+    A3 --> A4["Softmax<br/>probabilities"]
+    A4 --> A5["Sample one token"]
+    A5 -->|"append and repeat"| A1
 ```
 
+### Effect of Temperature on the distribution
+```mermaid
+flowchart TD
+    T0["Temperature"] --> L["Low (below 1)"]
+    T0 --> M["T = 1 (unchanged)"]
+    T0 --> H["High (above 1)"]
+    L --> L1["Gaps grow<br/>top token ~100%"]
+    H --> H1["Gaps shrink<br/>weak tokens get a chance"]
+    L1 --> L2["Predictable, repetitive"]
+    H1 --> H2["Creative, risky"]
+```
+
+## Trade-offs & Pitfalls
+1. Temperature does **not** make the model smarter or more correct; it only changes how it picks from what it knows (links to hallucination).
+2. Very high Temperature (above ~1.5) quickly yields nonsense; creativity needs only slightly high.
+3. Temperature 0 is "almost always same", not guaranteed; to get identical output, save and reuse it.
+4. Do not change Temperature and Top-p together (Top-p removes weak tokens from the draw; both change randomness, so you cannot tell which caused the change).
+
+## FAQ
+- Does Temperature change which token ranks highest? → No, only how far ahead the top is.
+- Temperature vs Top-p? → Temperature divides scores (sharper/flatter); Top-p removes weak tokens.
+- Can lower Temperature make it more accurate? → No, only more focused.
+- Default? → Often 1 (no change); range usually 0 to 2.
+
 ## Key Takeaways
-- Temperature = divide logits by $T$ before softmax.
-- Low $T$ gives focused output; high $T$ gives diverse, riskier output.
-- $T=0$ is greedy decoding; $T=1$ is the model's natural distribution.
-- It does not add knowledge or correctness.
+- Temperature = divide logits by T before softmax.
+- Low T sharpens, high T flattens; ranking never changes.
+- T=1 is the model's native distribution; T=0 is greedy decoding.
+- Facts/code: 0 to 0.2; chat: 0.7 to 1; creative: 0.8 to 1.5.
+- It adds no knowledge and does not fix hallucination.
+- Even T=0 is not perfectly deterministic.
 - Tune Temperature or Top-p, not both at once.

@@ -3,54 +3,84 @@
 > **Step 2: Deep Learning and Neural Networks** · ⏱️ 9 min read · [Read original](https://outcomeschool.com/blog/batch-normalization-vs-layer-normalization)
 
 ## TL;DR
-Both normalize activations to stabilize and speed up training; they differ in which dimension supplies the mean and variance. Batch Norm normalizes each feature across the batch; Layer Norm normalizes all features of each example. Batch Norm suits CNNs, Layer Norm suits RNNs, Transformers, and LLMs.
+BatchNorm normalizes each feature across all examples in a batch (column-wise); LayerNorm normalizes all features within each single example (row-wise). BatchNorm suits CNNs with large batches; LayerNorm suits RNNs, Transformers and LLMs because it is batch-independent and identical in training and inference.
 
 ## Key Concepts
-- **Why normalize** — values in deep nets can become very large or small, causing slow, unstable training and exploding/vanishing gradients.
-- **Batch Normalization** — mean and variance per feature across the batch (column-wise).
-- **Layer Normalization** — mean and variance per example across its features (row-wise).
-- **Gamma and beta** — learnable scale and shift applied after normalizing.
-- **Epsilon** — tiny constant that avoids division by zero.
+- **Normalization** — rescale values to a similar scale, typically mean 0, variance 1 (e.g. age 0-100 vs salary up to 10,00,000, where the larger feature would dominate).
+- **Why needed** — values in deep nets get very large or small: slow training, instability, exploding/vanishing gradients.
+- **epsilon** — tiny number added to variance to avoid divide-by-zero.
+- **gamma / beta** — learnable scale and shift applied after normalizing.
 
 ## How It Works
-Both use the same formulas; only the axis differs:
-$$\hat x = \frac{x-\text{mean}}{\sqrt{\text{variance}+\epsilon}},\qquad \text{output}=\gamma\hat x+\beta$$
+
+Shared formulas:
+$$\hat x=\frac{x-\mu}{\sqrt{\sigma^2+\epsilon}},\qquad y=\gamma\hat x+\beta$$
+$\mu,\sigma^2$ = mean and variance over the chosen dimension. The only difference between the two methods is that dimension.
 
 Example batch (4 examples x 3 features): [10,12,14], [20,22,24], [30,32,34], [40,42,44].
-- Batch Norm: feature 1 uses [10,20,30,40], mean 25. Depends on other examples.
-- Layer Norm: Example 1 uses [10,12,14], mean 12. Independent of the batch.
 
-Classroom analogy: Batch Norm compares Math marks across all students; Layer Norm compares one student's marks across all subjects.
+### Batch Normalization
+- Per feature, over the batch: column 1 = [10,20,30,40], mean 25. Stats depend on the other examples.
+- Training uses current batch stats; inference (often one example) uses running averages of mean/variance tracked during training, so behavior differs between training and inference.
+- Pros: faster training, higher learning rates allowed, less need for careful initialization, regularizing effect.
+- Cons: poor with small batches (unreliable stats; unusable at batch size 1); train/inference mismatch can cause inconsistent predictions; unsuited to RNNs/Transformers since sequence lengths vary.
 
-### Batch Norm details
-- Training uses the current batch's stats; inference uses running averages tracked during training, so behavior differs.
-- Pros: faster training, allows higher learning rates, less dependence on weight initialization, regularizing effect.
-- Cons: unreliable with small batches, train/inference mismatch, awkward for variable-length sequences (RNNs, Transformers).
+### Layer Normalization
+- Per example, over features: row 1 = [10,12,14], mean 12; each example independent of the batch.
+- Same behavior in training and inference.
+- Pros: any batch size including 1; good for RNNs and Transformers; used in BERT, GPT, LLMs.
+- Con: not always best for CNNs, where BatchNorm usually does better.
 
-### Layer Norm details
-- Pros: any batch size (even 1), same behavior in training and inference, works well for sequences, used in BERT, GPT and other LLMs.
-- Cons: not always best for CNNs.
+### Classroom analogy
+4 students, 3 subjects. BatchNorm: compare Math marks across all 4 students. LayerNorm: compare Math, Science, English for one student.
 
 ### Comparison
-| Aspect | Batch Norm | Layer Norm |
+
+| Aspect | BatchNorm | LayerNorm |
 |---|---|---|
 | Direction | Across batch (column-wise) | Across features (row-wise) |
 | Depends on batch size | Yes | No |
 | Training vs inference | Different | Same |
-| Batch size of 1 | No | Yes |
+| Batch size 1 | No | Yes |
 | Best for | CNNs, images | RNNs, Transformers, LLMs |
 
-## Diagram
+### When to use
+- Images/CNNs with large batches: BatchNorm.
+- Sequences, RNNs, Transformers, LLMs: LayerNorm.
+- Very small batches: LayerNorm.
+LLMs use LayerNorm because sequence lengths differ and batches can be small.
+
+### FAQ
+- BN differs at inference because single examples have no batch stats, so running averages are used.
+- gamma scales, beta shifts; both norms use them.
+- epsilon prevents division by zero when variance is 0.
+- BN with small batches: no, unreliable and fails at batch size 1.
+
+## Diagram(s)
+
+### Axis of normalization
 ```mermaid
-flowchart TD
-    A["Which model type?"] --> B{"Images with CNN and large batches?"}
-    B -->|"Yes"| C["Batch Normalization"]
-    B -->|"No"| D{"Sequences, Transformers, LLMs, or small batches?"}
-    D -->|"Yes"| E["Layer Normalization"]
+flowchart LR
+    D["Batch matrix<br/>rows = examples, cols = features"] --> BN["BatchNorm<br/>stats per column<br/>across examples"]
+    D --> LN["LayerNorm<br/>stats per row<br/>across features"]
+    BN --> BU["CNNs, large batches"]
+    LN --> LU["RNNs, Transformers, LLMs"]
 ```
 
+### Choosing
+```mermaid
+flowchart TD
+    Q{"Data and batch size?"}
+    Q -->|"images, large batch"| B["BatchNorm"]
+    Q -->|"sequences or tiny batch"| L["LayerNorm"]
+```
+
+## Trade-offs & Pitfalls
+- BN: batch-size sensitive, train/inference gap, bad for variable-length sequences.
+- LN: weaker than BN on CNNs.
+
 ## Key Takeaways
-- Batch Norm: one feature across all examples. Layer Norm: all features of one example.
-- Batch Norm depends on batch statistics, so it behaves differently in training and inference; Layer Norm does not.
-- LLMs use Layer Norm because sequence lengths vary and batches can be small.
-- Use Batch Norm for CNNs with large batches.
+- BN = per-feature across the batch; LN = per-example across features.
+- Same formula with gamma and beta; different axis.
+- BN needs running stats at inference; LN does not.
+- BN for CNNs, LN for Transformers/LLMs/small batches.

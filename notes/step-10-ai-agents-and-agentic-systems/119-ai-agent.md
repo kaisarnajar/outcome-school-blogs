@@ -3,66 +3,106 @@
 > **Step 10: AI Agents and Agentic Systems** · ⏱️ 22 min read · [Read original](https://outcomeschool.com/blog/ai-agent)
 
 ## TL;DR
-An AI Agent is an LLM wrapped in a loop with instructions, tools, and memory, so it can take a goal, decide steps, act, and keep going until done. The loop and tool use, not a chat UI, are what separate it from a plain LLM or chatbot.
+AI Agent = LLM + Instructions + Tools + Memory + a Loop that runs until the goal is achieved. The LLM decides the next action (pick a tool or answer); the loop runs the tool and feeds the observation back. It suits multi-step, adaptive, tool-needing tasks; for simple tasks a plain LLM call or script is better.
 
 ## Key Concepts
-- **AI Agent** — LLM + Instructions + Tools + Memory + Loop.
-- **Plain LLM / Chatbot / Agent** — one request-response; plus conversation memory; plus tools and a loop (talks AND acts).
-- **Tool definition** — name, description, input schema; the description is the most important field for tool choice.
-- **Short-term memory** — the history of the current run, re-sent to the stateless LLM every call.
-- **Long-term memory** — facts kept across runs in an external store (for example a vector database).
-- **Loop (runtime)** — code that calls the LLM, runs the chosen tool, feeds back the result, repeats.
+- **AI Agent** — software that uses an LLM to decide, acts via tools, and loops until the goal is done (intern analogy: read task, pick a tool, check result, decide next).
+- **Plain LLM** — one request, one response.
+- **Chatbot** — LLM + memory of the conversation; classic form only produces text.
+- **Agent** — chatbot that also uses tools and runs in a loop (or a background LLM with the same setup; no chat UI needed). Plain LLM talks once; chatbot talks many times; agent talks AND acts until done. ChatGPT and Claude.ai have crossed that line.
+- **Tool definition** — name, description, input schema (JSON). Description is the most important field; vague leads to wrong tool.
+- **Short-term memory** — current run's history (prompts, tool calls, observations), fed back every call since the LLM is stateless. **Long-term memory** — across runs (preferences, decisions, facts) in external store (vector DB, user profile).
+- **Observation** — tool result fed back to the LLM.
+- Related: MCP (servers describe their own tools), Agent Skills (procedures loaded on demand), Loop Engineering (step budget, checks, exits).
 
 ## How It Works
-### Five core parts
-1. **LLM (brain)** — decides the next action; it only recommends a tool, the loop calls it.
-2. **Instructions** — the system prompt: job, tools, rules.
-3. **Tools (hands)** — search, code, APIs, email; discoverable through MCP.
-4. **Memory** — short-term and long-term.
-5. **Loop** — keeps it going until the LLM says it is done.
+### Five core parts (remove any and it is not an agent)
+1. **LLM (brain)** — recommends a tool or returns final answer; does NOT call tools itself.
+2. **Instructions (system prompt)** — job, tools, rules.
+3. **Tools (hands)** — search, calculate, read files, APIs, email, code.
+4. **Memory** — short and long term.
+5. **Loop (runtime)** — send prompt, read response, run chosen tool, feed back, repeat until "done". Tool calls actually happen here.
+Intern mapping: brain, job description, laptop/email, notebook, the workday.
 
-### End-to-end flow
-Goal goes in; the loop sends goal, instructions, and memory to the LLM; the LLM picks a tool or gives a final answer; the loop runs the tool and feeds back an observation; repeat. Modern LLMs can emit several tool calls per step, run in parallel.
+### End-to-end steps
+1. User goal ("3 cheapest direct flights to Delhi tomorrow under 8000 rupees"). 2. Loop sends goal + instructions + memory to LLM. 3. LLM decides next action (search flights). 4. Loop runs tool. 5. Result returns as observation. 6. LLM decides next (filter, pick top 3). 7. Repeat. 8. LLM returns final answer (AI-123 6500, IX-201 7200, SG-312 7800). Modern LLMs may emit multiple tool calls per step, run in parallel. Flow is not hardcoded.
 
-### Minimal code skeleton
+### Research agent example ("best laptop for video editing under USD 1500")
+Tools: web search, page reader, calculator. Actions: broad search, read top results, compare 5 laptops' specs, check prices, read reviews, summarize pros/cons, return top 3. Writing code that takes input, calls an LLM, executes actions and repeats is an agent.
+
 ```python
-while True:
-    if step >= max_steps: return "limit reached"
-    response = await call_llm(messages, tools)
-    if response.is_done: return response.final_answer
-    for tc in response.tool_calls:
-        messages.append(tool_result(await call_tool(tc)))
+async def run_agent(user_goal, tools, max_steps=10):
+    messages = [{"role": "user", "content": user_goal}]
+    step = 0
+    while True:
+        if step >= max_steps: return "Reached step limit"
+        step += 1
+        response = await call_llm(messages, tools)
+        if response.is_done: return response.final_answer
+        for tc in response.tool_calls:
+            result = await call_tool(tc.name, tc.arguments)
+            messages.append({"role": "tool", "name": tc.name, "content": str(result)})
 ```
-About 20 lines; memory, retries, and logging are polish on top.
+Step limit prevents infinite loops. Everything else (memory, parallel calls, retries, logging) is polish.
 
-### Types
-ReAct (thought, action, observation), Plan-and-Execute (plan first, then run), Reflection (draft, critique, revise), Agentic RAG, Multi-Agent systems. They combine freely.
+### Types (can be combined)
+- **ReAct** — Thought, Action, Observation each step (most common).
+- **Plan-and-Execute** — full plan, then execute (long tasks).
+- **Reflection** — draft, critique, revise (quality over speed).
+- **Agentic RAG** — decides when/how to retrieve.
+- **Multi-Agent** — roles (research, write, review).
 
-### When to use
-Use when a task is multi-step, each step depends on the last, needs external info or actions, and the path is not fixed. Skip it when one LLM call or a fixed script works, or when latency, cost, or determinism matter more.
+### What agents do today
+Coding (Claude Code, Cursor, Copilot agent mode); research (OpenAI Deep Research, Perplexity, Gemini Deep Research); customer support (with human handoff); browser agents (Computer Use, ChatGPT Agent); data analysis (agents need table meaning; OKF standard); personal assistants (Apple Intelligence, Gemini). Same five parts everywhere.
 
-### Failure modes and fixes
-| Failure | Fix |
-|---|---|
-| Infinite loops | Hard step limit |
-| Wrong tool | Precise tool descriptions |
-| Hallucinated actions | Native tool use, validate inputs, return errors as observations |
-| Context overflow | Summarize or drop stale observations |
-| Premature stopping | Clear completion criteria in instructions |
-
-## Diagram
+## Diagram(s)
+### Agent loop
 ```mermaid
 flowchart TD
-    G["User goal"] --> L["LLM decides"]
-    L -->|"Picks a tool"| T["Loop runs the tool"]
-    T --> O["Observation added to memory"]
-    O --> L
-    L -->|"Goal achieved"| F["Final answer"]
+G1["User goal"] --> L1["LLM decides:<br/>pick tool or final answer"]
+L1 -->|"tool chosen"| T1["Loop runs tool"]
+T1 --> O1["Observation"]
+O1 --> L1
+L1 -->|"goal achieved"| F1["Final answer"]
+M1["Instructions + Memory"] --> L1
 ```
 
+### Five parts and agent types
+```mermaid
+mindmap
+  root((AI Agent))
+    LLM brain
+    Instructions
+    Tools
+    Memory
+      Short term
+      Long term
+    Loop
+    Types
+      ReAct
+      Plan and Execute
+      Reflection
+      Agentic RAG
+      Multi Agent
+```
+
+## Trade-offs & Pitfalls
+Use an agent when: multiple steps, next step depends on current result, needs external info/actions, path not fixed. Avoid when: a single LLM call works, fixed pipeline (use a script), latency/cost over flexibility, non-determinism unacceptable. Agent for a script-sized job is over-engineering.
+
+| Failure mode | Fix |
+|---|---|
+| Infinite loops | Hard step limit |
+| Wrong tool selection | Very clear tool descriptions |
+| Hallucinated actions (nonexistent tool / bad args) | Native tool-use, validate inputs, return error as observation to self-correct |
+| Context overflow | Summarize/drop stale observations; goal at start, newest at end (avoid lost in the middle) |
+| Premature stopping | Clear completion criteria in instructions |
+Production agents are mostly about handling these; see AI Agent Evaluation (outcome, trajectory, tool use).
+
 ## Key Takeaways
-- Agent = LLM + Instructions + Tools + Memory + Loop; remove any part and it is no longer an agent.
-- The LLM decides; the loop executes tools.
-- The LLM is stateless, so the loop re-sends the history each turn.
-- Always set a max step limit.
-- Do not use an agent when a script or single LLM call suffices.
+- Agent = LLM + instructions + tools + memory + loop.
+- The LLM decides; the loop executes tools and feeds results back.
+- Tool use plus loop (not chat UI) defines an agent.
+- The core is about 20 lines: while loop, LLM call, stop check, tool branch.
+- Tool descriptions are the most important field.
+- Always bound the loop with a step limit.
+- Use agents only when decisions and actions depend on each other.

@@ -3,60 +3,88 @@
 > **Step 8: Prompt Engineering and Context Engineering** · ⏱️ 17 min read · [Read original](https://outcomeschool.com/blog/how-does-context-compaction-work)
 
 ## TL;DR
-Context compaction shrinks old conversation history into a short summary so the important facts survive while the fixed-size context window gets free space again. It lets chatbots and agents run for hours without overflowing or forgetting.
+Context compaction shrinks the old part of a long conversation into a short LLM-written summary, so key facts survive while the fixed-size context window gets free space. It replaces the sliding window, which deletes old messages and the facts hidden in them. Compaction triggers at a threshold and protects system instructions, the main goal and recent messages.
 
 ## Key Concepts
-- **Context window** — maximum number of tokens the model can hold at once; the model's short-term memory.
-- **Context** — all text sent to the model in one go (system instructions, past messages, new question).
-- **Sliding window** — naive fix that drops the oldest messages when the window is full.
-- **Context compaction** — replace old messages with a compact summary that keeps key facts.
-- **Summarization** — the engine of compaction: the LLM itself writes the short note.
+- **LLM** — reads text, predicts next token; works on tokens (pieces of words).
+- **Context window** — max tokens the model can hold at once; fixed-size short-term memory (whiteboard).
+- **Context** — everything sent in one go: system instructions, past messages, new question. Window is the box, context is the contents.
+- **Sliding window** — keep only the latest N messages, drop the oldest.
+- **Context compaction** — summarize old messages into a short note, keep recent ones in full.
+- **Summarization** — the engine: the same LLM compresses old messages.
 
 ## How It Works
-**The problem.** Conversations grow without bound but the window is fixed. When full, the model errors or truncates, gets slower and costlier (more tokens per turn), and can get confused by old text. Models also read the start and end of long contexts better than the middle.
 
-**Why a sliding window fails.** Dropping old messages also drops facts hidden in them, for example "I am building an Android app in Kotlin" said in message 1; later asked "what language am I using?" the model cannot answer.
+### The problem
+- Chat keeps growing; window is fixed, so it eventually fills.
+- Overflow causes: (1) new message won't fit, error or truncation; (2) slower and costlier since more tokens read per turn; (3) model confused by too much old text.
+- Even before full, models read start and end better than the middle (lost in the middle). Dropping the first tokens is also risky inside the model (attention sinks).
 
-**Compaction.** Summarize instead of delete. Example: 3000 tokens of old messages become a 200-token note holding name, project, language, and decisions. This can repeat: next time, summarize the new old messages plus the previous summary.
+### Naive fix: sliding window
+Box holds 4 messages; msg1..msg6: msg5 arrives, drop msg1; msg6 arrives, drop msg2. Problem: msg1 may be "My name is Amit, building an Android app in Kotlin"; later "What language am I using?" is unanswerable. We lose memory, not just words.
 
-**Walkthrough (window 1000 tokens, compact above 800):**
-1. Old messages 700 + recent 150 = 850, over the line.
-2. Model summarizes the 700 into about 120 tokens.
-3. Rebuild context: summary 120 + recent 150 = 270, freeing 580 tokens.
-4. Conversation continues; compaction reruns when full again.
+### Compaction
+Instead of deleting, squeeze. Suitcase analogy: fold clothes, don't throw them away.
 
-```python
-def compact_context(messages, recent_count, summarize):
-    old, recent = messages[:-recent_count], messages[-recent_count:]
-    return [summarize(old)] + recent
-```
+| Suitcase | Compaction |
+|---|---|
+| Suitcase | Context window |
+| Clothes | Conversation history |
+| Overflowing | Context full |
+| Vacuum-packing | Summarizing old messages |
+| Packed suitcase | Compacted context |
+| Trash dropped | Filler dropped, facts kept |
 
-In practice, compact only when a threshold is crossed (for example 80 percent of the window) to keep cost low.
+Example: 3000 old tokens become a 200-token summary (name, project, language, decisions); frees 2800 tokens. Repeatable: next time summarize the new old messages plus the previous summary into a fresh shorter one.
 
-**In agents.** Coding assistants working for hours summarize old steps ("Goal: fix login bug. Changed auth.py and login.py. Tests passing") and keep going. Good compaction keeps the original system instructions, the user's main goal, and the latest messages in full, and compresses only the messy middle.
+### Walkthrough (window 1000, compact above 800)
+1. Old 700 + recent 150 = 850 tokens > 800, so compact.
+2. Model summarizes the 700 into 120 tokens.
+3. Rebuild: summary 120 + recent 150 = 270 (freed 580). Recent messages stay untouched.
+4. Conversation continues; model still knows name and project. Repeat when full again.
 
-**Compaction vs sliding window**
-
-| | Sliding window | Compaction |
-|---|---|---|
-| Old messages | Deleted | Summarized |
-| Hidden facts | Lost | Kept in summary |
-
-## Diagram
 ```mermaid
 flowchart LR
-    A["Old messages<br/>3000 tokens"] --> B["LLM summarizer"]
-    B --> C["Short summary<br/>200 tokens"]
-    C --> D["New context"]
-    E["Recent messages<br/>kept in full"] --> D
-    D --> F["Conversation continues"]
-    F -->|"window fills again"| A
+    A1["Old messages<br/>700 tokens"] --> B1["LLM summarizer"]
+    B1 --> C1["Summary<br/>120 tokens"]
+    D1["Recent messages<br/>150 tokens"] --> E1["New context<br/>270 tokens"]
+    C1 --> E1
 ```
 
+### Code
+```python
+def compact_context(messages, recent_count, summarize):
+    old = messages[:-recent_count]
+    recent = messages[-recent_count:]
+    summary = summarize(old)
+    return [summary] + recent
+```
+Naive version is `messages[-max_messages:]` (forgets). In practice compact only past a threshold (e.g. 80% of window) to keep cost low.
+
+### In real agents
+- Agents take many steps (read files, run commands); context grows huge. Deciding when to compact is Loop Engineering.
+- Example note: "Goal: fix the login bug. Changed auth.py and login.py. Tests passing."
+- **Never summarize away**: original system instructions, user's main goal, very latest messages. Only the messy middle is compressed. Compaction is a planned feature.
+
+```mermaid
+flowchart TD
+    S1["Context grows"] --> S2{"Over threshold<br/>e.g. 80 percent?"}
+    S2 -->|"no"| S1
+    S2 -->|"yes"| S3["Keep system prompt, goal, recent msgs"]
+    S3 --> S4["Summarize middle with LLM"]
+    S4 --> S5["Rebuild: protected parts + summary"]
+    S5 --> S1
+```
+
+## Trade-offs & Pitfalls
+- Compaction loses tiny details (not key facts); sliding window loses everything dropped.
+- Compacting after every message is wasteful; use a threshold.
+- Summaries must preserve instructions and goal, so protect those.
+
 ## Key Takeaways
-- The window is fixed-size, so long chats need a way to free space without forgetting.
-- Sliding windows forget facts; compaction keeps them via summarization.
-- The same LLM does both answering and summarizing.
-- Trigger compaction at a threshold, not after every message.
-- Never summarize away system instructions, the main goal, or the latest messages.
-- Benefits: long-running agents, preserved facts, lower cost and latency.
+- Fixed window + growing chat = overflow; overflow hurts correctness, speed and cost.
+- Sliding window deletes facts; compaction summarizes them.
+- The LLM itself is the summarizer; compaction can repeat on top of earlier summaries.
+- Trigger at a threshold (e.g. 80%), not every message.
+- Keep system instructions, main goal and latest messages in full.
+- Turns a hard memory limit into a smooth long conversation with lower cost.

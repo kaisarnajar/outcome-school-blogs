@@ -3,56 +3,103 @@
 > **Step 16: AI Infrastructure, Deployment, and System Design** · ⏱️ 17 min read · [Read original](https://outcomeschool.com/blog/endpointing-in-voice-agents)
 
 ## TL;DR
-Endpointing (end-of-turn or turn detection) is how a voice assistant decides the user has finished speaking so it can reply. It is hard because silence does not always mean the end. Real systems combine silence, words, and voice cues and balance speed against cutting the user off.
+Endpointing (end-of-turn / turn detection) decides when the user has finished so the assistant can stop listening and reply. A fixed silence timer is simple but crude; real systems combine VAD silence with a words-based and/or voice-based turn detector that outputs a probability, then pick a short or long wait accordingly, balancing latency against cut-offs.
 
 ## Key Concepts
-- **Endpoint** — the moment the user's turn is judged finished; part of the bigger job of turn-taking.
-- **VAD (Voice Activity Detection)** — small neural net that scores each 20-30 ms audio frame from 0 to 1 for "someone is speaking"; a threshold (e.g. 0.5) gives speech vs silence.
-- **Silence timer** — counts consecutive silent VAD frames; resets if speech resumes.
-- **Turn detector / end-of-turn model** — outputs the probability that the user is done, from text so far, audio, or both.
-- **Prosody** — melody and rhythm of speech: falling or rising pitch, slowing down, fillers ("umm"), breath-in.
-- **Early vs late endpoint** — cutting the user off vs making them wait.
+- **Endpoint** — the moment the user has finished their turn; endpointing = detecting it (part of turn-taking).
+- **VAD** — small neural network scoring each audio frame 0-1 for speech.
+- **Frame** — 20-30 ms audio piece.
+- **Streaming speech recognition** — text produced piece by piece while the user talks.
+- **Turn detector / end-of-turn model** — outputs probability the user is done.
+- **Prosody** — melody and rhythm of speech (pitch, speed, stretching).
+- **Early vs late endpoint**, **barge-in**, **cut-off rate**.
 
 ## How It Works
+
+### Why it is hard
+Humans leave about 200 ms gaps; silence does not always mean the end. "I want to book a flight to... umm... Mumbai." — the pause after "to" must not end the turn, while a plain "Yes." should end it fast. Two opposing goals: don't cut off thoughts; don't make users wait.
+
 ### Approach 1: Fixed silence timer
-Wait N ms (e.g. 700) of silence, then reply. Simple and fast, but one number fits no one: short values cut off thinkers, long values slow down every reply, even a plain "Yes."
+Rule: silent for e.g. 700 ms (example; real range a few hundred ms to about 1 s) -> finished. Timer starts when speech stops; resets if speech resumes.
+- Pro: simple, fast to run.
+- Con: one number can't fit all (short cuts off thinkers; long slows everything, even "Yes."); every reply delayed by at least the full wait.
+
+### How VAD works
+Frames of 20-30 ms each get a score 0-1; a threshold (e.g. 0.5) labels speech/silence. Example: frames 1-3 scores 0.95/0.97/0.92 = speech; 4-6 scores 0.10/0.05/0.04 = silence. Silence is not zero sound (fan, traffic); neural VAD tells speech from noise, unlike old loudness-only methods. 700 ms with 30 ms frames is about 23 silent frames in a row.
 
 ### Approach 2: Reading the words
-Streaming ASR gives text so far; a small model scores completeness ("What is the weather in" ≈ 0.05, "...Delhi today" ≈ 0.94). It may also read recent conversation turns (after "What is your phone number?", "98765" is probably unfinished). High probability means a short wait (~200 ms); low means a long wait (~2 s). Weakness: depends on ASR text quality and timing, and text loses tone ("You are coming." vs "?").
+Streaming recognition gives text so far; a turn detector trained on labelled conversations returns a probability.
+| Text so far | P(done) |
+|---|---|
+| "What is the weather in" | 0.05 |
+| "I want to book a flight to" | 0.08 |
+| "What is the weather in Delhi today" | 0.94 |
+| "Yes" | 0.90 |
 
-### Approach 3: Listening to the voice
-An audio-based detector learns prosody cues directly from audio, including fillers that ASR often drops. Weakness: prosody varies by speaker, language, and accent.
+- Many detectors also read recent messages: after "What is your phone number?", "98765" is probably unfinished.
+- Wait scales with probability: high -> about 200 ms; low -> about 2 s.
+- Con: depends on STT text (wrong/late text -> wrong/late decision); text loses delivery ("You are coming." vs "?" without punctuation).
 
-### Approach 4: Combine everything
+### Approach 3: Listening to the voice (prosody)
+Clues: falling pitch ends statements; rising pitch ends questions; slowing/stretching the last word; filler "umm/uhh" (often dropped from STT text, so only audio keeps them) = still thinking; breath in = about to continue. Audio-based detector learns from labelled recordings and doesn't wait for STT. Example: "I need a taxi" (level pitch) -> likely continues ("and a hotel room").
+- Pro: catches tone/thinking pauses text can't.
+- Con: prosody varies by person, language, accent.
+
+### Approach 4: Combine all signals
 | Signal | Good at | Weak at |
 |---|---|---|
-| Silence (VAD) | Fast, simple, language-agnostic | Cannot tell a pause from an end |
-| Words | Spots unfinished sentences | Depends on ASR text |
-| Voice | Tone, fillers, thinking pauses | Varies across speakers |
+| Silence (VAD) | Fast, simple, any language | Can't tell pause from end |
+| Words | Knows unfinished sentences | Depends on STT text |
+| Voice | Tone, fillers, thinking pauses | Varies across speakers/accents |
 
-VAD runs always (cheap) and triggers the heavier turn detector only when silence starts. The timer stays but its length adapts to the detector's confidence, with a maximum wait so the agent never waits forever.
-
-### Trade-off and safety nets
-Shorter waits mean fewer late but more early endpoints. Teams measure latency (real finish to decision) and cut-off rate, then tune per use case (quick commands vs customer support). Safety nets: barge-in when the user resumes, and speculatively preparing the answer at the first sign of an endpoint (discarded if the user continues).
-
-## Diagram
 ```mermaid
 flowchart TD
-    A["Microphone audio"] --> B["VAD: speech or silence?"]
-    B -->|"silence starts"| C["Start silence timer"]
-    C --> D["Turn detector checks words and voice"]
-    D --> E{"Probability user is done"}
-    E -->|"high"| F["Short wait"]
-    E -->|"low"| G["Long wait"]
-    F --> H["Timer reaches wait time"]
-    G --> H
-    B -->|"speech resumes"| I["Reset timer"]
-    H --> J["Endpoint decided, assistant replies"]
+    A["Mic audio"] --> V["VAD: speaking or silent?"]
+    V -->|"silence detected"| T["Timer starts"]
+    T --> D["Turn detector checks words, voice, or both"]
+    D --> P{"Probability user is done"}
+    P -->|"high"| S["Short wait"]
+    P -->|"low"| L["Long wait"]
+    S --> E["Endpoint decided, assistant replies"]
+    L --> E
+    V -.->|"speech resumes"| R["Timer resets"]
 ```
 
+- VAD always runs (cheap); heavier turn detector often only when silence starts.
+- Timer length is dynamic; there is a maximum wait so the assistant never waits forever.
+- Example "Can you set an alarm for... umm... seven in the morning?": pause + "umm" -> low prob, long wait; user resumes, timer resets; at end, full question + rising pitch -> high prob, short wait -> reply "Sure, I have set an alarm for 7 AM."
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant VAD as VAD
+    participant TD as Turn detector
+    U->>VAD: Can you set an alarm for... umm...
+    VAD->>TD: Silence, timer starts
+    TD-->>VAD: Low probability, long wait
+    U->>VAD: seven in the morning
+    Note over VAD: Speech detected, timer resets
+    VAD->>TD: Silence again
+    TD-->>VAD: High probability, short wait
+    VAD-->>U: Endpoint, assistant replies
+```
+
+## Trade-offs & Pitfalls
+- **Early endpoint** (cut off, half-request reply, wrong answers) vs **late endpoint** (slow, unnatural). Shorter wait -> fewer late, more early; longer wait -> the reverse.
+- Measure **latency** (real finish to decision) and **cut-off rate**; tune per use case: quick commands ("Turn off the lights") use short waits; customer support with long explanations needs longer waits. (See dynamic endpointing per-user speech rate, and latency budget blog.)
+- Safety nets: **barge-in** (VAD hears speech again -> stop reply and keep listening); **start work early** at first sign of an endpoint (discarded if user continues, costs compute, hides wait if correct).
+
+## FAQ
+- Endpointing = VAD? → No; VAD is a frame-level speech signal, endpointing decides turn end using it plus words/voice.
+- How long to wait? → No single value; fixed timers a few hundred ms to about 1 s; dynamic about 200 ms vs about 2 s.
+- Endpoint too early? → Barge-in recovers.
+- Why fillers matter? → "umm" means still thinking; STT drops them, audio models hear them.
+- Turn detector always running? → Often only on silence; VAD always runs; max wait exists.
+
 ## Key Takeaways
-- Silence does not always mean the end; endpointing must avoid both cutting users off and making them wait.
-- VAD detects speech vs silence; endpointing is the decision built on top of it.
-- A fixed timer is simple but a poor fit; adaptive waits driven by a turn detector are better.
-- Words catch unfinished sentences, voice catches tone and fillers; combine both with silence.
-- Always cap the maximum wait and support barge-in to recover from mistakes.
+- Endpointing = detecting end of the user's turn; slow or wrong endpointing hurts the whole reply.
+- Silence alone can't distinguish a pause from an end.
+- VAD scores frames; the silence timer counts consecutive silent frames.
+- Word-based and prosody-based detectors give a "done" probability that makes the wait dynamic.
+- Combined systems run VAD always, turn detector on silence, with a max wait.
+- It is a latency vs cut-off trade-off tuned per use case; barge-in covers mistakes.

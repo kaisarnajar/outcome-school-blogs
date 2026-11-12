@@ -3,62 +3,99 @@
 > **Step 16: AI Infrastructure, Deployment, and System Design** · ⏱️ 17 min read · [Read original](https://outcomeschool.com/blog/overlapping-speech-in-voice-agents)
 
 ## TL;DR
-Overlapping speech is both sides talking at once. A half-duplex STT/LLM/TTS agent ignores the user while speaking, so it must instead keep listening, cancel its own echo, classify the overlap, act, and fix its history. Full-duplex models learn all of this inside one model.
+The agent keeps listening while it speaks, removes its own voice with AEC, classifies the overlap (interruption, backchannel, noise/echo, simultaneous start) in layers, then acts: continue or stop-and-yield, trimming history to what was heard. Full-duplex models learn all this inside one model.
 
 ## Key Concepts
-- **Half-duplex** — one side talks at a time; the baseline agent is deaf while speaking.
-- **AEC** — subtracts the known agent audio from the mic signal.
-- **Soft stop** — lower volume or pause first, cancel only if confirmed.
-- **"User always wins"** — rule when both start together: agent stops, user gets the turn.
-- **Full-duplex model** — one model, two parallel audio streams (Moshi, about 80 ms steps).
+- **Overlapping speech** — user and agent speaking simultaneously (e.g. "...a charger" then "Wait, I want to cancel the charger").
+- **Half-duplex relay race** — STT, LLM, TTS in turns; not listening while speaking, so user words are lost.
+- **Input stream / output stream** — mic audio vs agent audio to speaker.
+- **AEC** — subtract the known outgoing audio (predicted as it returns via mic).
+- **Soft stop** — lower volume/pause first, cancel only if confirmed.
+- **Full-duplex** — single model, both sides at once (Moshi, Kyutai).
 
 ## How It Works
-### Four kinds of overlap
-| Kind | Example | Agent action |
-|---|---|---|
-| Interruption | "Wait, I already did that." | Stop and listen |
-| Backchannel | "uh-huh", "okay" | Keep speaking |
-| Noise and echo | Cough, TV, own voice | Ignore |
-| Both start together | Collision | Stop, give user the turn |
+Listening while speaking raises three problems: mic picks up the agent's voice; not every sound means stop; after stopping, must know what the user heard.
 
-### Five steps
-1. **Keep listening while speaking** — output stream (to speaker) and input stream (mic) both flow; input goes to a detector.
-2. **Remove the agent's own voice** — AEC (often provided by the phone platform or browser; make sure it is on). Imperfect due to room bounce.
-3. **Classify in layers**:
-   - VAD: any human speech?
-   - Duration: minimum (e.g. 200-300 ms) so coughs and "hmm" are ignored.
-   - Words: STT; backchannel words vs "wait", "no", "stop", or a sentence (adds delay).
-   - Context: if the agent just asked "Is that correct?", "yeah" is a real answer.
-4. **Act** — noise: continue. Backchannel: continue and do not add it as a user turn. Interruption: stop audio, clear buffer, cancel LLM and TTS, listen to the full sentence; aim for a stop within a few hundred ms. Soft stop avoids discarding the reply on false alarms.
-5. **Keep history correct** — LLM wrote the full sentence, user heard part; cut saved reply to the played portion using word timestamps (e.g. headphones never heard), optionally note the interruption.
+### Kinds of overlap
+| Kind | Example | Action |
+|---|---|---|
+| Interruption (barge-in) | "Wait, I already did that." | Stop and listen |
+| Backchannel | "uh-huh", "okay", "right" | Keep speaking |
+| Noise and echo | cough, dog, TV, own voice | Ignore |
+| Both start together | collide after a pause | Stop, give turn to user |
+
+### Step 1: Keep listening
+Mic open throughout; input stream feeds the detector while the output plays.
+
+### Step 2: Remove own voice
+Otherwise the agent stops itself mid-sentence. AEC subtracts the known copy; imperfect (room bounce) but removes most echo. Often provided by phone/calling platform or browser; make sure it's on.
+
+### Step 3: Classify (layers)
+1. VAD score per few-tens-of-ms piece (door slam/beep low).
+2. Minimum duration (~200-300 ms) — coughs/short "hmm" ignored.
+3. Words via STT: only "uh-huh/yeah/okay/right" = backchannel; "wait/no/stop"/real sentence = interruption (adds delay).
+4. Context: small model on what agent said; after "Is that correct?", "yeah" is a real answer.
+```
+def classify_overlap(audio, agent_is_speaking):
+    if not agent_is_speaking: return "normal_turn"
+    if vad_score(audio) < 0.5: return "noise"
+    if speech_duration(audio) < 0.3: return "noise"
+    words = transcribe(audio).lower().strip()
+    if words in ["uh-huh","yeah","okay","right","mm-hmm"]: return "backchannel"
+    return "interruption"
+```
+Thresholds illustrative; layer 4 omitted from code.
+
+### Step 4: Act
+Noise: keep speaking. Backchannel: keep speaking, don't add as a user turn (LLM would reply). Interruption: stop audio and clear buffer, cancel LLM, cancel TTS, listen as new turn. Forgetting the buffer lets a few more words play; aim to stop within a few hundred ms. Soft stop: lower volume/pause on first speech; continue if cough/backchannel, cancel if real; waits for layer 3 words.
+
+### Step 5: History
+LLM wrote "...a phone case, a charger, and a pair of headphones." User heard to "a charger"; saving all makes the LLM later say "As I mentioned, the headphones...". Cut to played part using played audio tracking and per-word TTS timestamps; optionally note the agent was interrupted.
 
 ### Simultaneous start
-User always wins: the user's words are new information while the agent can repeat itself. Waiting slightly longer after natural pauses before the next sentence gives the user an opening.
+Same detection as interruption. Rule: the user wins (user words are new info; agent can repeat; continue old point only if needed). Reduce collisions by waiting slightly longer after a natural pause before the next sentence, giving the user a window.
 
-### Full-duplex
-Moshi models user and its own audio as two streams at every step, so there are no explicit turns, no separate VAD or hand rules; it learns stopping, backchannels, and overlap from conversation data. Cost: harder to control and debug.
+### Full-duplex models
+Moshi models user and own audio as two parallel streams processed together every ~80 ms; no explicit turns, no separate VAD or hand rules; learns from conversation data when to stop, backchannel, or overlap.
+| Point | Relay design | Full-duplex |
+|---|---|---|
+| Listening while speaking | Added with AEC and VAD | Built in |
+| Stop or continue | Rules / small models | Learned |
+| Backchannels | Word lists / model | Learned |
+| Control | Easy to control and debug | Harder |
 
-### Failure points
-Weak AEC on loud speakerphones, other people talking, "yeah" as a real answer, mistuned minimum speech time (too high is slow, too low stops for coughs), and forgetting to cut history.
+### Example (router)
+AEC prevents self-stop; "okay" after "wait for thirty seconds" = backchannel, continue, not a turn; "Wait, which light should be green?" long enough with real question = interruption; stop, clear buffer, cancel LLM/TTS; save "First, unplug the router. Then, wait for thirty seconds. After that, plug it back in"; reply "The power light should be green."
 
-## Diagram
+### Diagram
 ```mermaid
 flowchart TD
-    A["Agent speaking, mic open"] --> B["AEC removes agent voice"]
-    B --> C{"VAD: human speech?"}
-    C -->|"no"| N["Noise: keep speaking"]
-    C -->|"yes"| D{"Long enough?"}
-    D -->|"no"| N
-    D -->|"yes"| E{"STT words"}
-    E -->|"only uh-huh or okay"| F["Backchannel: keep speaking"]
-    E -->|"real words"| G["Interruption: stop, clear buffer, cancel LLM and TTS"]
-    G --> H["Truncate history to heard part"]
-    H --> I["Listen and reply"]
+A1["Mic audio<br/>user + agent echo"] --> B1["AEC removes agent voice"]
+B1 --> C1{"VAD: speech?"}
+C1 -->|"no"| N1["Noise: keep speaking"]
+C1 -->|"yes"| D1{"Long enough?"}
+D1 -->|"no"| N1
+D1 -->|"yes"| E1{"STT words"}
+E1 -->|"filler only"| BC1["Backchannel: keep speaking<br/>no new turn"]
+E1 -->|"real words"| I1["Interruption"]
+I1 --> S1["Stop audio, clear buffer,<br/>cancel LLM and TTS"]
+S1 --> H1["Truncate history,<br/>listen to user"]
 ```
 
+## Trade-offs & Pitfalls
+- Works: clean audio and good AEC; clear interruptions ("wait", "no, not that"); common backchannels.
+- Fails: weak AEC (loud speakerphone) so agent stops itself; another person in the room mistaken for user; real "yeah" answer treated as backchannel; min speech time too high (slow stop) or too low (stops for coughs); forgetting to cut history.
+
 ## Key Takeaways
-- A deaf-while-speaking agent loses user words; keep the mic open.
-- AEC is a prerequisite or the agent interrupts itself.
-- Classify overlap by speech, duration, words, then context.
-- On stop, clear buffers and cancel upstream, then truncate history.
-- When both start at once, the user wins.
+- Half-duplex agents can't hear overlap; must listen while speaking.
+- AEC first, else the agent interrupts itself.
+- Classify in layers: VAD, duration, words, context.
+- Noise and backchannels continue; interruptions stop everything (speaker, buffer, LLM, TTS).
+- User wins collisions.
+- Truncate history to what was heard; never add backchannels as turns.
+- Full-duplex models learn overlap handling end to end but are harder to control.
+
+## FAQ
+- Is "yeah" always a backchannel? → No; after "Is that correct?" it's an answer.
+- Soft stop? → Lower volume/pause first, cancel only if real.
+- How fast to stop? → Within a few hundred ms; clear buffer.

@@ -3,64 +3,118 @@
 > **Step 7: Training, Fine-Tuning, and Alignment** · ⏱️ 17 min read · [Read original](https://outcomeschool.com/blog/reward-model)
 
 ## TL;DR
-A Reward Model reads a prompt and an answer and returns one number estimating how much a human would prefer it. It is trained on pairs of chosen vs rejected answers using a pairwise loss, and then scores millions of answers in RLHF or Best-of-N without a human in the loop.
+A Reward Model reads a prompt plus an answer and outputs one number saying how much a human would prefer it. It is an LLM with a scalar head, trained with a pairwise loss on human-chosen vs rejected answers. It stands in for humans during RLHF (scoring millions of answers) and can rerank outputs in Best-of-N.
 
 ## Key Concepts
-- **Reward model** — an LLM whose final vocabulary layer is replaced by a **scalar head** that outputs one number (read at the last token, which has seen the whole text).
-- **Preference dataset** — prompts with a chosen and a rejected response, from tens to hundreds of thousands of examples.
-- **Pairwise loss (Bradley-Terry)** — only the score gap matters.
-- **Best-of-N / reranking** — generate N answers, show the highest-scored one.
-- **Overoptimization** — pushing the policy too hard on the reward model's score makes true quality fall.
+- **Reward** — number for answer quality (higher is better).
+- **Why needed** — no formula scores "Explain gravity to a 10-year-old" (clear, correct, polite, right length); humans cannot rate millions of answers live. Collect limited human judgment once, train a model to copy it.
+- **Scalar head** — new small layer replacing the LLM's vocabulary-scoring layer; takes the last token's output (which has seen the whole text) and returns one number.
+- **Chosen / rejected** — better / worse answer in a pair.
+- **Preference dataset** — tens to hundreds of thousands of (prompt, chosen, rejected) examples.
+- **Bradley-Terry model** — 1952 method ranking players from match results; answers are the "players".
+- **Policy** — the LLM being improved in RL. **PPO** — RL algorithm with small controlled updates.
+- **Best-of-N / reranking** — sample N answers, show the top-scored one.
 
 ## How It Works
-### Why needed
-RL needs a reward, but "good answer" has no formula and humans cannot rate millions of live generations. So collect human judgment once and train a model to copy it.
 
-### Data collection
-Humans score inconsistently (a 7 vs a 5, even for the same person on different days), but comparing two answers is faster and gets more agreement. Steps: take a prompt, generate two answers, a human picks the better, save as chosen/rejected. Ranking 4 answers yields 6 pairs.
+### Architecture
+Prompt + response (one text) to LLM body (reads all tokens) to scalar head (last token) to reward, e.g. 2.1. Usually starts from a copy of the LLM to improve or a smaller LLM, since it already understands language; new skill = judging.
+Example: "capital of France?" "The capital of France is Paris." scores 2.1; "I am not sure, maybe Lyon." scores -1.3.
 
-### Pairwise loss
-$$\text{loss} = -\log\sigma(r_{chosen} - r_{rejected})$$
+### Collecting preference data
+- Absolute 1-10 scores are noisy (different people, and same person on different days). Comparisons are faster and people agree more.
+1. Take a prompt.
+2. LLM generates two answers.
+3. Human picks the better.
+4. Save {prompt, chosen, rejected}. (Rejected need not be wrong, just worse for the audience, e.g. spacetime curvature for a 10-year-old.)
+- Ranking 4 answers gives 6 pairs.
 
-| Case | Scores | Gap | Loss |
-|---|---|---|---|
-| Agrees | 2.0 vs 0.5 | 1.5 | 0.2014 |
-| Cannot tell | 1.0 vs 1.0 | 0 | 0.6931 |
-| Disagrees | 0.5 vs 2.0 | -1.5 | 1.7014 |
+### The pairwise loss
+We only need chosen score above rejected score. With $\text{diff}=r_{c}-r_{r}$:
 
-Adding a constant to both scores changes nothing, so a reward has no meaning alone, only relative to other answers for the same prompt.
+$$\sigma(x)=\frac{1}{1+e^{-x}},\qquad \mathcal{L} = -\log\sigma(r_{c}-r_{r})$$
 
-### Training
-1. Take a pair.
-2. Score "prompt + chosen".
-3. Score "prompt + rejected" with the same model.
-4. Compute the loss.
-5. Backprop, update to push chosen up and rejected down (push size is $1-\sigma(\text{diff})$, so it learns most from mistakes).
-6. Repeat in batches; often just 1 epoch to avoid memorizing.
+$r_c$ chosen score, $r_r$ rejected score. $\sigma(\text{diff})$ is the model's probability that chosen is better: large positive gap near 1, gap 0 gives 0.5 (cannot tell), negative near 0. Negative log makes the loss small when confident-right and punishes confident-wrong heavily.
 
-Held-out accuracy is often only about 70%, similar to human labeler agreement.
+### Worked example
 
-### Usage
-- **RLHF with PPO:** policy writes, reward model scores, PPO updates. Humans needed only in data collection. Final reward = score minus beta times KL from the original LLM.
-- **Best-of-N:** pick the top of N samples; no extra training but N times the generation cost.
+| Case | $r_c$, $r_r$ | diff | $\sigma$ | loss |
+|---|---|---|---|---|
+| Agrees | 2.0, 0.5 | 1.5 | 0.8176 | 0.2014 |
+| Cannot tell | 1.0, 1.0 | 0 | 0.5 | 0.6931 |
+| Disagrees | 0.5, 2.0 | -1.5 | 0.1824 | 1.7014 |
 
-### Limitations
-Labeler bias (longer, confident, listy answers), reward hacking, overoptimization (mitigate with KL penalty and early stopping), and high cost (policy, original LLM, and reward model all in GPU memory). DPO trains directly on pairs without a reward model.
+```python
+def pairwise_loss(r_chosen, r_rejected):
+    return -math.log(sigmoid(r_chosen - r_rejected))
+```
+Only the gap matters: adding 10 to both scores changes nothing, so a reward has no absolute meaning, only relative to other answers for the same prompt.
 
-## Diagram
+### Training steps
+1. Take (prompt, chosen, rejected).
+2. Score prompt+chosen to $r_c$.
+3. Score prompt+rejected with the same model to $r_r$.
+4. Compute loss.
+5. Backprop and optimizer step: push $r_c$ up, $r_r$ down.
+6. Repeat over pairs in batches.
+- Push size on each score is $1-\sigma(\text{diff})$: Case 1 gives 0.1824 (small), Case 3 gives 0.8176 (big), so it learns most from mistakes.
+- Often only 1 epoch; longer causes memorizing pairs.
+- Evaluate with accuracy on held-out pairs: often about 70%, which matches typical human-human agreement (~70%), so the data limits it.
+
+### Using it
+**RLHF with PPO** — policy writes answer, RM scores, PPO updates, repeat. Humans only needed in stage 1 (e.g. 50,000 prompts x 2 answers). Add KL penalty:
+
+$$\text{final} = r_{RM} - \beta\,\mathrm{KL}(\text{policy}\,\|\,\text{original})$$
+
+**Best-of-N** — N=4 rewards 0.8, 2.3, -0.4, 1.1: pick answer 2. Simple, often improves quality, costs N times more generation per prompt, no LLM training.
+
+## Diagram(s)
+
+### Reward model architecture
 ```mermaid
 flowchart TD
-    A["Prompt + response"] --> B["LLM body reads all tokens"]
-    B --> C["Scalar head on last token"]
-    C --> D["Reward number"]
-    P["Chosen and rejected pair"] --> E["Score both with same model"]
-    E --> F["Loss = -log sigmoid(r_chosen - r_rejected)"]
-    F --> G["Update parameters"]
+    in1["Prompt + Response as one text"] --> body["LLM body reads every token"]
+    body --> head["Scalar head on last token"]
+    head --> out["Reward, e.g. 2.1"]
 ```
 
+### Pairwise training step
+```mermaid
+flowchart TD
+    ch["Prompt + Chosen"] --> m1["Reward Model"]
+    rj["Prompt + Rejected"] --> m2["Same Reward Model"]
+    m1 --> rc["r_chosen"]
+    m2 --> rr["r_rejected"]
+    rc --> ls["loss = -log sigmoid of r_chosen minus r_rejected"]
+    rr --> ls
+    ls --> up["Backprop: chosen up, rejected down"]
+```
+
+### Where it fits
+```mermaid
+flowchart LR
+    a1["Stage 1: human preference data"] --> a2["Stage 2: train Reward Model"]
+    a2 --> a3["Stage 3: RLHF with PPO, RM scores, no human"]
+    a2 --> a4["Or Best-of-N reranking"]
+```
+
+## Trade-offs & Pitfalls
+- **Labeler bias** — if longer, confident, or list-formatted answers are favored, RM learns that.
+- **Reward hacking** — policy finds high-scoring but not-good answers.
+- **Overoptimization** — pushing too hard on RM score: score rises while true human-judged quality falls, because RM is unreliable far from its training distribution. Mitigate with KL penalty and early stopping.
+- **Cost** — hundreds of thousands of comparisons; RM can be as big as the LLM; policy, original LLM, and RM may all sit in GPU memory.
+- DPO trains directly on pairs without an RM.
+
+## FAQ
+- Comparisons vs scores? → Comparisons are more reliable and quicker.
+- Does a reward mean anything alone? → No, only gaps.
+- Accuracy? → About 70% held-out, near human agreement.
+- Why KL penalty? → Stops drift into regions where RM scores are unreliable.
+
 ## Key Takeaways
-- A reward model is an LLM with a scalar head trained to mimic human preference.
-- Train on comparisons, not absolute scores; only the score gap matters.
-- Humans are needed once for data; after that the model scores answers at scale.
-- Used for RLHF rewards and Best-of-N reranking.
-- It is a proxy: biased, hackable, and unreliable far from its training distribution.
+- RM = LLM body + scalar head giving one score per (prompt, answer).
+- Trained on human comparisons, not absolute scores.
+- Loss $=-\log\sigma(r_c-r_r)$ (Bradley-Terry); only the gap matters.
+- Learns most from wrongly ranked pairs; about 1 epoch; ~70% accuracy is near the human ceiling.
+- Used for RLHF reward (with KL penalty) and Best-of-N reranking.
+- Limits: labeler bias, reward hacking, overoptimization, cost.
