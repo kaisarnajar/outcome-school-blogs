@@ -707,6 +707,28 @@ window.BLOGS_DATA = [
     "id": 33,
     "step": "Step 2: Deep Learning and Neural Networks",
     "step_number": 2,
+    "title": "How do learning rate schedules and warmup work?",
+    "url": "https://outcomeschool.com/blog/learning-rate-schedules-and-warmup",
+    "word_count": 3137,
+    "reading_time_mins": 16,
+    "reading_time_display": "16 min read",
+    "char_count": 17291,
+    "category": "Comprehensive Guide",
+    "category_desc": "16+ mins",
+    "badge_class": "badge-amber",
+    "headings_count": 18,
+    "paragraphs_count": 90,
+    "code_blocks_count": 12,
+    "images_count": 2,
+    "author": "Amit Shekhar",
+    "published_date": "November 14, 2026",
+    "excerpt": "Learning rate schedules and warmup work by changing the step size of a neural network during training instead of keeping it fixed. Warmup starts with tiny steps and slowly increases them, and the schedule then slowly decreases the steps so that the model settles at a good answer.",
+    "status": "success"
+  },
+  {
+    "id": 34,
+    "step": "Step 2: Deep Learning and Neural Networks",
+    "step_number": 2,
     "title": "Why do vanishing and exploding gradients happen?",
     "url": "https://outcomeschool.com/blog/vanishing-and-exploding-gradients",
     "word_count": 3612,
@@ -726,7 +748,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 34,
+    "id": 35,
     "step": "Step 2: Deep Learning and Neural Networks",
     "step_number": 2,
     "title": "Why Do We Initialize Weights Randomly in Neural Networks?",
@@ -748,7 +770,29 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 35,
+    "id": 36,
+    "step": "Step 2: Deep Learning and Neural Networks",
+    "step_number": 2,
+    "title": "What is Entropy in Information Theory?",
+    "url": "https://outcomeschool.com/blog/entropy-in-information-theory",
+    "word_count": 1527,
+    "reading_time_mins": 8,
+    "reading_time_display": "8 min read",
+    "char_count": 8613,
+    "category": "Standard Read",
+    "category_desc": "5 - 8 mins",
+    "badge_class": "badge-blue",
+    "headings_count": 13,
+    "paragraphs_count": 56,
+    "code_blocks_count": 4,
+    "images_count": 2,
+    "author": "Amit Shekhar",
+    "published_date": "November 13, 2026",
+    "excerpt": "Entropy in information theory is a measure of uncertainty. It tells us how surprised we are, on average, by the outcome of something, so low entropy means easy to guess.",
+    "status": "success"
+  },
+  {
+    "id": 37,
     "step": "Step 2: Deep Learning and Neural Networks",
     "step_number": 2,
     "title": "What is Cross-Entropy Loss?",
@@ -770,7 +814,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 36,
+    "id": 38,
     "step": "Step 2: Deep Learning and Neural Networks",
     "step_number": 2,
     "title": "What is KL Divergence? The Math Explained Step by Step",
@@ -792,7 +836,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 37,
+    "id": 39,
     "step": "Step 2: Deep Learning and Neural Networks",
     "step_number": 2,
     "title": "What is Dropout in Neural Networks?",
@@ -814,7 +858,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 38,
+    "id": 40,
     "step": "Step 2: Deep Learning and Neural Networks",
     "step_number": 2,
     "title": "Batch Normalization vs Layer Normalization",
@@ -836,7 +880,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 39,
+    "id": 41,
     "step": "Step 2: Deep Learning and Neural Networks",
     "step_number": 2,
     "title": "What is RMSNorm? Root Mean Square Layer Normalization Explained",
@@ -858,7 +902,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 40,
+    "id": 42,
     "step": "Step 2: Deep Learning and Neural Networks",
     "step_number": 2,
     "title": "Convolutional Neural Networks",
@@ -880,7 +924,29 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 41,
+    "id": 43,
+    "step": "Step 2: Deep Learning and Neural Networks",
+    "step_number": 2,
+    "title": "How does Object Detection work?",
+    "url": "https://outcomeschool.com/blog/object-detection",
+    "word_count": 3459,
+    "reading_time_mins": 17,
+    "reading_time_display": "17 min read",
+    "char_count": 19004,
+    "category": "Comprehensive Guide",
+    "category_desc": "16+ mins",
+    "badge_class": "badge-amber",
+    "headings_count": 18,
+    "paragraphs_count": 122,
+    "code_blocks_count": 8,
+    "images_count": 2,
+    "author": "Amit Shekhar",
+    "published_date": "November 14, 2026",
+    "excerpt": "Object Detection is the task of finding objects in an image, drawing a box around each one, and naming each object, so it answers both what and where.",
+    "status": "success"
+  },
+  {
+    "id": 44,
     "step": "Step 2: Deep Learning and Neural Networks",
     "step_number": 2,
     "title": "What is a Recurrent Neural Network (RNN)?",
@@ -902,7 +968,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 42,
+    "id": 45,
     "step": "Step 2: Deep Learning and Neural Networks",
     "step_number": 2,
     "title": "How does PyTorch work?",
@@ -924,7 +990,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 43,
+    "id": 46,
     "step": "Step 2: Deep Learning and Neural Networks",
     "step_number": 2,
     "title": "How does TensorFlow work?",
@@ -946,7 +1012,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 44,
+    "id": 47,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "What is Generative AI?",
@@ -968,7 +1034,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 45,
+    "id": 48,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "How does an LLM work?",
@@ -990,7 +1056,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 46,
+    "id": 49,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "Inside ChatGPT: What Happens After You Hit Enter",
@@ -1012,7 +1078,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 47,
+    "id": 50,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "What are Autoregressive Models?",
@@ -1034,7 +1100,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 48,
+    "id": 51,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "Tokenization in LLMs",
@@ -1056,7 +1122,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 49,
+    "id": 52,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "What is Byte Pair Encoding (BPE) in LLMs?",
@@ -1078,7 +1144,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 50,
+    "id": 53,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "What are Embeddings?",
@@ -1100,7 +1166,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 51,
+    "id": 54,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "How do RNNs and Transformers differ?",
@@ -1122,7 +1188,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 52,
+    "id": 55,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "How Does the Transformer Architecture Work?",
@@ -1144,7 +1210,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 53,
+    "id": 56,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "Encoder vs Decoder in Transformers",
@@ -1166,7 +1232,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 54,
+    "id": 57,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "What is Self Attention in Transformers?",
@@ -1188,7 +1254,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 55,
+    "id": 58,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "How Does Attention Work? The Math Behind Q, K, and V",
@@ -1210,7 +1276,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 56,
+    "id": 59,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "Why Do We Scale Attention by √dₖ?",
@@ -1232,7 +1298,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 57,
+    "id": 60,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "What is Causal Masking in Attention?",
@@ -1254,7 +1320,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 58,
+    "id": 61,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "What is Multi-Head Attention in Transformers?",
@@ -1276,7 +1342,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 59,
+    "id": 62,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "What is Cross Attention in Transformers?",
@@ -1298,7 +1364,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 60,
+    "id": 63,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "Positional Embeddings in LLMs",
@@ -1320,7 +1386,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 61,
+    "id": 64,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "What is RoPE (Rotary Position Embedding)? The Math Behind It",
@@ -1342,7 +1408,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 62,
+    "id": 65,
     "step": "Step 3: Generative AI and the Transformer Architecture",
     "step_number": 3,
     "title": "What is the Feed-Forward Network in LLMs?",
@@ -1364,7 +1430,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 63,
+    "id": 66,
     "step": "Step 4: How LLMs Generate Text",
     "step_number": 4,
     "title": "How does Temperature control LLM output?",
@@ -1386,7 +1452,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 64,
+    "id": 67,
     "step": "Step 4: How LLMs Generate Text",
     "step_number": 4,
     "title": "How do Top-k and Top-p Sampling work?",
@@ -1408,7 +1474,29 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 65,
+    "id": 68,
+    "step": "Step 4: How LLMs Generate Text",
+    "step_number": 4,
+    "title": "How do Greedy Decoding and Beam Search differ?",
+    "url": "https://outcomeschool.com/blog/greedy-decoding-vs-beam-search",
+    "word_count": 3776,
+    "reading_time_mins": 19,
+    "reading_time_display": "19 min read",
+    "char_count": 20348,
+    "category": "Comprehensive Guide",
+    "category_desc": "16+ mins",
+    "badge_class": "badge-amber",
+    "headings_count": 18,
+    "paragraphs_count": 107,
+    "code_blocks_count": 18,
+    "images_count": 2,
+    "author": "Amit Shekhar",
+    "published_date": "November 13, 2026",
+    "excerpt": "Greedy Decoding and Beam Search differ in how many paths they keep while an LLM writes text. Greedy Decoding always picks the single best next word and never looks back, while Beam Search keeps a few of the best sentence options alive at every step and picks the best complete sen...",
+    "status": "success"
+  },
+  {
+    "id": 69,
     "step": "Step 4: How LLMs Generate Text",
     "step_number": 4,
     "title": "What are Log Probabilities (Logprobs) in LLMs?",
@@ -1430,7 +1518,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 66,
+    "id": 70,
     "step": "Step 4: How LLMs Generate Text",
     "step_number": 4,
     "title": "Stop Tokens in LLMs",
@@ -1452,7 +1540,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 67,
+    "id": 71,
     "step": "Step 4: How LLMs Generate Text",
     "step_number": 4,
     "title": "How does Token Streaming work?",
@@ -1474,7 +1562,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 68,
+    "id": 72,
     "step": "Step 4: How LLMs Generate Text",
     "step_number": 4,
     "title": "How does the Context Window work?",
@@ -1496,7 +1584,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 69,
+    "id": 73,
     "step": "Step 4: How LLMs Generate Text",
     "step_number": 4,
     "title": "What is the Lost in the Middle Problem in LLMs?",
@@ -1518,7 +1606,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 70,
+    "id": 74,
     "step": "Step 4: How LLMs Generate Text",
     "step_number": 4,
     "title": "Why Do LLMs Hallucinate? The Token-Level Explanation",
@@ -1540,7 +1628,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 71,
+    "id": 75,
     "step": "Step 5: Modern LLM Architecture",
     "step_number": 5,
     "title": "What is Mixture of Experts (MoE)?",
@@ -1562,7 +1650,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 72,
+    "id": 76,
     "step": "Step 5: Modern LLM Architecture",
     "step_number": 5,
     "title": "What is Grouped Query Attention (GQA)?",
@@ -1584,7 +1672,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 73,
+    "id": 77,
     "step": "Step 5: Modern LLM Architecture",
     "step_number": 5,
     "title": "How does Sliding Window Attention work?",
@@ -1606,7 +1694,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 74,
+    "id": 78,
     "step": "Step 5: Modern LLM Architecture",
     "step_number": 5,
     "title": "How do Attention Sinks work?",
@@ -1628,7 +1716,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 75,
+    "id": 79,
     "step": "Step 5: Modern LLM Architecture",
     "step_number": 5,
     "title": "What is Flash Attention and Why Is It So Fast?",
@@ -1650,7 +1738,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 76,
+    "id": 80,
     "step": "Step 5: Modern LLM Architecture",
     "step_number": 5,
     "title": "What is DeepSeek-V4 and How Does It Work? Architecture Explained",
@@ -1672,7 +1760,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 77,
+    "id": 81,
     "step": "Step 6: Types of Language Models",
     "step_number": 6,
     "title": "What are Small Language Models (SLMs)?",
@@ -1694,7 +1782,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 78,
+    "id": 82,
     "step": "Step 6: Types of Language Models",
     "step_number": 6,
     "title": "What are Large Reasoning Models (LRMs)?",
@@ -1716,7 +1804,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 79,
+    "id": 83,
     "step": "Step 6: Types of Language Models",
     "step_number": 6,
     "title": "What are Recursive Language Models (RLMs)?",
@@ -1738,7 +1826,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 80,
+    "id": 84,
     "step": "Step 6: Types of Language Models",
     "step_number": 6,
     "title": "How do Diffusion Language Models (DLMs) work?",
@@ -1760,7 +1848,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 81,
+    "id": 85,
     "step": "Step 6: Types of Language Models",
     "step_number": 6,
     "title": "Jev and System One Models Explained",
@@ -1782,7 +1870,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 82,
+    "id": 86,
     "step": "Step 7: Training, Fine-Tuning, and Alignment",
     "step_number": 7,
     "title": "How does Pretraining work?",
@@ -1804,7 +1892,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 83,
+    "id": 87,
     "step": "Step 7: Training, Fine-Tuning, and Alignment",
     "step_number": 7,
     "title": "How does Fine-Tuning work?",
@@ -1826,7 +1914,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 84,
+    "id": 88,
     "step": "Step 7: Training, Fine-Tuning, and Alignment",
     "step_number": 7,
     "title": "What is LoRA (Low-Rank Adaptation)?",
@@ -1848,7 +1936,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 85,
+    "id": 89,
     "step": "Step 7: Training, Fine-Tuning, and Alignment",
     "step_number": 7,
     "title": "How does Prefix Tuning work?",
@@ -1870,7 +1958,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 86,
+    "id": 90,
     "step": "Step 7: Training, Fine-Tuning, and Alignment",
     "step_number": 7,
     "title": "How does Knowledge Distillation work?",
@@ -1892,7 +1980,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 87,
+    "id": 91,
     "step": "Step 7: Training, Fine-Tuning, and Alignment",
     "step_number": 7,
     "title": "What is Continual Learning in LLMs? Solving Catastrophic Forgetting",
@@ -1914,7 +2002,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 88,
+    "id": 92,
     "step": "Step 7: Training, Fine-Tuning, and Alignment",
     "step_number": 7,
     "title": "What is Deep RL from Human Preferences? The Paper That Started RLHF",
@@ -1936,7 +2024,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 89,
+    "id": 93,
     "step": "Step 7: Training, Fine-Tuning, and Alignment",
     "step_number": 7,
     "title": "What is InstructGPT? How GPT-3 Learned to Follow Instructions",
@@ -1958,7 +2046,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 90,
+    "id": 94,
     "step": "Step 7: Training, Fine-Tuning, and Alignment",
     "step_number": 7,
     "title": "What is RLHF? Reinforcement Learning from Human Feedback Explained",
@@ -1980,7 +2068,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 91,
+    "id": 95,
     "step": "Step 7: Training, Fine-Tuning, and Alignment",
     "step_number": 7,
     "title": "What is a Reward Model and How Is It Trained?",
@@ -2002,7 +2090,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 92,
+    "id": 96,
     "step": "Step 7: Training, Fine-Tuning, and Alignment",
     "step_number": 7,
     "title": "What is Reward Hacking in Reinforcement Learning and How Do We Prevent It?",
@@ -2024,7 +2112,29 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 93,
+    "id": 97,
+    "step": "Step 7: Training, Fine-Tuning, and Alignment",
+    "step_number": 7,
+    "title": "What is RLAIF? Reinforcement Learning from AI Feedback Explained",
+    "url": "https://outcomeschool.com/blog/reinforcement-learning-from-ai-feedback-rlaif",
+    "word_count": 3036,
+    "reading_time_mins": 15,
+    "reading_time_display": "15 min read",
+    "char_count": 17632,
+    "category": "Deep Dive",
+    "category_desc": "9 - 15 mins",
+    "badge_class": "badge-purple",
+    "headings_count": 16,
+    "paragraphs_count": 85,
+    "code_blocks_count": 7,
+    "images_count": 2,
+    "author": "Amit Shekhar",
+    "published_date": "November 12, 2026",
+    "excerpt": "RLAIF (Reinforcement Learning from AI Feedback) is a way to train an LLM where another AI model, and not a human, decides which of two answers is better. These AI decisions are then used to teach the LLM to give better answers.",
+    "status": "success"
+  },
+  {
+    "id": 98,
     "step": "Step 7: Training, Fine-Tuning, and Alignment",
     "step_number": 7,
     "title": "What is Proximal Policy Optimization (PPO)?",
@@ -2046,7 +2156,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 94,
+    "id": 99,
     "step": "Step 7: Training, Fine-Tuning, and Alignment",
     "step_number": 7,
     "title": "What is Direct Preference Optimization (DPO)?",
@@ -2068,7 +2178,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 95,
+    "id": 100,
     "step": "Step 7: Training, Fine-Tuning, and Alignment",
     "step_number": 7,
     "title": "What is Group Relative Policy Optimization (GRPO)?",
@@ -2090,7 +2200,51 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 96,
+    "id": 101,
+    "step": "Step 7: Training, Fine-Tuning, and Alignment",
+    "step_number": 7,
+    "title": "What is Reinforcement Learning with Verifiable Rewards (RLVR)?",
+    "url": "https://outcomeschool.com/blog/reinforcement-learning-with-verifiable-rewards-rlvr",
+    "word_count": 2906,
+    "reading_time_mins": 15,
+    "reading_time_display": "15 min read",
+    "char_count": 16745,
+    "category": "Deep Dive",
+    "category_desc": "9 - 15 mins",
+    "badge_class": "badge-purple",
+    "headings_count": 13,
+    "paragraphs_count": 82,
+    "code_blocks_count": 4,
+    "images_count": 2,
+    "author": "Amit Shekhar",
+    "published_date": "November 12, 2026",
+    "excerpt": "Reinforcement Learning with Verifiable Rewards (RLVR) is a way to train an LLM where a program checks the model's final answer and gives a reward of 1 if it is correct and 0 if it is wrong. The model then learns to produce more of the answers that got 1.",
+    "status": "success"
+  },
+  {
+    "id": 102,
+    "step": "Step 8: Prompt Engineering and Context Engineering",
+    "step_number": 8,
+    "title": "How does Prompt Engineering work?",
+    "url": "https://outcomeschool.com/blog/prompt-engineering",
+    "word_count": 2677,
+    "reading_time_mins": 13,
+    "reading_time_display": "13 min read",
+    "char_count": 15426,
+    "category": "Deep Dive",
+    "category_desc": "9 - 15 mins",
+    "badge_class": "badge-purple",
+    "headings_count": 16,
+    "paragraphs_count": 88,
+    "code_blocks_count": 12,
+    "images_count": 2,
+    "author": "Amit Shekhar",
+    "published_date": "November 12, 2026",
+    "excerpt": "Prompt Engineering is the skill of writing clear and well-structured prompts, the instructions we give an AI model, so that the model gives us the exact output we want.",
+    "status": "success"
+  },
+  {
+    "id": 103,
     "step": "Step 8: Prompt Engineering and Context Engineering",
     "step_number": 8,
     "title": "How does Chain-of-Thought (CoT) Prompting work?",
@@ -2112,7 +2266,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 97,
+    "id": 104,
     "step": "Step 8: Prompt Engineering and Context Engineering",
     "step_number": 8,
     "title": "How does Tree of Thoughts work?",
@@ -2134,7 +2288,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 98,
+    "id": 105,
     "step": "Step 8: Prompt Engineering and Context Engineering",
     "step_number": 8,
     "title": "How does Prompt Chaining work?",
@@ -2156,7 +2310,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 99,
+    "id": 106,
     "step": "Step 8: Prompt Engineering and Context Engineering",
     "step_number": 8,
     "title": "How does Prompt Caching work?",
@@ -2178,7 +2332,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 100,
+    "id": 107,
     "step": "Step 8: Prompt Engineering and Context Engineering",
     "step_number": 8,
     "title": "What is Context Engineering?",
@@ -2200,7 +2354,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 101,
+    "id": 108,
     "step": "Step 8: Prompt Engineering and Context Engineering",
     "step_number": 8,
     "title": "How does Context Compaction work?",
@@ -2222,7 +2376,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 102,
+    "id": 109,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "How does Cosine Similarity work?",
@@ -2244,7 +2398,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 103,
+    "id": 110,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "How does a Vector Database work?",
@@ -2266,7 +2420,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 104,
+    "id": 111,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "How does Approximate Nearest Neighbor (ANN) Search work?",
@@ -2288,7 +2442,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 105,
+    "id": 112,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "How does Semantic Search work?",
@@ -2310,7 +2464,29 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 106,
+    "id": 113,
+    "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
+    "step_number": 9,
+    "title": "How does an Inverted Index work?",
+    "url": "https://outcomeschool.com/blog/inverted-index",
+    "word_count": 3329,
+    "reading_time_mins": 17,
+    "reading_time_display": "17 min read",
+    "char_count": 17547,
+    "category": "Comprehensive Guide",
+    "category_desc": "16+ mins",
+    "badge_class": "badge-amber",
+    "headings_count": 16,
+    "paragraphs_count": 132,
+    "code_blocks_count": 6,
+    "images_count": 2,
+    "author": "Amit Shekhar",
+    "published_date": "November 14, 2026",
+    "excerpt": "An inverted index is a data structure that maps each word to the list of documents that contain it, like the index at the back of a book, making search almost instant.",
+    "status": "success"
+  },
+  {
+    "id": 114,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "How does Hybrid Search work?",
@@ -2332,7 +2508,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 107,
+    "id": 115,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "How does a Reranker work?",
@@ -2354,7 +2530,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 108,
+    "id": 116,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "What is ColBERT? Late Interaction Retrieval Explained",
@@ -2376,7 +2552,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 109,
+    "id": 117,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "How does RAG work?",
@@ -2398,7 +2574,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 110,
+    "id": 118,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "How to Chunk Documents for RAG? Chunking Strategies Explained",
@@ -2420,7 +2596,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 111,
+    "id": 119,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "How does Contextual Retrieval work?",
@@ -2442,7 +2618,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 112,
+    "id": 120,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "How does HyDE work in RAG?",
@@ -2464,7 +2640,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 113,
+    "id": 121,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "How do Query Rewriting and Multi-Query Retrieval work?",
@@ -2486,7 +2662,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 114,
+    "id": 122,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "How does an Embedding Cache work?",
@@ -2508,7 +2684,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 115,
+    "id": 123,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "How does Semantic Caching work?",
@@ -2530,7 +2706,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 116,
+    "id": 124,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "What is Agentic RAG?",
@@ -2552,7 +2728,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 117,
+    "id": 125,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "What is GraphRAG? How Knowledge Graphs Improve RAG",
@@ -2574,7 +2750,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 118,
+    "id": 126,
     "step": "Step 9: Vector Search and Retrieval-Augmented Generation (RAG)",
     "step_number": 9,
     "title": "What is Vectorless RAG? RAG Without Embeddings or a Vector Database",
@@ -2596,7 +2772,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 119,
+    "id": 127,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "What is an AI Agent? How It Works",
@@ -2618,7 +2794,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 120,
+    "id": 128,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "How does Function Calling work in LLMs?",
@@ -2640,7 +2816,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 121,
+    "id": 129,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "What is an AI Agent Loop?",
@@ -2662,7 +2838,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 122,
+    "id": 130,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "What is a ReAct Agent?",
@@ -2684,7 +2860,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 123,
+    "id": 131,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "What is a Plan-and-Execute Agent?",
@@ -2706,7 +2882,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 124,
+    "id": 132,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "What is a Reflection Agent?",
@@ -2728,7 +2904,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 125,
+    "id": 133,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "How does AI Agent Memory work?",
@@ -2750,7 +2926,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 126,
+    "id": 134,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "How does ChatGPT remember you?",
@@ -2772,7 +2948,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 127,
+    "id": 135,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "What is MCP (Model Context Protocol)?",
@@ -2794,7 +2970,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 128,
+    "id": 136,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "What are Agent Skills?",
@@ -2816,7 +2992,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 129,
+    "id": 137,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "What is OKF (Open Knowledge Format)?",
@@ -2838,7 +3014,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 130,
+    "id": 138,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "What are Multi-Agent Systems?",
@@ -2860,7 +3036,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 131,
+    "id": 139,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "What are AI SubAgents?",
@@ -2882,7 +3058,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 132,
+    "id": 140,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "How AI Agents Communicate",
@@ -2904,7 +3080,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 133,
+    "id": 141,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "What is AI Orchestration?",
@@ -2926,7 +3102,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 134,
+    "id": 142,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "What is Sakana Fugu? The Technical Report Explained",
@@ -2948,7 +3124,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 135,
+    "id": 143,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "How do Computer-Use Agents work?",
@@ -2970,7 +3146,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 136,
+    "id": 144,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "How do Browser Agents work?",
@@ -2992,7 +3168,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 137,
+    "id": 145,
     "step": "Step 10: AI Agents and Agentic Systems",
     "step_number": 10,
     "title": "How do Human-in-the-Loop agents work?",
@@ -3014,7 +3190,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 138,
+    "id": 146,
     "step": "Step 11: Agentic Engineering and Agent Frameworks",
     "step_number": 11,
     "title": "What is Harness Engineering?",
@@ -3036,7 +3212,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 139,
+    "id": 147,
     "step": "Step 11: Agentic Engineering and Agent Frameworks",
     "step_number": 11,
     "title": "What is Loop Engineering?",
@@ -3058,7 +3234,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 140,
+    "id": 148,
     "step": "Step 11: Agentic Engineering and Agent Frameworks",
     "step_number": 11,
     "title": "What is Graph Engineering?",
@@ -3080,7 +3256,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 141,
+    "id": 149,
     "step": "Step 11: Agentic Engineering and Agent Frameworks",
     "step_number": 11,
     "title": "AI Is Only as Good as Our Definition of Done",
@@ -3102,7 +3278,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 142,
+    "id": 150,
     "step": "Step 11: Agentic Engineering and Agent Frameworks",
     "step_number": 11,
     "title": "How does LangChain work?",
@@ -3124,7 +3300,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 143,
+    "id": 151,
     "step": "Step 11: Agentic Engineering and Agent Frameworks",
     "step_number": 11,
     "title": "How does LangGraph work?",
@@ -3146,7 +3322,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 144,
+    "id": 152,
     "step": "Step 11: Agentic Engineering and Agent Frameworks",
     "step_number": 11,
     "title": "How does Claude Code work?",
@@ -3168,7 +3344,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 145,
+    "id": 153,
     "step": "Step 11: Agentic Engineering and Agent Frameworks",
     "step_number": 11,
     "title": "How does Cursor work?",
@@ -3190,7 +3366,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 146,
+    "id": 154,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "LLM Inference Optimization",
@@ -3212,7 +3388,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 147,
+    "id": 155,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "Prefill vs Decode: LLM Inference Optimization",
@@ -3234,7 +3410,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 148,
+    "id": 156,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "What is Prefill-Decode Disaggregation in LLM Inference?",
@@ -3256,7 +3432,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 149,
+    "id": 157,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "What is KV Cache in LLMs?",
@@ -3278,7 +3454,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 150,
+    "id": 158,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "What is KV Cache Compression?",
@@ -3300,7 +3476,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 151,
+    "id": 159,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "How does an LLM use GPU memory?",
@@ -3322,7 +3498,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 152,
+    "id": 160,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "What is Paged Attention in LLMs?",
@@ -3344,7 +3520,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 153,
+    "id": 161,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "What is Continuous Batching in LLMs?",
@@ -3366,7 +3542,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 154,
+    "id": 162,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "What is Speculative Decoding?",
@@ -3388,7 +3564,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 155,
+    "id": 163,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "What is N-gram Speculation in LLMs?",
@@ -3410,7 +3586,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 156,
+    "id": 164,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "What is Medusa? Multi-Head Speculative Decoding Explained",
@@ -3432,7 +3608,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 157,
+    "id": 165,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "What is EAGLE? Feature-Level Speculative Decoding Explained",
@@ -3454,7 +3630,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 158,
+    "id": 166,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "How does Model Quantization work?",
@@ -3476,7 +3652,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 159,
+    "id": 167,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "How does GGUF work?",
@@ -3498,7 +3674,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 160,
+    "id": 168,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "How does llama.cpp run LLMs on everyday hardware?",
@@ -3520,7 +3696,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 161,
+    "id": 169,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "How does Ollama work?",
@@ -3542,7 +3718,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 162,
+    "id": 170,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "How does vLLM work?",
@@ -3564,7 +3740,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 163,
+    "id": 171,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "How does SGLang work?",
@@ -3586,7 +3762,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 164,
+    "id": 172,
     "step": "Step 12: LLM Inference Engineering",
     "step_number": 12,
     "title": "How does TensorRT-LLM work?",
@@ -3608,7 +3784,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 165,
+    "id": 173,
     "step": "Step 13: Evaluation and Observability",
     "step_number": 13,
     "title": "What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained",
@@ -3630,7 +3806,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 166,
+    "id": 174,
     "step": "Step 13: Evaluation and Observability",
     "step_number": 13,
     "title": "What is LLM as a Judge?",
@@ -3652,7 +3828,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 167,
+    "id": 175,
     "step": "Step 13: Evaluation and Observability",
     "step_number": 13,
     "title": "How to Evaluate AI Agents? Metrics, Methods, and Best Practices",
@@ -3674,7 +3850,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 168,
+    "id": 176,
     "step": "Step 13: Evaluation and Observability",
     "step_number": 13,
     "title": "What is AI Agent Observability? Traces, Spans, and Metrics Explained",
@@ -3696,7 +3872,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 169,
+    "id": 177,
     "step": "Step 14: AI Safety and Security",
     "step_number": 14,
     "title": "How do LLM Guardrails work?",
@@ -3718,7 +3894,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 170,
+    "id": 178,
     "step": "Step 14: AI Safety and Security",
     "step_number": 14,
     "title": "What is Prompt Injection in LLMs and How Do We Defend Against It?",
@@ -3740,7 +3916,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 171,
+    "id": 179,
     "step": "Step 14: AI Safety and Security",
     "step_number": 14,
     "title": "What is jailbreaking in LLMs?",
@@ -3762,7 +3938,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 172,
+    "id": 180,
     "step": "Step 14: AI Safety and Security",
     "step_number": 14,
     "title": "How does LLM Watermarking work?",
@@ -3784,7 +3960,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 173,
+    "id": 181,
     "step": "Step 15: Multimodal AI and Generative Models",
     "step_number": 15,
     "title": "What is Multimodal AI?",
@@ -3806,7 +3982,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 174,
+    "id": 182,
     "step": "Step 15: Multimodal AI and Generative Models",
     "step_number": 15,
     "title": "What is a Vision Transformer (ViT)?",
@@ -3828,7 +4004,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 175,
+    "id": 183,
     "step": "Step 15: Multimodal AI and Generative Models",
     "step_number": 15,
     "title": "How do Image Embeddings work?",
@@ -3850,7 +4026,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 176,
+    "id": 184,
     "step": "Step 15: Multimodal AI and Generative Models",
     "step_number": 15,
     "title": "How does a Vision-Language Model (VLM) work?",
@@ -3872,7 +4048,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 177,
+    "id": 185,
     "step": "Step 15: Multimodal AI and Generative Models",
     "step_number": 15,
     "title": "What are Diffusion Models and How Do They Generate Images?",
@@ -3894,7 +4070,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 178,
+    "id": 186,
     "step": "Step 15: Multimodal AI and Generative Models",
     "step_number": 15,
     "title": "How does flow matching train a generative model?",
@@ -3916,7 +4092,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 179,
+    "id": 187,
     "step": "Step 15: Multimodal AI and Generative Models",
     "step_number": 15,
     "title": "What are Generative Adversarial Networks (GANs)?",
@@ -3938,7 +4114,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 180,
+    "id": 188,
     "step": "Step 15: Multimodal AI and Generative Models",
     "step_number": 15,
     "title": "What are Variational Autoencoders (VAEs)?",
@@ -3960,7 +4136,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 181,
+    "id": 189,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does a GPU work for Deep Learning?",
@@ -3982,7 +4158,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 182,
+    "id": 190,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How do CUDA Kernels work?",
@@ -4004,7 +4180,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 183,
+    "id": 191,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does a Google TPU work?",
@@ -4026,7 +4202,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 184,
+    "id": 192,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does an LPU work?",
@@ -4048,7 +4224,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 185,
+    "id": 193,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "Cloud vs On-device Model Deployment",
@@ -4070,7 +4246,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 186,
+    "id": 194,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does Model Serving work?",
@@ -4092,7 +4268,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 187,
+    "id": 195,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "Android TensorFlow Lite Machine Learning Example",
@@ -4114,7 +4290,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 188,
+    "id": 196,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "What is LLM Routing? How to Send Each Query to the Right LLM",
@@ -4136,7 +4312,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 189,
+    "id": 197,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "Design a Real-Time Voice AI Agent",
@@ -4158,7 +4334,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 190,
+    "id": 198,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "What is turn-taking in a voice AI agent?",
@@ -4180,7 +4356,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 191,
+    "id": 199,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does endpointing decide when the user has finished speaking?",
@@ -4202,7 +4378,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 192,
+    "id": 200,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How do silence-based and model-based turn detection differ?",
@@ -4224,7 +4400,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 193,
+    "id": 201,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does dynamic endpointing adapt to how fast a user talks?",
@@ -4246,7 +4422,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 194,
+    "id": 202,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does a voice agent handle long pauses when the user is thinking?",
@@ -4268,7 +4444,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 195,
+    "id": 203,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does a voice agent know a phone number or email is not finished yet?",
@@ -4290,7 +4466,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 196,
+    "id": 204,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "Why does a voice agent cut people off mid-sentence?",
@@ -4312,7 +4488,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 197,
+    "id": 205,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "What is barge-in in a voice AI agent?",
@@ -4334,7 +4510,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 198,
+    "id": 206,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture?",
@@ -4356,7 +4532,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 199,
+    "id": 207,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How do half-duplex and full-duplex voice agents differ?",
@@ -4378,7 +4554,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 200,
+    "id": 208,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does a voice agent tell a real interruption from a cough or background noise?",
@@ -4400,7 +4576,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 201,
+    "id": 209,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "What are backchannels, and why should \"mm-hmm\" not stop the agent?",
@@ -4422,7 +4598,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 202,
+    "id": 210,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does a voice agent stop speaking instantly when interrupted?",
@@ -4444,7 +4620,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 203,
+    "id": 211,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "Why does TTS audio buffering make interruptions slow?",
@@ -4466,7 +4642,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 204,
+    "id": 212,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does a voice agent truncate its memory to only what the user actually heard?",
@@ -4488,7 +4664,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 205,
+    "id": 213,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does a voice agent recover from a false interruption?",
@@ -4510,7 +4686,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 206,
+    "id": 214,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does a voice agent handle the user and agent talking at the same time?",
@@ -4532,7 +4708,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 207,
+    "id": 215,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does a voice agent add its own backchannels like \"okay\" and \"got it\"?",
@@ -4554,7 +4730,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 208,
+    "id": 216,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How do you build a latency budget for a voice AI agent?",
@@ -4576,7 +4752,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 209,
+    "id": 217,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does the voice-to-voice latency of a voice agent get measured?",
@@ -4598,7 +4774,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 210,
+    "id": 218,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "Why does the time-to-first-audio matter more than total response time?",
@@ -4620,7 +4796,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 211,
+    "id": 219,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does sentence chunking feed LLM output into TTS faster?",
@@ -4642,7 +4818,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 212,
+    "id": 220,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does a TTS model start speaking before the full sentence arrives?",
@@ -4664,7 +4840,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 213,
+    "id": 221,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does speculative LLM generation start replying before the user finishes?",
@@ -4686,7 +4862,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 214,
+    "id": 222,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How do filler phrases hide latency in a voice agent?",
@@ -4708,7 +4884,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 215,
+    "id": 223,
     "step": "Step 16: AI Infrastructure, Deployment, and System Design",
     "step_number": 16,
     "title": "How does a voice agent hide the delay of a slow tool call?",
@@ -4730,7 +4906,95 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 216,
+    "id": 224,
+    "step": "Step 16: AI Infrastructure, Deployment, and System Design",
+    "step_number": 16,
+    "title": "What are audio frames and chunk sizes in a real-time voice pipeline?",
+    "url": "https://outcomeschool.com/blog/audio-frames-and-chunk-sizes",
+    "word_count": 3238,
+    "reading_time_mins": 16,
+    "reading_time_display": "16 min read",
+    "char_count": 17359,
+    "category": "Comprehensive Guide",
+    "category_desc": "16+ mins",
+    "badge_class": "badge-amber",
+    "headings_count": 13,
+    "paragraphs_count": 101,
+    "code_blocks_count": 5,
+    "images_count": 2,
+    "author": "Amit Shekhar",
+    "published_date": "November 12, 2026",
+    "excerpt": "An audio frame is a small, fixed slice of sound, usually 10 or 20 milliseconds long, and the chunk size is how much of that sound we pass from one step of a voice pipeline to the next at one time.",
+    "status": "success"
+  },
+  {
+    "id": 225,
+    "step": "Step 16: AI Infrastructure, Deployment, and System Design",
+    "step_number": 16,
+    "title": "Why do sample rates like 8 kHz, 16 kHz, and 24 kHz matter for voice agents?",
+    "url": "https://outcomeschool.com/blog/sample-rates-for-voice-agents",
+    "word_count": 3342,
+    "reading_time_mins": 17,
+    "reading_time_display": "17 min read",
+    "char_count": 18281,
+    "category": "Comprehensive Guide",
+    "category_desc": "16+ mins",
+    "badge_class": "badge-amber",
+    "headings_count": 16,
+    "paragraphs_count": 93,
+    "code_blocks_count": 2,
+    "images_count": 2,
+    "author": "Amit Shekhar",
+    "published_date": "November 13, 2026",
+    "excerpt": "Sample rates like 8 kHz, 16 kHz, and 24 kHz matter for voice agents because the sample rate decides how much detail of a voice is kept, and every part of a voice agent expects audio at a specific sample rate. If we pick the wrong one, or mix them up, the agent hears worse, sounds...",
+    "status": "success"
+  },
+  {
+    "id": 226,
+    "step": "Step 16: AI Infrastructure, Deployment, and System Design",
+    "step_number": 16,
+    "title": "How do WebRTC and WebSocket differ for voice AI agents?",
+    "url": "https://outcomeschool.com/blog/webrtc-vs-websocket-for-voice-ai",
+    "word_count": 3254,
+    "reading_time_mins": 16,
+    "reading_time_display": "16 min read",
+    "char_count": 18475,
+    "category": "Comprehensive Guide",
+    "category_desc": "16+ mins",
+    "badge_class": "badge-amber",
+    "headings_count": 15,
+    "paragraphs_count": 88,
+    "code_blocks_count": 3,
+    "images_count": 2,
+    "author": "Amit Shekhar",
+    "published_date": "November 13, 2026",
+    "excerpt": "WebRTC and WebSocket are two ways to carry live audio between a user and a voice AI agent. WebSocket sends every piece of audio over one reliable connection and waits for anything that is lost, while WebRTC is built for live voice, so it skips lost or late audio and keeps the con...",
+    "status": "success"
+  },
+  {
+    "id": 227,
+    "step": "Step 16: AI Infrastructure, Deployment, and System Design",
+    "step_number": 16,
+    "title": "How does the Opus codec compress voice for real-time calls?",
+    "url": "https://outcomeschool.com/blog/opus-codec",
+    "word_count": 3262,
+    "reading_time_mins": 16,
+    "reading_time_display": "16 min read",
+    "char_count": 17879,
+    "category": "Comprehensive Guide",
+    "category_desc": "16+ mins",
+    "badge_class": "badge-amber",
+    "headings_count": 17,
+    "paragraphs_count": 92,
+    "code_blocks_count": 2,
+    "images_count": 2,
+    "author": "Amit Shekhar",
+    "published_date": "November 14, 2026",
+    "excerpt": "The Opus codec compresses voice by cutting the sound into tiny slices, usually 20 milliseconds long, keeping only the parts of each slice that our ears can actually hear, and describing those parts with a small set of numbers instead of the raw sound wave. This makes the voice ar...",
+    "status": "success"
+  },
+  {
+    "id": 228,
     "step": "Step 16: Supporting reads for AI System Design",
     "step_number": 16,
     "title": "What is System Design?",
@@ -4752,7 +5016,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 217,
+    "id": 229,
     "step": "Step 16: Supporting reads for AI System Design",
     "step_number": 16,
     "title": "HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events",
@@ -4774,7 +5038,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 218,
+    "id": 230,
     "step": "Step 16: Supporting reads for AI System Design",
     "step_number": 16,
     "title": "How do Voice and Video Call work?",
@@ -4796,7 +5060,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 219,
+    "id": 231,
     "step": "Step 17: Frontier Ideas in AI",
     "step_number": 17,
     "title": "What is Joint Embedding Predictive Architecture (JEPA)?",
@@ -4818,7 +5082,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 220,
+    "id": 232,
     "step": "Step 17: Frontier Ideas in AI",
     "step_number": 17,
     "title": "How do World Models work?",
@@ -4840,7 +5104,7 @@ window.BLOGS_DATA = [
     "status": "success"
   },
   {
-    "id": 221,
+    "id": 233,
     "step": "Step 17: Frontier Ideas in AI",
     "step_number": 17,
     "title": "What is Recursive Self-Improvement (RSI)?",

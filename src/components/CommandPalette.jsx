@@ -78,7 +78,7 @@ export default function CommandPalette({ open, onClose }) {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             onKeyDown={onKey}
-            placeholder="Search 221 notes by title or topic…"
+            placeholder={`Search ${blogs.length} notes by title or topic…`}
             aria-label="Search notes"
             role="combobox"
             aria-expanded="true"

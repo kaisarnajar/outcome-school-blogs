@@ -21,26 +21,46 @@ Inputs $x_1=2,x_2=3$; weights 0.5, 0.25; bias -0.25: $z=1+0.75-0.25=1.5$; sigmoi
 Layer 1 $y=2x+1$, layer 2 $out=3y+4$ gives $6x+7$: still a line, even for 100 layers; a deep net without activation equals one layer. Real patterns (cats, sentences, house prices) need curves. A non-linear activation after each layer lets each bend the pattern more.
 
 ### Sigmoid
-$$\sigma(z)=\frac{1}{1+e^{-z}}$$ ($e\approx2.718$). Values: -10 -> 0.00005, -2 -> 0.119, 0 -> 0.5, 2 -> 0.881, 10 -> 0.99995. S-shaped; output readable as probability (0.881 = 88.1% spam).
+
+$$
+\sigma(z)=\frac{1}{1+e^{-z}}
+$$
+
+($e\approx2.718$). Values: -10 -> 0.00005, -2 -> 0.119, 0 -> 0.5, 2 -> 0.881, 10 -> 0.99995. S-shaped; output readable as probability (0.881 = 88.1% spam).
 - **+** Probability for yes/no.
 - **-- Vanishing gradients**: max slope 0.25 (at $z=0$), about 0.00005 at $z=10$. Gradient is multiplied by the slope at each layer going backward; 10 layers at best slope: $0.25^{10}\approx0.00000095$ (4x smaller per layer). Early layers stop learning.
 - Outputs always positive (not zero-centered), slows training slightly.
 - Use: output layer for binary classification; rarely hidden layers.
 
 ### Tanh
-$$\tanh(z)=\frac{e^z-e^{-z}}{e^z+e^{-z}}$$ Range -1 to 1; -2 -> -0.964, 0 -> 0, 2 -> 0.964.
+
+$$
+\tanh(z)=\frac{e^z-e^{-z}}{e^z+e^{-z}}
+$$
+
+Range -1 to 1; -2 -> -0.964, 0 -> 0, 2 -> 0.964.
 - **+** Zero-centered, usually faster training than sigmoid; slope at 0 is 1 (4x sigmoid's best).
 - **--** Still flat for large |z| (slope about 0.0099 at $z=3$), so vanishing gradients in deep nets.
 - Use: hidden layers of smaller nets, RNNs/LSTMs, outputs needing -1 to 1.
 
 ### ReLU
-$$\text{ReLU}(z)=\max(0,z)$$ -10, -2, 0 -> 0; 2 -> 2; 10 -> 10. Each half is a line but the bend at 0 makes it non-linear; many ReLUs bending at different places build complex shapes.
+
+$$
+\text{ReLU}(z)=\max(0,z)
+$$
+
+-10, -2, 0 -> 0; 2 -> 2; 10 -> 10. Each half is a line but the bend at 0 makes it non-linear; many ReLUs bending at different places build complex shapes.
 - **+** Slope exactly 1 for positives (no gradient shrink; a key reason deep nets became trainable); very fast (no $e$, no division, just compare with 0); sparsity (many outputs exactly 0, simpler and more efficient).
 - **-- Dying ReLU**: if $z$ becomes negative for all inputs, output 0 and gradient 0, weights never update again. Fix: **Leaky ReLU** $\max(0.01z,z)$ (z=-2 gives -0.02; negative slope 0.01 so it can recover).
 - Use: default for hidden layers; modern LLMs use smoother relatives GELU and SwiGLU.
 
 ### Softmax
-$$\text{softmax}(z_i)=\frac{e^{z_i}}{\sum_j e^{z_j}}$$ Works on the whole list; outputs positive and sum to 1. Logits [2.0, 1.0, 0.1]: exps 7.389, 2.718, 1.105, total 11.212.
+
+$$
+\text{softmax}(z_i)=\frac{e^{z_i}}{\sum_j e^{z_j}}
+$$
+
+Works on the whole list; outputs positive and sum to 1. Logits [2.0, 1.0, 0.1]: exps 7.389, 2.718, 1.105, total 11.212.
 | Class | Logit | Probability |
 |---|---|---|
 | Cat | 2.0 | 0.659 |

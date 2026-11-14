@@ -52,7 +52,7 @@ Never positive because p never exceeds 1. Inverse: $p = e^{\text{logprob}}$.
 ### Uses
 1. **Confidence estimation** — $e^{\text{logprob}}$ gives probability (-0.11 = 90%, -2.30 = 10%). Use average logprob over a long answer; auto-show when sure, send to a human when unsure.
 2. **Classification** — ask for one word ("Positive"/"Negative"), read top-2 logprobs of first token: Positive -0.05 (0.95), Negative -3.00 (0.05). Gives label plus score; set a threshold (e.g. accept only if over 0.8), route rest to review.
-3. **Perplexity** — $$\text{PPL}=e^{-\text{(average logprob)}}$$ Example: sum -2.81, average about -0.94, flip to 0.94, $e^{0.94}\approx 2.56$ = as unsure as choosing among about 2.56 equally likely tokens per step; perfectly sure = 1. Compare models on the same text; lower is better.
+3. **Perplexity** — $\text{PPL}=e^{-\text{(average logprob)}}$ Example: sum -2.81, average about -0.94, flip to 0.94, $e^{0.94}\approx 2.56$ = as unsure as choosing among about 2.56 equally likely tokens per step; perfectly sure = 1. Compare models on the same text; lower is better.
 4. **Hallucination risk** — "Eiffel Tower built in 1889": logprob -0.02 on "1889" = sure; -2.5 = unsure with other years close behind. Low logprob on names, dates, numbers is a warning sign to check; not proof of error, and a sure answer can still be wrong.
 5. **RL training (policy gradient)** — positive reward raises logprobs of the answer's tokens (written more often); negative lowers them. Simplified objective: reward x (sum of answer-token logprobs) maximized. Logprobs also compare the trained model with the original to measure drift and keep it from changing too much.
 

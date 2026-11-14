@@ -136,14 +136,17 @@ In this step, we will learn how a neural network actually learns. We will unders
 - [What are Epoch, Batch, Batch Size, and Iteration in Machine Learning?](https://outcomeschool.com/blog/epoch-batch-and-iteration)
 - [How Does Backpropagation Work? The Math Explained Step by Step](https://outcomeschool.com/blog/math-behind-backpropagation)
 - [What are Optimizers in Deep Learning? SGD, Momentum, RMSProp, and Adam Explained](https://outcomeschool.com/blog/optimizers-in-deep-learning)
+- [How do learning rate schedules and warmup work?](https://outcomeschool.com/blog/learning-rate-schedules-and-warmup)
 - [Why do vanishing and exploding gradients happen?](https://outcomeschool.com/blog/vanishing-and-exploding-gradients)
 - [Why Do We Initialize Weights Randomly in Neural Networks?](https://outcomeschool.com/blog/random-weight-initialization)
+- [What is Entropy in Information Theory?](https://outcomeschool.com/blog/entropy-in-information-theory)
 - [What is Cross-Entropy Loss?](https://outcomeschool.com/blog/math-behind-cross-entropy-loss)
 - [What is KL Divergence? The Math Explained Step by Step](https://outcomeschool.com/blog/kl-divergence)
 - [What is Dropout in Neural Networks?](https://outcomeschool.com/blog/dropout-in-neural-networks)
 - [Batch Normalization vs Layer Normalization](https://outcomeschool.com/blog/batch-normalization-vs-layer-normalization)
 - [What is RMSNorm? Root Mean Square Layer Normalization Explained](https://outcomeschool.com/blog/rmsnorm-root-mean-square-layer-normalization)
 - [Convolutional Neural Networks](https://outcomeschool.com/blog/convolutional-neural-network-cnn)
+- [How does Object Detection work?](https://outcomeschool.com/blog/object-detection)
 - [What is a Recurrent Neural Network (RNN)?](https://outcomeschool.com/blog/recurrent-neural-network)
 - [How does PyTorch work?](https://outcomeschool.com/blog/how-does-pytorch-work)
 - [How does TensorFlow work?](https://outcomeschool.com/blog/how-does-the-machine-learning-library-tensorflow-work)
@@ -180,6 +183,7 @@ In this step, we will learn how an LLM picks the next token, how we control its 
 
 - [How does Temperature control LLM output?](https://outcomeschool.com/blog/how-does-temperature-control-llm-output)
 - [How do Top-k and Top-p Sampling work?](https://outcomeschool.com/blog/how-do-top-k-and-top-p-sampling-work)
+- [How do Greedy Decoding and Beam Search differ?](https://outcomeschool.com/blog/greedy-decoding-vs-beam-search)
 - [What are Log Probabilities (Logprobs) in LLMs?](https://outcomeschool.com/blog/logprobs-in-llms)
 - [Stop Tokens in LLMs](https://outcomeschool.com/blog/stop-tokens-in-llms)
 - [How does Token Streaming work?](https://outcomeschool.com/blog/how-does-token-streaming-work)
@@ -224,14 +228,17 @@ In this step, we will learn how a pre-trained model is adapted to our own task, 
 - [What is RLHF? Reinforcement Learning from Human Feedback Explained](https://outcomeschool.com/blog/reinforcement-learning-from-human-feedback-rlhf)
 - [What is a Reward Model and How Is It Trained?](https://outcomeschool.com/blog/reward-model)
 - [What is Reward Hacking in Reinforcement Learning and How Do We Prevent It?](https://outcomeschool.com/blog/reward-hacking)
+- [What is RLAIF? Reinforcement Learning from AI Feedback Explained](https://outcomeschool.com/blog/reinforcement-learning-from-ai-feedback-rlaif)
 - [What is Proximal Policy Optimization (PPO)?](https://outcomeschool.com/blog/proximal-policy-optimization-ppo)
 - [What is Direct Preference Optimization (DPO)?](https://outcomeschool.com/blog/direct-preference-optimization-dpo)
 - [What is Group Relative Policy Optimization (GRPO)?](https://outcomeschool.com/blog/group-relative-policy-optimization-grpo)
+- [What is Reinforcement Learning with Verifiable Rewards (RLVR)?](https://outcomeschool.com/blog/reinforcement-learning-with-verifiable-rewards-rlvr)
 
 ### Step 8: Prompt Engineering and Context Engineering
 
 In this step, we will learn how to talk to an LLM so that it gives better answers, and how to manage everything that goes into its context window.
 
+- [How does Prompt Engineering work?](https://outcomeschool.com/blog/prompt-engineering)
 - [How does Chain-of-Thought (CoT) Prompting work?](https://outcomeschool.com/blog/how-does-chain-of-thought-prompting-work)
 - [How does Tree of Thoughts work?](https://outcomeschool.com/blog/how-does-tree-of-thoughts-work)
 - [How does Prompt Chaining work?](https://outcomeschool.com/blog/how-does-prompt-chaining-work)
@@ -249,6 +256,7 @@ If you want a quick introduction to RAG before starting, watch: [AI Engineering 
 - [How does a Vector Database work?](https://outcomeschool.com/blog/how-does-a-vector-database-work)
 - [How does Approximate Nearest Neighbor (ANN) Search work?](https://outcomeschool.com/blog/how-does-approximate-nearest-neighbor-ann-search-work)
 - [How does Semantic Search work?](https://outcomeschool.com/blog/how-does-semantic-search-work)
+- [How does an Inverted Index work?](https://outcomeschool.com/blog/inverted-index)
 - [How does Hybrid Search work?](https://outcomeschool.com/blog/how-does-hybrid-search-work)
 - [How does a Reranker work?](https://outcomeschool.com/blog/how-does-a-reranker-work)
 - [What is ColBERT? Late Interaction Retrieval Explained](https://outcomeschool.com/blog/decoding-colbert)
@@ -396,6 +404,10 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [How does speculative LLM generation start replying before the user finishes?](https://outcomeschool.com/blog/speculative-generation-in-voice-agents)
 - [How do filler phrases hide latency in a voice agent?](https://outcomeschool.com/blog/filler-phrases-in-voice-agents)
 - [How does a voice agent hide the delay of a slow tool call?](https://outcomeschool.com/blog/slow-tool-calls-in-voice-agents)
+- [What are audio frames and chunk sizes in a real-time voice pipeline?](https://outcomeschool.com/blog/audio-frames-and-chunk-sizes)
+- [Why do sample rates like 8 kHz, 16 kHz, and 24 kHz matter for voice agents?](https://outcomeschool.com/blog/sample-rates-for-voice-agents)
+- [How do WebRTC and WebSocket differ for voice AI agents?](https://outcomeschool.com/blog/webrtc-vs-websocket-for-voice-ai)
+- [How does the Opus codec compress voice for real-time calls?](https://outcomeschool.com/blog/opus-codec)
 
 Supporting reads for AI System Design:
 
