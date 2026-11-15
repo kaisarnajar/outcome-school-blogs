@@ -105,6 +105,7 @@ In this step, we will learn what Machine Learning is, the different ways a machi
 - [What is Feature Engineering in Machine Learning?](https://outcomeschool.com/blog/feature-engineering)
 - [What is One-hot Encoding in Machine Learning?](https://outcomeschool.com/blog/one-hot-encoding)
 - [Precision vs Recall](https://outcomeschool.com/blog/precision-vs-recall)
+- [What is Bayes' Theorem?](https://outcomeschool.com/blog/bayes-theorem)
 - [What are L1 and L2 Loss Functions?](https://outcomeschool.com/blog/l1-and-l2-loss-functions)
 - [What is Regularization in Machine Learning? L1 vs L2 Explained](https://outcomeschool.com/blog/regularization-in-machine-learning)
 - [Why do we split data into train, validation, and test sets?](https://outcomeschool.com/blog/train-validation-test-split)
@@ -375,6 +376,7 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [How does an LPU work?](https://outcomeschool.com/blog/how-does-an-lpu-work)
 - [Cloud vs On-device Model Deployment](https://outcomeschool.com/blog/cloud-vs-on-device-model-deployment)
 - [How does Model Serving work?](https://outcomeschool.com/blog/model-serving)
+- [How does a Model Registry work?](https://outcomeschool.com/blog/model-registry)
 - [Android TensorFlow Lite Machine Learning Example](https://outcomeschool.com/blog/android-tensorflow-lite-machine-learning-example)
 - [What is LLM Routing? How to Send Each Query to the Right LLM](https://outcomeschool.com/blog/llm-routing)
 - [Design a Real-Time Voice AI Agent](https://outcomeschool.com/blog/design-a-real-time-voice-ai-agent)
@@ -408,6 +410,8 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [Why do sample rates like 8 kHz, 16 kHz, and 24 kHz matter for voice agents?](https://outcomeschool.com/blog/sample-rates-for-voice-agents)
 - [How do WebRTC and WebSocket differ for voice AI agents?](https://outcomeschool.com/blog/webrtc-vs-websocket-for-voice-ai)
 - [How does the Opus codec compress voice for real-time calls?](https://outcomeschool.com/blog/opus-codec)
+- [How does a jitter buffer keep voice audio smooth over a bad network?](https://outcomeschool.com/blog/jitter-buffer)
+- [How does packet loss concealment hide missing audio?](https://outcomeschool.com/blog/packet-loss-concealment)
 
 Supporting reads for AI System Design:
 
