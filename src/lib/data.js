@@ -1,5 +1,6 @@
 import blogsData from '../data/blogsData.json';
 import progressData from '../data/progressData.json';
+import addedData from '../data/addedDates.json';
 import { noteHref, noteSlug } from '../notes';
 
 export const STATUS = {
@@ -50,6 +51,7 @@ export const blogs = blogsData.map((b) => {
     slug: noteSlug(b),
     href: noteHref(b),
     progress,
+    added: addedData.entries[b.url]?.date || null,
     status: classify(progress),
     length: lengthBucket(mins),
     stepInfo: splitStep(b.step),
@@ -112,4 +114,11 @@ export const progressUpdated = progressData.updated;
 
 export function fmtHours(mins) {
   return (mins / 60).toFixed(1);
+}
+
+export const addedInfo = { updated: addedData.updated, launch: addedData.launch, source: addedData.source };
+
+const DAY_FMT = { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' };
+export function fmtDay(iso, opts = DAY_FMT) {
+  return iso ? new Date(iso + 'T00:00:00Z').toLocaleDateString('en-GB', opts) : '';
 }

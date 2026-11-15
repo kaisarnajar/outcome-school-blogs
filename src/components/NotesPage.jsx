@@ -5,7 +5,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 import { ArrowLeft, ArrowRight, ExternalLink, ChevronDown } from 'lucide-react';
-import { blogs, STATUS } from '../lib/data';
+import { blogs, STATUS, fmtDay } from '../lib/data';
 import { loadNote, githubNoteUrl, nav } from '../notes';
 import MermaidDiagram from './MermaidDiagram';
 
@@ -193,7 +193,7 @@ export default function NotesPage({ slug, theme }) {
 
   const gh = githubNoteUrl(blog);
   const st = STATUS[blog.status];
-  const backLabel = nav.returnTo.startsWith('#/progress') ? 'Progress' : 'Roadmap';
+  const backLabel = nav.returnTo.startsWith('#/progress') ? 'Progress' : nav.returnTo.startsWith('#/activity') ? 'Activity' : 'Roadmap';
   const jump = (id) => (e) => { e.preventDefault(); document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }); };
 
   const TocList = ({ cls }) => (
@@ -227,6 +227,12 @@ export default function NotesPage({ slug, theme }) {
             <span>{blog.word_count.toLocaleString()} words</span>
             <span className="dot" />
             <span>Published {blog.published_date}</span>
+            {blog.added && (
+              <>
+                <span className="dot" />
+                <a href={`#/activity/${blog.added}`}>Added to roadmap {fmtDay(blog.added)}</a>
+              </>
+            )}
           </div>
           {blog.progress?.gap && (
             <div className="revisit"><b>To revisit:</b> {blog.progress.gap}</div>

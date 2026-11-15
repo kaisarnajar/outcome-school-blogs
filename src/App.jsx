@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import RoadmapPage from './components/RoadmapPage';
 import ProgressPage from './components/ProgressPage';
+import ActivityPage from './components/ActivityPage';
 import CommandPalette from './components/CommandPalette';
 import { nav } from './notes';
 
@@ -13,6 +14,8 @@ function routeFromHash(hash = window.location.hash) {
   const m = hash.match(/^#\/notes\/([^/?#]+)/);
   if (m) return { page: 'notes', slug: decodeURIComponent(m[1]) };
   if (hash.startsWith('#/progress')) return { page: 'progress' };
+  const a = hash.match(/^#\/activity(?:\/([^/?#]+))?/);
+  if (a) return { page: 'activity', day: a[1] || null };
   return { page: 'roadmap' };
 }
 
@@ -47,7 +50,7 @@ export default function App() {
       if (!window.location.hash.startsWith('#/') && window.location.hash !== '') return;
       if (pageKey(from)) {
         scrollMemory[pageKey(from)] = window.scrollY;
-        nav.returnTo = from.page === 'progress' ? '#/progress' : '#/';
+        nav.returnTo = from.page === 'progress' ? '#/progress' : from.page === 'activity' ? new URL(e.oldURL).hash : '#/';
       }
       const y = pageKey(to) ? scrollMemory[pageKey(to)] || 0 : 0;
       flushSync(() => setRoute(to));
@@ -92,6 +95,8 @@ export default function App() {
           </Suspense>
         ) : route.page === 'progress' ? (
           <ProgressPage />
+        ) : route.page === 'activity' ? (
+          <ActivityPage day={route.day} />
         ) : (
           <RoadmapPage openSearch={() => setSearchOpen(true)} />
         )}

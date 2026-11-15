@@ -1,0 +1,955 @@
+{
+ "updated": "2026-11-15",
+ "source": "https://github.com/amitshekhariitbhu/ai-engineer-roadmap",
+ "launch": "2026-09-20",
+ "entries": {
+  "https://outcomeschool.com/blog/machine-learning": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/supervised-vs-unsupervised-learning": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/linear-regression-vs-logistic-regression": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/feature-engineering": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/one-hot-encoding": {
+   "date": "2026-10-30",
+   "commit": "ec43e0e"
+  },
+  "https://outcomeschool.com/blog/precision-vs-recall": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/bayes-theorem": {
+   "date": "2026-11-15",
+   "commit": "14e8912"
+  },
+  "https://outcomeschool.com/blog/l1-and-l2-loss-functions": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/regularization-in-machine-learning": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/train-validation-test-split": {
+   "date": "2026-10-27",
+   "commit": "930afd0"
+  },
+  "https://outcomeschool.com/blog/bias-variance-tradeoff": {
+   "date": "2026-11-03",
+   "commit": "859093a"
+  },
+  "https://outcomeschool.com/blog/decision-trees-and-random-forests": {
+   "date": "2026-11-06",
+   "commit": "8506211"
+  },
+  "https://outcomeschool.com/blog/k-means-clustering": {
+   "date": "2026-11-10",
+   "commit": "64cba84"
+  },
+  "https://outcomeschool.com/blog/data-augmentation": {
+   "date": "2026-11-02",
+   "commit": "6cc084c"
+  },
+  "https://outcomeschool.com/blog/reinforcement-learning": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/markov-decision-process-mdp": {
+   "date": "2026-11-06",
+   "commit": "004061f"
+  },
+  "https://outcomeschool.com/blog/exploration-vs-exploitation": {
+   "date": "2026-11-07",
+   "commit": "086ac26"
+  },
+  "https://outcomeschool.com/blog/value-function-and-q-learning": {
+   "date": "2026-11-08",
+   "commit": "9e1c3bd"
+  },
+  "https://outcomeschool.com/blog/policy-gradient-reinforce": {
+   "date": "2026-11-08",
+   "commit": "3f399b2"
+  },
+  "https://outcomeschool.com/blog/actor-critic": {
+   "date": "2026-11-09",
+   "commit": "e1b92f6"
+  },
+  "https://outcomeschool.com/blog/self-supervised-learning": {
+   "date": "2026-11-10",
+   "commit": "6d51226"
+  },
+  "https://outcomeschool.com/blog/contrastive-learning": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/neural-network": {
+   "date": "2026-10-20",
+   "commit": "1d374b2"
+  },
+  "https://outcomeschool.com/blog/bias-in-artificial-neural-network": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/multilayer-perceptron-mlp": {
+   "date": "2026-10-25",
+   "commit": "256abec"
+  },
+  "https://outcomeschool.com/blog/activation-functions": {
+   "date": "2026-10-27",
+   "commit": "1a6decb"
+  },
+  "https://outcomeschool.com/blog/softmax-function": {
+   "date": "2026-10-28",
+   "commit": "b717135"
+  },
+  "https://outcomeschool.com/blog/logits-in-machine-learning": {
+   "date": "2026-10-30",
+   "commit": "ace13ef"
+  },
+  "https://outcomeschool.com/blog/matrix-multiplication-in-neural-networks": {
+   "date": "2026-10-22",
+   "commit": "c77dbc5"
+  },
+  "https://outcomeschool.com/blog/math-behind-gradient-descent": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/epoch-batch-and-iteration": {
+   "date": "2026-11-01",
+   "commit": "680a68e"
+  },
+  "https://outcomeschool.com/blog/math-behind-backpropagation": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/optimizers-in-deep-learning": {
+   "date": "2026-11-02",
+   "commit": "4ec5273"
+  },
+  "https://outcomeschool.com/blog/learning-rate-schedules-and-warmup": {
+   "date": "2026-11-14",
+   "commit": "4f12fb6"
+  },
+  "https://outcomeschool.com/blog/vanishing-and-exploding-gradients": {
+   "date": "2026-10-30",
+   "commit": "9728724"
+  },
+  "https://outcomeschool.com/blog/random-weight-initialization": {
+   "date": "2026-11-02",
+   "commit": "a474abb"
+  },
+  "https://outcomeschool.com/blog/entropy-in-information-theory": {
+   "date": "2026-11-13",
+   "commit": "56a6799"
+  },
+  "https://outcomeschool.com/blog/math-behind-cross-entropy-loss": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/kl-divergence": {
+   "date": "2026-11-04",
+   "commit": "f7a8981"
+  },
+  "https://outcomeschool.com/blog/dropout-in-neural-networks": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/batch-normalization-vs-layer-normalization": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/rmsnorm-root-mean-square-layer-normalization": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/convolutional-neural-network-cnn": {
+   "date": "2026-11-07",
+   "commit": "0b8924c"
+  },
+  "https://outcomeschool.com/blog/object-detection": {
+   "date": "2026-11-14",
+   "commit": "d50d548"
+  },
+  "https://outcomeschool.com/blog/recurrent-neural-network": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-pytorch-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-the-machine-learning-library-tensorflow-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/what-is-generative-ai": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/large-language-model-llm": {
+   "date": "2026-10-29",
+   "commit": "1c1a6c0"
+  },
+  "https://outcomeschool.substack.com/p/inside-chatgpt-what-happens-after": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/autoregressive-models": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/tokenization-in-llms": {
+   "date": "2026-10-03",
+   "commit": "6cca132"
+  },
+  "https://outcomeschool.com/blog/bpe-in-llms": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/what-are-embeddings": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-do-rnns-and-transformers-differ": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/decoding-transformer-architecture": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/encoder-vs-decoder-in-transformers": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/self-attention-in-transformers": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/math-behind-attention-qkv": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/scaling-dot-product-attention": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/causal-masking-in-attention": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/multi-head-attention-in-transformers": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/cross-attention-in-transformers": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.substack.com/p/positional-embeddings-in-llms": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/math-behind-rope-rotary-position-embedding": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/feed-forward-networks-in-llms": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-temperature-control-llm-output": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-do-top-k-and-top-p-sampling-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/greedy-decoding-vs-beam-search": {
+   "date": "2026-11-13",
+   "commit": "bb0a52f"
+  },
+  "https://outcomeschool.com/blog/logprobs-in-llms": {
+   "date": "2026-11-05",
+   "commit": "1a4615f"
+  },
+  "https://outcomeschool.com/blog/stop-tokens-in-llms": {
+   "date": "2026-10-04",
+   "commit": "d7a8ad9"
+  },
+  "https://outcomeschool.com/blog/how-does-token-streaming-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/context-window": {
+   "date": "2026-11-04",
+   "commit": "f675dd7"
+  },
+  "https://outcomeschool.com/blog/lost-in-the-middle-problem-in-llms": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/why-do-llms-hallucinate-the-token-level-explanation": {
+   "date": "2026-10-14",
+   "commit": "0ac577c"
+  },
+  "https://outcomeschool.com/blog/mixture-of-experts": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/grouped-query-attention": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-sliding-window-attention-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-do-attention-sinks-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/decoding-flash-attention": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/decoding-deepseek-v4": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/small-language-models-slms": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/large-reasoning-models": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/recursive-language-models": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-do-diffusion-language-models-dlms-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/jev-and-system-one-models-explained": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/llm-pretraining": {
+   "date": "2026-11-07",
+   "commit": "fa6304f"
+  },
+  "https://outcomeschool.com/blog/how-does-fine-tuning-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/lora-low-rank-adaptation-of-llms": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-prefix-tuning-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-knowledge-distillation-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/continual-learning-in-llms": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/decoding-deep-rl-from-human-preferences": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/decoding-instructgpt": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/reinforcement-learning-from-human-feedback-rlhf": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/reward-model": {
+   "date": "2026-11-10",
+   "commit": "9128e21"
+  },
+  "https://outcomeschool.com/blog/reward-hacking": {
+   "date": "2026-11-11",
+   "commit": "e6459ef"
+  },
+  "https://outcomeschool.com/blog/reinforcement-learning-from-ai-feedback-rlaif": {
+   "date": "2026-11-12",
+   "commit": "2ac1aad"
+  },
+  "https://outcomeschool.com/blog/proximal-policy-optimization-ppo": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/direct-preference-optimization-dpo": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/group-relative-policy-optimization-grpo": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/reinforcement-learning-with-verifiable-rewards-rlvr": {
+   "date": "2026-11-12",
+   "commit": "a21d12a"
+  },
+  "https://outcomeschool.com/blog/prompt-engineering": {
+   "date": "2026-11-12",
+   "commit": "4029019"
+  },
+  "https://outcomeschool.com/blog/how-does-chain-of-thought-prompting-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-tree-of-thoughts-work": {
+   "date": "2026-10-07",
+   "commit": "580fa42"
+  },
+  "https://outcomeschool.com/blog/how-does-prompt-chaining-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-prompt-caching-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/context-engineering": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-context-compaction-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/cosine-similarity": {
+   "date": "2026-10-31",
+   "commit": "87142ee"
+  },
+  "https://outcomeschool.com/blog/how-does-a-vector-database-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-approximate-nearest-neighbor-ann-search-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-semantic-search-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/inverted-index": {
+   "date": "2026-11-14",
+   "commit": "ae883b3"
+  },
+  "https://outcomeschool.com/blog/how-does-hybrid-search-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-a-reranker-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/decoding-colbert": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/retrieval-augmented-generation-rag": {
+   "date": "2026-11-09",
+   "commit": "07daa30"
+  },
+  "https://outcomeschool.com/blog/chunking-strategies-for-rag": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-contextual-retrieval-work": {
+   "date": "2026-10-06",
+   "commit": "1b5d8cb"
+  },
+  "https://outcomeschool.com/blog/how-does-hyde-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-do-query-rewriting-and-multi-query-retrieval-work": {
+   "date": "2026-10-08",
+   "commit": "34c0b0f"
+  },
+  "https://outcomeschool.com/blog/how-does-an-embedding-cache-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-semantic-caching-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/agentic-rag": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/graphrag": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/vectorless-rag": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/ai-agent": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-function-calling-work-in-llms": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/ai-agent-loop": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/react-agent": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/plan-and-execute-agent": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/reflection-agent": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/ai-agent-memory": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-chatgpt-remember-you": {
+   "date": "2026-10-12",
+   "commit": "5b4f88a"
+  },
+  "https://outcomeschool.com/blog/what-is-mcp-model-context-protocol": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/what-are-agent-skills": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/what-is-okf-open-knowledge-format": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/multi-agent-systems": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/ai-subagents": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-ai-agents-communicate": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/ai-orchestration": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/decoding-sakana-fugu": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-do-computer-use-agents-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-do-browser-agents-work": {
+   "date": "2026-10-11",
+   "commit": "276519b"
+  },
+  "https://outcomeschool.com/blog/human-in-the-loop-agents": {
+   "date": "2026-11-11",
+   "commit": "1d25cdb"
+  },
+  "https://outcomeschool.com/blog/harness-engineering-in-ai": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/what-is-loop-engineering": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/what-is-graph-engineering": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/ai-is-only-as-good-as-our-definition-of-done": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-langchain-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-langgraph-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-claude-code-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-cursor-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/llm-inference-optimization": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/prefill-vs-decode-llm-inference-optimization": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/prefill-decode-disaggregation": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/kv-cache-in-llms": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/kv-cache-compression": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/llm-gpu-memory": {
+   "date": "2026-11-09",
+   "commit": "fa37687"
+  },
+  "https://outcomeschool.com/blog/paged-attention-in-llms": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/continuous-batching-in-llms": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/speculative-decoding": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/n-gram-speculation-in-llms": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/decoding-medusa": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/decoding-eagle": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-model-quantization-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-gguf-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-llama-cpp-run-llms-on-everyday-hardware": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-ollama-work": {
+   "date": "2026-10-05",
+   "commit": "05a9aed"
+  },
+  "https://outcomeschool.com/blog/how-does-vllm-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-sglang-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-tensorrt-llm-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/llm-evaluation": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/llm-as-a-judge": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/ai-agent-evaluation": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/ai-agent-observability": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-do-llm-guardrails-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/prompt-injection-in-llms": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/jailbreaking-in-llms": {
+   "date": "2026-11-05",
+   "commit": "4d4b138"
+  },
+  "https://outcomeschool.com/blog/how-does-llm-watermarking-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/multimodal-ai": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/decoding-vision-transformer-vit": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-do-image-embeddings-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/vision-language-model-vlm": {
+   "date": "2026-10-30",
+   "commit": "5a9a6f3"
+  },
+  "https://outcomeschool.com/blog/diffusion-models": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/flow-matching": {
+   "date": "2026-11-08",
+   "commit": "3747c98"
+  },
+  "https://outcomeschool.com/blog/generative-adversarial-networks": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/variational-autoencoders": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-a-gpu-work-for-deep-learning": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-do-cuda-kernels-work": {
+   "date": "2026-09-29",
+   "commit": "20c4b1b"
+  },
+  "https://outcomeschool.com/blog/how-does-a-google-tpu-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-does-an-lpu-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/cloud-vs-on-device-model-deployment": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/model-serving": {
+   "date": "2026-11-01",
+   "commit": "66f25db"
+  },
+  "https://outcomeschool.com/blog/model-registry": {
+   "date": "2026-11-15",
+   "commit": "ac1b90d"
+  },
+  "https://outcomeschool.com/blog/android-tensorflow-lite-machine-learning-example": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/llm-routing": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/design-a-real-time-voice-ai-agent": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/what-is-turn-taking-in-a-voice-ai-agent": {
+   "date": "2026-10-19",
+   "commit": "656dbd3"
+  },
+  "https://outcomeschool.com/blog/endpointing-in-voice-agents": {
+   "date": "2026-10-26",
+   "commit": "276e4fe"
+  },
+  "https://outcomeschool.com/blog/silence-vs-model-based-turn-detection": {
+   "date": "2026-10-26",
+   "commit": "27aaba8"
+  },
+  "https://outcomeschool.com/blog/dynamic-endpointing": {
+   "date": "2026-10-28",
+   "commit": "bf52ec8"
+  },
+  "https://outcomeschool.com/blog/long-pauses-in-voice-agents": {
+   "date": "2026-10-29",
+   "commit": "9dd9c05"
+  },
+  "https://outcomeschool.com/blog/unfinished-input-in-voice-agents": {
+   "date": "2026-10-31",
+   "commit": "ba0d377"
+  },
+  "https://outcomeschool.com/blog/voice-agents-cutting-users-off": {
+   "date": "2026-11-01",
+   "commit": "2c52ce1"
+  },
+  "https://outcomeschool.com/blog/what-is-barge-in-in-a-voice-ai-agent": {
+   "date": "2026-10-19",
+   "commit": "e07596e"
+  },
+  "https://outcomeschool.com/blog/cascaded-vs-speech-to-speech": {
+   "date": "2026-10-21",
+   "commit": "f417f4a"
+  },
+  "https://outcomeschool.com/blog/half-duplex-vs-full-duplex-voice-agents": {
+   "date": "2026-11-02",
+   "commit": "52ae398"
+  },
+  "https://outcomeschool.com/blog/interruption-vs-background-noise": {
+   "date": "2026-11-03",
+   "commit": "6887cc4"
+  },
+  "https://outcomeschool.com/blog/backchannels-in-voice-agents": {
+   "date": "2026-11-05",
+   "commit": "41cc8dc"
+  },
+  "https://outcomeschool.com/blog/stopping-speech-on-interruption": {
+   "date": "2026-11-06",
+   "commit": "0dfcee3"
+  },
+  "https://outcomeschool.com/blog/tts-audio-buffering": {
+   "date": "2026-11-07",
+   "commit": "f718190"
+  },
+  "https://outcomeschool.com/blog/truncating-context-on-interruption": {
+   "date": "2026-11-08",
+   "commit": "14bd30d"
+  },
+  "https://outcomeschool.com/blog/false-interruption-recovery": {
+   "date": "2026-11-09",
+   "commit": "519bc0a"
+  },
+  "https://outcomeschool.com/blog/overlapping-speech-in-voice-agents": {
+   "date": "2026-11-10",
+   "commit": "b7c084d"
+  },
+  "https://outcomeschool.com/blog/agent-side-backchannels": {
+   "date": "2026-11-11",
+   "commit": "0a8450f"
+  },
+  "https://outcomeschool.com/blog/voice-agent-latency-budget": {
+   "date": "2026-10-21",
+   "commit": "835e709"
+  },
+  "https://outcomeschool.com/blog/voice-to-voice-latency": {
+   "date": "2026-10-22",
+   "commit": "4ab0277"
+  },
+  "https://outcomeschool.com/blog/time-to-first-audio": {
+   "date": "2026-10-22",
+   "commit": "8d2fddf"
+  },
+  "https://outcomeschool.com/blog/sentence-chunking-for-tts": {
+   "date": "2026-10-23",
+   "commit": "2ba006c"
+  },
+  "https://outcomeschool.com/blog/streaming-tts": {
+   "date": "2026-10-23",
+   "commit": "6e61514"
+  },
+  "https://outcomeschool.com/blog/speculative-generation-in-voice-agents": {
+   "date": "2026-10-24",
+   "commit": "db02f85"
+  },
+  "https://outcomeschool.com/blog/filler-phrases-in-voice-agents": {
+   "date": "2026-10-24",
+   "commit": "0233695"
+  },
+  "https://outcomeschool.com/blog/slow-tool-calls-in-voice-agents": {
+   "date": "2026-10-25",
+   "commit": "1f425aa"
+  },
+  "https://outcomeschool.com/blog/audio-frames-and-chunk-sizes": {
+   "date": "2026-11-12",
+   "commit": "6b67b43"
+  },
+  "https://outcomeschool.com/blog/sample-rates-for-voice-agents": {
+   "date": "2026-11-13",
+   "commit": "aa2ee80"
+  },
+  "https://outcomeschool.com/blog/webrtc-vs-websocket-for-voice-ai": {
+   "date": "2026-11-13",
+   "commit": "9a95658"
+  },
+  "https://outcomeschool.com/blog/opus-codec": {
+   "date": "2026-11-14",
+   "commit": "fcc3613"
+  },
+  "https://outcomeschool.com/blog/jitter-buffer": {
+   "date": "2026-11-15",
+   "commit": "b064733"
+  },
+  "https://outcomeschool.com/blog/packet-loss-concealment": {
+   "date": "2026-11-15",
+   "commit": "cdacfeb"
+  },
+  "https://outcomeschool.com/blog/system-design": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/http-request-long-polling-websocket-sse": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/voice-and-video-call": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/joint-embedding-predictive-architecture-jepa": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/how-do-world-models-work": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/what-is-recursive-self-improvement-rsi": {
+   "date": "2026-09-20",
+   "commit": "a4a7456"
+  }
+ }
+}

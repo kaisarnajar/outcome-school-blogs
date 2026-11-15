@@ -25,6 +25,7 @@ export default function Header({ page, theme, toggleTheme, openSearch }) {
         <nav className="main-nav" aria-label="Main">
           <a href="#/" aria-current={page === 'roadmap' ? 'page' : undefined}>Roadmap</a>
           <a href="#/progress" aria-current={page === 'progress' ? 'page' : undefined}>Progress</a>
+          <a href="#/activity" aria-current={page === 'activity' ? 'page' : undefined}>Activity</a>
         </nav>
 
         <div className="header-tools">

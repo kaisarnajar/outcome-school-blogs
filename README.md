@@ -7,6 +7,8 @@
 
 📈 **My Study Progress:** **[kaisarnajar.github.io/outcome-school-blogs/#/progress](https://kaisarnajar.github.io/outcome-school-blogs/#/progress)** (data in `src/data/progressData.json`)
 
+📅 **Roadmap Activity:** **[kaisarnajar.github.io/outcome-school-blogs/#/activity](https://kaisarnajar.github.io/outcome-school-blogs/#/activity)** — a daily heatmap of when each blog was added to the roadmap (data in `src/data/addedDates.json`)
+
 📝 **Study Notes:** Click any blog on the site to open its notes (with diagrams), e.g. **[#/notes/machine-learning](https://kaisarnajar.github.io/outcome-school-blogs/#/notes/machine-learning)** · source Markdown in **[notes/](notes/README.md)**
 
 ---
@@ -66,6 +68,7 @@
 - **Editorial design**: paper-and-ink light theme and a warm dark theme, serif type for reading (Source Serif 4), Inter for UI, one accent colour.
 - **Roadmap index**: every article grouped by step, with a sticky curriculum sidebar that tracks the step in view; filter by text, study status and length, sort, list/table views, CSV export.
 - **Notes pages** (`#/notes/<slug>`): revision notes with a TL;DR card, key-concept glossary, KaTeX math, theme-aware Mermaid diagrams, sticky "On this page" table of contents with scroll-spy, reading progress bar and previous/next navigation.
+- **Roadmap activity** (`#/activity`, `#/activity/<YYYY-MM-DD>`): a calendar heatmap of blogs added to the upstream roadmap per day, with launch-day marker, streak and per-day stats. Click a day (or use the arrow keys) to list that day's blogs grouped by step, each linking to its notes.
 - **Study progress** (`#/progress`): overall completion, a revision queue sorted weakest-first with "to revisit" notes, per-step progress and the full per-article list.
 - **Quick open**: press `⌘K` / `Ctrl K` (or `/`) to jump to any note.
 - **Continuous deployment**: pushing to `main` deploys to GitHub Pages via GitHub Actions.
@@ -95,9 +98,14 @@ npm run preview
 To synchronize with new articles added to Amit Shekhar's roadmap repository:
 
 ```bash
-# Pull latest upstream roadmap markdown and scrape new blogs
+# 1. Save the latest upstream README as raw_readme.md, then scrape new blogs
 python scrape_and_analyze.py
+
+# 2. Date each blog by the day it first appeared in the upstream README's git history
+python track_added_dates.py
 ```
+
+`track_added_dates.py` uses the upstream commit date (when the change landed), not the author date, which upstream often leaves stale after rebases.
 
 ---
 
