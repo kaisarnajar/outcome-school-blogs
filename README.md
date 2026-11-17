@@ -1,6 +1,6 @@
 # Outcome School AI Engineering Roadmap — Blog Length & Structural Analysis
 
-> Modern React.js web application and quantitative analysis of word counts, reading commitment, and architectural depth for all **237 blog articles** across the [AI Engineer Roadmap](https://github.com/amitshekhariitbhu/ai-engineer-roadmap) by [Amit Shekhar](https://github.com/amitshekhariitbhu) ([Outcome School](https://outcomeschool.com)).
+> Modern React.js web application and quantitative analysis of word counts, reading commitment, and architectural depth for all **245 blog articles** across the [AI Engineer Roadmap](https://github.com/amitshekhariitbhu/ai-engineer-roadmap) by [Amit Shekhar](https://github.com/amitshekhariitbhu) ([Outcome School](https://outcomeschool.com)).
 
 🌐 **Live Application:**  
 **[https://kaisarnajar.github.io/outcome-school-blogs/](https://kaisarnajar.github.io/outcome-school-blogs/)**
@@ -17,10 +17,10 @@
 
 | Metric | Value | Details |
 | :--- | :--- | :--- |
-| **Total Blog Articles** | **237** | Synced with latest upstream roadmap commits |
-| **Total Word Count** | **810,056 words** | Extracted and normalized article prose body |
-| **Total Reading Time** | **~67.5 hours (4,050 mins)** | Calculated at standard reading pace of 200 WPM |
-| **Average Words / Blog** | **3,418 words** | In-depth technical articles (~17 min average read) |
+| **Total Blog Articles** | **245** | Synced with latest upstream roadmap commits |
+| **Total Word Count** | **835,001 words** | Extracted and normalized article prose body |
+| **Total Reading Time** | **~69.6 hours (4,174 mins)** | Calculated at standard reading pace of 200 WPM |
+| **Average Words / Blog** | **3,408 words** | In-depth technical articles (~17 min average read) |
 | **Longest Article** | **13,588 words (~68 mins)** | *Design a Real-Time Voice AI Agent* |
 | **Shortest Article** | **205 words (~1 min)** | *Positional Embeddings in LLMs* |
 
@@ -41,13 +41,13 @@
 
 | Step | Topic | Articles | Total Words | Est. Time (200 WPM) |
 | :---: | :--- | :---: | :---: | :---: |
-| **Step 1** | Machine Learning Foundations | 22 | 55,997 | ~280 mins (4.7 hrs) |
-| **Step 2** | Deep Learning and Neural Networks | 25 | 73,302 | ~367 mins (6.1 hrs) |
+| **Step 1** | Machine Learning Foundations | 25 | 65,036 | ~325 mins (5.4 hrs) |
+| **Step 2** | Deep Learning and Neural Networks | 26 | 75,685 | ~378 mins (6.3 hrs) |
 | **Step 3** | Generative AI and the Transformer Architecture | 19 | 53,495 | ~267 mins (4.5 hrs) |
 | **Step 4** | How LLMs Generate Text | 9 | 32,905 | ~165 mins (2.8 hrs) |
 | **Step 5** | Modern LLM Architecture | 6 | 22,099 | ~110 mins (1.8 hrs) |
 | **Step 6** | Types of Language Models | 5 | 18,566 | ~93 mins (1.6 hrs) |
-| **Step 7** | Training, Fine-Tuning, and Alignment | 16 | 53,186 | ~266 mins (4.4 hrs) |
+| **Step 7** | Training, Fine-Tuning, and Alignment | 17 | 56,593 | ~283 mins (4.7 hrs) |
 | **Step 8** | Prompt Engineering and Context Engineering | 7 | 23,243 | ~116 mins (1.9 hrs) |
 | **Step 9** | Vector Search and Retrieval-Augmented Generation (RAG) | 18 | 68,804 | ~344 mins (5.7 hrs) |
 | **Step 10** | AI Agents and Agentic Systems | 19 | 68,821 | ~344 mins (5.7 hrs) |
@@ -56,10 +56,10 @@
 | **Step 13** | Evaluation and Observability | 4 | 16,572 | ~83 mins (1.4 hrs) |
 | **Step 14** | AI Safety and Security | 4 | 18,133 | ~91 mins (1.5 hrs) |
 | **Step 15** | Multimodal AI and Generative Models | 8 | 26,810 | ~134 mins (2.2 hrs) |
-| **Step 16** | AI Infrastructure, Deployment, and System Design | 42 | 152,973 | ~765 mins (12.8 hrs) |
+| **Step 16** | AI Infrastructure, Deployment, and System Design | 45 | 163,089 | ~815 mins (13.6 hrs) |
 | **Step 16+**| Supporting reads for AI System Design | 3 | 4,097 | ~20 mins (0.3 hrs) |
 | **Step 17** | Frontier Ideas in AI | 3 | 14,625 | ~73 mins (1.2 hrs) |
-| **Total** | **All Analyzed Roadmap Blogs** | **237** | **810,056** | **~67.5 Hours** |
+| **Total** | **All Analyzed Roadmap Blogs** | **245** | **835,001** | **~69.6 Hours** |
 
 ---
 
@@ -103,6 +103,15 @@ python scrape_and_analyze.py
 
 # 2. Date each blog by the day it first appeared in the upstream README's git history
 python track_added_dates.py
+
+# 3. Renumber note files to the new IDs (adds paths for new blogs)
+python scripts/renumber_notes.py
+
+# 4. Extract new blogs' text, then write notes per scripts/NOTES_GUIDE.md
+python scripts/extract_blog_text.py /tmp/notes-work <slug> [<slug> ...]
+
+# 5. Regenerate notes/README.md and the stats in this README
+python scripts/update_indexes.py
 ```
 
 `track_added_dates.py` uses the upstream commit date (when the change landed), not the author date, which upstream often leaves stale after rebases.

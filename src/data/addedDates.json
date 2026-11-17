@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15",
+ "updated": "2026-11-17",
  "source": "https://github.com/amitshekhariitbhu/ai-engineer-roadmap",
  "launch": "2026-09-20",
  "entries": {
@@ -42,6 +42,10 @@
   "https://outcomeschool.com/blog/train-validation-test-split": {
    "date": "2026-10-27",
    "commit": "930afd0"
+  },
+  "https://outcomeschool.com/blog/cross-validation": {
+   "date": "2026-11-17",
+   "commit": "c0cfe3c"
   },
   "https://outcomeschool.com/blog/bias-variance-tradeoff": {
    "date": "2026-11-03",
@@ -90,6 +94,14 @@
   "https://outcomeschool.com/blog/contrastive-learning": {
    "date": "2026-09-20",
    "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/recommendation-system": {
+   "date": "2026-11-16",
+   "commit": "d852d09"
+  },
+  "https://outcomeschool.com/blog/explainable-ai-xai": {
+   "date": "2026-11-16",
+   "commit": "2dfd60f"
   },
   "https://outcomeschool.com/blog/neural-network": {
    "date": "2026-10-20",
@@ -162,6 +174,10 @@
   "https://outcomeschool.com/blog/dropout-in-neural-networks": {
    "date": "2026-09-20",
    "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/early-stopping": {
+   "date": "2026-11-17",
+   "commit": "50388fc"
   },
   "https://outcomeschool.com/blog/batch-normalization-vs-layer-normalization": {
    "date": "2026-09-20",
@@ -354,6 +370,10 @@
   "https://outcomeschool.com/blog/how-does-fine-tuning-work": {
    "date": "2026-09-20",
    "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/instruction-tuning": {
+   "date": "2026-11-16",
+   "commit": "b23a5af"
   },
   "https://outcomeschool.com/blog/lora-low-rank-adaptation-of-llms": {
    "date": "2026-09-20",
@@ -926,6 +946,18 @@
   "https://outcomeschool.com/blog/packet-loss-concealment": {
    "date": "2026-11-15",
    "commit": "cdacfeb"
+  },
+  "https://outcomeschool.com/blog/phone-calls-in-voice-agents": {
+   "date": "2026-11-16",
+   "commit": "c188b99"
+  },
+  "https://outcomeschool.com/blog/sip-and-rtp": {
+   "date": "2026-11-17",
+   "commit": "11a4153"
+  },
+  "https://outcomeschool.com/blog/phone-audio-and-speech-recognition": {
+   "date": "2026-11-17",
+   "commit": "85afebb"
   },
   "https://outcomeschool.com/blog/system-design": {
    "date": "2026-09-20",

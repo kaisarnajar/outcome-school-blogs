@@ -109,6 +109,7 @@ In this step, we will learn what Machine Learning is, the different ways a machi
 - [What are L1 and L2 Loss Functions?](https://outcomeschool.com/blog/l1-and-l2-loss-functions)
 - [What is Regularization in Machine Learning? L1 vs L2 Explained](https://outcomeschool.com/blog/regularization-in-machine-learning)
 - [Why do we split data into train, validation, and test sets?](https://outcomeschool.com/blog/train-validation-test-split)
+- [How does Cross-Validation work?](https://outcomeschool.com/blog/cross-validation)
 - [How does the Bias-Variance Tradeoff work?](https://outcomeschool.com/blog/bias-variance-tradeoff)
 - [How do Decision Trees and Random Forests work?](https://outcomeschool.com/blog/decision-trees-and-random-forests)
 - [How does K-Means Clustering work?](https://outcomeschool.com/blog/k-means-clustering)
@@ -121,6 +122,8 @@ In this step, we will learn what Machine Learning is, the different ways a machi
 - [What is Actor-Critic in Reinforcement Learning? The Advantage Function Explained](https://outcomeschool.com/blog/actor-critic)
 - [How does Self-Supervised Learning work?](https://outcomeschool.com/blog/self-supervised-learning)
 - [What is Contrastive Learning?](https://outcomeschool.com/blog/contrastive-learning)
+- [How does a Recommendation System work?](https://outcomeschool.com/blog/recommendation-system)
+- [What is Explainable AI?](https://outcomeschool.com/blog/explainable-ai-xai)
 
 ### Step 2: Deep Learning and Neural Networks
 
@@ -144,6 +147,7 @@ In this step, we will learn how a neural network actually learns. We will unders
 - [What is Cross-Entropy Loss?](https://outcomeschool.com/blog/math-behind-cross-entropy-loss)
 - [What is KL Divergence? The Math Explained Step by Step](https://outcomeschool.com/blog/kl-divergence)
 - [What is Dropout in Neural Networks?](https://outcomeschool.com/blog/dropout-in-neural-networks)
+- [How does early stopping work?](https://outcomeschool.com/blog/early-stopping)
 - [Batch Normalization vs Layer Normalization](https://outcomeschool.com/blog/batch-normalization-vs-layer-normalization)
 - [What is RMSNorm? Root Mean Square Layer Normalization Explained](https://outcomeschool.com/blog/rmsnorm-root-mean-square-layer-normalization)
 - [Convolutional Neural Networks](https://outcomeschool.com/blog/convolutional-neural-network-cnn)
@@ -220,6 +224,7 @@ In this step, we will learn how a pre-trained model is adapted to our own task, 
 
 - [How does Pretraining work?](https://outcomeschool.com/blog/llm-pretraining)
 - [How does Fine-Tuning work?](https://outcomeschool.com/blog/how-does-fine-tuning-work)
+- [How does Instruction Tuning work?](https://outcomeschool.com/blog/instruction-tuning)
 - [What is LoRA (Low-Rank Adaptation)?](https://outcomeschool.com/blog/lora-low-rank-adaptation-of-llms)
 - [How does Prefix Tuning work?](https://outcomeschool.com/blog/how-does-prefix-tuning-work)
 - [How does Knowledge Distillation work?](https://outcomeschool.com/blog/how-does-knowledge-distillation-work)
@@ -412,6 +417,9 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [How does the Opus codec compress voice for real-time calls?](https://outcomeschool.com/blog/opus-codec)
 - [How does a jitter buffer keep voice audio smooth over a bad network?](https://outcomeschool.com/blog/jitter-buffer)
 - [How does packet loss concealment hide missing audio?](https://outcomeschool.com/blog/packet-loss-concealment)
+- [How does a voice AI agent answer a phone call?](https://outcomeschool.com/blog/phone-calls-in-voice-agents)
+- [How do SIP and RTP carry a phone call to a voice agent?](https://outcomeschool.com/blog/sip-and-rtp)
+- [Why does phone audio make speech recognition worse?](https://outcomeschool.com/blog/phone-audio-and-speech-recognition)
 
 Supporting reads for AI System Design:
 
