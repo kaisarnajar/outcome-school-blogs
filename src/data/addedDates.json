@@ -95,6 +95,10 @@
    "date": "2026-11-10",
    "commit": "6d51226"
   },
+  "https://outcomeschool.com/blog/semi-supervised-learning": {
+   "date": "2026-11-20",
+   "commit": "86706e4"
+  },
   "https://outcomeschool.com/blog/contrastive-learning": {
    "date": "2026-09-20",
    "commit": "a4a7456"
@@ -374,6 +378,10 @@
   "https://outcomeschool.com/blog/llm-pretraining": {
    "date": "2026-11-07",
    "commit": "fa6304f"
+  },
+  "https://outcomeschool.com/blog/chinchilla-scaling-laws": {
+   "date": "2026-11-20",
+   "commit": "92e7d98"
   },
   "https://outcomeschool.com/blog/how-does-fine-tuning-work": {
    "date": "2026-09-20",
@@ -990,6 +998,14 @@
   "https://outcomeschool.com/blog/outbound-calling-voice-agent": {
    "date": "2026-11-19",
    "commit": "4f4d521"
+  },
+  "https://outcomeschool.com/blog/call-transfer-with-context": {
+   "date": "2026-11-20",
+   "commit": "0197dca"
+  },
+  "https://outcomeschool.com/blog/voice-agent-system-prompt": {
+   "date": "2026-11-20",
+   "commit": "221915d"
   },
   "https://outcomeschool.com/blog/system-design": {
    "date": "2026-09-20",
