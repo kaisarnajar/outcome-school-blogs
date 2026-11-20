@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12",
+ "updated": "2026-11-20",
  "note": "Blogs I have read. Every other roadmap blog counts as unread. To mark one as read, add its title and URL here.",
  "read": [
   {
@@ -223,6 +223,14 @@
    "url": "https://outcomeschool.com/blog/how-do-top-k-and-top-p-sampling-work"
   },
   {
+   "title": "How do Greedy Decoding and Beam Search differ?",
+   "url": "https://outcomeschool.com/blog/greedy-decoding-vs-beam-search"
+  },
+  {
+   "title": "What are Log Probabilities (Logprobs) in LLMs?",
+   "url": "https://outcomeschool.com/blog/logprobs-in-llms"
+  },
+  {
    "title": "Stop Tokens in LLMs",
    "url": "https://outcomeschool.com/blog/stop-tokens-in-llms"
   },
@@ -287,8 +295,16 @@
    "url": "https://outcomeschool.com/blog/jev-and-system-one-models-explained"
   },
   {
+   "title": "How does Pretraining work?",
+   "url": "https://outcomeschool.com/blog/llm-pretraining"
+  },
+  {
    "title": "How does Fine-Tuning work?",
    "url": "https://outcomeschool.com/blog/how-does-fine-tuning-work"
+  },
+  {
+   "title": "How does Instruction Tuning work?",
+   "url": "https://outcomeschool.com/blog/instruction-tuning"
   },
   {
    "title": "What is LoRA (Low-Rank Adaptation)?",
@@ -319,6 +335,18 @@
    "url": "https://outcomeschool.com/blog/reinforcement-learning-from-human-feedback-rlhf"
   },
   {
+   "title": "What is a Reward Model and How Is It Trained?",
+   "url": "https://outcomeschool.com/blog/reward-model"
+  },
+  {
+   "title": "What is Reward Hacking in Reinforcement Learning and How Do We Prevent It?",
+   "url": "https://outcomeschool.com/blog/reward-hacking"
+  },
+  {
+   "title": "What is RLAIF? Reinforcement Learning from AI Feedback Explained",
+   "url": "https://outcomeschool.com/blog/reinforcement-learning-from-ai-feedback-rlaif"
+  },
+  {
    "title": "What is Proximal Policy Optimization (PPO)?",
    "url": "https://outcomeschool.com/blog/proximal-policy-optimization-ppo"
   },
@@ -329,6 +357,14 @@
   {
    "title": "What is Group Relative Policy Optimization (GRPO)?",
    "url": "https://outcomeschool.com/blog/group-relative-policy-optimization-grpo"
+  },
+  {
+   "title": "What is Reinforcement Learning with Verifiable Rewards (RLVR)?",
+   "url": "https://outcomeschool.com/blog/reinforcement-learning-with-verifiable-rewards-rlvr"
+  },
+  {
+   "title": "How does Prompt Engineering work?",
+   "url": "https://outcomeschool.com/blog/prompt-engineering"
   },
   {
    "title": "How does Chain-of-Thought (CoT) Prompting work?",
@@ -371,6 +407,10 @@
    "url": "https://outcomeschool.com/blog/how-does-semantic-search-work"
   },
   {
+   "title": "How does an Inverted Index work?",
+   "url": "https://outcomeschool.com/blog/inverted-index"
+  },
+  {
    "title": "How does Hybrid Search work?",
    "url": "https://outcomeschool.com/blog/how-does-hybrid-search-work"
   },
@@ -381,6 +421,10 @@
   {
    "title": "What is ColBERT? Late Interaction Retrieval Explained",
    "url": "https://outcomeschool.com/blog/decoding-colbert"
+  },
+  {
+   "title": "How does RAG work?",
+   "url": "https://outcomeschool.com/blog/retrieval-augmented-generation-rag"
   },
   {
    "title": "How to Chunk Documents for RAG? Chunking Strategies Explained",
@@ -491,6 +535,10 @@
    "url": "https://outcomeschool.com/blog/how-do-browser-agents-work"
   },
   {
+   "title": "How do Human-in-the-Loop agents work?",
+   "url": "https://outcomeschool.com/blog/human-in-the-loop-agents"
+  },
+  {
    "title": "What is Harness Engineering?",
    "url": "https://outcomeschool.com/blog/harness-engineering-in-ai"
   },
@@ -541,6 +589,10 @@
   {
    "title": "What is KV Cache Compression?",
    "url": "https://outcomeschool.com/blog/kv-cache-compression"
+  },
+  {
+   "title": "How does an LLM use GPU memory?",
+   "url": "https://outcomeschool.com/blog/llm-gpu-memory"
   },
   {
    "title": "What is Paged Attention in LLMs?",
@@ -619,6 +671,10 @@
    "url": "https://outcomeschool.com/blog/prompt-injection-in-llms"
   },
   {
+   "title": "What is jailbreaking in LLMs?",
+   "url": "https://outcomeschool.com/blog/jailbreaking-in-llms"
+  },
+  {
    "title": "How does LLM Watermarking work?",
    "url": "https://outcomeschool.com/blog/how-does-llm-watermarking-work"
   },
@@ -673,6 +729,10 @@
   {
    "title": "How does Model Serving work?",
    "url": "https://outcomeschool.com/blog/model-serving"
+  },
+  {
+   "title": "How does a Model Registry work?",
+   "url": "https://outcomeschool.com/blog/model-registry"
   },
   {
    "title": "Android TensorFlow Lite Machine Learning Example",
@@ -761,6 +821,14 @@
   {
    "title": "How does a voice agent hide the delay of a slow tool call?",
    "url": "https://outcomeschool.com/blog/slow-tool-calls-in-voice-agents"
+  },
+  {
+   "title": "How does a voice AI agent answer a phone call?",
+   "url": "https://outcomeschool.com/blog/phone-calls-in-voice-agents"
+  },
+  {
+   "title": "How do SIP and RTP carry a phone call to a voice agent?",
+   "url": "https://outcomeschool.com/blog/sip-and-rtp"
   },
   {
    "title": "What is System Design?",
