@@ -22,13 +22,14 @@ for url, p in paths.items():
     if np_ != p:
         moves.append((p, np_))
 
-by_id = {by_url[u]['id']: p for u, p in new_paths.items()}
+# A new blog's note goes in the folder that already holds notes from the same step.
+step_folder = {by_url[u]['step']: os.path.dirname(p) for u, p in new_paths.items()}
 for b in blogs:
     if b['url'] in new_paths:
         continue
-    near = by_id.get(b['id'] - 1) or by_id.get(b['id'] + 1)
-    np_ = os.path.join(os.path.dirname(near), '%03d-%s.md' % (b['id'], b['url'].rstrip('/').split('/')[-1]))
-    new_paths[b['url']] = by_id[b['id']] = np_
+    folder = step_folder[b['step']]
+    np_ = os.path.join(folder, '%03d-%s.md' % (b['id'], b['url'].rstrip('/').split('/')[-1]))
+    new_paths[b['url']] = np_
     print('NEW', b['id'], np_)
 
 # Two phases so a rename never lands on a file that still has to move.

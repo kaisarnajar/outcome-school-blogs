@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17",
+ "updated": "2026-11-20",
  "source": "https://github.com/amitshekhariitbhu/ai-engineer-roadmap",
  "launch": "2026-09-20",
  "entries": {
@@ -26,6 +26,10 @@
   "https://outcomeschool.com/blog/precision-vs-recall": {
    "date": "2026-09-20",
    "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/confusion-matrix": {
+   "date": "2026-11-19",
+   "commit": "a72cf6f"
   },
   "https://outcomeschool.com/blog/bayes-theorem": {
    "date": "2026-11-15",
@@ -194,6 +198,10 @@
   "https://outcomeschool.com/blog/object-detection": {
    "date": "2026-11-14",
    "commit": "d50d548"
+  },
+  "https://outcomeschool.com/blog/semantic-segmentation": {
+   "date": "2026-11-18",
+   "commit": "aef3556"
   },
   "https://outcomeschool.com/blog/recurrent-neural-network": {
    "date": "2026-09-20",
@@ -435,6 +443,10 @@
    "date": "2026-11-12",
    "commit": "4029019"
   },
+  "https://outcomeschool.com/blog/in-context-learning": {
+   "date": "2026-11-18",
+   "commit": "3d2b169"
+  },
   "https://outcomeschool.com/blog/how-does-chain-of-thought-prompting-work": {
    "date": "2026-09-20",
    "commit": "a4a7456"
@@ -458,6 +470,10 @@
   "https://outcomeschool.com/blog/how-does-context-compaction-work": {
    "date": "2026-09-20",
    "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/embedding-model": {
+   "date": "2026-11-19",
+   "commit": "3930d4c"
   },
   "https://outcomeschool.com/blog/cosine-similarity": {
    "date": "2026-10-31",
@@ -795,6 +811,10 @@
    "date": "2026-09-20",
    "commit": "a4a7456"
   },
+  "https://outcomeschool.com/blog/distributed-training": {
+   "date": "2026-11-19",
+   "commit": "2437e71"
+  },
   "https://outcomeschool.com/blog/cloud-vs-on-device-model-deployment": {
    "date": "2026-09-20",
    "commit": "a4a7456"
@@ -958,6 +978,18 @@
   "https://outcomeschool.com/blog/phone-audio-and-speech-recognition": {
    "date": "2026-11-17",
    "commit": "85afebb"
+  },
+  "https://outcomeschool.com/blog/dtmf-in-voice-agents": {
+   "date": "2026-11-18",
+   "commit": "5438172"
+  },
+  "https://outcomeschool.com/blog/answering-machine-detection": {
+   "date": "2026-11-18",
+   "commit": "5a8d379"
+  },
+  "https://outcomeschool.com/blog/outbound-calling-voice-agent": {
+   "date": "2026-11-19",
+   "commit": "4f4d521"
   },
   "https://outcomeschool.com/blog/system-design": {
    "date": "2026-09-20",

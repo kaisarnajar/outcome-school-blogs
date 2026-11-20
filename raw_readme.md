@@ -105,6 +105,7 @@ In this step, we will learn what Machine Learning is, the different ways a machi
 - [What is Feature Engineering in Machine Learning?](https://outcomeschool.com/blog/feature-engineering)
 - [What is One-hot Encoding in Machine Learning?](https://outcomeschool.com/blog/one-hot-encoding)
 - [Precision vs Recall](https://outcomeschool.com/blog/precision-vs-recall)
+- [How does a confusion matrix work?](https://outcomeschool.com/blog/confusion-matrix)
 - [What is Bayes' Theorem?](https://outcomeschool.com/blog/bayes-theorem)
 - [What are L1 and L2 Loss Functions?](https://outcomeschool.com/blog/l1-and-l2-loss-functions)
 - [What is Regularization in Machine Learning? L1 vs L2 Explained](https://outcomeschool.com/blog/regularization-in-machine-learning)
@@ -152,6 +153,7 @@ In this step, we will learn how a neural network actually learns. We will unders
 - [What is RMSNorm? Root Mean Square Layer Normalization Explained](https://outcomeschool.com/blog/rmsnorm-root-mean-square-layer-normalization)
 - [Convolutional Neural Networks](https://outcomeschool.com/blog/convolutional-neural-network-cnn)
 - [How does Object Detection work?](https://outcomeschool.com/blog/object-detection)
+- [How does Semantic Segmentation work?](https://outcomeschool.com/blog/semantic-segmentation)
 - [What is a Recurrent Neural Network (RNN)?](https://outcomeschool.com/blog/recurrent-neural-network)
 - [How does PyTorch work?](https://outcomeschool.com/blog/how-does-pytorch-work)
 - [How does TensorFlow work?](https://outcomeschool.com/blog/how-does-the-machine-learning-library-tensorflow-work)
@@ -245,6 +247,7 @@ In this step, we will learn how a pre-trained model is adapted to our own task, 
 In this step, we will learn how to talk to an LLM so that it gives better answers, and how to manage everything that goes into its context window.
 
 - [How does Prompt Engineering work?](https://outcomeschool.com/blog/prompt-engineering)
+- [How does In-Context Learning work?](https://outcomeschool.com/blog/in-context-learning)
 - [How does Chain-of-Thought (CoT) Prompting work?](https://outcomeschool.com/blog/how-does-chain-of-thought-prompting-work)
 - [How does Tree of Thoughts work?](https://outcomeschool.com/blog/how-does-tree-of-thoughts-work)
 - [How does Prompt Chaining work?](https://outcomeschool.com/blog/how-does-prompt-chaining-work)
@@ -258,6 +261,7 @@ In this step, we will learn how to give an LLM knowledge that it was never train
 
 If you want a quick introduction to RAG before starting, watch: [AI Engineering Explained: LLM, RAG, MCP, Agent, Fine-Tuning, Quantization](https://www.youtube.com/watch?v=lnfWvX66FUk)
 
+- [How does an embedding model work?](https://outcomeschool.com/blog/embedding-model)
 - [How does Cosine Similarity work?](https://outcomeschool.com/blog/cosine-similarity)
 - [How does a Vector Database work?](https://outcomeschool.com/blog/how-does-a-vector-database-work)
 - [How does Approximate Nearest Neighbor (ANN) Search work?](https://outcomeschool.com/blog/how-does-approximate-nearest-neighbor-ann-search-work)
@@ -379,6 +383,7 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [How do CUDA Kernels work?](https://outcomeschool.com/blog/how-do-cuda-kernels-work)
 - [How does a Google TPU work?](https://outcomeschool.com/blog/how-does-a-google-tpu-work)
 - [How does an LPU work?](https://outcomeschool.com/blog/how-does-an-lpu-work)
+- [How does distributed training work?](https://outcomeschool.com/blog/distributed-training)
 - [Cloud vs On-device Model Deployment](https://outcomeschool.com/blog/cloud-vs-on-device-model-deployment)
 - [How does Model Serving work?](https://outcomeschool.com/blog/model-serving)
 - [How does a Model Registry work?](https://outcomeschool.com/blog/model-registry)
@@ -420,6 +425,9 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [How does a voice AI agent answer a phone call?](https://outcomeschool.com/blog/phone-calls-in-voice-agents)
 - [How do SIP and RTP carry a phone call to a voice agent?](https://outcomeschool.com/blog/sip-and-rtp)
 - [Why does phone audio make speech recognition worse?](https://outcomeschool.com/blog/phone-audio-and-speech-recognition)
+- [How does DTMF keypad input work in a voice agent?](https://outcomeschool.com/blog/dtmf-in-voice-agents)
+- [How does voicemail and answering machine detection work?](https://outcomeschool.com/blog/answering-machine-detection)
+- [How does an outbound calling voice agent work?](https://outcomeschool.com/blog/outbound-calling-voice-agent)
 
 Supporting reads for AI System Design:
 
