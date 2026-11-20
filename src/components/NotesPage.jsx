@@ -192,7 +192,6 @@ export default function NotesPage({ slug, theme }) {
   }
 
   const gh = githubNoteUrl(blog);
-  const st = STATUS[blog.status];
   const backLabel = nav.returnTo.startsWith('#/progress') ? 'Progress' : nav.returnTo.startsWith('#/activity') ? 'Activity' : 'Roadmap';
   const jump = (id) => (e) => { e.preventDefault(); document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }); };
 
@@ -219,9 +218,7 @@ export default function NotesPage({ slug, theme }) {
           </nav>
           <h1 className="note-title">{blog.title}</h1>
           <div className="note-meta">
-            <span className={`status pill st-${blog.status}`}>
-              {blog.status === 'revision' ? `Needs revision · ${blog.progress.understanding}%` : blog.status === 'mastered' ? 'Mastered · 100%' : st.label}
-            </span>
+            <span className={`status pill st-${blog.status}`}>{STATUS[blog.status].label}</span>
             <span>{blog.mins} min original</span>
             <span className="dot" />
             <span>{blog.word_count.toLocaleString()} words</span>
@@ -234,9 +231,6 @@ export default function NotesPage({ slug, theme }) {
               </>
             )}
           </div>
-          {blog.progress?.gap && (
-            <div className="revisit"><b>To revisit:</b> {blog.progress.gap}</div>
-          )}
           <div className="note-actions">
             <a className="btn btn-sm btn-primary" href={blog.url} target="_blank" rel="noopener noreferrer">
               Read the original <ExternalLink size={14} />

@@ -5,7 +5,7 @@
 🌐 **Live Application:**  
 **[https://kaisarnajar.github.io/outcome-school-blogs/](https://kaisarnajar.github.io/outcome-school-blogs/)**
 
-📈 **My Study Progress:** **[kaisarnajar.github.io/outcome-school-blogs/#/progress](https://kaisarnajar.github.io/outcome-school-blogs/#/progress)** (data in `src/data/progressData.json`)
+📈 **My Reading Progress:** **[kaisarnajar.github.io/outcome-school-blogs/#/progress](https://kaisarnajar.github.io/outcome-school-blogs/#/progress)** (data in `src/data/progressData.json`)
 
 📅 **Roadmap Activity:** **[kaisarnajar.github.io/outcome-school-blogs/#/activity](https://kaisarnajar.github.io/outcome-school-blogs/#/activity)** — a daily heatmap of when each blog was added to the roadmap (data in `src/data/addedDates.json`)
 
@@ -67,9 +67,9 @@
 
 - **Editorial design**: paper-and-ink light theme and a warm dark theme, serif type for reading (Source Serif 4), Inter for UI, one accent colour.
 - **Roadmap index**: every article grouped by step, with a sticky curriculum sidebar that tracks the step in view; filter by text, study status and length, sort, list/table views, CSV export.
-- **Notes pages** (`#/notes/<slug>`): revision notes with a TL;DR card, key-concept glossary, KaTeX math, theme-aware Mermaid diagrams, sticky "On this page" table of contents with scroll-spy, reading progress bar and previous/next navigation.
+- **Notes pages** (`#/notes/<slug>`): study notes with a TL;DR card, key-concept glossary, KaTeX math, theme-aware Mermaid diagrams, sticky "On this page" table of contents with scroll-spy, reading progress bar and previous/next navigation.
 - **Roadmap activity** (`#/activity`, `#/activity/<YYYY-MM-DD>`): a calendar heatmap of blogs added to the upstream roadmap per day, with launch-day marker, streak and per-day stats. Click a day (or use the arrow keys) to list that day's blogs grouped by step, each linking to its notes.
-- **Study progress** (`#/progress`): overall completion, a revision queue sorted weakest-first with "to revisit" notes, per-step progress and the full per-article list.
+- **Reading progress** (`#/progress`): every blog is simply read or unread. Shows overall and per-step progress, the next unread articles and the full list with read/unread filters. To mark a blog as read, add its title and URL to `src/data/progressData.json`.
 - **Quick open**: press `⌘K` / `Ctrl K` (or `/`) to jump to any note.
 - **Continuous deployment**: pushing to `main` deploys to GitHub Pages via GitHub Actions.
 

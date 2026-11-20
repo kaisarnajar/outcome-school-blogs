@@ -234,9 +234,7 @@ export default function ActivityPage({ day }) {
                       </div>
                     </div>
                     <div className="post-side">
-                      <span className={`status st-${b.status}`}>
-                        {b.status === 'revision' ? `Revise · ${b.progress.understanding}%` : STATUS[b.status].label}
-                      </span>
+                      <span className={`status st-${b.status}`}>{STATUS[b.status].label}</span>
                       <span className="post-meta">{b.mins} min read</span>
                       <a className="post-ext" href={b.url} target="_blank" rel="noopener noreferrer" title="Read the original blog" aria-label={`Original: ${b.title}`}>
                         <ExternalLink size={14} />

@@ -3,20 +3,13 @@ import progressData from '../data/progressData.json';
 import addedData from '../data/addedDates.json';
 import { noteHref, noteSlug } from '../notes';
 
+// Every blog is either read (listed in progressData.json) or unread.
 export const STATUS = {
-  mastered: { key: 'mastered', label: 'Mastered', short: 'Mastered' },
-  revision: { key: 'revision', label: 'Needs revision', short: 'Revise' },
-  pending: { key: 'pending', label: 'Not started', short: 'To read' },
-  new: { key: 'new', label: 'New · not started', short: 'New' },
+  read: { key: 'read', label: 'Read' },
+  unread: { key: 'unread', label: 'Unread' },
 };
 
-const progressByUrl = new Map(progressData.entries.map((e) => [e.url, e]));
-
-function classify(entry) {
-  if (!entry) return 'new';
-  if (entry.status !== 'completed') return 'pending';
-  return entry.understanding === 100 ? 'mastered' : 'revision';
-}
+const readUrls = new Set(progressData.read.map((e) => e.url));
 
 export function lengthBucket(mins) {
   if (mins <= 4) return 'quick';
@@ -43,16 +36,14 @@ function splitStep(step) {
 }
 
 export const blogs = blogsData.map((b) => {
-  const progress = progressByUrl.get(b.url) || null;
   const mins = b.reading_time_mins || Math.max(1, Math.round((b.word_count || 0) / 200));
   return {
     ...b,
     mins,
     slug: noteSlug(b),
     href: noteHref(b),
-    progress,
     added: addedData.entries[b.url]?.date || null,
-    status: classify(progress),
+    status: readUrls.has(b.url) ? 'read' : 'unread',
     length: lengthBucket(mins),
     stepInfo: splitStep(b.step),
   };
@@ -72,41 +63,29 @@ export const steps = (() => {
     map.get(b.step).blogs.push(b);
   });
   return Array.from(map.values()).map((s) => {
-    const count = (k) => s.blogs.filter((b) => b.status === k).length;
-    const done = count('mastered') + count('revision');
-    const levels = s.blogs.map((b) => b.progress?.understanding).filter((v) => v != null);
+    const read = s.blogs.filter((b) => b.status === 'read').length;
     return {
       ...s,
-      mastered: count('mastered'),
-      revision: count('revision'),
-      pending: count('pending'),
-      new: count('new'),
-      done,
+      read,
+      unread: s.blogs.length - read,
       total: s.blogs.length,
       mins: s.blogs.reduce((a, b) => a + b.mins, 0),
       words: s.blogs.reduce((a, b) => a + (b.word_count || 0), 0),
-      avg: levels.length ? Math.round(levels.reduce((a, v) => a + v, 0) / levels.length) : null,
     };
   });
 })();
 
 export const totals = (() => {
-  const c = (k) => blogs.filter((b) => b.status === k).length;
-  const levels = blogs.map((b) => b.progress?.understanding).filter((v) => v != null);
-  const done = c('mastered') + c('revision');
+  const read = blogs.filter((b) => b.status === 'read');
   return {
     count: blogs.length,
     steps: new Set(blogs.map((b) => b.step_number)).size,
     words: blogs.reduce((a, b) => a + (b.word_count || 0), 0),
     mins: blogs.reduce((a, b) => a + b.mins, 0),
-    minsDone: blogs.filter((b) => b.status === 'mastered' || b.status === 'revision').reduce((a, b) => a + b.mins, 0),
-    mastered: c('mastered'),
-    revision: c('revision'),
-    pending: c('pending'),
-    new: c('new'),
-    done,
-    pct: Math.round((done / blogs.length) * 100),
-    avg: levels.length ? Math.round(levels.reduce((a, v) => a + v, 0) / levels.length) : 0,
+    minsRead: read.reduce((a, b) => a + b.mins, 0),
+    read: read.length,
+    unread: blogs.length - read.length,
+    pct: Math.round((read.length / blogs.length) * 100),
   };
 })();
 

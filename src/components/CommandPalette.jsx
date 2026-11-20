@@ -28,15 +28,7 @@ export default function CommandPalette({ open, onClose }) {
   const results = useMemo(() => {
     const query = q.trim().toLowerCase();
     if (!query) {
-      const revise = blogs
-        .filter((b) => b.status === 'revision')
-        .sort((a, b) => a.progress.understanding - b.progress.understanding)
-        .slice(0, 6);
-      const next = blogs.filter((b) => b.status === 'pending' || b.status === 'new').slice(0, 4);
-      return [
-        ...revise.map((b) => ({ b, group: 'Revise next' })),
-        ...next.map((b) => ({ b, group: 'Not started yet' })),
-      ];
+      return blogs.filter((b) => b.status === 'unread').slice(0, 8).map((b) => ({ b, group: 'Up next · unread' }));
     }
     const terms = query.split(/\s+/);
     return blogs
@@ -106,9 +98,7 @@ export default function CommandPalette({ open, onClose }) {
                     <div className="t">{b.title}</div>
                     <div className="s">{b.stepInfo.name}</div>
                   </span>
-                  <span className={`status st-${b.status}`}>
-                    {b.status === 'revision' ? `${b.progress.understanding}%` : STATUS[b.status].short}
-                  </span>
+                  <span className={`status st-${b.status}`}>{STATUS[b.status].label}</span>
                 </li>
               </React.Fragment>
             );

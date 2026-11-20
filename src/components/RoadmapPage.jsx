@@ -24,9 +24,7 @@ function PostRow({ b, showStep }) {
         {showStep && <div className="post-meta" style={{ textAlign: 'left', marginTop: 6 }}>Step {b.stepInfo.num} · {b.stepInfo.name}</div>}
       </div>
       <div className="post-side">
-        <span className={`status st-${b.status}`}>
-          {b.status === 'revision' ? `Revise · ${b.progress.understanding}%` : STATUS[b.status].label}
-        </span>
+        <span className={`status st-${b.status}`}>{STATUS[b.status].label}</span>
         <span className="post-side-row">
           <span className="post-mins">{b.mins} min read</span>
           <a className="post-ext" href={b.url} target="_blank" rel="noopener noreferrer" title="Read the original blog" aria-label={`Original: ${b.title}`}>
@@ -39,9 +37,9 @@ function PostRow({ b, showStep }) {
 }
 
 function exportCsv(rows) {
-  const head = ['ID', 'Step', 'Title', 'Words', 'Minutes', 'Status', 'Understanding', 'URL'];
+  const head = ['ID', 'Step', 'Title', 'Words', 'Minutes', 'Status', 'URL'];
   const esc = (s) => `"${String(s ?? '').replace(/"/g, '""')}"`;
-  const body = rows.map((b) => [b.id, esc(b.step), esc(b.title), b.word_count, b.mins, b.status, b.progress?.understanding ?? '', esc(b.url)].join(','));
+  const body = rows.map((b) => [b.id, esc(b.step), esc(b.title), b.word_count, b.mins, b.status, esc(b.url)].join(','));
   const blob = new Blob([[head.join(','), ...body].join('\n')], { type: 'text/csv' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -66,9 +64,7 @@ export default function RoadmapPage({ openSearch }) {
     const query = q.trim().toLowerCase();
     return blogs.filter((b) => {
       if (length !== 'all' && b.length !== length) return false;
-      if (status === 'done' && !(b.status === 'mastered' || b.status === 'revision')) return false;
-      if (status === 'todo' && !(b.status === 'pending' || b.status === 'new')) return false;
-      if (status === 'revision' && b.status !== 'revision') return false;
+      if (status !== 'all' && b.status !== status) return false;
       if (query && !(b.title.toLowerCase().includes(query) || (b.excerpt || '').toLowerCase().includes(query) || b.step.toLowerCase().includes(query))) return false;
       return true;
     });
@@ -112,11 +108,8 @@ export default function RoadmapPage({ openSearch }) {
 
   const filtersOn = q || length !== 'all' || status !== 'all';
   const reset = () => { setQ(''); setLength('all'); setStatus('all'); };
-  const reviseNext = useMemo(
-    () => blogs.filter((b) => b.status === 'revision').sort((a, b) => a.progress.understanding - b.progress.understanding || a.id - b.id).slice(0, 4),
-    []
-  );
-  const firstRevise = reviseNext[0];
+  const upNext = useMemo(() => blogs.filter((b) => b.status === 'unread').slice(0, 4), []);
+  const firstUnread = upNext[0];
 
   return (
     <>
@@ -129,12 +122,12 @@ export default function RoadmapPage({ openSearch }) {
           </h1>
           <p className="lead">
             {totals.count} articles by Amit Shekhar across {totals.steps} steps — from machine-learning foundations to frontier
-            agents. Each one condensed into revision notes with diagrams, and tracked against my own study progress.
+            agents. Each one condensed into study notes with diagrams, with the ones I've read marked.
           </p>
           <div className="hero-actions">
-            {firstRevise && (
-              <a className="btn btn-primary" href={firstRevise.href}>
-                Continue revising <ArrowRight size={16} />
+            {firstUnread && (
+              <a className="btn btn-primary" href={firstUnread.href}>
+                Continue reading <ArrowRight size={16} />
               </a>
             )}
             <button className="btn" onClick={openSearch}>
@@ -143,25 +136,24 @@ export default function RoadmapPage({ openSearch }) {
           </div>
           </div>
 
-          <aside className="next-card" aria-label="Revise next">
-            <div className="next-card-head">
-              <span>Revise next</span>
-              <a href="#/progress">All {totals.revision} →</a>
-            </div>
-            <ol>
-              {reviseNext.map((b) => (
-                <li key={b.id}>
-                  <a href={b.href}>
-                    <span className="next-title">{b.title}</span>
-                    <span className="next-meta">
-                      <span className="meter st-revision"><span className="meter-track"><span className="meter-fill" style={{ width: `${b.progress.understanding}%`, background: 'var(--c)' }} /></span></span>
-                      {b.progress.understanding}% · Step {b.stepInfo.num}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </aside>
+          {upNext.length > 0 && (
+            <aside className="next-card" aria-label="Up next">
+              <div className="next-card-head">
+                <span>Up next</span>
+                <a href="#/progress">All {totals.unread} unread →</a>
+              </div>
+              <ol>
+                {upNext.map((b) => (
+                  <li key={b.id}>
+                    <a href={b.href}>
+                      <span className="next-title">{b.title}</span>
+                      <span className="next-meta">Step {b.stepInfo.num} · {b.mins} min read</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </aside>
+          )}
 
           <div className="figures hero-figures">
             <div className="figure">
@@ -178,7 +170,7 @@ export default function RoadmapPage({ openSearch }) {
             </div>
             <a className="figure" href="#/progress">
               <div className="figure-num">{totals.pct}<small>%</small></div>
-              <div className="figure-label">studied so far →</div>
+              <div className="figure-label">read so far →</div>
             </a>
           </div>
         </div>
@@ -202,8 +194,8 @@ export default function RoadmapPage({ openSearch }) {
                 >
                   <span className="step-nav-num">{s.num.padStart(2, '0')}</span>
                   <span className="step-nav-name">{s.name}</span>
-                  <span className="step-nav-count">{s.done}/{s.total}</span>
-                  <span className="step-nav-bar" aria-hidden="true"><span style={{ width: `${(s.done / s.total) * 100}%` }} /></span>
+                  <span className="step-nav-count">{s.read}/{s.total}</span>
+                  <span className="step-nav-bar" aria-hidden="true"><span style={{ width: `${(s.read / s.total) * 100}%` }} /></span>
                 </a>
               </li>
             ))}
@@ -221,11 +213,10 @@ export default function RoadmapPage({ openSearch }) {
                 </button>
               )}
             </div>
-            <select className="select" value={status} onChange={(e) => setStatus(e.target.value)} aria-label="Study status">
-              <option value="all">Any status</option>
-              <option value="done">Studied</option>
-              <option value="revision">Needs revision</option>
-              <option value="todo">Not started</option>
+            <select className="select" value={status} onChange={(e) => setStatus(e.target.value)} aria-label="Read status">
+              <option value="all">Read and unread</option>
+              <option value="read">Read</option>
+              <option value="unread">Unread</option>
             </select>
             <select className="select" value={sort} onChange={(e) => setSort(e.target.value)} aria-label="Sort">
               <option value="roadmap">Roadmap order</option>
@@ -278,7 +269,7 @@ export default function RoadmapPage({ openSearch }) {
                       <td className="num">{b.word_count.toLocaleString()}</td>
                       <td className="num">{b.mins} min</td>
                       <td className="num">{b.code_blocks_count}</td>
-                      <td><span className={`status st-${b.status}`}>{b.status === 'revision' ? `${b.progress.understanding}%` : STATUS[b.status].short}</span></td>
+                      <td><span className={`status st-${b.status}`}>{STATUS[b.status].label}</span></td>
                     </tr>
                   ))}
                 </tbody>
@@ -294,7 +285,7 @@ export default function RoadmapPage({ openSearch }) {
                   </div>
                   <div className="step-head-meta">
                     {s.total} articles · {fmtHours(s.mins)} h<br />
-                    {s.done} of {s.total} studied
+                    {s.read} of {s.total} read
                   </div>
                 </div>
                 <ul className="post-list">
