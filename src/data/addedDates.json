@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20",
+ "updated": "2026-11-22",
  "source": "https://github.com/amitshekhariitbhu/ai-engineer-roadmap",
  "launch": "2026-09-20",
  "entries": {
@@ -58,6 +58,10 @@
   "https://outcomeschool.com/blog/decision-trees-and-random-forests": {
    "date": "2026-11-06",
    "commit": "8506211"
+  },
+  "https://outcomeschool.com/blog/gradient-boosting": {
+   "date": "2026-11-21",
+   "commit": "e370d73"
   },
   "https://outcomeschool.com/blog/k-means-clustering": {
    "date": "2026-11-10",
@@ -210,6 +214,14 @@
   "https://outcomeschool.com/blog/recurrent-neural-network": {
    "date": "2026-09-20",
    "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/lstm-and-gru": {
+   "date": "2026-11-21",
+   "commit": "ad732c3"
+  },
+  "https://outcomeschool.com/blog/optical-character-recognition-ocr": {
+   "date": "2026-11-22",
+   "commit": "b90441f"
   },
   "https://outcomeschool.com/blog/how-does-pytorch-work": {
    "date": "2026-09-20",
@@ -451,6 +463,10 @@
    "date": "2026-11-12",
    "commit": "4029019"
   },
+  "https://outcomeschool.com/blog/system-prompt": {
+   "date": "2026-11-22",
+   "commit": "8a51ddb"
+  },
   "https://outcomeschool.com/blog/in-context-learning": {
    "date": "2026-11-18",
    "commit": "3d2b169"
@@ -502,6 +518,10 @@
   "https://outcomeschool.com/blog/inverted-index": {
    "date": "2026-11-14",
    "commit": "ae883b3"
+  },
+  "https://outcomeschool.com/blog/bm25": {
+   "date": "2026-11-22",
+   "commit": "f11d52a"
   },
   "https://outcomeschool.com/blog/how-does-hybrid-search-work": {
    "date": "2026-09-20",
@@ -1006,6 +1026,18 @@
   "https://outcomeschool.com/blog/voice-agent-system-prompt": {
    "date": "2026-11-20",
    "commit": "221915d"
+  },
+  "https://outcomeschool.com/blog/function-calling-in-voice-agents": {
+   "date": "2026-11-21",
+   "commit": "4443e36"
+  },
+  "https://outcomeschool.com/blog/structured-inputs-in-voice-agents": {
+   "date": "2026-11-21",
+   "commit": "75e409c"
+  },
+  "https://outcomeschool.com/blog/confirm-and-correct-in-voice-agents": {
+   "date": "2026-11-22",
+   "commit": "b12edab"
   },
   "https://outcomeschool.com/blog/system-design": {
    "date": "2026-09-20",

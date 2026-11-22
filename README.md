@@ -1,6 +1,6 @@
 # Outcome School AI Engineering Roadmap — Blog Length & Structural Analysis
 
-> Modern React.js web application and quantitative analysis of word counts, reading commitment, and architectural depth for all **257 blog articles** across the [AI Engineer Roadmap](https://github.com/amitshekhariitbhu/ai-engineer-roadmap) by [Amit Shekhar](https://github.com/amitshekhariitbhu) ([Outcome School](https://outcomeschool.com)).
+> Modern React.js web application and quantitative analysis of word counts, reading commitment, and architectural depth for all **265 blog articles** across the [AI Engineer Roadmap](https://github.com/amitshekhariitbhu/ai-engineer-roadmap) by [Amit Shekhar](https://github.com/amitshekhariitbhu) ([Outcome School](https://outcomeschool.com)).
 
 🌐 **Live Application:**  
 **[https://kaisarnajar.github.io/outcome-school-blogs/](https://kaisarnajar.github.io/outcome-school-blogs/)**
@@ -17,10 +17,10 @@
 
 | Metric | Value | Details |
 | :--- | :--- | :--- |
-| **Total Blog Articles** | **257** | Synced with latest upstream roadmap commits |
-| **Total Word Count** | **871,844 words** | Extracted and normalized article prose body |
-| **Total Reading Time** | **~72.6 hours (4,358 mins)** | Calculated at standard reading pace of 200 WPM |
-| **Average Words / Blog** | **3,392 words** | In-depth technical articles (~17 min average read) |
+| **Total Blog Articles** | **265** | Synced with latest upstream roadmap commits |
+| **Total Word Count** | **898,591 words** | Extracted and normalized article prose body |
+| **Total Reading Time** | **~74.9 hours (4,492 mins)** | Calculated at standard reading pace of 200 WPM |
+| **Average Words / Blog** | **3,391 words** | In-depth technical articles (~17 min average read) |
 | **Longest Article** | **13,588 words (~68 mins)** | *Design a Real-Time Voice AI Agent* |
 | **Shortest Article** | **205 words (~1 min)** | *Positional Embeddings in LLMs* |
 
@@ -41,25 +41,25 @@
 
 | Step | Topic | Articles | Total Words | Est. Time (200 WPM) |
 | :---: | :--- | :---: | :---: | :---: |
-| **Step 1** | Machine Learning Foundations | 27 | 69,675 | ~348 mins (5.8 hrs) |
-| **Step 2** | Deep Learning and Neural Networks | 27 | 78,565 | ~393 mins (6.5 hrs) |
+| **Step 1** | Machine Learning Foundations | 28 | 73,137 | ~366 mins (6.1 hrs) |
+| **Step 2** | Deep Learning and Neural Networks | 29 | 85,379 | ~427 mins (7.1 hrs) |
 | **Step 3** | Generative AI and the Transformer Architecture | 19 | 53,495 | ~267 mins (4.5 hrs) |
 | **Step 4** | How LLMs Generate Text | 9 | 32,905 | ~165 mins (2.8 hrs) |
 | **Step 5** | Modern LLM Architecture | 6 | 22,099 | ~110 mins (1.8 hrs) |
 | **Step 6** | Types of Language Models | 5 | 18,566 | ~93 mins (1.6 hrs) |
 | **Step 7** | Training, Fine-Tuning, and Alignment | 18 | 59,752 | ~299 mins (5.0 hrs) |
-| **Step 8** | Prompt Engineering and Context Engineering | 8 | 25,674 | ~128 mins (2.1 hrs) |
-| **Step 9** | Vector Search and Retrieval-Augmented Generation (RAG) | 19 | 72,126 | ~361 mins (6.0 hrs) |
+| **Step 8** | Prompt Engineering and Context Engineering | 9 | 28,575 | ~143 mins (2.4 hrs) |
+| **Step 9** | Vector Search and Retrieval-Augmented Generation (RAG) | 20 | 75,337 | ~377 mins (6.3 hrs) |
 | **Step 10** | AI Agents and Agentic Systems | 19 | 68,821 | ~344 mins (5.7 hrs) |
 | **Step 11** | Agentic Engineering and Agent Frameworks | 8 | 30,212 | ~151 mins (2.5 hrs) |
 | **Step 12** | LLM Inference Engineering | 19 | 76,216 | ~381 mins (6.3 hrs) |
 | **Step 13** | Evaluation and Observability | 4 | 16,572 | ~83 mins (1.4 hrs) |
 | **Step 14** | AI Safety and Security | 4 | 18,133 | ~91 mins (1.5 hrs) |
 | **Step 15** | Multimodal AI and Generative Models | 8 | 26,810 | ~134 mins (2.2 hrs) |
-| **Step 16** | AI Infrastructure, Deployment, and System Design | 51 | 183,501 | ~918 mins (15.3 hrs) |
+| **Step 16** | AI Infrastructure, Deployment, and System Design | 54 | 193,860 | ~969 mins (16.1 hrs) |
 | **Step 16+**| Supporting reads for AI System Design | 3 | 4,097 | ~20 mins (0.3 hrs) |
 | **Step 17** | Frontier Ideas in AI | 3 | 14,625 | ~73 mins (1.2 hrs) |
-| **Total** | **All Analyzed Roadmap Blogs** | **257** | **871,844** | **~72.6 Hours** |
+| **Total** | **All Analyzed Roadmap Blogs** | **265** | **898,591** | **~74.9 Hours** |
 
 ---
 

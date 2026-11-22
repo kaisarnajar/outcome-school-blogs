@@ -113,6 +113,7 @@ In this step, we will learn what Machine Learning is, the different ways a machi
 - [How does Cross-Validation work?](https://outcomeschool.com/blog/cross-validation)
 - [How does the Bias-Variance Tradeoff work?](https://outcomeschool.com/blog/bias-variance-tradeoff)
 - [How do Decision Trees and Random Forests work?](https://outcomeschool.com/blog/decision-trees-and-random-forests)
+- [How does Gradient Boosting work?](https://outcomeschool.com/blog/gradient-boosting)
 - [How does K-Means Clustering work?](https://outcomeschool.com/blog/k-means-clustering)
 - [How does Data Augmentation work?](https://outcomeschool.com/blog/data-augmentation)
 - [What is Reinforcement Learning?](https://outcomeschool.com/blog/reinforcement-learning)
@@ -156,6 +157,8 @@ In this step, we will learn how a neural network actually learns. We will unders
 - [How does Object Detection work?](https://outcomeschool.com/blog/object-detection)
 - [How does Semantic Segmentation work?](https://outcomeschool.com/blog/semantic-segmentation)
 - [What is a Recurrent Neural Network (RNN)?](https://outcomeschool.com/blog/recurrent-neural-network)
+- [How do LSTM and GRU work?](https://outcomeschool.com/blog/lstm-and-gru)
+- [How does OCR with Deep Learning work?](https://outcomeschool.com/blog/optical-character-recognition-ocr)
 - [How does PyTorch work?](https://outcomeschool.com/blog/how-does-pytorch-work)
 - [How does TensorFlow work?](https://outcomeschool.com/blog/how-does-the-machine-learning-library-tensorflow-work)
 
@@ -249,6 +252,7 @@ In this step, we will learn how a pre-trained model is adapted to our own task, 
 In this step, we will learn how to talk to an LLM so that it gives better answers, and how to manage everything that goes into its context window.
 
 - [How does Prompt Engineering work?](https://outcomeschool.com/blog/prompt-engineering)
+- [How does the System Prompt work?](https://outcomeschool.com/blog/system-prompt)
 - [How does In-Context Learning work?](https://outcomeschool.com/blog/in-context-learning)
 - [How does Chain-of-Thought (CoT) Prompting work?](https://outcomeschool.com/blog/how-does-chain-of-thought-prompting-work)
 - [How does Tree of Thoughts work?](https://outcomeschool.com/blog/how-does-tree-of-thoughts-work)
@@ -269,6 +273,7 @@ If you want a quick introduction to RAG before starting, watch: [AI Engineering 
 - [How does Approximate Nearest Neighbor (ANN) Search work?](https://outcomeschool.com/blog/how-does-approximate-nearest-neighbor-ann-search-work)
 - [How does Semantic Search work?](https://outcomeschool.com/blog/how-does-semantic-search-work)
 - [How does an Inverted Index work?](https://outcomeschool.com/blog/inverted-index)
+- [How does BM25 work?](https://outcomeschool.com/blog/bm25)
 - [How does Hybrid Search work?](https://outcomeschool.com/blog/how-does-hybrid-search-work)
 - [How does a Reranker work?](https://outcomeschool.com/blog/how-does-a-reranker-work)
 - [What is ColBERT? Late Interaction Retrieval Explained](https://outcomeschool.com/blog/decoding-colbert)
@@ -432,6 +437,9 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [How does an outbound calling voice agent work?](https://outcomeschool.com/blog/outbound-calling-voice-agent)
 - [How does a voice agent transfer a call to a human with context?](https://outcomeschool.com/blog/call-transfer-with-context)
 - [How do you write a system prompt for a voice agent, not a chat bot?](https://outcomeschool.com/blog/voice-agent-system-prompt)
+- [How does function calling work in a voice AI agent?](https://outcomeschool.com/blog/function-calling-in-voice-agents)
+- [How does a voice agent handle structured inputs like dates, numbers, and addresses?](https://outcomeschool.com/blog/structured-inputs-in-voice-agents)
+- [How does a voice agent confirm and correct misheard information?](https://outcomeschool.com/blog/confirm-and-correct-in-voice-agents)
 
 Supporting reads for AI System Design:
 
