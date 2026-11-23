@@ -1,6 +1,6 @@
 # Outcome School AI Engineering Roadmap — Blog Length & Structural Analysis
 
-> Modern React.js web application and quantitative analysis of word counts, reading commitment, and architectural depth for all **265 blog articles** across the [AI Engineer Roadmap](https://github.com/amitshekhariitbhu/ai-engineer-roadmap) by [Amit Shekhar](https://github.com/amitshekhariitbhu) ([Outcome School](https://outcomeschool.com)).
+> Modern React.js web application and quantitative analysis of word counts, reading commitment, and architectural depth for all **269 blog articles** across the [AI Engineer Roadmap](https://github.com/amitshekhariitbhu/ai-engineer-roadmap) by [Amit Shekhar](https://github.com/amitshekhariitbhu) ([Outcome School](https://outcomeschool.com)).
 
 🌐 **Live Application:**  
 **[https://kaisarnajar.github.io/outcome-school-blogs/](https://kaisarnajar.github.io/outcome-school-blogs/)**
@@ -17,9 +17,9 @@
 
 | Metric | Value | Details |
 | :--- | :--- | :--- |
-| **Total Blog Articles** | **265** | Synced with latest upstream roadmap commits |
-| **Total Word Count** | **898,591 words** | Extracted and normalized article prose body |
-| **Total Reading Time** | **~74.9 hours (4,492 mins)** | Calculated at standard reading pace of 200 WPM |
+| **Total Blog Articles** | **269** | Synced with latest upstream roadmap commits |
+| **Total Word Count** | **912,100 words** | Extracted and normalized article prose body |
+| **Total Reading Time** | **~76.0 hours (4,560 mins)** | Calculated at standard reading pace of 200 WPM |
 | **Average Words / Blog** | **3,391 words** | In-depth technical articles (~17 min average read) |
 | **Longest Article** | **13,588 words (~68 mins)** | *Design a Real-Time Voice AI Agent* |
 | **Shortest Article** | **205 words (~1 min)** | *Positional Embeddings in LLMs* |
@@ -41,7 +41,7 @@
 
 | Step | Topic | Articles | Total Words | Est. Time (200 WPM) |
 | :---: | :--- | :---: | :---: | :---: |
-| **Step 1** | Machine Learning Foundations | 28 | 73,137 | ~366 mins (6.1 hrs) |
+| **Step 1** | Machine Learning Foundations | 29 | 76,905 | ~385 mins (6.4 hrs) |
 | **Step 2** | Deep Learning and Neural Networks | 29 | 85,379 | ~427 mins (7.1 hrs) |
 | **Step 3** | Generative AI and the Transformer Architecture | 19 | 53,495 | ~267 mins (4.5 hrs) |
 | **Step 4** | How LLMs Generate Text | 9 | 32,905 | ~165 mins (2.8 hrs) |
@@ -56,10 +56,10 @@
 | **Step 13** | Evaluation and Observability | 4 | 16,572 | ~83 mins (1.4 hrs) |
 | **Step 14** | AI Safety and Security | 4 | 18,133 | ~91 mins (1.5 hrs) |
 | **Step 15** | Multimodal AI and Generative Models | 8 | 26,810 | ~134 mins (2.2 hrs) |
-| **Step 16** | AI Infrastructure, Deployment, and System Design | 54 | 193,860 | ~969 mins (16.1 hrs) |
+| **Step 16** | AI Infrastructure, Deployment, and System Design | 57 | 203,601 | ~1018 mins (17.0 hrs) |
 | **Step 16+**| Supporting reads for AI System Design | 3 | 4,097 | ~20 mins (0.3 hrs) |
 | **Step 17** | Frontier Ideas in AI | 3 | 14,625 | ~73 mins (1.2 hrs) |
-| **Total** | **All Analyzed Roadmap Blogs** | **265** | **898,591** | **~74.9 Hours** |
+| **Total** | **All Analyzed Roadmap Blogs** | **269** | **912,100** | **~76.0 Hours** |
 
 ---
 

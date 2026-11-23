@@ -115,6 +115,7 @@ In this step, we will learn what Machine Learning is, the different ways a machi
 - [How do Decision Trees and Random Forests work?](https://outcomeschool.com/blog/decision-trees-and-random-forests)
 - [How does Gradient Boosting work?](https://outcomeschool.com/blog/gradient-boosting)
 - [How does K-Means Clustering work?](https://outcomeschool.com/blog/k-means-clustering)
+- [How does PCA work?](https://outcomeschool.com/blog/principal-component-analysis-pca)
 - [How does Data Augmentation work?](https://outcomeschool.com/blog/data-augmentation)
 - [What is Reinforcement Learning?](https://outcomeschool.com/blog/reinforcement-learning)
 - [What is a Markov Decision Process (MDP)?](https://outcomeschool.com/blog/markov-decision-process-mdp)
@@ -394,6 +395,7 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [Cloud vs On-device Model Deployment](https://outcomeschool.com/blog/cloud-vs-on-device-model-deployment)
 - [How does Model Serving work?](https://outcomeschool.com/blog/model-serving)
 - [How does a Model Registry work?](https://outcomeschool.com/blog/model-registry)
+- [How does a feature store work?](https://outcomeschool.com/blog/feature-store)
 - [Android TensorFlow Lite Machine Learning Example](https://outcomeschool.com/blog/android-tensorflow-lite-machine-learning-example)
 - [What is LLM Routing? How to Send Each Query to the Right LLM](https://outcomeschool.com/blog/llm-routing)
 - [Design a Real-Time Voice AI Agent](https://outcomeschool.com/blog/design-a-real-time-voice-ai-agent)
@@ -440,6 +442,8 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [How does function calling work in a voice AI agent?](https://outcomeschool.com/blog/function-calling-in-voice-agents)
 - [How does a voice agent handle structured inputs like dates, numbers, and addresses?](https://outcomeschool.com/blog/structured-inputs-in-voice-agents)
 - [How does a voice agent confirm and correct misheard information?](https://outcomeschool.com/blog/confirm-and-correct-in-voice-agents)
+- [How does a voice agent manage conversation state across a long call?](https://outcomeschool.com/blog/conversation-state-in-voice-agents)
+- [How do multi-agent handoffs work in a voice AI system?](https://outcomeschool.com/blog/multi-agent-handoffs-in-voice-ai)
 
 Supporting reads for AI System Design:
 

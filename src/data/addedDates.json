@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22",
+ "updated": "2026-11-23",
  "source": "https://github.com/amitshekhariitbhu/ai-engineer-roadmap",
  "launch": "2026-09-20",
  "entries": {
@@ -66,6 +66,10 @@
   "https://outcomeschool.com/blog/k-means-clustering": {
    "date": "2026-11-10",
    "commit": "64cba84"
+  },
+  "https://outcomeschool.com/blog/principal-component-analysis-pca": {
+   "date": "2026-11-23",
+   "commit": "ccaa928"
   },
   "https://outcomeschool.com/blog/data-augmentation": {
    "date": "2026-11-02",
@@ -855,6 +859,10 @@
    "date": "2026-11-15",
    "commit": "ac1b90d"
   },
+  "https://outcomeschool.com/blog/feature-store": {
+   "date": "2026-11-23",
+   "commit": "d045e05"
+  },
   "https://outcomeschool.com/blog/android-tensorflow-lite-machine-learning-example": {
    "date": "2026-09-20",
    "commit": "a4a7456"
@@ -1038,6 +1046,14 @@
   "https://outcomeschool.com/blog/confirm-and-correct-in-voice-agents": {
    "date": "2026-11-22",
    "commit": "b12edab"
+  },
+  "https://outcomeschool.com/blog/conversation-state-in-voice-agents": {
+   "date": "2026-11-23",
+   "commit": "5de1f3a"
+  },
+  "https://outcomeschool.com/blog/multi-agent-handoffs-in-voice-ai": {
+   "date": "2026-11-23",
+   "commit": "74320dd"
   },
   "https://outcomeschool.com/blog/system-design": {
    "date": "2026-09-20",
