@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23",
+ "updated": "2026-11-24",
  "source": "https://github.com/amitshekhariitbhu/ai-engineer-roadmap",
  "launch": "2026-09-20",
  "entries": {
@@ -34,6 +34,10 @@
   "https://outcomeschool.com/blog/bayes-theorem": {
    "date": "2026-11-15",
    "commit": "14e8912"
+  },
+  "https://outcomeschool.com/blog/naive-bayes": {
+   "date": "2026-11-24",
+   "commit": "301d947"
   },
   "https://outcomeschool.com/blog/l1-and-l2-loss-functions": {
    "date": "2026-09-20",
@@ -262,6 +266,10 @@
   "https://outcomeschool.com/blog/what-are-embeddings": {
    "date": "2026-09-20",
    "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/word2vec": {
+   "date": "2026-11-24",
+   "commit": "06cb614"
   },
   "https://outcomeschool.com/blog/how-do-rnns-and-transformers-differ": {
    "date": "2026-09-20",
@@ -767,6 +775,10 @@
    "date": "2026-09-20",
    "commit": "a4a7456"
   },
+  "https://outcomeschool.com/blog/perplexity-in-language-models": {
+   "date": "2026-11-24",
+   "commit": "3e96393"
+  },
   "https://outcomeschool.com/blog/llm-as-a-judge": {
    "date": "2026-09-20",
    "commit": "a4a7456"
@@ -1054,6 +1066,10 @@
   "https://outcomeschool.com/blog/multi-agent-handoffs-in-voice-ai": {
    "date": "2026-11-23",
    "commit": "74320dd"
+  },
+  "https://outcomeschool.com/blog/call-ending-in-voice-agents": {
+   "date": "2026-11-24",
+   "commit": "7c65ffc"
   },
   "https://outcomeschool.com/blog/system-design": {
    "date": "2026-09-20",

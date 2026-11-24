@@ -107,6 +107,7 @@ In this step, we will learn what Machine Learning is, the different ways a machi
 - [Precision vs Recall](https://outcomeschool.com/blog/precision-vs-recall)
 - [How does a confusion matrix work?](https://outcomeschool.com/blog/confusion-matrix)
 - [What is Bayes' Theorem?](https://outcomeschool.com/blog/bayes-theorem)
+- [How does Naive Bayes work?](https://outcomeschool.com/blog/naive-bayes)
 - [What are L1 and L2 Loss Functions?](https://outcomeschool.com/blog/l1-and-l2-loss-functions)
 - [What is Regularization in Machine Learning? L1 vs L2 Explained](https://outcomeschool.com/blog/regularization-in-machine-learning)
 - [Why do we split data into train, validation, and test sets?](https://outcomeschool.com/blog/train-validation-test-split)
@@ -176,6 +177,7 @@ In this step, we will learn what Generative AI is and how the Transformer, the a
 - [Tokenization in Large Language Models (LLMs)](https://www.youtube.com/watch?v=sK2s9I84EVI) (Video)
 - [What are Embeddings?](https://outcomeschool.com/blog/what-are-embeddings)
 - [Embeddings in Machine Learning](https://www.youtube.com/watch?v=LedXW6xl21s) (Video)
+- [How does Word2Vec work?](https://outcomeschool.com/blog/word2vec)
 - [How do RNNs and Transformers differ?](https://outcomeschool.com/blog/how-do-rnns-and-transformers-differ)
 - [How Does the Transformer Architecture Work?](https://outcomeschool.com/blog/decoding-transformer-architecture)
 - [Encoder vs Decoder in Transformers](https://outcomeschool.com/blog/encoder-vs-decoder-in-transformers)
@@ -357,6 +359,7 @@ In this step, we will learn how to make LLMs faster and cheaper to run. We will 
 In this step, we will learn how to measure whether our LLM and our agent are actually doing a good job, and how to see what they are doing in production.
 
 - [What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained](https://outcomeschool.com/blog/llm-evaluation)
+- [What is perplexity in a language model?](https://outcomeschool.com/blog/perplexity-in-language-models)
 - [What is LLM as a Judge?](https://outcomeschool.com/blog/llm-as-a-judge)
 - [How to Evaluate AI Agents? Metrics, Methods, and Best Practices](https://outcomeschool.com/blog/ai-agent-evaluation)
 - [What is AI Agent Observability? Traces, Spans, and Metrics Explained](https://outcomeschool.com/blog/ai-agent-observability)
@@ -444,6 +447,7 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [How does a voice agent confirm and correct misheard information?](https://outcomeschool.com/blog/confirm-and-correct-in-voice-agents)
 - [How does a voice agent manage conversation state across a long call?](https://outcomeschool.com/blog/conversation-state-in-voice-agents)
 - [How do multi-agent handoffs work in a voice AI system?](https://outcomeschool.com/blog/multi-agent-handoffs-in-voice-ai)
+- [How does a voice agent decide when to end the call?](https://outcomeschool.com/blog/call-ending-in-voice-agents)
 
 Supporting reads for AI System Design:
 
