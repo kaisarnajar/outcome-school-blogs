@@ -106,6 +106,7 @@ In this step, we will learn what Machine Learning is, the different ways a machi
 - [What is One-hot Encoding in Machine Learning?](https://outcomeschool.com/blog/one-hot-encoding)
 - [Precision vs Recall](https://outcomeschool.com/blog/precision-vs-recall)
 - [How does a confusion matrix work?](https://outcomeschool.com/blog/confusion-matrix)
+- [How does the ROC curve and AUC work?](https://outcomeschool.com/blog/roc-curve-and-auc)
 - [What is Bayes' Theorem?](https://outcomeschool.com/blog/bayes-theorem)
 - [How does Naive Bayes work?](https://outcomeschool.com/blog/naive-bayes)
 - [What are L1 and L2 Loss Functions?](https://outcomeschool.com/blog/l1-and-l2-loss-functions)
@@ -158,6 +159,7 @@ In this step, we will learn how a neural network actually learns. We will unders
 - [Convolutional Neural Networks](https://outcomeschool.com/blog/convolutional-neural-network-cnn)
 - [How does Object Detection work?](https://outcomeschool.com/blog/object-detection)
 - [How does Semantic Segmentation work?](https://outcomeschool.com/blog/semantic-segmentation)
+- [How does a face recognition system work?](https://outcomeschool.com/blog/face-recognition)
 - [What is a Recurrent Neural Network (RNN)?](https://outcomeschool.com/blog/recurrent-neural-network)
 - [How do LSTM and GRU work?](https://outcomeschool.com/blog/lstm-and-gru)
 - [How does OCR with Deep Learning work?](https://outcomeschool.com/blog/optical-character-recognition-ocr)
@@ -200,6 +202,7 @@ In this step, we will learn how an LLM picks the next token, how we control its 
 - [How do Greedy Decoding and Beam Search differ?](https://outcomeschool.com/blog/greedy-decoding-vs-beam-search)
 - [What are Log Probabilities (Logprobs) in LLMs?](https://outcomeschool.com/blog/logprobs-in-llms)
 - [Stop Tokens in LLMs](https://outcomeschool.com/blog/stop-tokens-in-llms)
+- [How does Constrained Decoding work?](https://outcomeschool.com/blog/constrained-decoding)
 - [How does Token Streaming work?](https://outcomeschool.com/blog/how-does-token-streaming-work)
 - [How does the Context Window work?](https://outcomeschool.com/blog/context-window)
 - [Why is the context window limited in LLMs?](https://www.youtube.com/watch?v=CGIhxIaOg3M) (Video)
@@ -277,6 +280,7 @@ If you want a quick introduction to RAG before starting, watch: [AI Engineering 
 - [How does Semantic Search work?](https://outcomeschool.com/blog/how-does-semantic-search-work)
 - [How does an Inverted Index work?](https://outcomeschool.com/blog/inverted-index)
 - [How does BM25 work?](https://outcomeschool.com/blog/bm25)
+- [How do sparse and dense embeddings differ?](https://outcomeschool.com/blog/sparse-vs-dense-embeddings)
 - [How does Hybrid Search work?](https://outcomeschool.com/blog/how-does-hybrid-search-work)
 - [How does a Reranker work?](https://outcomeschool.com/blog/how-does-a-reranker-work)
 - [What is ColBERT? Late Interaction Retrieval Explained](https://outcomeschool.com/blog/decoding-colbert)
@@ -313,6 +317,7 @@ In this step, we will learn how an LLM goes from answering questions to actually
 - [What is Sakana Fugu? The Technical Report Explained](https://outcomeschool.com/blog/decoding-sakana-fugu)
 - [How do Computer-Use Agents work?](https://outcomeschool.com/blog/how-do-computer-use-agents-work)
 - [How do Browser Agents work?](https://outcomeschool.com/blog/how-do-browser-agents-work)
+- [How does a deep research agent work?](https://outcomeschool.com/blog/deep-research-agent)
 - [How do Human-in-the-Loop agents work?](https://outcomeschool.com/blog/human-in-the-loop-agents)
 
 ### Step 11: Agentic Engineering and Agent Frameworks
@@ -371,6 +376,7 @@ In this step, we will learn how to keep an LLM application safe, how attackers t
 - [How do LLM Guardrails work?](https://outcomeschool.com/blog/how-do-llm-guardrails-work)
 - [What is Prompt Injection in LLMs and How Do We Defend Against It?](https://outcomeschool.com/blog/prompt-injection-in-llms)
 - [What is jailbreaking in LLMs?](https://outcomeschool.com/blog/jailbreaking-in-llms)
+- [What is data poisoning in AI?](https://outcomeschool.com/blog/data-poisoning)
 - [How does LLM Watermarking work?](https://outcomeschool.com/blog/how-does-llm-watermarking-work)
 
 ### Step 15: Multimodal AI and Generative Models
@@ -396,11 +402,13 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [How does an LPU work?](https://outcomeschool.com/blog/how-does-an-lpu-work)
 - [How does distributed training work?](https://outcomeschool.com/blog/distributed-training)
 - [Cloud vs On-device Model Deployment](https://outcomeschool.com/blog/cloud-vs-on-device-model-deployment)
+- [How does Federated Learning train without raw data?](https://outcomeschool.com/blog/federated-learning)
 - [How does Model Serving work?](https://outcomeschool.com/blog/model-serving)
 - [How does a Model Registry work?](https://outcomeschool.com/blog/model-registry)
 - [How does a feature store work?](https://outcomeschool.com/blog/feature-store)
 - [Android TensorFlow Lite Machine Learning Example](https://outcomeschool.com/blog/android-tensorflow-lite-machine-learning-example)
 - [What is LLM Routing? How to Send Each Query to the Right LLM](https://outcomeschool.com/blog/llm-routing)
+- [How does an LLM Gateway work?](https://outcomeschool.com/blog/llm-gateway)
 - [Design a Real-Time Voice AI Agent](https://outcomeschool.com/blog/design-a-real-time-voice-ai-agent)
 - [What is turn-taking in a voice AI agent?](https://outcomeschool.com/blog/what-is-turn-taking-in-a-voice-ai-agent)
 - [How does endpointing decide when the user has finished speaking?](https://outcomeschool.com/blog/endpointing-in-voice-agents)
@@ -448,6 +456,12 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [How does a voice agent manage conversation state across a long call?](https://outcomeschool.com/blog/conversation-state-in-voice-agents)
 - [How do multi-agent handoffs work in a voice AI system?](https://outcomeschool.com/blog/multi-agent-handoffs-in-voice-ai)
 - [How does a voice agent decide when to end the call?](https://outcomeschool.com/blog/call-ending-in-voice-agents)
+- [How does SSML control how a voice agent speaks?](https://outcomeschool.com/blog/speech-synthesis-markup-language-ssml)
+- [How do pronunciation dictionaries fix how TTS says names and brands?](https://outcomeschool.com/blog/pronunciation-dictionaries-for-tts)
+- [How does keyword boosting help ASR recognize domain words?](https://outcomeschool.com/blog/keyword-boosting-in-asr)
+- [How does a voice agent handle accents and noisy environments?](https://outcomeschool.com/blog/accents-and-noise-in-voice-agents)
+- [How does a voice agent detect and switch the user's language mid-call?](https://outcomeschool.com/blog/language-switching-in-voice-agents)
+- [How does a voice agent match its tone and emotion to the user?](https://outcomeschool.com/blog/emotion-matching-in-voice-agents)
 
 Supporting reads for AI System Design:
 

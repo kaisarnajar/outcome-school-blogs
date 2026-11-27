@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24",
+ "updated": "2026-11-27",
  "source": "https://github.com/amitshekhariitbhu/ai-engineer-roadmap",
  "launch": "2026-09-20",
  "entries": {
@@ -30,6 +30,10 @@
   "https://outcomeschool.com/blog/confusion-matrix": {
    "date": "2026-11-19",
    "commit": "a72cf6f"
+  },
+  "https://outcomeschool.com/blog/roc-curve-and-auc": {
+   "date": "2026-11-27",
+   "commit": "d9cc4e3"
   },
   "https://outcomeschool.com/blog/bayes-theorem": {
    "date": "2026-11-15",
@@ -219,6 +223,10 @@
    "date": "2026-11-18",
    "commit": "aef3556"
   },
+  "https://outcomeschool.com/blog/face-recognition": {
+   "date": "2026-11-25",
+   "commit": "0e4d837"
+  },
   "https://outcomeschool.com/blog/recurrent-neural-network": {
    "date": "2026-09-20",
    "commit": "a4a7456"
@@ -338,6 +346,10 @@
   "https://outcomeschool.com/blog/stop-tokens-in-llms": {
    "date": "2026-10-04",
    "commit": "d7a8ad9"
+  },
+  "https://outcomeschool.com/blog/constrained-decoding": {
+   "date": "2026-11-26",
+   "commit": "00a3c24"
   },
   "https://outcomeschool.com/blog/how-does-token-streaming-work": {
    "date": "2026-09-20",
@@ -535,6 +547,10 @@
    "date": "2026-11-22",
    "commit": "f11d52a"
   },
+  "https://outcomeschool.com/blog/sparse-vs-dense-embeddings": {
+   "date": "2026-11-27",
+   "commit": "6d862df"
+  },
   "https://outcomeschool.com/blog/how-does-hybrid-search-work": {
    "date": "2026-09-20",
    "commit": "a4a7456"
@@ -658,6 +674,10 @@
   "https://outcomeschool.com/blog/how-do-browser-agents-work": {
    "date": "2026-10-11",
    "commit": "276519b"
+  },
+  "https://outcomeschool.com/blog/deep-research-agent": {
+   "date": "2026-11-26",
+   "commit": "f9eea6c"
   },
   "https://outcomeschool.com/blog/human-in-the-loop-agents": {
    "date": "2026-11-11",
@@ -803,6 +823,10 @@
    "date": "2026-11-05",
    "commit": "4d4b138"
   },
+  "https://outcomeschool.com/blog/data-poisoning": {
+   "date": "2026-11-26",
+   "commit": "c21fad4"
+  },
   "https://outcomeschool.com/blog/how-does-llm-watermarking-work": {
    "date": "2026-09-20",
    "commit": "a4a7456"
@@ -863,6 +887,10 @@
    "date": "2026-09-20",
    "commit": "a4a7456"
   },
+  "https://outcomeschool.com/blog/federated-learning": {
+   "date": "2026-11-25",
+   "commit": "9d02830"
+  },
   "https://outcomeschool.com/blog/model-serving": {
    "date": "2026-11-01",
    "commit": "66f25db"
@@ -882,6 +910,10 @@
   "https://outcomeschool.com/blog/llm-routing": {
    "date": "2026-09-20",
    "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/llm-gateway": {
+   "date": "2026-11-27",
+   "commit": "86ac6d4"
   },
   "https://outcomeschool.com/blog/design-a-real-time-voice-ai-agent": {
    "date": "2026-09-20",
@@ -1070,6 +1102,30 @@
   "https://outcomeschool.com/blog/call-ending-in-voice-agents": {
    "date": "2026-11-24",
    "commit": "7c65ffc"
+  },
+  "https://outcomeschool.com/blog/speech-synthesis-markup-language-ssml": {
+   "date": "2026-11-25",
+   "commit": "e41a98b"
+  },
+  "https://outcomeschool.com/blog/pronunciation-dictionaries-for-tts": {
+   "date": "2026-11-25",
+   "commit": "66db1ec"
+  },
+  "https://outcomeschool.com/blog/keyword-boosting-in-asr": {
+   "date": "2026-11-25",
+   "commit": "2e101bb"
+  },
+  "https://outcomeschool.com/blog/accents-and-noise-in-voice-agents": {
+   "date": "2026-11-26",
+   "commit": "5170b1a"
+  },
+  "https://outcomeschool.com/blog/language-switching-in-voice-agents": {
+   "date": "2026-11-27",
+   "commit": "6d930fe"
+  },
+  "https://outcomeschool.com/blog/emotion-matching-in-voice-agents": {
+   "date": "2026-11-27",
+   "commit": "e19c18d"
   },
   "https://outcomeschool.com/blog/system-design": {
    "date": "2026-09-20",
