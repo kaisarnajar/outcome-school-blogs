@@ -1,6 +1,6 @@
 # AI Engineer Roadmap — Study Notes
 
-Notes (with diagrams) for all **287** blogs in the [AI Engineer Roadmap](https://github.com/amitshekhariitbhu/ai-engineer-roadmap) by Amit Shekhar (Outcome School). Read them on the site: https://kaisarnajar.github.io/outcome-school-blogs/
+Notes (with diagrams) for all **291** blogs in the [AI Engineer Roadmap](https://github.com/amitshekhariitbhu/ai-engineer-roadmap) by Amit Shekhar (Outcome School). Read them on the site: https://kaisarnajar.github.io/outcome-school-blogs/
 
 ## Contents
 
@@ -118,284 +118,288 @@ Notes (with diagrams) for all **287** blogs in the [AI Engineer Roadmap](https:/
 | 79 | [Positional Embeddings in LLMs](step-03-generative-ai-and-the-transformer-architecture/079-positional-embeddings-in-llms.md) | 1 min | [link](https://outcomeschool.substack.com/p/positional-embeddings-in-llms) |
 | 80 | [What is RoPE (Rotary Position Embedding)? The Math Behind It](step-03-generative-ai-and-the-transformer-architecture/080-math-behind-rope-rotary-position-embedding.md) | 16 min | [link](https://outcomeschool.com/blog/math-behind-rope-rotary-position-embedding) |
 | 81 | [What is the Feed-Forward Network in LLMs?](step-03-generative-ai-and-the-transformer-architecture/081-feed-forward-networks-in-llms.md) | 21 min | [link](https://outcomeschool.com/blog/feed-forward-networks-in-llms) |
+| 82 | [How does SwiGLU work?](step-03-generative-ai-and-the-transformer-architecture/082-swiglu.md) | 16 min | [link](https://outcomeschool.com/blog/swiglu) |
 
 ## Step 4: How LLMs Generate Text
 
 | # | Note | Read time | Original |
 |:-:|:--|:-:|:-:|
-| 82 | [How does Temperature control LLM output?](step-04-how-llms-generate-text/082-how-does-temperature-control-llm-output.md) | 17 min | [link](https://outcomeschool.com/blog/how-does-temperature-control-llm-output) |
-| 83 | [How do Top-k and Top-p Sampling work?](step-04-how-llms-generate-text/083-how-do-top-k-and-top-p-sampling-work.md) | 19 min | [link](https://outcomeschool.com/blog/how-do-top-k-and-top-p-sampling-work) |
-| 84 | [How do Greedy Decoding and Beam Search differ?](step-04-how-llms-generate-text/084-greedy-decoding-vs-beam-search.md) | 19 min | [link](https://outcomeschool.com/blog/greedy-decoding-vs-beam-search) |
-| 85 | [What are Log Probabilities (Logprobs) in LLMs?](step-04-how-llms-generate-text/085-logprobs-in-llms.md) | 15 min | [link](https://outcomeschool.com/blog/logprobs-in-llms) |
-| 86 | [Stop Tokens in LLMs](step-04-how-llms-generate-text/086-stop-tokens-in-llms.md) | 19 min | [link](https://outcomeschool.com/blog/stop-tokens-in-llms) |
-| 87 | [How does Constrained Decoding work?](step-04-how-llms-generate-text/087-constrained-decoding.md) | 19 min | [link](https://outcomeschool.com/blog/constrained-decoding) |
-| 88 | [How does Token Streaming work?](step-04-how-llms-generate-text/088-how-does-token-streaming-work.md) | 20 min | [link](https://outcomeschool.com/blog/how-does-token-streaming-work) |
-| 89 | [How does the Context Window work?](step-04-how-llms-generate-text/089-context-window.md) | 12 min | [link](https://outcomeschool.com/blog/context-window) |
-| 90 | [What is the Lost in the Middle Problem in LLMs?](step-04-how-llms-generate-text/090-lost-in-the-middle-problem-in-llms.md) | 23 min | [link](https://outcomeschool.com/blog/lost-in-the-middle-problem-in-llms) |
-| 91 | [Why Do LLMs Hallucinate? The Token-Level Explanation](step-04-how-llms-generate-text/091-why-do-llms-hallucinate-the-token-level-explanation.md) | 20 min | [link](https://outcomeschool.com/blog/why-do-llms-hallucinate-the-token-level-explanation) |
+| 83 | [How does Temperature control LLM output?](step-04-how-llms-generate-text/083-how-does-temperature-control-llm-output.md) | 17 min | [link](https://outcomeschool.com/blog/how-does-temperature-control-llm-output) |
+| 84 | [How do Top-k and Top-p Sampling work?](step-04-how-llms-generate-text/084-how-do-top-k-and-top-p-sampling-work.md) | 19 min | [link](https://outcomeschool.com/blog/how-do-top-k-and-top-p-sampling-work) |
+| 85 | [How do Greedy Decoding and Beam Search differ?](step-04-how-llms-generate-text/085-greedy-decoding-vs-beam-search.md) | 19 min | [link](https://outcomeschool.com/blog/greedy-decoding-vs-beam-search) |
+| 86 | [What are Log Probabilities (Logprobs) in LLMs?](step-04-how-llms-generate-text/086-logprobs-in-llms.md) | 15 min | [link](https://outcomeschool.com/blog/logprobs-in-llms) |
+| 87 | [Stop Tokens in LLMs](step-04-how-llms-generate-text/087-stop-tokens-in-llms.md) | 19 min | [link](https://outcomeschool.com/blog/stop-tokens-in-llms) |
+| 88 | [How does Constrained Decoding work?](step-04-how-llms-generate-text/088-constrained-decoding.md) | 19 min | [link](https://outcomeschool.com/blog/constrained-decoding) |
+| 89 | [How does Token Streaming work?](step-04-how-llms-generate-text/089-how-does-token-streaming-work.md) | 20 min | [link](https://outcomeschool.com/blog/how-does-token-streaming-work) |
+| 90 | [How does the Context Window work?](step-04-how-llms-generate-text/090-context-window.md) | 12 min | [link](https://outcomeschool.com/blog/context-window) |
+| 91 | [What is the Lost in the Middle Problem in LLMs?](step-04-how-llms-generate-text/091-lost-in-the-middle-problem-in-llms.md) | 23 min | [link](https://outcomeschool.com/blog/lost-in-the-middle-problem-in-llms) |
+| 92 | [Why Do LLMs Hallucinate? The Token-Level Explanation](step-04-how-llms-generate-text/092-why-do-llms-hallucinate-the-token-level-explanation.md) | 20 min | [link](https://outcomeschool.com/blog/why-do-llms-hallucinate-the-token-level-explanation) |
 
 ## Step 5: Modern LLM Architecture
 
 | # | Note | Read time | Original |
 |:-:|:--|:-:|:-:|
-| 92 | [What is Mixture of Experts (MoE)?](step-05-modern-llm-architecture/092-mixture-of-experts.md) | 16 min | [link](https://outcomeschool.com/blog/mixture-of-experts) |
-| 93 | [What is Grouped Query Attention (GQA)?](step-05-modern-llm-architecture/093-grouped-query-attention.md) | 19 min | [link](https://outcomeschool.com/blog/grouped-query-attention) |
-| 94 | [How does Sliding Window Attention work?](step-05-modern-llm-architecture/094-how-does-sliding-window-attention-work.md) | 14 min | [link](https://outcomeschool.com/blog/how-does-sliding-window-attention-work) |
-| 95 | [How do Attention Sinks work?](step-05-modern-llm-architecture/095-how-do-attention-sinks-work.md) | 16 min | [link](https://outcomeschool.com/blog/how-do-attention-sinks-work) |
-| 96 | [What is Flash Attention and Why Is It So Fast?](step-05-modern-llm-architecture/096-decoding-flash-attention.md) | 25 min | [link](https://outcomeschool.com/blog/decoding-flash-attention) |
-| 97 | [What is DeepSeek-V4 and How Does It Work? Architecture Explained](step-05-modern-llm-architecture/097-decoding-deepseek-v4.md) | 21 min | [link](https://outcomeschool.com/blog/decoding-deepseek-v4) |
+| 93 | [What is Mixture of Experts (MoE)?](step-05-modern-llm-architecture/093-mixture-of-experts.md) | 16 min | [link](https://outcomeschool.com/blog/mixture-of-experts) |
+| 94 | [What is Grouped Query Attention (GQA)?](step-05-modern-llm-architecture/094-grouped-query-attention.md) | 19 min | [link](https://outcomeschool.com/blog/grouped-query-attention) |
+| 95 | [How does Sliding Window Attention work?](step-05-modern-llm-architecture/095-how-does-sliding-window-attention-work.md) | 14 min | [link](https://outcomeschool.com/blog/how-does-sliding-window-attention-work) |
+| 96 | [How do Attention Sinks work?](step-05-modern-llm-architecture/096-how-do-attention-sinks-work.md) | 16 min | [link](https://outcomeschool.com/blog/how-do-attention-sinks-work) |
+| 97 | [What is Flash Attention and Why Is It So Fast?](step-05-modern-llm-architecture/097-decoding-flash-attention.md) | 25 min | [link](https://outcomeschool.com/blog/decoding-flash-attention) |
+| 98 | [What is DeepSeek-V4 and How Does It Work? Architecture Explained](step-05-modern-llm-architecture/098-decoding-deepseek-v4.md) | 21 min | [link](https://outcomeschool.com/blog/decoding-deepseek-v4) |
 
 ## Step 6: Types of Language Models
 
 | # | Note | Read time | Original |
 |:-:|:--|:-:|:-:|
-| 98 | [What are Small Language Models (SLMs)?](step-06-types-of-language-models/098-small-language-models-slms.md) | 20 min | [link](https://outcomeschool.com/blog/small-language-models-slms) |
-| 99 | [What are Large Reasoning Models (LRMs)?](step-06-types-of-language-models/099-large-reasoning-models.md) | 21 min | [link](https://outcomeschool.com/blog/large-reasoning-models) |
-| 100 | [What are Recursive Language Models (RLMs)?](step-06-types-of-language-models/100-recursive-language-models.md) | 13 min | [link](https://outcomeschool.com/blog/recursive-language-models) |
-| 101 | [How do Diffusion Language Models (DLMs) work?](step-06-types-of-language-models/101-how-do-diffusion-language-models-dlms-work.md) | 19 min | [link](https://outcomeschool.com/blog/how-do-diffusion-language-models-dlms-work) |
-| 102 | [Jev and System One Models Explained](step-06-types-of-language-models/102-jev-and-system-one-models-explained.md) | 20 min | [link](https://outcomeschool.com/blog/jev-and-system-one-models-explained) |
+| 99 | [What are Small Language Models (SLMs)?](step-06-types-of-language-models/099-small-language-models-slms.md) | 20 min | [link](https://outcomeschool.com/blog/small-language-models-slms) |
+| 100 | [What are Large Reasoning Models (LRMs)?](step-06-types-of-language-models/100-large-reasoning-models.md) | 21 min | [link](https://outcomeschool.com/blog/large-reasoning-models) |
+| 101 | [What are Recursive Language Models (RLMs)?](step-06-types-of-language-models/101-recursive-language-models.md) | 13 min | [link](https://outcomeschool.com/blog/recursive-language-models) |
+| 102 | [How do Diffusion Language Models (DLMs) work?](step-06-types-of-language-models/102-how-do-diffusion-language-models-dlms-work.md) | 19 min | [link](https://outcomeschool.com/blog/how-do-diffusion-language-models-dlms-work) |
+| 103 | [Jev and System One Models Explained](step-06-types-of-language-models/103-jev-and-system-one-models-explained.md) | 20 min | [link](https://outcomeschool.com/blog/jev-and-system-one-models-explained) |
 
 ## Step 7: Training, Fine-Tuning, and Alignment
 
 | # | Note | Read time | Original |
 |:-:|:--|:-:|:-:|
-| 103 | [How does Pretraining work?](step-07-training-fine-tuning-and-alignment/103-llm-pretraining.md) | 16 min | [link](https://outcomeschool.com/blog/llm-pretraining) |
-| 104 | [What are the Chinchilla scaling laws?](step-07-training-fine-tuning-and-alignment/104-chinchilla-scaling-laws.md) | 16 min | [link](https://outcomeschool.com/blog/chinchilla-scaling-laws) |
-| 105 | [How does Fine-Tuning work?](step-07-training-fine-tuning-and-alignment/105-how-does-fine-tuning-work.md) | 15 min | [link](https://outcomeschool.com/blog/how-does-fine-tuning-work) |
-| 106 | [How does Instruction Tuning work?](step-07-training-fine-tuning-and-alignment/106-instruction-tuning.md) | 17 min | [link](https://outcomeschool.com/blog/instruction-tuning) |
-| 107 | [What is LoRA (Low-Rank Adaptation)?](step-07-training-fine-tuning-and-alignment/107-lora-low-rank-adaptation-of-llms.md) | 14 min | [link](https://outcomeschool.com/blog/lora-low-rank-adaptation-of-llms) |
-| 108 | [How does Prefix Tuning work?](step-07-training-fine-tuning-and-alignment/108-how-does-prefix-tuning-work.md) | 25 min | [link](https://outcomeschool.com/blog/how-does-prefix-tuning-work) |
-| 109 | [How does Knowledge Distillation work?](step-07-training-fine-tuning-and-alignment/109-how-does-knowledge-distillation-work.md) | 20 min | [link](https://outcomeschool.com/blog/how-does-knowledge-distillation-work) |
-| 110 | [What is Continual Learning in LLMs? Solving Catastrophic Forgetting](step-07-training-fine-tuning-and-alignment/110-continual-learning-in-llms.md) | 14 min | [link](https://outcomeschool.com/blog/continual-learning-in-llms) |
-| 111 | [What is Deep RL from Human Preferences? The Paper That Started RLHF](step-07-training-fine-tuning-and-alignment/111-decoding-deep-rl-from-human-preferences.md) | 16 min | [link](https://outcomeschool.com/blog/decoding-deep-rl-from-human-preferences) |
-| 112 | [What is InstructGPT? How GPT-3 Learned to Follow Instructions](step-07-training-fine-tuning-and-alignment/112-decoding-instructgpt.md) | 17 min | [link](https://outcomeschool.com/blog/decoding-instructgpt) |
-| 113 | [What is RLHF? Reinforcement Learning from Human Feedback Explained](step-07-training-fine-tuning-and-alignment/113-reinforcement-learning-from-human-feedback-rlhf.md) | 21 min | [link](https://outcomeschool.com/blog/reinforcement-learning-from-human-feedback-rlhf) |
-| 114 | [What is a Reward Model and How Is It Trained?](step-07-training-fine-tuning-and-alignment/114-reward-model.md) | 17 min | [link](https://outcomeschool.com/blog/reward-model) |
-| 115 | [What is Reward Hacking in Reinforcement Learning and How Do We Prevent It?](step-07-training-fine-tuning-and-alignment/115-reward-hacking.md) | 16 min | [link](https://outcomeschool.com/blog/reward-hacking) |
-| 116 | [What is RLAIF? Reinforcement Learning from AI Feedback Explained](step-07-training-fine-tuning-and-alignment/116-reinforcement-learning-from-ai-feedback-rlaif.md) | 15 min | [link](https://outcomeschool.com/blog/reinforcement-learning-from-ai-feedback-rlaif) |
-| 117 | [What is Proximal Policy Optimization (PPO)?](step-07-training-fine-tuning-and-alignment/117-proximal-policy-optimization-ppo.md) | 13 min | [link](https://outcomeschool.com/blog/proximal-policy-optimization-ppo) |
-| 118 | [What is Direct Preference Optimization (DPO)?](step-07-training-fine-tuning-and-alignment/118-direct-preference-optimization-dpo.md) | 15 min | [link](https://outcomeschool.com/blog/direct-preference-optimization-dpo) |
-| 119 | [What is Group Relative Policy Optimization (GRPO)?](step-07-training-fine-tuning-and-alignment/119-group-relative-policy-optimization-grpo.md) | 17 min | [link](https://outcomeschool.com/blog/group-relative-policy-optimization-grpo) |
-| 120 | [What is Reinforcement Learning with Verifiable Rewards (RLVR)?](step-07-training-fine-tuning-and-alignment/120-reinforcement-learning-with-verifiable-rewards-rlvr.md) | 15 min | [link](https://outcomeschool.com/blog/reinforcement-learning-with-verifiable-rewards-rlvr) |
+| 104 | [How does Pretraining work?](step-07-training-fine-tuning-and-alignment/104-llm-pretraining.md) | 16 min | [link](https://outcomeschool.com/blog/llm-pretraining) |
+| 105 | [What are the Chinchilla scaling laws?](step-07-training-fine-tuning-and-alignment/105-chinchilla-scaling-laws.md) | 16 min | [link](https://outcomeschool.com/blog/chinchilla-scaling-laws) |
+| 106 | [How does Fine-Tuning work?](step-07-training-fine-tuning-and-alignment/106-how-does-fine-tuning-work.md) | 15 min | [link](https://outcomeschool.com/blog/how-does-fine-tuning-work) |
+| 107 | [How does Instruction Tuning work?](step-07-training-fine-tuning-and-alignment/107-instruction-tuning.md) | 17 min | [link](https://outcomeschool.com/blog/instruction-tuning) |
+| 108 | [What is LoRA (Low-Rank Adaptation)?](step-07-training-fine-tuning-and-alignment/108-lora-low-rank-adaptation-of-llms.md) | 14 min | [link](https://outcomeschool.com/blog/lora-low-rank-adaptation-of-llms) |
+| 109 | [How does Prefix Tuning work?](step-07-training-fine-tuning-and-alignment/109-how-does-prefix-tuning-work.md) | 25 min | [link](https://outcomeschool.com/blog/how-does-prefix-tuning-work) |
+| 110 | [How does Knowledge Distillation work?](step-07-training-fine-tuning-and-alignment/110-how-does-knowledge-distillation-work.md) | 20 min | [link](https://outcomeschool.com/blog/how-does-knowledge-distillation-work) |
+| 111 | [What is Continual Learning in LLMs? Solving Catastrophic Forgetting](step-07-training-fine-tuning-and-alignment/111-continual-learning-in-llms.md) | 14 min | [link](https://outcomeschool.com/blog/continual-learning-in-llms) |
+| 112 | [What is Deep RL from Human Preferences? The Paper That Started RLHF](step-07-training-fine-tuning-and-alignment/112-decoding-deep-rl-from-human-preferences.md) | 16 min | [link](https://outcomeschool.com/blog/decoding-deep-rl-from-human-preferences) |
+| 113 | [What is InstructGPT? How GPT-3 Learned to Follow Instructions](step-07-training-fine-tuning-and-alignment/113-decoding-instructgpt.md) | 17 min | [link](https://outcomeschool.com/blog/decoding-instructgpt) |
+| 114 | [What is RLHF? Reinforcement Learning from Human Feedback Explained](step-07-training-fine-tuning-and-alignment/114-reinforcement-learning-from-human-feedback-rlhf.md) | 21 min | [link](https://outcomeschool.com/blog/reinforcement-learning-from-human-feedback-rlhf) |
+| 115 | [What is a Reward Model and How Is It Trained?](step-07-training-fine-tuning-and-alignment/115-reward-model.md) | 17 min | [link](https://outcomeschool.com/blog/reward-model) |
+| 116 | [What is Reward Hacking in Reinforcement Learning and How Do We Prevent It?](step-07-training-fine-tuning-and-alignment/116-reward-hacking.md) | 16 min | [link](https://outcomeschool.com/blog/reward-hacking) |
+| 117 | [What is RLAIF? Reinforcement Learning from AI Feedback Explained](step-07-training-fine-tuning-and-alignment/117-reinforcement-learning-from-ai-feedback-rlaif.md) | 15 min | [link](https://outcomeschool.com/blog/reinforcement-learning-from-ai-feedback-rlaif) |
+| 118 | [What is Proximal Policy Optimization (PPO)?](step-07-training-fine-tuning-and-alignment/118-proximal-policy-optimization-ppo.md) | 13 min | [link](https://outcomeschool.com/blog/proximal-policy-optimization-ppo) |
+| 119 | [What is Direct Preference Optimization (DPO)?](step-07-training-fine-tuning-and-alignment/119-direct-preference-optimization-dpo.md) | 15 min | [link](https://outcomeschool.com/blog/direct-preference-optimization-dpo) |
+| 120 | [What is Group Relative Policy Optimization (GRPO)?](step-07-training-fine-tuning-and-alignment/120-group-relative-policy-optimization-grpo.md) | 17 min | [link](https://outcomeschool.com/blog/group-relative-policy-optimization-grpo) |
+| 121 | [What is Reinforcement Learning with Verifiable Rewards (RLVR)?](step-07-training-fine-tuning-and-alignment/121-reinforcement-learning-with-verifiable-rewards-rlvr.md) | 15 min | [link](https://outcomeschool.com/blog/reinforcement-learning-with-verifiable-rewards-rlvr) |
 
 ## Step 8: Prompt Engineering and Context Engineering
 
 | # | Note | Read time | Original |
 |:-:|:--|:-:|:-:|
-| 121 | [How does Prompt Engineering work?](step-08-prompt-engineering-and-context-engineering/121-prompt-engineering.md) | 13 min | [link](https://outcomeschool.com/blog/prompt-engineering) |
-| 122 | [How does the System Prompt work?](step-08-prompt-engineering-and-context-engineering/122-system-prompt.md) | 15 min | [link](https://outcomeschool.com/blog/system-prompt) |
-| 123 | [How does In-Context Learning work?](step-08-prompt-engineering-and-context-engineering/123-in-context-learning.md) | 12 min | [link](https://outcomeschool.com/blog/in-context-learning) |
-| 124 | [How does Chain-of-Thought (CoT) Prompting work?](step-08-prompt-engineering-and-context-engineering/124-how-does-chain-of-thought-prompting-work.md) | 14 min | [link](https://outcomeschool.com/blog/how-does-chain-of-thought-prompting-work) |
-| 125 | [How does Tree of Thoughts work?](step-08-prompt-engineering-and-context-engineering/125-how-does-tree-of-thoughts-work.md) | 17 min | [link](https://outcomeschool.com/blog/how-does-tree-of-thoughts-work) |
-| 126 | [How does Prompt Chaining work?](step-08-prompt-engineering-and-context-engineering/126-how-does-prompt-chaining-work.md) | 16 min | [link](https://outcomeschool.com/blog/how-does-prompt-chaining-work) |
-| 127 | [How does Prompt Caching work?](step-08-prompt-engineering-and-context-engineering/127-how-does-prompt-caching-work.md) | 19 min | [link](https://outcomeschool.com/blog/how-does-prompt-caching-work) |
-| 128 | [What is Context Engineering?](step-08-prompt-engineering-and-context-engineering/128-context-engineering.md) | 21 min | [link](https://outcomeschool.com/blog/context-engineering) |
-| 129 | [How does Context Compaction work?](step-08-prompt-engineering-and-context-engineering/129-how-does-context-compaction-work.md) | 17 min | [link](https://outcomeschool.com/blog/how-does-context-compaction-work) |
+| 122 | [How does Prompt Engineering work?](step-08-prompt-engineering-and-context-engineering/122-prompt-engineering.md) | 13 min | [link](https://outcomeschool.com/blog/prompt-engineering) |
+| 123 | [How does the System Prompt work?](step-08-prompt-engineering-and-context-engineering/123-system-prompt.md) | 15 min | [link](https://outcomeschool.com/blog/system-prompt) |
+| 124 | [How does In-Context Learning work?](step-08-prompt-engineering-and-context-engineering/124-in-context-learning.md) | 12 min | [link](https://outcomeschool.com/blog/in-context-learning) |
+| 125 | [How does Chain-of-Thought (CoT) Prompting work?](step-08-prompt-engineering-and-context-engineering/125-how-does-chain-of-thought-prompting-work.md) | 14 min | [link](https://outcomeschool.com/blog/how-does-chain-of-thought-prompting-work) |
+| 126 | [How does Tree of Thoughts work?](step-08-prompt-engineering-and-context-engineering/126-how-does-tree-of-thoughts-work.md) | 17 min | [link](https://outcomeschool.com/blog/how-does-tree-of-thoughts-work) |
+| 127 | [How does Prompt Chaining work?](step-08-prompt-engineering-and-context-engineering/127-how-does-prompt-chaining-work.md) | 16 min | [link](https://outcomeschool.com/blog/how-does-prompt-chaining-work) |
+| 128 | [How does Prompt Caching work?](step-08-prompt-engineering-and-context-engineering/128-how-does-prompt-caching-work.md) | 19 min | [link](https://outcomeschool.com/blog/how-does-prompt-caching-work) |
+| 129 | [What is Context Engineering?](step-08-prompt-engineering-and-context-engineering/129-context-engineering.md) | 21 min | [link](https://outcomeschool.com/blog/context-engineering) |
+| 130 | [How does Context Compaction work?](step-08-prompt-engineering-and-context-engineering/130-how-does-context-compaction-work.md) | 17 min | [link](https://outcomeschool.com/blog/how-does-context-compaction-work) |
 
 ## Step 9: Vector Search and Retrieval-Augmented Generation (RAG)
 
 | # | Note | Read time | Original |
 |:-:|:--|:-:|:-:|
-| 130 | [How does an embedding model work?](step-09-vector-search-and-retrieval-augmented-generation-rag/130-embedding-model.md) | 17 min | [link](https://outcomeschool.com/blog/embedding-model) |
-| 131 | [How does Cosine Similarity work?](step-09-vector-search-and-retrieval-augmented-generation-rag/131-cosine-similarity.md) | 14 min | [link](https://outcomeschool.com/blog/cosine-similarity) |
-| 132 | [How does a Vector Database work?](step-09-vector-search-and-retrieval-augmented-generation-rag/132-how-does-a-vector-database-work.md) | 31 min | [link](https://outcomeschool.com/blog/how-does-a-vector-database-work) |
-| 133 | [How does Approximate Nearest Neighbor (ANN) Search work?](step-09-vector-search-and-retrieval-augmented-generation-rag/133-how-does-approximate-nearest-neighbor-ann-search-work.md) | 22 min | [link](https://outcomeschool.com/blog/how-does-approximate-nearest-neighbor-ann-search-work) |
-| 134 | [How does Semantic Search work?](step-09-vector-search-and-retrieval-augmented-generation-rag/134-how-does-semantic-search-work.md) | 21 min | [link](https://outcomeschool.com/blog/how-does-semantic-search-work) |
-| 135 | [How does an Inverted Index work?](step-09-vector-search-and-retrieval-augmented-generation-rag/135-inverted-index.md) | 17 min | [link](https://outcomeschool.com/blog/inverted-index) |
-| 136 | [How does BM25 work?](step-09-vector-search-and-retrieval-augmented-generation-rag/136-bm25.md) | 16 min | [link](https://outcomeschool.com/blog/bm25) |
-| 137 | [How do sparse and dense embeddings differ?](step-09-vector-search-and-retrieval-augmented-generation-rag/137-sparse-vs-dense-embeddings.md) | 21 min | [link](https://outcomeschool.com/blog/sparse-vs-dense-embeddings) |
-| 138 | [How does Hybrid Search work?](step-09-vector-search-and-retrieval-augmented-generation-rag/138-how-does-hybrid-search-work.md) | 20 min | [link](https://outcomeschool.com/blog/how-does-hybrid-search-work) |
-| 139 | [How does a Reranker work?](step-09-vector-search-and-retrieval-augmented-generation-rag/139-how-does-a-reranker-work.md) | 23 min | [link](https://outcomeschool.com/blog/how-does-a-reranker-work) |
-| 140 | [What is ColBERT? Late Interaction Retrieval Explained](step-09-vector-search-and-retrieval-augmented-generation-rag/140-decoding-colbert.md) | 19 min | [link](https://outcomeschool.com/blog/decoding-colbert) |
-| 141 | [How does RAG work?](step-09-vector-search-and-retrieval-augmented-generation-rag/141-retrieval-augmented-generation-rag.md) | 14 min | [link](https://outcomeschool.com/blog/retrieval-augmented-generation-rag) |
-| 142 | [How to Chunk Documents for RAG? Chunking Strategies Explained](step-09-vector-search-and-retrieval-augmented-generation-rag/142-chunking-strategies-for-rag.md) | 31 min | [link](https://outcomeschool.com/blog/chunking-strategies-for-rag) |
-| 143 | [How does Contextual Retrieval work?](step-09-vector-search-and-retrieval-augmented-generation-rag/143-how-does-contextual-retrieval-work.md) | 16 min | [link](https://outcomeschool.com/blog/how-does-contextual-retrieval-work) |
-| 144 | [How does HyDE work in RAG?](step-09-vector-search-and-retrieval-augmented-generation-rag/144-how-does-hyde-work.md) | 16 min | [link](https://outcomeschool.com/blog/how-does-hyde-work) |
-| 145 | [How do Query Rewriting and Multi-Query Retrieval work?](step-09-vector-search-and-retrieval-augmented-generation-rag/145-how-do-query-rewriting-and-multi-query-retrieval-work.md) | 15 min | [link](https://outcomeschool.com/blog/how-do-query-rewriting-and-multi-query-retrieval-work) |
-| 146 | [How does an Embedding Cache work?](step-09-vector-search-and-retrieval-augmented-generation-rag/146-how-does-an-embedding-cache-work.md) | 21 min | [link](https://outcomeschool.com/blog/how-does-an-embedding-cache-work) |
-| 147 | [How does Semantic Caching work?](step-09-vector-search-and-retrieval-augmented-generation-rag/147-how-does-semantic-caching-work.md) | 15 min | [link](https://outcomeschool.com/blog/how-does-semantic-caching-work) |
-| 148 | [What is Agentic RAG?](step-09-vector-search-and-retrieval-augmented-generation-rag/148-agentic-rag.md) | 15 min | [link](https://outcomeschool.com/blog/agentic-rag) |
-| 149 | [What is GraphRAG? How Knowledge Graphs Improve RAG](step-09-vector-search-and-retrieval-augmented-generation-rag/149-graphrag.md) | 14 min | [link](https://outcomeschool.com/blog/graphrag) |
-| 150 | [What is Vectorless RAG? RAG Without Embeddings or a Vector Database](step-09-vector-search-and-retrieval-augmented-generation-rag/150-vectorless-rag.md) | 21 min | [link](https://outcomeschool.com/blog/vectorless-rag) |
+| 131 | [How does an embedding model work?](step-09-vector-search-and-retrieval-augmented-generation-rag/131-embedding-model.md) | 17 min | [link](https://outcomeschool.com/blog/embedding-model) |
+| 132 | [How does Cosine Similarity work?](step-09-vector-search-and-retrieval-augmented-generation-rag/132-cosine-similarity.md) | 14 min | [link](https://outcomeschool.com/blog/cosine-similarity) |
+| 133 | [How does a Vector Database work?](step-09-vector-search-and-retrieval-augmented-generation-rag/133-how-does-a-vector-database-work.md) | 31 min | [link](https://outcomeschool.com/blog/how-does-a-vector-database-work) |
+| 134 | [How does Approximate Nearest Neighbor (ANN) Search work?](step-09-vector-search-and-retrieval-augmented-generation-rag/134-how-does-approximate-nearest-neighbor-ann-search-work.md) | 22 min | [link](https://outcomeschool.com/blog/how-does-approximate-nearest-neighbor-ann-search-work) |
+| 135 | [How does Semantic Search work?](step-09-vector-search-and-retrieval-augmented-generation-rag/135-how-does-semantic-search-work.md) | 21 min | [link](https://outcomeschool.com/blog/how-does-semantic-search-work) |
+| 136 | [How does an Inverted Index work?](step-09-vector-search-and-retrieval-augmented-generation-rag/136-inverted-index.md) | 17 min | [link](https://outcomeschool.com/blog/inverted-index) |
+| 137 | [How does BM25 work?](step-09-vector-search-and-retrieval-augmented-generation-rag/137-bm25.md) | 16 min | [link](https://outcomeschool.com/blog/bm25) |
+| 138 | [How do sparse and dense embeddings differ?](step-09-vector-search-and-retrieval-augmented-generation-rag/138-sparse-vs-dense-embeddings.md) | 21 min | [link](https://outcomeschool.com/blog/sparse-vs-dense-embeddings) |
+| 139 | [How does Hybrid Search work?](step-09-vector-search-and-retrieval-augmented-generation-rag/139-how-does-hybrid-search-work.md) | 20 min | [link](https://outcomeschool.com/blog/how-does-hybrid-search-work) |
+| 140 | [How does a Reranker work?](step-09-vector-search-and-retrieval-augmented-generation-rag/140-how-does-a-reranker-work.md) | 23 min | [link](https://outcomeschool.com/blog/how-does-a-reranker-work) |
+| 141 | [What is ColBERT? Late Interaction Retrieval Explained](step-09-vector-search-and-retrieval-augmented-generation-rag/141-decoding-colbert.md) | 19 min | [link](https://outcomeschool.com/blog/decoding-colbert) |
+| 142 | [How does RAG work?](step-09-vector-search-and-retrieval-augmented-generation-rag/142-retrieval-augmented-generation-rag.md) | 14 min | [link](https://outcomeschool.com/blog/retrieval-augmented-generation-rag) |
+| 143 | [How to Chunk Documents for RAG? Chunking Strategies Explained](step-09-vector-search-and-retrieval-augmented-generation-rag/143-chunking-strategies-for-rag.md) | 31 min | [link](https://outcomeschool.com/blog/chunking-strategies-for-rag) |
+| 144 | [How does Contextual Retrieval work?](step-09-vector-search-and-retrieval-augmented-generation-rag/144-how-does-contextual-retrieval-work.md) | 16 min | [link](https://outcomeschool.com/blog/how-does-contextual-retrieval-work) |
+| 145 | [How does HyDE work in RAG?](step-09-vector-search-and-retrieval-augmented-generation-rag/145-how-does-hyde-work.md) | 16 min | [link](https://outcomeschool.com/blog/how-does-hyde-work) |
+| 146 | [How do Query Rewriting and Multi-Query Retrieval work?](step-09-vector-search-and-retrieval-augmented-generation-rag/146-how-do-query-rewriting-and-multi-query-retrieval-work.md) | 15 min | [link](https://outcomeschool.com/blog/how-do-query-rewriting-and-multi-query-retrieval-work) |
+| 147 | [How does an Embedding Cache work?](step-09-vector-search-and-retrieval-augmented-generation-rag/147-how-does-an-embedding-cache-work.md) | 21 min | [link](https://outcomeschool.com/blog/how-does-an-embedding-cache-work) |
+| 148 | [How does Semantic Caching work?](step-09-vector-search-and-retrieval-augmented-generation-rag/148-how-does-semantic-caching-work.md) | 15 min | [link](https://outcomeschool.com/blog/how-does-semantic-caching-work) |
+| 149 | [What is Agentic RAG?](step-09-vector-search-and-retrieval-augmented-generation-rag/149-agentic-rag.md) | 15 min | [link](https://outcomeschool.com/blog/agentic-rag) |
+| 150 | [What is GraphRAG? How Knowledge Graphs Improve RAG](step-09-vector-search-and-retrieval-augmented-generation-rag/150-graphrag.md) | 14 min | [link](https://outcomeschool.com/blog/graphrag) |
+| 151 | [What is Vectorless RAG? RAG Without Embeddings or a Vector Database](step-09-vector-search-and-retrieval-augmented-generation-rag/151-vectorless-rag.md) | 21 min | [link](https://outcomeschool.com/blog/vectorless-rag) |
 
 ## Step 10: AI Agents and Agentic Systems
 
 | # | Note | Read time | Original |
 |:-:|:--|:-:|:-:|
-| 151 | [What is an AI Agent? How It Works](step-10-ai-agents-and-agentic-systems/151-ai-agent.md) | 22 min | [link](https://outcomeschool.com/blog/ai-agent) |
-| 152 | [How does Function Calling work in LLMs?](step-10-ai-agents-and-agentic-systems/152-how-does-function-calling-work-in-llms.md) | 20 min | [link](https://outcomeschool.com/blog/how-does-function-calling-work-in-llms) |
-| 153 | [What is an AI Agent Loop?](step-10-ai-agents-and-agentic-systems/153-ai-agent-loop.md) | 20 min | [link](https://outcomeschool.com/blog/ai-agent-loop) |
-| 154 | [What is a ReAct Agent?](step-10-ai-agents-and-agentic-systems/154-react-agent.md) | 19 min | [link](https://outcomeschool.com/blog/react-agent) |
-| 155 | [What is a Plan-and-Execute Agent?](step-10-ai-agents-and-agentic-systems/155-plan-and-execute-agent.md) | 15 min | [link](https://outcomeschool.com/blog/plan-and-execute-agent) |
-| 156 | [What is a Reflection Agent?](step-10-ai-agents-and-agentic-systems/156-reflection-agent.md) | 17 min | [link](https://outcomeschool.com/blog/reflection-agent) |
-| 157 | [How does AI Agent Memory work?](step-10-ai-agents-and-agentic-systems/157-ai-agent-memory.md) | 17 min | [link](https://outcomeschool.com/blog/ai-agent-memory) |
-| 158 | [How does ChatGPT remember you?](step-10-ai-agents-and-agentic-systems/158-how-does-chatgpt-remember-you.md) | 15 min | [link](https://outcomeschool.com/blog/how-does-chatgpt-remember-you) |
-| 159 | [What is MCP (Model Context Protocol)?](step-10-ai-agents-and-agentic-systems/159-what-is-mcp-model-context-protocol.md) | 16 min | [link](https://outcomeschool.com/blog/what-is-mcp-model-context-protocol) |
-| 160 | [What are Agent Skills?](step-10-ai-agents-and-agentic-systems/160-what-are-agent-skills.md) | 20 min | [link](https://outcomeschool.com/blog/what-are-agent-skills) |
-| 161 | [What is OKF (Open Knowledge Format)?](step-10-ai-agents-and-agentic-systems/161-what-is-okf-open-knowledge-format.md) | 21 min | [link](https://outcomeschool.com/blog/what-is-okf-open-knowledge-format) |
-| 162 | [What are Multi-Agent Systems?](step-10-ai-agents-and-agentic-systems/162-multi-agent-systems.md) | 20 min | [link](https://outcomeschool.com/blog/multi-agent-systems) |
-| 163 | [What are AI SubAgents?](step-10-ai-agents-and-agentic-systems/163-ai-subagents.md) | 9 min | [link](https://outcomeschool.com/blog/ai-subagents) |
-| 164 | [How AI Agents Communicate](step-10-ai-agents-and-agentic-systems/164-how-ai-agents-communicate.md) | 19 min | [link](https://outcomeschool.com/blog/how-ai-agents-communicate) |
-| 165 | [What is AI Orchestration?](step-10-ai-agents-and-agentic-systems/165-ai-orchestration.md) | 18 min | [link](https://outcomeschool.com/blog/ai-orchestration) |
-| 166 | [What is Sakana Fugu? The Technical Report Explained](step-10-ai-agents-and-agentic-systems/166-decoding-sakana-fugu.md) | 33 min | [link](https://outcomeschool.com/blog/decoding-sakana-fugu) |
-| 167 | [How do Computer-Use Agents work?](step-10-ai-agents-and-agentic-systems/167-how-do-computer-use-agents-work.md) | 17 min | [link](https://outcomeschool.com/blog/how-do-computer-use-agents-work) |
-| 168 | [How do Browser Agents work?](step-10-ai-agents-and-agentic-systems/168-how-do-browser-agents-work.md) | 14 min | [link](https://outcomeschool.com/blog/how-do-browser-agents-work) |
-| 169 | [How does a deep research agent work?](step-10-ai-agents-and-agentic-systems/169-deep-research-agent.md) | 14 min | [link](https://outcomeschool.com/blog/deep-research-agent) |
-| 170 | [How do Human-in-the-Loop agents work?](step-10-ai-agents-and-agentic-systems/170-human-in-the-loop-agents.md) | 13 min | [link](https://outcomeschool.com/blog/human-in-the-loop-agents) |
+| 152 | [What is an AI Agent? How It Works](step-10-ai-agents-and-agentic-systems/152-ai-agent.md) | 22 min | [link](https://outcomeschool.com/blog/ai-agent) |
+| 153 | [How does Function Calling work in LLMs?](step-10-ai-agents-and-agentic-systems/153-how-does-function-calling-work-in-llms.md) | 20 min | [link](https://outcomeschool.com/blog/how-does-function-calling-work-in-llms) |
+| 154 | [What is an AI Agent Loop?](step-10-ai-agents-and-agentic-systems/154-ai-agent-loop.md) | 20 min | [link](https://outcomeschool.com/blog/ai-agent-loop) |
+| 155 | [What is a ReAct Agent?](step-10-ai-agents-and-agentic-systems/155-react-agent.md) | 19 min | [link](https://outcomeschool.com/blog/react-agent) |
+| 156 | [What is a Plan-and-Execute Agent?](step-10-ai-agents-and-agentic-systems/156-plan-and-execute-agent.md) | 15 min | [link](https://outcomeschool.com/blog/plan-and-execute-agent) |
+| 157 | [What is a Reflection Agent?](step-10-ai-agents-and-agentic-systems/157-reflection-agent.md) | 17 min | [link](https://outcomeschool.com/blog/reflection-agent) |
+| 158 | [How does AI Agent Memory work?](step-10-ai-agents-and-agentic-systems/158-ai-agent-memory.md) | 17 min | [link](https://outcomeschool.com/blog/ai-agent-memory) |
+| 159 | [How does ChatGPT remember you?](step-10-ai-agents-and-agentic-systems/159-how-does-chatgpt-remember-you.md) | 15 min | [link](https://outcomeschool.com/blog/how-does-chatgpt-remember-you) |
+| 160 | [What is MCP (Model Context Protocol)?](step-10-ai-agents-and-agentic-systems/160-what-is-mcp-model-context-protocol.md) | 16 min | [link](https://outcomeschool.com/blog/what-is-mcp-model-context-protocol) |
+| 161 | [What are Agent Skills?](step-10-ai-agents-and-agentic-systems/161-what-are-agent-skills.md) | 20 min | [link](https://outcomeschool.com/blog/what-are-agent-skills) |
+| 162 | [What is OKF (Open Knowledge Format)?](step-10-ai-agents-and-agentic-systems/162-what-is-okf-open-knowledge-format.md) | 21 min | [link](https://outcomeschool.com/blog/what-is-okf-open-knowledge-format) |
+| 163 | [What are Multi-Agent Systems?](step-10-ai-agents-and-agentic-systems/163-multi-agent-systems.md) | 20 min | [link](https://outcomeschool.com/blog/multi-agent-systems) |
+| 164 | [What are AI SubAgents?](step-10-ai-agents-and-agentic-systems/164-ai-subagents.md) | 9 min | [link](https://outcomeschool.com/blog/ai-subagents) |
+| 165 | [How AI Agents Communicate](step-10-ai-agents-and-agentic-systems/165-how-ai-agents-communicate.md) | 19 min | [link](https://outcomeschool.com/blog/how-ai-agents-communicate) |
+| 166 | [What is AI Orchestration?](step-10-ai-agents-and-agentic-systems/166-ai-orchestration.md) | 18 min | [link](https://outcomeschool.com/blog/ai-orchestration) |
+| 167 | [What is Sakana Fugu? The Technical Report Explained](step-10-ai-agents-and-agentic-systems/167-decoding-sakana-fugu.md) | 33 min | [link](https://outcomeschool.com/blog/decoding-sakana-fugu) |
+| 168 | [How do Computer-Use Agents work?](step-10-ai-agents-and-agentic-systems/168-how-do-computer-use-agents-work.md) | 17 min | [link](https://outcomeschool.com/blog/how-do-computer-use-agents-work) |
+| 169 | [How do Browser Agents work?](step-10-ai-agents-and-agentic-systems/169-how-do-browser-agents-work.md) | 14 min | [link](https://outcomeschool.com/blog/how-do-browser-agents-work) |
+| 170 | [How does a deep research agent work?](step-10-ai-agents-and-agentic-systems/170-deep-research-agent.md) | 14 min | [link](https://outcomeschool.com/blog/deep-research-agent) |
+| 171 | [How do Human-in-the-Loop agents work?](step-10-ai-agents-and-agentic-systems/171-human-in-the-loop-agents.md) | 13 min | [link](https://outcomeschool.com/blog/human-in-the-loop-agents) |
 
 ## Step 11: Agentic Engineering and Agent Frameworks
 
 | # | Note | Read time | Original |
 |:-:|:--|:-:|:-:|
-| 171 | [What is Harness Engineering?](step-11-agentic-engineering-and-agent-frameworks/171-harness-engineering-in-ai.md) | 12 min | [link](https://outcomeschool.com/blog/harness-engineering-in-ai) |
-| 172 | [What is Loop Engineering?](step-11-agentic-engineering-and-agent-frameworks/172-what-is-loop-engineering.md) | 21 min | [link](https://outcomeschool.com/blog/what-is-loop-engineering) |
-| 173 | [What is Graph Engineering?](step-11-agentic-engineering-and-agent-frameworks/173-what-is-graph-engineering.md) | 27 min | [link](https://outcomeschool.com/blog/what-is-graph-engineering) |
-| 174 | [AI Is Only as Good as Our Definition of Done](step-11-agentic-engineering-and-agent-frameworks/174-ai-is-only-as-good-as-our-definition-of-done.md) | 11 min | [link](https://outcomeschool.com/blog/ai-is-only-as-good-as-our-definition-of-done) |
-| 175 | [How does LangChain work?](step-11-agentic-engineering-and-agent-frameworks/175-how-does-langchain-work.md) | 20 min | [link](https://outcomeschool.com/blog/how-does-langchain-work) |
-| 176 | [How does LangGraph work?](step-11-agentic-engineering-and-agent-frameworks/176-how-does-langgraph-work.md) | 22 min | [link](https://outcomeschool.com/blog/how-does-langgraph-work) |
-| 177 | [How does Claude Code work?](step-11-agentic-engineering-and-agent-frameworks/177-how-does-claude-code-work.md) | 20 min | [link](https://outcomeschool.com/blog/how-does-claude-code-work) |
-| 178 | [How does Cursor work?](step-11-agentic-engineering-and-agent-frameworks/178-how-does-cursor-work.md) | 18 min | [link](https://outcomeschool.com/blog/how-does-cursor-work) |
+| 172 | [What is Harness Engineering?](step-11-agentic-engineering-and-agent-frameworks/172-harness-engineering-in-ai.md) | 12 min | [link](https://outcomeschool.com/blog/harness-engineering-in-ai) |
+| 173 | [What is Loop Engineering?](step-11-agentic-engineering-and-agent-frameworks/173-what-is-loop-engineering.md) | 21 min | [link](https://outcomeschool.com/blog/what-is-loop-engineering) |
+| 174 | [What is Graph Engineering?](step-11-agentic-engineering-and-agent-frameworks/174-what-is-graph-engineering.md) | 27 min | [link](https://outcomeschool.com/blog/what-is-graph-engineering) |
+| 175 | [AI Is Only as Good as Our Definition of Done](step-11-agentic-engineering-and-agent-frameworks/175-ai-is-only-as-good-as-our-definition-of-done.md) | 11 min | [link](https://outcomeschool.com/blog/ai-is-only-as-good-as-our-definition-of-done) |
+| 176 | [How does LangChain work?](step-11-agentic-engineering-and-agent-frameworks/176-how-does-langchain-work.md) | 20 min | [link](https://outcomeschool.com/blog/how-does-langchain-work) |
+| 177 | [How does LangGraph work?](step-11-agentic-engineering-and-agent-frameworks/177-how-does-langgraph-work.md) | 22 min | [link](https://outcomeschool.com/blog/how-does-langgraph-work) |
+| 178 | [How does Claude Code work?](step-11-agentic-engineering-and-agent-frameworks/178-how-does-claude-code-work.md) | 20 min | [link](https://outcomeschool.com/blog/how-does-claude-code-work) |
+| 179 | [How does Cursor work?](step-11-agentic-engineering-and-agent-frameworks/179-how-does-cursor-work.md) | 18 min | [link](https://outcomeschool.com/blog/how-does-cursor-work) |
 
 ## Step 12: LLM Inference Engineering
 
 | # | Note | Read time | Original |
 |:-:|:--|:-:|:-:|
-| 179 | [LLM Inference Optimization](step-12-llm-inference-engineering/179-llm-inference-optimization.md) | 13 min | [link](https://outcomeschool.com/blog/llm-inference-optimization) |
-| 180 | [Prefill vs Decode: LLM Inference Optimization](step-12-llm-inference-engineering/180-prefill-vs-decode-llm-inference-optimization.md) | 35 min | [link](https://outcomeschool.com/blog/prefill-vs-decode-llm-inference-optimization) |
-| 181 | [What is Prefill-Decode Disaggregation in LLM Inference?](step-12-llm-inference-engineering/181-prefill-decode-disaggregation.md) | 22 min | [link](https://outcomeschool.com/blog/prefill-decode-disaggregation) |
-| 182 | [What is KV Cache in LLMs?](step-12-llm-inference-engineering/182-kv-cache-in-llms.md) | 12 min | [link](https://outcomeschool.com/blog/kv-cache-in-llms) |
-| 183 | [What is KV Cache Compression?](step-12-llm-inference-engineering/183-kv-cache-compression.md) | 21 min | [link](https://outcomeschool.com/blog/kv-cache-compression) |
-| 184 | [How does an LLM use GPU memory?](step-12-llm-inference-engineering/184-llm-gpu-memory.md) | 14 min | [link](https://outcomeschool.com/blog/llm-gpu-memory) |
-| 185 | [What is Paged Attention in LLMs?](step-12-llm-inference-engineering/185-paged-attention-in-llms.md) | 12 min | [link](https://outcomeschool.com/blog/paged-attention-in-llms) |
-| 186 | [What is Continuous Batching in LLMs?](step-12-llm-inference-engineering/186-continuous-batching-in-llms.md) | 20 min | [link](https://outcomeschool.com/blog/continuous-batching-in-llms) |
-| 187 | [What is Speculative Decoding?](step-12-llm-inference-engineering/187-speculative-decoding.md) | 20 min | [link](https://outcomeschool.com/blog/speculative-decoding) |
-| 188 | [What is N-gram Speculation in LLMs?](step-12-llm-inference-engineering/188-n-gram-speculation-in-llms.md) | 20 min | [link](https://outcomeschool.com/blog/n-gram-speculation-in-llms) |
-| 189 | [What is Medusa? Multi-Head Speculative Decoding Explained](step-12-llm-inference-engineering/189-decoding-medusa.md) | 11 min | [link](https://outcomeschool.com/blog/decoding-medusa) |
-| 190 | [What is EAGLE? Feature-Level Speculative Decoding Explained](step-12-llm-inference-engineering/190-decoding-eagle.md) | 9 min | [link](https://outcomeschool.com/blog/decoding-eagle) |
-| 191 | [How does Model Quantization work?](step-12-llm-inference-engineering/191-how-does-model-quantization-work.md) | 22 min | [link](https://outcomeschool.com/blog/how-does-model-quantization-work) |
-| 192 | [How does GGUF work?](step-12-llm-inference-engineering/192-how-does-gguf-work.md) | 21 min | [link](https://outcomeschool.com/blog/how-does-gguf-work) |
-| 193 | [How does llama.cpp run LLMs on everyday hardware?](step-12-llm-inference-engineering/193-how-does-llama-cpp-run-llms-on-everyday-hardware.md) | 19 min | [link](https://outcomeschool.com/blog/how-does-llama-cpp-run-llms-on-everyday-hardware) |
-| 194 | [How does Ollama work?](step-12-llm-inference-engineering/194-how-does-ollama-work.md) | 18 min | [link](https://outcomeschool.com/blog/how-does-ollama-work) |
-| 195 | [How does vLLM work?](step-12-llm-inference-engineering/195-how-does-vllm-work.md) | 22 min | [link](https://outcomeschool.com/blog/how-does-vllm-work) |
-| 196 | [How does SGLang work?](step-12-llm-inference-engineering/196-how-does-sglang-work.md) | 25 min | [link](https://outcomeschool.com/blog/how-does-sglang-work) |
-| 197 | [How does TensorRT-LLM work?](step-12-llm-inference-engineering/197-how-does-tensorrt-llm-work.md) | 47 min | [link](https://outcomeschool.com/blog/how-does-tensorrt-llm-work) |
+| 180 | [LLM Inference Optimization](step-12-llm-inference-engineering/180-llm-inference-optimization.md) | 13 min | [link](https://outcomeschool.com/blog/llm-inference-optimization) |
+| 181 | [Prefill vs Decode: LLM Inference Optimization](step-12-llm-inference-engineering/181-prefill-vs-decode-llm-inference-optimization.md) | 35 min | [link](https://outcomeschool.com/blog/prefill-vs-decode-llm-inference-optimization) |
+| 182 | [What is Prefill-Decode Disaggregation in LLM Inference?](step-12-llm-inference-engineering/182-prefill-decode-disaggregation.md) | 22 min | [link](https://outcomeschool.com/blog/prefill-decode-disaggregation) |
+| 183 | [What is KV Cache in LLMs?](step-12-llm-inference-engineering/183-kv-cache-in-llms.md) | 12 min | [link](https://outcomeschool.com/blog/kv-cache-in-llms) |
+| 184 | [What is KV Cache Compression?](step-12-llm-inference-engineering/184-kv-cache-compression.md) | 21 min | [link](https://outcomeschool.com/blog/kv-cache-compression) |
+| 185 | [How does an LLM use GPU memory?](step-12-llm-inference-engineering/185-llm-gpu-memory.md) | 14 min | [link](https://outcomeschool.com/blog/llm-gpu-memory) |
+| 186 | [What is Paged Attention in LLMs?](step-12-llm-inference-engineering/186-paged-attention-in-llms.md) | 12 min | [link](https://outcomeschool.com/blog/paged-attention-in-llms) |
+| 187 | [What is Continuous Batching in LLMs?](step-12-llm-inference-engineering/187-continuous-batching-in-llms.md) | 20 min | [link](https://outcomeschool.com/blog/continuous-batching-in-llms) |
+| 188 | [What is Speculative Decoding?](step-12-llm-inference-engineering/188-speculative-decoding.md) | 20 min | [link](https://outcomeschool.com/blog/speculative-decoding) |
+| 189 | [What is N-gram Speculation in LLMs?](step-12-llm-inference-engineering/189-n-gram-speculation-in-llms.md) | 20 min | [link](https://outcomeschool.com/blog/n-gram-speculation-in-llms) |
+| 190 | [What is Medusa? Multi-Head Speculative Decoding Explained](step-12-llm-inference-engineering/190-decoding-medusa.md) | 11 min | [link](https://outcomeschool.com/blog/decoding-medusa) |
+| 191 | [What is EAGLE? Feature-Level Speculative Decoding Explained](step-12-llm-inference-engineering/191-decoding-eagle.md) | 9 min | [link](https://outcomeschool.com/blog/decoding-eagle) |
+| 192 | [How does Model Quantization work?](step-12-llm-inference-engineering/192-how-does-model-quantization-work.md) | 22 min | [link](https://outcomeschool.com/blog/how-does-model-quantization-work) |
+| 193 | [How does GGUF work?](step-12-llm-inference-engineering/193-how-does-gguf-work.md) | 21 min | [link](https://outcomeschool.com/blog/how-does-gguf-work) |
+| 194 | [How does llama.cpp run LLMs on everyday hardware?](step-12-llm-inference-engineering/194-how-does-llama-cpp-run-llms-on-everyday-hardware.md) | 19 min | [link](https://outcomeschool.com/blog/how-does-llama-cpp-run-llms-on-everyday-hardware) |
+| 195 | [How does Ollama work?](step-12-llm-inference-engineering/195-how-does-ollama-work.md) | 18 min | [link](https://outcomeschool.com/blog/how-does-ollama-work) |
+| 196 | [How does vLLM work?](step-12-llm-inference-engineering/196-how-does-vllm-work.md) | 22 min | [link](https://outcomeschool.com/blog/how-does-vllm-work) |
+| 197 | [How does SGLang work?](step-12-llm-inference-engineering/197-how-does-sglang-work.md) | 25 min | [link](https://outcomeschool.com/blog/how-does-sglang-work) |
+| 198 | [How does TensorRT-LLM work?](step-12-llm-inference-engineering/198-how-does-tensorrt-llm-work.md) | 47 min | [link](https://outcomeschool.com/blog/how-does-tensorrt-llm-work) |
 
 ## Step 13: Evaluation and Observability
 
 | # | Note | Read time | Original |
 |:-:|:--|:-:|:-:|
-| 198 | [What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained](step-13-evaluation-and-observability/198-llm-evaluation.md) | 20 min | [link](https://outcomeschool.com/blog/llm-evaluation) |
-| 199 | [What is perplexity in a language model?](step-13-evaluation-and-observability/199-perplexity-in-language-models.md) | 9 min | [link](https://outcomeschool.com/blog/perplexity-in-language-models) |
-| 200 | [What is LLM as a Judge?](step-13-evaluation-and-observability/200-llm-as-a-judge.md) | 20 min | [link](https://outcomeschool.com/blog/llm-as-a-judge) |
-| 201 | [How to Evaluate AI Agents? Metrics, Methods, and Best Practices](step-13-evaluation-and-observability/201-ai-agent-evaluation.md) | 22 min | [link](https://outcomeschool.com/blog/ai-agent-evaluation) |
-| 202 | [What is AI Agent Observability? Traces, Spans, and Metrics Explained](step-13-evaluation-and-observability/202-ai-agent-observability.md) | 21 min | [link](https://outcomeschool.com/blog/ai-agent-observability) |
+| 199 | [What is LLM Evaluation? Metrics, Benchmarks, and Methods Explained](step-13-evaluation-and-observability/199-llm-evaluation.md) | 20 min | [link](https://outcomeschool.com/blog/llm-evaluation) |
+| 200 | [What is perplexity in a language model?](step-13-evaluation-and-observability/200-perplexity-in-language-models.md) | 9 min | [link](https://outcomeschool.com/blog/perplexity-in-language-models) |
+| 201 | [What is LLM as a Judge?](step-13-evaluation-and-observability/201-llm-as-a-judge.md) | 20 min | [link](https://outcomeschool.com/blog/llm-as-a-judge) |
+| 202 | [How to Evaluate AI Agents? Metrics, Methods, and Best Practices](step-13-evaluation-and-observability/202-ai-agent-evaluation.md) | 22 min | [link](https://outcomeschool.com/blog/ai-agent-evaluation) |
+| 203 | [What is AI Agent Observability? Traces, Spans, and Metrics Explained](step-13-evaluation-and-observability/203-ai-agent-observability.md) | 21 min | [link](https://outcomeschool.com/blog/ai-agent-observability) |
 
 ## Step 14: AI Safety and Security
 
 | # | Note | Read time | Original |
 |:-:|:--|:-:|:-:|
-| 203 | [How do LLM Guardrails work?](step-14-ai-safety-and-security/203-how-do-llm-guardrails-work.md) | 14 min | [link](https://outcomeschool.com/blog/how-do-llm-guardrails-work) |
-| 204 | [What is Prompt Injection in LLMs and How Do We Defend Against It?](step-14-ai-safety-and-security/204-prompt-injection-in-llms.md) | 34 min | [link](https://outcomeschool.com/blog/prompt-injection-in-llms) |
-| 205 | [What is jailbreaking in LLMs?](step-14-ai-safety-and-security/205-jailbreaking-in-llms.md) | 18 min | [link](https://outcomeschool.com/blog/jailbreaking-in-llms) |
-| 206 | [What is data poisoning in AI?](step-14-ai-safety-and-security/206-data-poisoning.md) | 16 min | [link](https://outcomeschool.com/blog/data-poisoning) |
-| 207 | [How does LLM Watermarking work?](step-14-ai-safety-and-security/207-how-does-llm-watermarking-work.md) | 24 min | [link](https://outcomeschool.com/blog/how-does-llm-watermarking-work) |
+| 204 | [How do LLM Guardrails work?](step-14-ai-safety-and-security/204-how-do-llm-guardrails-work.md) | 14 min | [link](https://outcomeschool.com/blog/how-do-llm-guardrails-work) |
+| 205 | [What is Prompt Injection in LLMs and How Do We Defend Against It?](step-14-ai-safety-and-security/205-prompt-injection-in-llms.md) | 34 min | [link](https://outcomeschool.com/blog/prompt-injection-in-llms) |
+| 206 | [What is jailbreaking in LLMs?](step-14-ai-safety-and-security/206-jailbreaking-in-llms.md) | 18 min | [link](https://outcomeschool.com/blog/jailbreaking-in-llms) |
+| 207 | [What is data poisoning in AI?](step-14-ai-safety-and-security/207-data-poisoning.md) | 16 min | [link](https://outcomeschool.com/blog/data-poisoning) |
+| 208 | [How does LLM Watermarking work?](step-14-ai-safety-and-security/208-how-does-llm-watermarking-work.md) | 24 min | [link](https://outcomeschool.com/blog/how-does-llm-watermarking-work) |
 
 ## Step 15: Multimodal AI and Generative Models
 
 | # | Note | Read time | Original |
 |:-:|:--|:-:|:-:|
-| 208 | [What is Multimodal AI?](step-15-multimodal-ai-and-generative-models/208-multimodal-ai.md) | 15 min | [link](https://outcomeschool.com/blog/multimodal-ai) |
-| 209 | [What is a Vision Transformer (ViT)?](step-15-multimodal-ai-and-generative-models/209-decoding-vision-transformer-vit.md) | 15 min | [link](https://outcomeschool.com/blog/decoding-vision-transformer-vit) |
-| 210 | [How do Image Embeddings work?](step-15-multimodal-ai-and-generative-models/210-how-do-image-embeddings-work.md) | 16 min | [link](https://outcomeschool.com/blog/how-do-image-embeddings-work) |
-| 211 | [How does a Vision-Language Model (VLM) work?](step-15-multimodal-ai-and-generative-models/211-vision-language-model-vlm.md) | 16 min | [link](https://outcomeschool.com/blog/vision-language-model-vlm) |
-| 212 | [What are Diffusion Models and How Do They Generate Images?](step-15-multimodal-ai-and-generative-models/212-diffusion-models.md) | 18 min | [link](https://outcomeschool.com/blog/diffusion-models) |
-| 213 | [How does flow matching train a generative model?](step-15-multimodal-ai-and-generative-models/213-flow-matching.md) | 17 min | [link](https://outcomeschool.com/blog/flow-matching) |
-| 214 | [What are Generative Adversarial Networks (GANs)?](step-15-multimodal-ai-and-generative-models/214-generative-adversarial-networks.md) | 18 min | [link](https://outcomeschool.com/blog/generative-adversarial-networks) |
-| 215 | [What are Variational Autoencoders (VAEs)?](step-15-multimodal-ai-and-generative-models/215-variational-autoencoders.md) | 19 min | [link](https://outcomeschool.com/blog/variational-autoencoders) |
+| 209 | [What is Multimodal AI?](step-15-multimodal-ai-and-generative-models/209-multimodal-ai.md) | 15 min | [link](https://outcomeschool.com/blog/multimodal-ai) |
+| 210 | [What is a Vision Transformer (ViT)?](step-15-multimodal-ai-and-generative-models/210-decoding-vision-transformer-vit.md) | 15 min | [link](https://outcomeschool.com/blog/decoding-vision-transformer-vit) |
+| 211 | [How do Image Embeddings work?](step-15-multimodal-ai-and-generative-models/211-how-do-image-embeddings-work.md) | 16 min | [link](https://outcomeschool.com/blog/how-do-image-embeddings-work) |
+| 212 | [How does a Vision-Language Model (VLM) work?](step-15-multimodal-ai-and-generative-models/212-vision-language-model-vlm.md) | 16 min | [link](https://outcomeschool.com/blog/vision-language-model-vlm) |
+| 213 | [What are Diffusion Models and How Do They Generate Images?](step-15-multimodal-ai-and-generative-models/213-diffusion-models.md) | 18 min | [link](https://outcomeschool.com/blog/diffusion-models) |
+| 214 | [How does flow matching train a generative model?](step-15-multimodal-ai-and-generative-models/214-flow-matching.md) | 17 min | [link](https://outcomeschool.com/blog/flow-matching) |
+| 215 | [What are Generative Adversarial Networks (GANs)?](step-15-multimodal-ai-and-generative-models/215-generative-adversarial-networks.md) | 18 min | [link](https://outcomeschool.com/blog/generative-adversarial-networks) |
+| 216 | [What are Variational Autoencoders (VAEs)?](step-15-multimodal-ai-and-generative-models/216-variational-autoencoders.md) | 19 min | [link](https://outcomeschool.com/blog/variational-autoencoders) |
 
 ## Step 16: AI Infrastructure, Deployment, and System Design
 
 | # | Note | Read time | Original |
 |:-:|:--|:-:|:-:|
-| 216 | [How does a GPU work for Deep Learning?](step-16-ai-infrastructure-deployment-and-system-design/216-how-does-a-gpu-work-for-deep-learning.md) | 24 min | [link](https://outcomeschool.com/blog/how-does-a-gpu-work-for-deep-learning) |
-| 217 | [How do CUDA Kernels work?](step-16-ai-infrastructure-deployment-and-system-design/217-how-do-cuda-kernels-work.md) | 23 min | [link](https://outcomeschool.com/blog/how-do-cuda-kernels-work) |
-| 218 | [How does a Google TPU work?](step-16-ai-infrastructure-deployment-and-system-design/218-how-does-a-google-tpu-work.md) | 16 min | [link](https://outcomeschool.com/blog/how-does-a-google-tpu-work) |
-| 219 | [How does an LPU work?](step-16-ai-infrastructure-deployment-and-system-design/219-how-does-an-lpu-work.md) | 26 min | [link](https://outcomeschool.com/blog/how-does-an-lpu-work) |
-| 220 | [How does distributed training work?](step-16-ai-infrastructure-deployment-and-system-design/220-distributed-training.md) | 19 min | [link](https://outcomeschool.com/blog/distributed-training) |
-| 221 | [Cloud vs On-device Model Deployment](step-16-ai-infrastructure-deployment-and-system-design/221-cloud-vs-on-device-model-deployment.md) | 29 min | [link](https://outcomeschool.com/blog/cloud-vs-on-device-model-deployment) |
-| 222 | [How does Federated Learning train without raw data?](step-16-ai-infrastructure-deployment-and-system-design/222-federated-learning.md) | 13 min | [link](https://outcomeschool.com/blog/federated-learning) |
-| 223 | [How does Model Serving work?](step-16-ai-infrastructure-deployment-and-system-design/223-model-serving.md) | 17 min | [link](https://outcomeschool.com/blog/model-serving) |
-| 224 | [How does a Model Registry work?](step-16-ai-infrastructure-deployment-and-system-design/224-model-registry.md) | 15 min | [link](https://outcomeschool.com/blog/model-registry) |
-| 225 | [How does a feature store work?](step-16-ai-infrastructure-deployment-and-system-design/225-feature-store.md) | 15 min | [link](https://outcomeschool.com/blog/feature-store) |
-| 226 | [Android TensorFlow Lite Machine Learning Example](step-16-ai-infrastructure-deployment-and-system-design/226-android-tensorflow-lite-machine-learning-example.md) | 3 min | [link](https://outcomeschool.com/blog/android-tensorflow-lite-machine-learning-example) |
-| 227 | [What is LLM Routing? How to Send Each Query to the Right LLM](step-16-ai-infrastructure-deployment-and-system-design/227-llm-routing.md) | 16 min | [link](https://outcomeschool.com/blog/llm-routing) |
-| 228 | [How does an LLM Gateway work?](step-16-ai-infrastructure-deployment-and-system-design/228-llm-gateway.md) | 17 min | [link](https://outcomeschool.com/blog/llm-gateway) |
-| 229 | [Design a Real-Time Voice AI Agent](step-16-ai-infrastructure-deployment-and-system-design/229-design-a-real-time-voice-ai-agent.md) | 68 min | [link](https://outcomeschool.com/blog/design-a-real-time-voice-ai-agent) |
-| 230 | [What is turn-taking in a voice AI agent?](step-16-ai-infrastructure-deployment-and-system-design/230-what-is-turn-taking-in-a-voice-ai-agent.md) | 17 min | [link](https://outcomeschool.com/blog/what-is-turn-taking-in-a-voice-ai-agent) |
-| 231 | [How does endpointing decide when the user has finished speaking?](step-16-ai-infrastructure-deployment-and-system-design/231-endpointing-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/endpointing-in-voice-agents) |
-| 232 | [How do silence-based and model-based turn detection differ?](step-16-ai-infrastructure-deployment-and-system-design/232-silence-vs-model-based-turn-detection.md) | 17 min | [link](https://outcomeschool.com/blog/silence-vs-model-based-turn-detection) |
-| 233 | [How does dynamic endpointing adapt to how fast a user talks?](step-16-ai-infrastructure-deployment-and-system-design/233-dynamic-endpointing.md) | 17 min | [link](https://outcomeschool.com/blog/dynamic-endpointing) |
-| 234 | [How does a voice agent handle long pauses when the user is thinking?](step-16-ai-infrastructure-deployment-and-system-design/234-long-pauses-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/long-pauses-in-voice-agents) |
-| 235 | [How does a voice agent know a phone number or email is not finished yet?](step-16-ai-infrastructure-deployment-and-system-design/235-unfinished-input-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/unfinished-input-in-voice-agents) |
-| 236 | [Why does a voice agent cut people off mid-sentence?](step-16-ai-infrastructure-deployment-and-system-design/236-voice-agents-cutting-users-off.md) | 15 min | [link](https://outcomeschool.com/blog/voice-agents-cutting-users-off) |
-| 237 | [What is barge-in in a voice AI agent?](step-16-ai-infrastructure-deployment-and-system-design/237-what-is-barge-in-in-a-voice-ai-agent.md) | 17 min | [link](https://outcomeschool.com/blog/what-is-barge-in-in-a-voice-ai-agent) |
-| 238 | [Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture?](step-16-ai-infrastructure-deployment-and-system-design/238-cascaded-vs-speech-to-speech.md) | 16 min | [link](https://outcomeschool.com/blog/cascaded-vs-speech-to-speech) |
-| 239 | [How do half-duplex and full-duplex voice agents differ?](step-16-ai-infrastructure-deployment-and-system-design/239-half-duplex-vs-full-duplex-voice-agents.md) | 16 min | [link](https://outcomeschool.com/blog/half-duplex-vs-full-duplex-voice-agents) |
-| 240 | [How does a voice agent tell a real interruption from a cough or background noise?](step-16-ai-infrastructure-deployment-and-system-design/240-interruption-vs-background-noise.md) | 16 min | [link](https://outcomeschool.com/blog/interruption-vs-background-noise) |
-| 241 | [What are backchannels, and why should "mm-hmm" not stop the agent?](step-16-ai-infrastructure-deployment-and-system-design/241-backchannels-in-voice-agents.md) | 16 min | [link](https://outcomeschool.com/blog/backchannels-in-voice-agents) |
-| 242 | [How does a voice agent stop speaking instantly when interrupted?](step-16-ai-infrastructure-deployment-and-system-design/242-stopping-speech-on-interruption.md) | 17 min | [link](https://outcomeschool.com/blog/stopping-speech-on-interruption) |
-| 243 | [Why does TTS audio buffering make interruptions slow?](step-16-ai-infrastructure-deployment-and-system-design/243-tts-audio-buffering.md) | 17 min | [link](https://outcomeschool.com/blog/tts-audio-buffering) |
-| 244 | [How does a voice agent truncate its memory to only what the user actually heard?](step-16-ai-infrastructure-deployment-and-system-design/244-truncating-context-on-interruption.md) | 17 min | [link](https://outcomeschool.com/blog/truncating-context-on-interruption) |
-| 245 | [How does a voice agent recover from a false interruption?](step-16-ai-infrastructure-deployment-and-system-design/245-false-interruption-recovery.md) | 15 min | [link](https://outcomeschool.com/blog/false-interruption-recovery) |
-| 246 | [How does a voice agent handle the user and agent talking at the same time?](step-16-ai-infrastructure-deployment-and-system-design/246-overlapping-speech-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/overlapping-speech-in-voice-agents) |
-| 247 | [How does a voice agent add its own backchannels like "okay" and "got it"?](step-16-ai-infrastructure-deployment-and-system-design/247-agent-side-backchannels.md) | 16 min | [link](https://outcomeschool.com/blog/agent-side-backchannels) |
-| 248 | [How do you build a latency budget for a voice AI agent?](step-16-ai-infrastructure-deployment-and-system-design/248-voice-agent-latency-budget.md) | 17 min | [link](https://outcomeschool.com/blog/voice-agent-latency-budget) |
-| 249 | [How does the voice-to-voice latency of a voice agent get measured?](step-16-ai-infrastructure-deployment-and-system-design/249-voice-to-voice-latency.md) | 17 min | [link](https://outcomeschool.com/blog/voice-to-voice-latency) |
-| 250 | [Why does the time-to-first-audio matter more than total response time?](step-16-ai-infrastructure-deployment-and-system-design/250-time-to-first-audio.md) | 14 min | [link](https://outcomeschool.com/blog/time-to-first-audio) |
-| 251 | [How does sentence chunking feed LLM output into TTS faster?](step-16-ai-infrastructure-deployment-and-system-design/251-sentence-chunking-for-tts.md) | 18 min | [link](https://outcomeschool.com/blog/sentence-chunking-for-tts) |
-| 252 | [How does a TTS model start speaking before the full sentence arrives?](step-16-ai-infrastructure-deployment-and-system-design/252-streaming-tts.md) | 17 min | [link](https://outcomeschool.com/blog/streaming-tts) |
-| 253 | [How does speculative LLM generation start replying before the user finishes?](step-16-ai-infrastructure-deployment-and-system-design/253-speculative-generation-in-voice-agents.md) | 16 min | [link](https://outcomeschool.com/blog/speculative-generation-in-voice-agents) |
-| 254 | [How do filler phrases hide latency in a voice agent?](step-16-ai-infrastructure-deployment-and-system-design/254-filler-phrases-in-voice-agents.md) | 16 min | [link](https://outcomeschool.com/blog/filler-phrases-in-voice-agents) |
-| 255 | [How does a voice agent hide the delay of a slow tool call?](step-16-ai-infrastructure-deployment-and-system-design/255-slow-tool-calls-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/slow-tool-calls-in-voice-agents) |
-| 256 | [What are audio frames and chunk sizes in a real-time voice pipeline?](step-16-ai-infrastructure-deployment-and-system-design/256-audio-frames-and-chunk-sizes.md) | 16 min | [link](https://outcomeschool.com/blog/audio-frames-and-chunk-sizes) |
-| 257 | [Why do sample rates like 8 kHz, 16 kHz, and 24 kHz matter for voice agents?](step-16-ai-infrastructure-deployment-and-system-design/257-sample-rates-for-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/sample-rates-for-voice-agents) |
-| 258 | [How do WebRTC and WebSocket differ for voice AI agents?](step-16-ai-infrastructure-deployment-and-system-design/258-webrtc-vs-websocket-for-voice-ai.md) | 16 min | [link](https://outcomeschool.com/blog/webrtc-vs-websocket-for-voice-ai) |
-| 259 | [How does the Opus codec compress voice for real-time calls?](step-16-ai-infrastructure-deployment-and-system-design/259-opus-codec.md) | 16 min | [link](https://outcomeschool.com/blog/opus-codec) |
-| 260 | [How does a jitter buffer keep voice audio smooth over a bad network?](step-16-ai-infrastructure-deployment-and-system-design/260-jitter-buffer.md) | 16 min | [link](https://outcomeschool.com/blog/jitter-buffer) |
-| 261 | [How does packet loss concealment hide missing audio?](step-16-ai-infrastructure-deployment-and-system-design/261-packet-loss-concealment.md) | 17 min | [link](https://outcomeschool.com/blog/packet-loss-concealment) |
-| 262 | [How does a voice AI agent answer a phone call?](step-16-ai-infrastructure-deployment-and-system-design/262-phone-calls-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/phone-calls-in-voice-agents) |
-| 263 | [How do SIP and RTP carry a phone call to a voice agent?](step-16-ai-infrastructure-deployment-and-system-design/263-sip-and-rtp.md) | 16 min | [link](https://outcomeschool.com/blog/sip-and-rtp) |
-| 264 | [Why does phone audio make speech recognition worse?](step-16-ai-infrastructure-deployment-and-system-design/264-phone-audio-and-speech-recognition.md) | 17 min | [link](https://outcomeschool.com/blog/phone-audio-and-speech-recognition) |
-| 265 | [How does DTMF keypad input work in a voice agent?](step-16-ai-infrastructure-deployment-and-system-design/265-dtmf-in-voice-agents.md) | 16 min | [link](https://outcomeschool.com/blog/dtmf-in-voice-agents) |
-| 266 | [How does voicemail and answering machine detection work?](step-16-ai-infrastructure-deployment-and-system-design/266-answering-machine-detection.md) | 16 min | [link](https://outcomeschool.com/blog/answering-machine-detection) |
-| 267 | [How does an outbound calling voice agent work?](step-16-ai-infrastructure-deployment-and-system-design/267-outbound-calling-voice-agent.md) | 16 min | [link](https://outcomeschool.com/blog/outbound-calling-voice-agent) |
-| 268 | [How does a voice agent transfer a call to a human with context?](step-16-ai-infrastructure-deployment-and-system-design/268-call-transfer-with-context.md) | 18 min | [link](https://outcomeschool.com/blog/call-transfer-with-context) |
-| 269 | [How do you write a system prompt for a voice agent, not a chat bot?](step-16-ai-infrastructure-deployment-and-system-design/269-voice-agent-system-prompt.md) | 17 min | [link](https://outcomeschool.com/blog/voice-agent-system-prompt) |
-| 270 | [How does function calling work in a voice AI agent?](step-16-ai-infrastructure-deployment-and-system-design/270-function-calling-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/function-calling-in-voice-agents) |
-| 271 | [How does a voice agent handle structured inputs like dates, numbers, and addresses?](step-16-ai-infrastructure-deployment-and-system-design/271-structured-inputs-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/structured-inputs-in-voice-agents) |
-| 272 | [How does a voice agent confirm and correct misheard information?](step-16-ai-infrastructure-deployment-and-system-design/272-confirm-and-correct-in-voice-agents.md) | 18 min | [link](https://outcomeschool.com/blog/confirm-and-correct-in-voice-agents) |
-| 273 | [How does a voice agent manage conversation state across a long call?](step-16-ai-infrastructure-deployment-and-system-design/273-conversation-state-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/conversation-state-in-voice-agents) |
-| 274 | [How do multi-agent handoffs work in a voice AI system?](step-16-ai-infrastructure-deployment-and-system-design/274-multi-agent-handoffs-in-voice-ai.md) | 17 min | [link](https://outcomeschool.com/blog/multi-agent-handoffs-in-voice-ai) |
-| 275 | [How does a voice agent decide when to end the call?](step-16-ai-infrastructure-deployment-and-system-design/275-call-ending-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/call-ending-in-voice-agents) |
-| 276 | [How does SSML control how a voice agent speaks?](step-16-ai-infrastructure-deployment-and-system-design/276-speech-synthesis-markup-language-ssml.md) | 18 min | [link](https://outcomeschool.com/blog/speech-synthesis-markup-language-ssml) |
-| 277 | [How do pronunciation dictionaries fix how TTS says names and brands?](step-16-ai-infrastructure-deployment-and-system-design/277-pronunciation-dictionaries-for-tts.md) | 16 min | [link](https://outcomeschool.com/blog/pronunciation-dictionaries-for-tts) |
-| 278 | [How does keyword boosting help ASR recognize domain words?](step-16-ai-infrastructure-deployment-and-system-design/278-keyword-boosting-in-asr.md) | 17 min | [link](https://outcomeschool.com/blog/keyword-boosting-in-asr) |
-| 279 | [How does a voice agent handle accents and noisy environments?](step-16-ai-infrastructure-deployment-and-system-design/279-accents-and-noise-in-voice-agents.md) | 16 min | [link](https://outcomeschool.com/blog/accents-and-noise-in-voice-agents) |
-| 280 | [How does a voice agent detect and switch the user's language mid-call?](step-16-ai-infrastructure-deployment-and-system-design/280-language-switching-in-voice-agents.md) | 16 min | [link](https://outcomeschool.com/blog/language-switching-in-voice-agents) |
-| 281 | [How does a voice agent match its tone and emotion to the user?](step-16-ai-infrastructure-deployment-and-system-design/281-emotion-matching-in-voice-agents.md) | 18 min | [link](https://outcomeschool.com/blog/emotion-matching-in-voice-agents) |
+| 217 | [How does a GPU work for Deep Learning?](step-16-ai-infrastructure-deployment-and-system-design/217-how-does-a-gpu-work-for-deep-learning.md) | 24 min | [link](https://outcomeschool.com/blog/how-does-a-gpu-work-for-deep-learning) |
+| 218 | [How do CUDA Kernels work?](step-16-ai-infrastructure-deployment-and-system-design/218-how-do-cuda-kernels-work.md) | 23 min | [link](https://outcomeschool.com/blog/how-do-cuda-kernels-work) |
+| 219 | [How does a Google TPU work?](step-16-ai-infrastructure-deployment-and-system-design/219-how-does-a-google-tpu-work.md) | 16 min | [link](https://outcomeschool.com/blog/how-does-a-google-tpu-work) |
+| 220 | [How does an LPU work?](step-16-ai-infrastructure-deployment-and-system-design/220-how-does-an-lpu-work.md) | 26 min | [link](https://outcomeschool.com/blog/how-does-an-lpu-work) |
+| 221 | [How does distributed training work?](step-16-ai-infrastructure-deployment-and-system-design/221-distributed-training.md) | 19 min | [link](https://outcomeschool.com/blog/distributed-training) |
+| 222 | [How does Mixed Precision Training work?](step-16-ai-infrastructure-deployment-and-system-design/222-mixed-precision-training.md) | 16 min | [link](https://outcomeschool.com/blog/mixed-precision-training) |
+| 223 | [Cloud vs On-device Model Deployment](step-16-ai-infrastructure-deployment-and-system-design/223-cloud-vs-on-device-model-deployment.md) | 29 min | [link](https://outcomeschool.com/blog/cloud-vs-on-device-model-deployment) |
+| 224 | [How does Federated Learning train without raw data?](step-16-ai-infrastructure-deployment-and-system-design/224-federated-learning.md) | 13 min | [link](https://outcomeschool.com/blog/federated-learning) |
+| 225 | [How does Model Serving work?](step-16-ai-infrastructure-deployment-and-system-design/225-model-serving.md) | 17 min | [link](https://outcomeschool.com/blog/model-serving) |
+| 226 | [How does a Model Registry work?](step-16-ai-infrastructure-deployment-and-system-design/226-model-registry.md) | 15 min | [link](https://outcomeschool.com/blog/model-registry) |
+| 227 | [How does a feature store work?](step-16-ai-infrastructure-deployment-and-system-design/227-feature-store.md) | 15 min | [link](https://outcomeschool.com/blog/feature-store) |
+| 228 | [Android TensorFlow Lite Machine Learning Example](step-16-ai-infrastructure-deployment-and-system-design/228-android-tensorflow-lite-machine-learning-example.md) | 3 min | [link](https://outcomeschool.com/blog/android-tensorflow-lite-machine-learning-example) |
+| 229 | [What is LLM Routing? How to Send Each Query to the Right LLM](step-16-ai-infrastructure-deployment-and-system-design/229-llm-routing.md) | 16 min | [link](https://outcomeschool.com/blog/llm-routing) |
+| 230 | [How does an LLM Gateway work?](step-16-ai-infrastructure-deployment-and-system-design/230-llm-gateway.md) | 17 min | [link](https://outcomeschool.com/blog/llm-gateway) |
+| 231 | [Design a Real-Time Voice AI Agent](step-16-ai-infrastructure-deployment-and-system-design/231-design-a-real-time-voice-ai-agent.md) | 68 min | [link](https://outcomeschool.com/blog/design-a-real-time-voice-ai-agent) |
+| 232 | [What is turn-taking in a voice AI agent?](step-16-ai-infrastructure-deployment-and-system-design/232-what-is-turn-taking-in-a-voice-ai-agent.md) | 17 min | [link](https://outcomeschool.com/blog/what-is-turn-taking-in-a-voice-ai-agent) |
+| 233 | [How does endpointing decide when the user has finished speaking?](step-16-ai-infrastructure-deployment-and-system-design/233-endpointing-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/endpointing-in-voice-agents) |
+| 234 | [How do silence-based and model-based turn detection differ?](step-16-ai-infrastructure-deployment-and-system-design/234-silence-vs-model-based-turn-detection.md) | 17 min | [link](https://outcomeschool.com/blog/silence-vs-model-based-turn-detection) |
+| 235 | [How does dynamic endpointing adapt to how fast a user talks?](step-16-ai-infrastructure-deployment-and-system-design/235-dynamic-endpointing.md) | 17 min | [link](https://outcomeschool.com/blog/dynamic-endpointing) |
+| 236 | [How does a voice agent handle long pauses when the user is thinking?](step-16-ai-infrastructure-deployment-and-system-design/236-long-pauses-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/long-pauses-in-voice-agents) |
+| 237 | [How does a voice agent know a phone number or email is not finished yet?](step-16-ai-infrastructure-deployment-and-system-design/237-unfinished-input-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/unfinished-input-in-voice-agents) |
+| 238 | [Why does a voice agent cut people off mid-sentence?](step-16-ai-infrastructure-deployment-and-system-design/238-voice-agents-cutting-users-off.md) | 15 min | [link](https://outcomeschool.com/blog/voice-agents-cutting-users-off) |
+| 239 | [What is barge-in in a voice AI agent?](step-16-ai-infrastructure-deployment-and-system-design/239-what-is-barge-in-in-a-voice-ai-agent.md) | 17 min | [link](https://outcomeschool.com/blog/what-is-barge-in-in-a-voice-ai-agent) |
+| 240 | [Cascaded vs Speech-to-Speech: How to choose the right voice agent architecture?](step-16-ai-infrastructure-deployment-and-system-design/240-cascaded-vs-speech-to-speech.md) | 16 min | [link](https://outcomeschool.com/blog/cascaded-vs-speech-to-speech) |
+| 241 | [How do half-duplex and full-duplex voice agents differ?](step-16-ai-infrastructure-deployment-and-system-design/241-half-duplex-vs-full-duplex-voice-agents.md) | 16 min | [link](https://outcomeschool.com/blog/half-duplex-vs-full-duplex-voice-agents) |
+| 242 | [How does a voice agent tell a real interruption from a cough or background noise?](step-16-ai-infrastructure-deployment-and-system-design/242-interruption-vs-background-noise.md) | 16 min | [link](https://outcomeschool.com/blog/interruption-vs-background-noise) |
+| 243 | [What are backchannels, and why should "mm-hmm" not stop the agent?](step-16-ai-infrastructure-deployment-and-system-design/243-backchannels-in-voice-agents.md) | 16 min | [link](https://outcomeschool.com/blog/backchannels-in-voice-agents) |
+| 244 | [How does a voice agent stop speaking instantly when interrupted?](step-16-ai-infrastructure-deployment-and-system-design/244-stopping-speech-on-interruption.md) | 17 min | [link](https://outcomeschool.com/blog/stopping-speech-on-interruption) |
+| 245 | [Why does TTS audio buffering make interruptions slow?](step-16-ai-infrastructure-deployment-and-system-design/245-tts-audio-buffering.md) | 17 min | [link](https://outcomeschool.com/blog/tts-audio-buffering) |
+| 246 | [How does a voice agent truncate its memory to only what the user actually heard?](step-16-ai-infrastructure-deployment-and-system-design/246-truncating-context-on-interruption.md) | 17 min | [link](https://outcomeschool.com/blog/truncating-context-on-interruption) |
+| 247 | [How does a voice agent recover from a false interruption?](step-16-ai-infrastructure-deployment-and-system-design/247-false-interruption-recovery.md) | 15 min | [link](https://outcomeschool.com/blog/false-interruption-recovery) |
+| 248 | [How does a voice agent handle the user and agent talking at the same time?](step-16-ai-infrastructure-deployment-and-system-design/248-overlapping-speech-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/overlapping-speech-in-voice-agents) |
+| 249 | [How does a voice agent add its own backchannels like "okay" and "got it"?](step-16-ai-infrastructure-deployment-and-system-design/249-agent-side-backchannels.md) | 16 min | [link](https://outcomeschool.com/blog/agent-side-backchannels) |
+| 250 | [How do you build a latency budget for a voice AI agent?](step-16-ai-infrastructure-deployment-and-system-design/250-voice-agent-latency-budget.md) | 17 min | [link](https://outcomeschool.com/blog/voice-agent-latency-budget) |
+| 251 | [How does the voice-to-voice latency of a voice agent get measured?](step-16-ai-infrastructure-deployment-and-system-design/251-voice-to-voice-latency.md) | 17 min | [link](https://outcomeschool.com/blog/voice-to-voice-latency) |
+| 252 | [Why does the time-to-first-audio matter more than total response time?](step-16-ai-infrastructure-deployment-and-system-design/252-time-to-first-audio.md) | 14 min | [link](https://outcomeschool.com/blog/time-to-first-audio) |
+| 253 | [How does sentence chunking feed LLM output into TTS faster?](step-16-ai-infrastructure-deployment-and-system-design/253-sentence-chunking-for-tts.md) | 18 min | [link](https://outcomeschool.com/blog/sentence-chunking-for-tts) |
+| 254 | [How does a TTS model start speaking before the full sentence arrives?](step-16-ai-infrastructure-deployment-and-system-design/254-streaming-tts.md) | 17 min | [link](https://outcomeschool.com/blog/streaming-tts) |
+| 255 | [How does speculative LLM generation start replying before the user finishes?](step-16-ai-infrastructure-deployment-and-system-design/255-speculative-generation-in-voice-agents.md) | 16 min | [link](https://outcomeschool.com/blog/speculative-generation-in-voice-agents) |
+| 256 | [How do filler phrases hide latency in a voice agent?](step-16-ai-infrastructure-deployment-and-system-design/256-filler-phrases-in-voice-agents.md) | 16 min | [link](https://outcomeschool.com/blog/filler-phrases-in-voice-agents) |
+| 257 | [How does a voice agent hide the delay of a slow tool call?](step-16-ai-infrastructure-deployment-and-system-design/257-slow-tool-calls-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/slow-tool-calls-in-voice-agents) |
+| 258 | [What are audio frames and chunk sizes in a real-time voice pipeline?](step-16-ai-infrastructure-deployment-and-system-design/258-audio-frames-and-chunk-sizes.md) | 16 min | [link](https://outcomeschool.com/blog/audio-frames-and-chunk-sizes) |
+| 259 | [Why do sample rates like 8 kHz, 16 kHz, and 24 kHz matter for voice agents?](step-16-ai-infrastructure-deployment-and-system-design/259-sample-rates-for-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/sample-rates-for-voice-agents) |
+| 260 | [How do WebRTC and WebSocket differ for voice AI agents?](step-16-ai-infrastructure-deployment-and-system-design/260-webrtc-vs-websocket-for-voice-ai.md) | 16 min | [link](https://outcomeschool.com/blog/webrtc-vs-websocket-for-voice-ai) |
+| 261 | [How does the Opus codec compress voice for real-time calls?](step-16-ai-infrastructure-deployment-and-system-design/261-opus-codec.md) | 16 min | [link](https://outcomeschool.com/blog/opus-codec) |
+| 262 | [How does a jitter buffer keep voice audio smooth over a bad network?](step-16-ai-infrastructure-deployment-and-system-design/262-jitter-buffer.md) | 16 min | [link](https://outcomeschool.com/blog/jitter-buffer) |
+| 263 | [How does packet loss concealment hide missing audio?](step-16-ai-infrastructure-deployment-and-system-design/263-packet-loss-concealment.md) | 17 min | [link](https://outcomeschool.com/blog/packet-loss-concealment) |
+| 264 | [How does a voice AI agent answer a phone call?](step-16-ai-infrastructure-deployment-and-system-design/264-phone-calls-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/phone-calls-in-voice-agents) |
+| 265 | [How do SIP and RTP carry a phone call to a voice agent?](step-16-ai-infrastructure-deployment-and-system-design/265-sip-and-rtp.md) | 16 min | [link](https://outcomeschool.com/blog/sip-and-rtp) |
+| 266 | [Why does phone audio make speech recognition worse?](step-16-ai-infrastructure-deployment-and-system-design/266-phone-audio-and-speech-recognition.md) | 17 min | [link](https://outcomeschool.com/blog/phone-audio-and-speech-recognition) |
+| 267 | [How does DTMF keypad input work in a voice agent?](step-16-ai-infrastructure-deployment-and-system-design/267-dtmf-in-voice-agents.md) | 16 min | [link](https://outcomeschool.com/blog/dtmf-in-voice-agents) |
+| 268 | [How does voicemail and answering machine detection work?](step-16-ai-infrastructure-deployment-and-system-design/268-answering-machine-detection.md) | 16 min | [link](https://outcomeschool.com/blog/answering-machine-detection) |
+| 269 | [How does an outbound calling voice agent work?](step-16-ai-infrastructure-deployment-and-system-design/269-outbound-calling-voice-agent.md) | 16 min | [link](https://outcomeschool.com/blog/outbound-calling-voice-agent) |
+| 270 | [How does a voice agent transfer a call to a human with context?](step-16-ai-infrastructure-deployment-and-system-design/270-call-transfer-with-context.md) | 18 min | [link](https://outcomeschool.com/blog/call-transfer-with-context) |
+| 271 | [How do you write a system prompt for a voice agent, not a chat bot?](step-16-ai-infrastructure-deployment-and-system-design/271-voice-agent-system-prompt.md) | 17 min | [link](https://outcomeschool.com/blog/voice-agent-system-prompt) |
+| 272 | [How does function calling work in a voice AI agent?](step-16-ai-infrastructure-deployment-and-system-design/272-function-calling-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/function-calling-in-voice-agents) |
+| 273 | [How does a voice agent handle structured inputs like dates, numbers, and addresses?](step-16-ai-infrastructure-deployment-and-system-design/273-structured-inputs-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/structured-inputs-in-voice-agents) |
+| 274 | [How does a voice agent confirm and correct misheard information?](step-16-ai-infrastructure-deployment-and-system-design/274-confirm-and-correct-in-voice-agents.md) | 18 min | [link](https://outcomeschool.com/blog/confirm-and-correct-in-voice-agents) |
+| 275 | [How does a voice agent manage conversation state across a long call?](step-16-ai-infrastructure-deployment-and-system-design/275-conversation-state-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/conversation-state-in-voice-agents) |
+| 276 | [How do multi-agent handoffs work in a voice AI system?](step-16-ai-infrastructure-deployment-and-system-design/276-multi-agent-handoffs-in-voice-ai.md) | 17 min | [link](https://outcomeschool.com/blog/multi-agent-handoffs-in-voice-ai) |
+| 277 | [How does a voice agent decide when to end the call?](step-16-ai-infrastructure-deployment-and-system-design/277-call-ending-in-voice-agents.md) | 17 min | [link](https://outcomeschool.com/blog/call-ending-in-voice-agents) |
+| 278 | [How does SSML control how a voice agent speaks?](step-16-ai-infrastructure-deployment-and-system-design/278-speech-synthesis-markup-language-ssml.md) | 18 min | [link](https://outcomeschool.com/blog/speech-synthesis-markup-language-ssml) |
+| 279 | [How do pronunciation dictionaries fix how TTS says names and brands?](step-16-ai-infrastructure-deployment-and-system-design/279-pronunciation-dictionaries-for-tts.md) | 16 min | [link](https://outcomeschool.com/blog/pronunciation-dictionaries-for-tts) |
+| 280 | [How does keyword boosting help ASR recognize domain words?](step-16-ai-infrastructure-deployment-and-system-design/280-keyword-boosting-in-asr.md) | 17 min | [link](https://outcomeschool.com/blog/keyword-boosting-in-asr) |
+| 281 | [How does a voice agent handle accents and noisy environments?](step-16-ai-infrastructure-deployment-and-system-design/281-accents-and-noise-in-voice-agents.md) | 16 min | [link](https://outcomeschool.com/blog/accents-and-noise-in-voice-agents) |
+| 282 | [How does a voice agent detect and switch the user's language mid-call?](step-16-ai-infrastructure-deployment-and-system-design/282-language-switching-in-voice-agents.md) | 16 min | [link](https://outcomeschool.com/blog/language-switching-in-voice-agents) |
+| 283 | [How does a voice agent match its tone and emotion to the user?](step-16-ai-infrastructure-deployment-and-system-design/283-emotion-matching-in-voice-agents.md) | 18 min | [link](https://outcomeschool.com/blog/emotion-matching-in-voice-agents) |
+| 284 | [How do you evaluate a voice AI agent?](step-16-ai-infrastructure-deployment-and-system-design/284-voice-agent-evaluation.md) | 17 min | [link](https://outcomeschool.com/blog/voice-agent-evaluation) |
+| 285 | [How do simulated callers test a voice agent automatically?](step-16-ai-infrastructure-deployment-and-system-design/285-simulated-caller-testing.md) | 17 min | [link](https://outcomeschool.com/blog/simulated-caller-testing) |
 
 ## Step 16: Supporting reads for AI System Design
 
 | # | Note | Read time | Original |
 |:-:|:--|:-:|:-:|
-| 282 | [What is System Design?](step-16b-supporting-reads/282-system-design.md) | 6 min | [link](https://outcomeschool.com/blog/system-design) |
-| 283 | [HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events](step-16b-supporting-reads/283-http-request-long-polling-websocket-sse.md) | 9 min | [link](https://outcomeschool.com/blog/http-request-long-polling-websocket-sse) |
-| 284 | [How do Voice and Video Call work?](step-16b-supporting-reads/284-voice-and-video-call.md) | 5 min | [link](https://outcomeschool.com/blog/voice-and-video-call) |
+| 286 | [What is System Design?](step-16b-supporting-reads/286-system-design.md) | 6 min | [link](https://outcomeschool.com/blog/system-design) |
+| 287 | [HTTP Request vs HTTP Long-Polling vs WebSocket vs Server-Sent Events](step-16b-supporting-reads/287-http-request-long-polling-websocket-sse.md) | 9 min | [link](https://outcomeschool.com/blog/http-request-long-polling-websocket-sse) |
+| 288 | [How do Voice and Video Call work?](step-16b-supporting-reads/288-voice-and-video-call.md) | 5 min | [link](https://outcomeschool.com/blog/voice-and-video-call) |
 
 ## Step 17: Frontier Ideas in AI
 
 | # | Note | Read time | Original |
 |:-:|:--|:-:|:-:|
-| 285 | [What is Joint Embedding Predictive Architecture (JEPA)?](step-17-frontier-ideas-in-ai/285-joint-embedding-predictive-architecture-jepa.md) | 28 min | [link](https://outcomeschool.com/blog/joint-embedding-predictive-architecture-jepa) |
-| 286 | [How do World Models work?](step-17-frontier-ideas-in-ai/286-how-do-world-models-work.md) | 22 min | [link](https://outcomeschool.com/blog/how-do-world-models-work) |
-| 287 | [What is Recursive Self-Improvement (RSI)?](step-17-frontier-ideas-in-ai/287-what-is-recursive-self-improvement-rsi.md) | 23 min | [link](https://outcomeschool.com/blog/what-is-recursive-self-improvement-rsi) |
+| 289 | [What is Joint Embedding Predictive Architecture (JEPA)?](step-17-frontier-ideas-in-ai/289-joint-embedding-predictive-architecture-jepa.md) | 28 min | [link](https://outcomeschool.com/blog/joint-embedding-predictive-architecture-jepa) |
+| 290 | [How do World Models work?](step-17-frontier-ideas-in-ai/290-how-do-world-models-work.md) | 22 min | [link](https://outcomeschool.com/blog/how-do-world-models-work) |
+| 291 | [What is Recursive Self-Improvement (RSI)?](step-17-frontier-ideas-in-ai/291-what-is-recursive-self-improvement-rsi.md) | 23 min | [link](https://outcomeschool.com/blog/what-is-recursive-self-improvement-rsi) |

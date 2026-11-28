@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27",
+ "updated": "2026-11-28",
  "source": "https://github.com/amitshekhariitbhu/ai-engineer-roadmap",
  "launch": "2026-09-20",
  "entries": {
@@ -326,6 +326,10 @@
   "https://outcomeschool.com/blog/feed-forward-networks-in-llms": {
    "date": "2026-09-20",
    "commit": "a4a7456"
+  },
+  "https://outcomeschool.com/blog/swiglu": {
+   "date": "2026-11-28",
+   "commit": "8e33a71"
   },
   "https://outcomeschool.com/blog/how-does-temperature-control-llm-output": {
    "date": "2026-09-20",
@@ -883,6 +887,10 @@
    "date": "2026-11-19",
    "commit": "2437e71"
   },
+  "https://outcomeschool.com/blog/mixed-precision-training": {
+   "date": "2026-11-28",
+   "commit": "0c80f32"
+  },
   "https://outcomeschool.com/blog/cloud-vs-on-device-model-deployment": {
    "date": "2026-09-20",
    "commit": "a4a7456"
@@ -1126,6 +1134,14 @@
   "https://outcomeschool.com/blog/emotion-matching-in-voice-agents": {
    "date": "2026-11-27",
    "commit": "e19c18d"
+  },
+  "https://outcomeschool.com/blog/voice-agent-evaluation": {
+   "date": "2026-11-28",
+   "commit": "252d087"
+  },
+  "https://outcomeschool.com/blog/simulated-caller-testing": {
+   "date": "2026-11-28",
+   "commit": "5031b09"
   },
   "https://outcomeschool.com/blog/system-design": {
    "date": "2026-09-20",

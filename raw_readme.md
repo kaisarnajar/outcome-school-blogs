@@ -192,6 +192,7 @@ In this step, we will learn what Generative AI is and how the Transformer, the a
 - [Positional Embeddings in LLMs](https://outcomeschool.substack.com/p/positional-embeddings-in-llms)
 - [What is RoPE (Rotary Position Embedding)? The Math Behind It](https://outcomeschool.com/blog/math-behind-rope-rotary-position-embedding)
 - [What is the Feed-Forward Network in LLMs?](https://outcomeschool.com/blog/feed-forward-networks-in-llms)
+- [How does SwiGLU work?](https://outcomeschool.com/blog/swiglu)
 
 ### Step 4: How LLMs Generate Text
 
@@ -401,6 +402,7 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [How does a Google TPU work?](https://outcomeschool.com/blog/how-does-a-google-tpu-work)
 - [How does an LPU work?](https://outcomeschool.com/blog/how-does-an-lpu-work)
 - [How does distributed training work?](https://outcomeschool.com/blog/distributed-training)
+- [How does Mixed Precision Training work?](https://outcomeschool.com/blog/mixed-precision-training)
 - [Cloud vs On-device Model Deployment](https://outcomeschool.com/blog/cloud-vs-on-device-model-deployment)
 - [How does Federated Learning train without raw data?](https://outcomeschool.com/blog/federated-learning)
 - [How does Model Serving work?](https://outcomeschool.com/blog/model-serving)
@@ -462,6 +464,8 @@ In this step, we will learn the hardware that runs AI models, where to deploy a 
 - [How does a voice agent handle accents and noisy environments?](https://outcomeschool.com/blog/accents-and-noise-in-voice-agents)
 - [How does a voice agent detect and switch the user's language mid-call?](https://outcomeschool.com/blog/language-switching-in-voice-agents)
 - [How does a voice agent match its tone and emotion to the user?](https://outcomeschool.com/blog/emotion-matching-in-voice-agents)
+- [How do you evaluate a voice AI agent?](https://outcomeschool.com/blog/voice-agent-evaluation)
+- [How do simulated callers test a voice agent automatically?](https://outcomeschool.com/blog/simulated-caller-testing)
 
 Supporting reads for AI System Design:
 
